@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.comp-header{
+    height: 12vh;
+    background-color: rgb(246,157,101);
+    line-height: 12vh;
+    text-align: center;
+    color: white;
+}
