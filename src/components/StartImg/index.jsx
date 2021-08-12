@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function startimg() {
+export default function StartImg() {
     return (
         <div>
             <img src="" alt="" />
