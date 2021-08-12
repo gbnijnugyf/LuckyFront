@@ -1,0 +1,2 @@
+# lucky
+code about lucky
