@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import './index.css'
 import rulebutton from './images/rulebutton.svg'
 import backbutton from './images/backbutton.svg'
+import logo from './images/logo.svg'
 
 function Header(props) {
     const [isShow, setIsShow] = useState(false)
@@ -19,6 +20,7 @@ function Header(props) {
             <div className="comp-header-text"><p>头部组件</p></div>
             <div className="rule-button" onClick={handleShow}><img src={rulebutton} alt="" /></div>
             <div className="back-button" onClick={handleBack}><img src={backbutton} alt="" /></div>
+            <div className="logo"><img src={logo} alt=''></img></div>
             <div className="rule-alert" style={{ display: isShow ? 'block' : 'none' }}>
                 <div className='rule-text'>
                     1.这次活动男生女生都可以许愿哦~<p>你一共有5次许愿的机会</p>，快来遇见你的小幸运吧~
@@ -39,6 +41,7 @@ function Header(props) {
                 </div>
                 <div className="close" onClick={handleShow}>我知道了</div>
             </div>
+            <div className="cover" style={{ display: isShow ? 'block' : 'none' }} ></div>
         </div >
     )
 }

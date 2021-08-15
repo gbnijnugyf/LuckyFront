@@ -16,11 +16,10 @@
 
 .comp-header {
     position: relative;
-    height: 15vh;
+    height: 13vh;
     width: 100vw;
     box-shadow: 0px 3px 5px #888888;
     background-color: rgb(246, 157, 101);
-    /* line-height: 12vh; */
     color: white;
     font-family:
         TsangerShuYuanT-W02;
@@ -32,7 +31,7 @@
     left: 50%;
     transform: translateX(-50%);
     display: block;
-    font-size: 35px
+    font-size: 10vw;
 }
 
   .rule-alert {
@@ -58,7 +57,7 @@
   }
   .rule-alert .rule-text p {
     display: inline;
-    color: #ff5e00;
+    color: rgb(239, 96, 63);;
   }
   .rule-alert .close {
     position: absolute;
@@ -82,5 +81,27 @@
   .back-button{
     position: absolute;
     left: 5vw;
-    bottom: 2.6vh;
+    bottom: 2.8vh;
+  }
+
+  .logo{
+    position: absolute;
+    top: 13vh;
+    left: 8vw;
+    width: 84.8vw;
+    height: 25.7vh;
+  }
+
+  .logo img{
+    height: 100%;
+    width: 100%;
+  }
+
+  .cover{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 90;
   }

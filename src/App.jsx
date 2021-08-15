@@ -1,9 +1,9 @@
-import Header from "./components/Header";
+import Admin from './pages/Admin'
 
 
 function App() {
   return (
-    <Header />
+    <Admin></Admin>
   );
 }
 
