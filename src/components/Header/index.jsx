@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
+
+import menuList from '../../config/menuConfig'
 import './index.css'
 import rulebutton from './images/rulebutton.svg'
 import backbutton from './images/backbutton.svg'
@@ -7,19 +9,36 @@ import logo from './images/logo.svg'
 
 function Header(props) {
     const [isShow, setIsShow] = useState(false)
+
     const handleShow = () => {
         setIsShow(!isShow)
     }
     const handleBack = () => {
-        // props.history.go(-1)
-        console.log(props.history);
+        props.history.go(-1)
     }
+
+    const getTitle = () => {
+        let title = ''
+        const { pathname } = props.location
+        menuList.forEach((item) => {
+            if (item.key === pathname) {
+                title = item.title
+            }
+        })
+        return title
+    }
+
+    let title = getTitle()
+
+
+
+
 
     return (
         <div className='comp-header'>
-            <div className="comp-header-text"><p>头部组件</p></div>
+            <div className="comp-header-text" style={{ fontSize: title.length > 5 ? '7vw' : '10vw' }}><p>{title}</p></div>
             <div className="rule-button" onClick={handleShow}><img src={rulebutton} alt="" /></div>
-            <div className="back-button" onClick={handleBack}><img src={backbutton} alt="" /></div>
+            <div className="back-button" style={{ display: title === '标签页' ? 'none' : 'block' }} onClick={handleBack}><img src={backbutton} alt="" /></div>
             <div className="logo"><img src={logo} alt=''></img></div>
             <div className="rule-alert" style={{ display: isShow ? 'block' : 'none' }}>
                 <div className='rule-text'>

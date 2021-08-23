@@ -3,7 +3,7 @@
   padding: 0;
 }
 @font-face {
-  font-family: TsangerShuYuanT\ W02;
+  font-family: TsangerShuYuanTW02;
   src: url('../../font/TsangerShuYuanT\ W02.TTF');
 }
 body {
@@ -16,6 +16,7 @@ body {
   top: 30vh;
 }
 .tags .tag {
+  position: relative;
   display: inline-block;
   box-sizing: border-box;
   width: 33.3vw;
@@ -28,10 +29,19 @@ body {
   height: 100%;
   width: 100%;
 }
+.tags .tag p {
+  position: absolute;
+  top: 35%;
+  height: 100%;
+  width: 100%;
+  font-family: TsangerShuYuanTW02;
+  color: white;
+  font-size: 2.8vh;
+}
 .tags .send-button {
   position: absolute;
   background-color: #fff6e9;
-  font-family: TsangerShuYuanT\ W02;
+  font-family: TsangerShuYuanTW02;
   text-align: center;
   line-height: 5vh;
   color: #ef603f;

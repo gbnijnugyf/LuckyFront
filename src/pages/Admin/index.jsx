@@ -1,7 +1,9 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
+
 import Home from '../Home'
+import Send from '../Send'
 import Header from '../../components/Header'
 
 export default function Admin() {
@@ -10,6 +12,7 @@ export default function Admin() {
             <Header></Header>
             <Switch>
                 <Route path='/home' component={Home}></Route>
+                <Route path='/send' component={Send}></Route>
                 <Redirect to='/home'></Redirect>
             </Switch>
         </div>
