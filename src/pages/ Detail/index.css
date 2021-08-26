@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.Detail {
+  position: relative;
+  height: 87vh;
+  width: 100vw;
+}
+.Detail .wish {
+  position: absolute;
+  width: 86.4vw;
+  height: 46.3vh;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url('images/3.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.Detail .button {
+  position: absolute;
+  height: 4.4vh;
+  width: 86.4vw;
+  top: 64vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+}
+.Detail .button .delete {
+  background-image: url('images/组\ 141.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 44.5%;
+}
+.Detail .button .sure {
+  background-image: url('images/组\ 142.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 44.5%;
+}
+.Detail .msg {
+  position: absolute;
+  bottom: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 86.4vw;
+  height: 13.4vh;
+  background-image: url('images/2.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.Detail .underline {
+  position: absolute;
+  left: 50%;
+  bottom: 16.5vh;
+  transform: translateX(-50%);
+  background-color: gray;
+  width: 86.4vw;
+  height: 0.32vh;
+}

@@ -15,6 +15,10 @@ const menuList = [
     title: "投递我的小幸运",
     key: "/send",
   },
+  {
+    title: "愿望详情",
+    key:"/detail"
+  }
 ];
 
 export default menuList;

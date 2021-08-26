@@ -1,19 +1,31 @@
-import React from 'react'
-import tag from './images/tag.svg'
+import React, { useState } from 'react'
+import tagimg from './images/tag.svg'
 import './index.css'
+
 
 
 export default function Home(props) {
 
-    const goSend = () => {
-        props.history.push('/send')
+    const [tags, setTags] = useState([
+        { name: '影音' },
+        { name: '游戏' },
+        { name: '美食' },
+        { name: '学习' },
+        { name: '运动' },
+        { name: '交友' },
+        { name: '打卡' },
+        { name: '动漫' },
+        { name: '其他' }])
+
+    const goSend = (tagName) => {
+        props.history.push('/send', { tagName })
     }
 
     return (
         <div>
             {/* <Header></Header> */}
             <div className="tags">
-                <div className="tag"><img src={tag} alt="" /><p>影音</p></div>
+                {/* <div className="tag"><img src={tag} alt="" /><p>影音</p></div>
                 <div className="tag"><img src={tag} alt="" /><p>游戏</p></div>
                 <div className="tag"><img src={tag} alt="" /><p>美食</p></div>
                 <div className="tag"><img src={tag} alt="" /><p>学习</p></div>
@@ -21,8 +33,13 @@ export default function Home(props) {
                 <div className="tag"><img src={tag} alt="" /><p>交友</p></div>
                 <div className="tag"><img src={tag} alt="" /><p>打卡</p></div>
                 <div className="tag"><img src={tag} alt="" /><p>动漫</p></div>
-                <div className="tag"><img src={tag} alt="" /><p>其它</p></div>
-                <div className="send-button" onClick={goSend}>投递我的小幸运</div>
+                <div className="tag"><img src={tag} alt="" /><p>其它</p></div> */}
+                {
+                    tags.map((tag) => {
+                        return <div onClick={() => goSend(tag.name)} className="tag" key={tag.name}><img src={tagimg} alt="" /><p>{tag.name}</p></div>
+                    })
+                }
+                <div className="send-button" onClick={() => goSend('')}>投递我的小幸运</div>
             </div>
         </div>
     )

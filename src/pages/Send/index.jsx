@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import ink from './images/ink.svg'
-import select from './images/select.svg'
 import send from './images/send.svg'
 
 import './index.css'
@@ -11,6 +10,10 @@ export default function Send(props) {
     const [value, setValue] = useState('把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~')
     const [isAlert, setIsAlert] = useState(false)
     const [content, setContent] = useState('')
+
+    const { tagName } = props.history.location.state || {}
+    console.log(tagName);
+
 
     const handleIsAlert = (str) => {
         setIsAlert(!isAlert)
@@ -51,7 +54,7 @@ export default function Send(props) {
                             <h6>填写电话可以确保第一时间知道你的愿望状态哦~</h6>
                         </div>
                     </div></div>
-                <div className="select" onClick={goSelectTag}><img src={select} alt="" /></div>
+                <div className="select" onClick={goSelectTag}>{tagName || '#选择标签'}</div>
                 <div className="tosend"><img src={send} alt="" /></div>
             </div>
         </div>
