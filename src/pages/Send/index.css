@@ -14,6 +14,48 @@ body {
   width: 100vw;
   height: 87vh;
 }
+.send .select-tag {
+  position: absolute;
+  width: 80vw;
+  height: 37vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3vh;
+  background-color: #f9d292;
+  z-index: 99;
+}
+.send .select-tag .tagcontent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+}
+.send .select-tag .tagcontent .tag {
+  position: relative;
+  display: inline-block;
+  height: 30%;
+  width: 30%;
+  box-sizing: border-box;
+  margin-left: 2vw;
+}
+.send .select-tag .tagcontent .tag img {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+.send .select-tag .tagcontent .tag p {
+  position: absolute;
+  top: 35%;
+  left: 23.5%;
+  height: 100%;
+  width: 100%;
+  font-family: TsangerShuYuanTW02;
+  color: white;
+  font-size: 2.5vh;
+}
 .send .alert {
   position: absolute;
   top: -13vh;

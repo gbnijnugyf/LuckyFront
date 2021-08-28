@@ -18,6 +18,10 @@ const menuList = [
   {
     title: "愿望详情",
     key:"/detail"
+  },
+  {
+    title: "我的愿望池",
+    key:"/wish"
   }
 ];
 

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="36" viewBox="0 0 144 36">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #999;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-size: 18px;
+        font-family: TsangerShuYuanT-W02, TsangerShuYuanT W02;
+        letter-spacing: -0.02em;
+      }
+    </style>
+  </defs>
+  <g id="组_154" data-name="组 154" transform="translate(-200 -602)">
+    <rect id="矩形_118" data-name="矩形 118" class="cls-1" width="144" height="36" rx="18" transform="translate(200 602)"/>
+    <text id="已实现" class="cls-2" transform="translate(243 627)"><tspan x="0" y="0">已实现</tspan></text>
+  </g>
+</svg>

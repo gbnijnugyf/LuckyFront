@@ -2,49 +2,76 @@
   margin: 0;
   padding: 0;
 }
+@font-face {
+  font-family: TsangerShuYuanT\ W02;
+  src: url(../../font/TsangerShuYuanT\ W02.TTF);
+}
 .Detail {
   position: relative;
   height: 87vh;
   width: 100vw;
 }
+.Detail .alert {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 99;
+  background-color: black;
+  opacity: 0.5;
+  top: -13vh;
+}
+.Detail .content {
+  position: absolute;
+  overflow: hidden;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: #fbd192;
+  width: 80vw;
+  height: 25vh;
+  border-radius: 3vh;
+}
+.Detail .content .text {
+  font-family: TsangerShuYuanT\ W02;
+  text-align: center;
+  line-height: 18vh;
+  height: 18vh;
+  font-size: 5.5vw;
+  color: #FF7A59;
+}
+.Detail .content .sure {
+  height: 7vh;
+  width: 50%;
+  display: inline-block;
+  background-color: white;
+  text-align: center;
+  line-height: 7vh;
+  font-size: 5vw;
+}
+.Detail .content .cancel {
+  height: 7vh;
+  width: 50%;
+  display: inline-block;
+  background-color: #ff7959;
+  line-height: 7vh;
+  text-align: center;
+  font-size: 5vw;
+}
 .Detail .wish {
   position: absolute;
   width: 86.4vw;
   height: 46.3vh;
-  top: 44%;
+  top: 42%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-image: url('images/3.svg');
   background-repeat: no-repeat;
   background-size: cover;
 }
-.Detail .button {
-  position: absolute;
-  height: 4.4vh;
-  width: 86.4vw;
-  top: 64vh;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: space-between;
-}
-.Detail .button .delete {
-  background-image: url('images/组\ 141.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
-  width: 44.5%;
-}
-.Detail .button .sure {
-  background-image: url('images/组\ 142.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
-  width: 44.5%;
-}
 .Detail .msg {
   position: absolute;
-  bottom: 2vh;
+  bottom: 3vh;
   left: 50%;
   transform: translateX(-50%);
   width: 86.4vw;
@@ -52,13 +79,4 @@
   background-image: url('images/2.svg');
   background-repeat: no-repeat;
   background-size: cover;
-}
-.Detail .underline {
-  position: absolute;
-  left: 50%;
-  bottom: 16.5vh;
-  transform: translateX(-50%);
-  background-color: gray;
-  width: 86.4vw;
-  height: 0.32vh;
 }
