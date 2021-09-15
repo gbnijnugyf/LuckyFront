@@ -36,9 +36,23 @@
   font-family: TsangerShuYuanT\ W02;
   text-align: center;
   line-height: 18vh;
+  padding-left: 3vw;
   height: 18vh;
   font-size: 5.5vw;
   color: #FF7A59;
+  box-sizing: border-box;
+}
+.Detail .content .long-text {
+  font-family: TsangerShuYuanT\ W02;
+  padding-top: 5vh;
+  padding-left: 3vw;
+  height: 18vh;
+  font-size: 5.5vw;
+  color: #FF7A59;
+  box-sizing: border-box;
+}
+.Detail .content .long-text span {
+  white-space: pre-line;
 }
 .Detail .content .sure {
   height: 7vh;
@@ -79,4 +93,27 @@
   background-image: url('images/2.svg');
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+  justify-content: space-between;
+}
+.Detail .msg .h {
+  color: #FF7A59;
+  margin-bottom: 1vh;
+  padding-top: 4vw;
+  padding-left: 4vw;
+  font-size: 2.4vh;
+}
+.Detail .msg .name {
+  color: #fff;
+  font-size: 3vh;
+  padding-left: 10vw;
+}
+.Detail .msg .msg-number {
+  margin-right: 5vw;
+  font-size: 1.8vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  color: white;
+  align-items: flex-end;
 }

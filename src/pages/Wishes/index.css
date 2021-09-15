@@ -1,0 +1,234 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.wishpage {
+  width: 100vw;
+  height: 87vh;
+  overflow: hidden;
+}
+.wishpage .wishes {
+  position: relative;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 41vh;
+}
+.wishpage .wishes .img1 {
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-image: url('images/5.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  touch-action: none;
+}
+.wishpage .wishes p {
+  width: 52vw;
+  line-height: 3.5vh;
+  position: absolute;
+  z-index: 10;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+}
+.wishpage .wishes .underline {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 53vw;
+  height: 0px;
+  border: 1px solid #707070;
+  opacity: 1;
+}
+.wishpage .wishes .ud1 {
+  top: 13vh;
+}
+.wishpage .wishes .ud2 {
+  top: 16.5vh;
+}
+.wishpage .wishes .ud3 {
+  top: 20vh;
+}
+.wishpage .wishes .ud4 {
+  top: 23.5vh;
+}
+.wishpage .wishes .img2 {
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-image: url('images/5.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.wishpage .wishes .img3 {
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-image: url('images/5.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  left: 10vw;
+}
+.wishpage .wishes .msg {
+  position: absolute;
+  color: white;
+  width: 48vw;
+  font-size: 3vh;
+  bottom: 11.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+}
+.wishpage .checklight {
+  position: absolute;
+  top: 36vh;
+  width: 44.3vw;
+  height: 6.9vh;
+  background-image: url('images/look.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.wishpage .tip {
+  position: absolute;
+  background-image: url('images/slide.png');
+  width: 43.3vw;
+  height: 4vh;
+  right: 0;
+  top: 60vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.wishpage .tolight {
+  position: absolute;
+  width: 48vw;
+  height: 4.5vh;
+  bottom: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url('images/send.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.wishpage .cover {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 11;
+  background-color: black;
+  opacity: 0.5;
+  top: 0;
+}
+.wishpage .input-msg {
+  position: absolute;
+  z-index: 12;
+  width: 80vw;
+  height: 30vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fbd192;
+  border-radius: 3vh;
+  box-sizing: border-box;
+}
+.wishpage .input-msg .h3 {
+  margin-top: 3vh;
+  color: #ef603f;
+  text-align: center;
+  font-size: 2.2vh;
+}
+.wishpage .input-msg .form {
+  height: 60%;
+  width: 80%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2vh;
+}
+.wishpage .input-msg .form .name {
+  margin-bottom: 1vh;
+}
+.wishpage .input-msg .form .name input {
+  width: 25vw;
+  height: 3vh;
+  border: 0px;
+  border-radius: 1vh;
+  padding: 1vw;
+  box-sizing: border-box;
+  margin-left: 7vw ;
+}
+.wishpage .input-msg .form .number input {
+  width: 25vw;
+  height: 3vh;
+  border: 0px;
+  border-radius: 1vh;
+  padding: 1vw;
+  box-sizing: border-box;
+  margin-left: 2vw ;
+}
+.wishpage .input-msg .form select {
+  margin-left: 4vw ;
+  height: 3vh;
+  border: 0;
+  border-radius: 1vh;
+}
+.wishpage .input-msg .form .send {
+  position: relative;
+  margin-top: 2vh;
+  height: 5vh;
+  width: 25vw;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url('images/over.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.wishpage .alert {
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: #fbd192;
+  width: 80vw;
+  height: 25vh;
+  border-radius: 3vh;
+}
+.wishpage .alert .text {
+  font-family: TsangerShuYuanT\ W02;
+  text-align: center;
+  line-height: 18vh;
+  height: 18vh;
+  font-size: 5.5vw;
+  color: #FF7A59;
+}
+.wishpage .alert .sure {
+  height: 7vh;
+  width: 50%;
+  display: inline-block;
+  background-color: white;
+  text-align: center;
+  line-height: 7vh;
+  font-size: 5vw;
+}
+.wishpage .alert .cancel {
+  height: 7vh;
+  width: 50%;
+  display: inline-block;
+  background-color: #ff7959;
+  line-height: 7vh;
+  text-align: center;
+  font-size: 5vw;
+}

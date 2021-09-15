@@ -57,7 +57,7 @@ body{
                     // transform: translateY(-50%);
                     height: 100%;
                     width: 100%;
-                    font-family: TsangerShuYuanTW02;
+                    font-family: TsangerShuYuanT\ W02;
                     color: white;
                     font-size: 2.5vh;
                   }
@@ -80,7 +80,7 @@ body{
     }
 
     .content{
-        position: absolute;
+        position: relative;
         top: 48%;
         left: 50%;
         transform: translate(-50%,-50%);
@@ -90,10 +90,11 @@ body{
         background-repeat: no-repeat;
         z-index: 99;
         background-size: contain;
-        text-align: center;
-        line-height: 11vh;
         color: #FF7A59;
         font-size: 2.5vh;
+        text-align: center;
+        box-sizing: border-box;
+        padding-top: 3.5vh;
     }
 
     .sendbc{
@@ -162,6 +163,7 @@ body{
                     border: 0ch;
                     border-radius: 1vh;
                     padding: 1vw;
+                    font-family: TsangerShuYuanT\ W02;
                 }
             }
             .number{
@@ -173,10 +175,12 @@ body{
                
 
                 select{
+                    background-color: white;
                     margin-left: 1vw;
                     border: 0ch;
                     border-radius: 1vh;
                     height: 3vh;
+                    color: #FF7A59;
                 }
 
                 input{
@@ -186,6 +190,7 @@ body{
                     border: 0ch;
                     border-radius: 1vh;
                     padding: 1vw;
+                    font-family: TsangerShuYuanT\ W02;
                 }
             }
         }

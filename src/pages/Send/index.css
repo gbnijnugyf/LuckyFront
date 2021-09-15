@@ -52,7 +52,7 @@ body {
   left: 23.5%;
   height: 100%;
   width: 100%;
-  font-family: TsangerShuYuanTW02;
+  font-family: TsangerShuYuanT\ W02;
   color: white;
   font-size: 2.5vh;
 }
@@ -66,7 +66,7 @@ body {
   z-index: 90;
 }
 .send .content {
-  position: absolute;
+  position: relative;
   top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -76,10 +76,11 @@ body {
   background-repeat: no-repeat;
   z-index: 99;
   background-size: contain;
-  text-align: center;
-  line-height: 11vh;
   color: #FF7A59;
   font-size: 2.5vh;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 3.5vh;
 }
 .send .sendbc {
   position: absolute;
@@ -141,16 +142,19 @@ body {
   border: 0ch;
   border-radius: 1vh;
   padding: 1vw;
+  font-family: TsangerShuYuanT\ W02;
 }
 .send .sendbc .send-msg .number p {
   display: inline-block;
   margin-bottom: 1.5vh;
 }
 .send .sendbc .send-msg .number select {
+  background-color: white;
   margin-left: 1vw;
   border: 0ch;
   border-radius: 1vh;
   height: 3vh;
+  color: #FF7A59;
 }
 .send .sendbc .send-msg .number input {
   width: 24.3vw;
@@ -159,6 +163,7 @@ body {
   border: 0ch;
   border-radius: 1vh;
   padding: 1vw;
+  font-family: TsangerShuYuanT\ W02;
 }
 .send .ink {
   position: absolute;
