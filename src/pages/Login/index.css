@@ -1,0 +1,78 @@
+* {
+    margin : 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: TsangerXWZ;
+    src        : url('../../font/TsangerXWZ.TTF')
+}
+
+@font-face {
+    font-family: TsangerShuYuanTW02;
+    src        : url(../../font/TsangerShuYuanT\ W02.TTF);
+}
+
+
+.login {
+    position: relative;
+    width   : 100vw;
+    height  : 100vh;
+}
+
+.background-image {
+    display: inline-block;
+    height : 100vh;
+    width  : 100vw;
+}
+
+.text-title {
+    position   : absolute;
+    left       : 21vw;
+    top        : 25.6vh;
+    font-family: TsangerShuYuanTW02;
+    color      : white;
+    font-size  : 19.2vw;
+    text-shadow: 0px 3px 5px#888888;
+}
+
+.text-subtitle {
+    position   : absolute;
+    left       : 15.5vw;
+    top        : 38.55vh;
+    font-family: TsangerXWZ;
+    color      : white;
+    font-size  : 6.4vw;
+    text-shadow: 0px 3px 5px#888888;
+}
+
+.div-school {
+    position: absolute;
+    left    : 10vw;
+    top     : 50vh;
+}
+
+.btn-school {
+    position: relative;
+}
+
+.birdimg {
+    width         : 20vw;
+    padding-bottom: 2.5vh;
+}
+
+.underlineimg {
+    position: relative;
+    width   : 54.7vw;
+}
+
+.text-school {
+    position: absolute;
+
+    font-family: TsangerXWZ;
+    color      : #F2552A;
+    font-size  : 8vw;
+    margin-left: 23.7vw;
+    top        : 0;
+    left       : 2vw;
+}
