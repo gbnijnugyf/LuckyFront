@@ -11,26 +11,20 @@ import Header from '../../components/Header'
 
 export default function Admin() {
     // TODO to be fixed
-    if (true) {
-        return (
-            <div>
-                <Redirect to='/login'></Redirect>
-            </div>
-        )
-    } else {
-        return (
-            <div>
-                <Header></Header>
-                <Switch>
-                    <Route path='/login' component={Login}></Route>
-                    <Route path='/home' component={Home}></Route>
-                    <Route path='/send' component={Send}></Route>
-                    <Route path='/detail' component={Detail}></Route>
-                    <Route path='/wish' component={Wishes}></Route>
-                    <Redirect to='/home'></Redirect>
-                </Switch>
-            </div>
+    let loginsign = true;
+    return (
+        <div>
+            {loginsign ? null : <Header></Header>}
+            <Switch>
+                <Route path='/login' component={Login}></Route>
+                <Route path='/home' component={Home}></Route>
+                <Route path='/send' component={Send}></Route>
+                <Route path='/detail' component={Detail}></Route>
+                <Route path='/wish' component={Wishes}></Route>
+                <Redirect to={loginsign ? '/login' : '/home'}></Redirect>
+            </Switch>
+        </div>
 
-        )
-    }
+    )
 }
+
