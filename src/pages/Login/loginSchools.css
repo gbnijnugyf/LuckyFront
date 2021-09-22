@@ -1,0 +1,84 @@
+@font-face {
+    font-family: TsangerXWZ;
+    src        : url('../../font/TsangerXWZ.TTF')
+}
+
+@font-face {
+    font-family: TsangerShuYuanTW02;
+    src        : url(../../font/TsangerShuYuanT\ W02.TTF);
+}
+
+@font-face {
+    font-family: PingFang SC;
+    src        : url('../../font/苹方-简.ttf')
+}
+
+p {
+    font-family: PingFang SC;
+    color      : white;
+}
+
+li {
+    list-style: none;
+    position  : relative;
+    margin-top: 4.93vh;
+}
+
+form {
+    position        : absolute;
+    left            : 7.47vw;
+    top             : 38.54vh;
+    width           : 85.3vw;
+    height          : 24.6vh;
+    background-color: #FF7A59;
+    border-radius   : 5.3vw;
+}
+
+label {
+    display    : inline-block;
+    position   : relative;
+    text-align : right;
+    width      : 34vw;
+    font-size  : 6.4vw;
+    font-family: PingFang SC;
+    color      : white;
+
+}
+
+input {
+    position     : relative;
+    width        : 42.7vw;
+    height       : 4.43vh;
+    border-radius: 2.13vw;
+    border       : 0;
+    text-align   : center;
+    font-family  : PingFang SC;
+    font-size    : 4.8vw;
+}
+
+.btn-next {
+    position: absolute;
+    top     : 69.1vh;
+    left    : 28.8vw;
+    width   : 42.67vw;
+    height  : 7.39vh;
+}
+
+.text-login-title {
+    position   : absolute;
+    left       : 18.67vw;
+    top        : 28vh;
+    font-family: TsangerXWZ;
+    color      : white;
+    font-size  : 12.8vw;
+    text-shadow: 0px 3px 5px#888888;
+}
+
+.text-tip {
+    position  : relative;
+    left      : 0;
+    right     : 0;
+    text-align: center;
+    font-size : 1.97vw;
+    font-family: TsangerShuYuanTW02;
+}

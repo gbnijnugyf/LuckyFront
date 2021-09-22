@@ -1,0 +1,25 @@
+* {
+    margin : 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: TsangerXWZ;
+    src        : url('../../font/TsangerXWZ.TTF')
+}
+
+@font-face {
+    font-family: TsangerShuYuanTW02;
+    src        : url(../../font/TsangerShuYuanT\ W02.TTF);
+}
+
+
+.background-image {
+    display: inline-block;
+    height : 100vh;
+    width  : 100vw;
+}
+
+.title-text{
+    
+}

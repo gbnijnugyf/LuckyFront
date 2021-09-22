@@ -24,7 +24,7 @@ export default function Home(props) {
     const goSend = (tags) => {
         props.history.push('/send', { tags })
     }
-
+    
     return (
         <div>
             {/* <Header></Header> */}
@@ -40,7 +40,12 @@ export default function Home(props) {
                 <div className="tag"><img src={tag} alt="" /><p>其它</p></div> */}
                 {
                     tags.map((tag) => {
-                        return <div onClick={() => goWishes(tag.name)} className="tag" key={tag.name}><img src={tagimg} alt="" /><p>{tag.name}</p></div>
+                        return (<div onClick={() => goWishes(tag.name)} className="tag" key={tag.name}>
+                            <img src={tagimg} alt="" />
+                            <p>
+                                {tag.name}
+                            </p>
+                        </div>);
                     })
                 }
                 <div className="send-button" onClick={() => goSend(tags)}>投递我的小幸运</div>
