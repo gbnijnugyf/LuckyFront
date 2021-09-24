@@ -5,21 +5,11 @@ import './index.css'
 import { Switch, Route } from 'react-router-dom'
 import Home from '../Home'
 import Wishes from '../Wishes'
-import { LoginWHUT } from './loginSchools.jsx'
-import { LoginCCNU } from './loginSchools.jsx'
+import { LoginWHUT, LoginCCNU, BindEmail } from './loginSchools.jsx'
 
 
 
 export default function Login(props) {
-
-    const goWHUT = () => {
-        alert("你好武理帅哥/美女")
-        props.history.push("/login/whut")
-    }
-    const goCCNU = () => {
-        alert("你好华师美女/帅哥")
-        props.history.push("/login/ccnu")
-    }
 
     return (
         <div>
@@ -28,6 +18,7 @@ export default function Login(props) {
                 <Switch>
                     <Route path="/login/whut" component={LoginWHUT} />
                     <Route path="/login/ccnu" component={LoginCCNU} />
+                    <Route path="/login/bindemail" component={BindEmail} />
                     <Route path="/login" component={LoginMain} />
                 </Switch>
             </div>
@@ -38,11 +29,9 @@ export default function Login(props) {
 function LoginMain(props) {
 
     const goWHUT = () => {
-        alert("你好武理帅哥/美女")
         props.history.push("/login/whut")
     }
     const goCCNU = () => {
-        alert("你好华师美女/帅哥")
         props.history.push("/login/ccnu")
     }
 

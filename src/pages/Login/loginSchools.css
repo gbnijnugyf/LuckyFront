@@ -1,6 +1,6 @@
 @font-face {
     font-family: TsangerXWZ;
-    src        : url('../../font/TsangerXWZ.TTF')
+    src        : url(../../font/TsangerXWZ.TTF)
 }
 
 @font-face {
@@ -10,12 +10,15 @@
 
 @font-face {
     font-family: PingFang SC;
-    src        : url('../../font/苹方-简.ttf')
+    src        : url(../../font/苹方-简.ttf)
 }
 
 p {
     font-family: PingFang SC;
     color      : white;
+    left       : 0;
+    right      : 0;
+    text-align : center;
 }
 
 li {
@@ -38,7 +41,7 @@ label {
     display    : inline-block;
     position   : relative;
     text-align : right;
-    width      : 34vw;
+    width      : 37vw;
     font-size  : 6.4vw;
     font-family: PingFang SC;
     color      : white;
@@ -66,7 +69,6 @@ input {
 
 .text-login-title {
     position   : absolute;
-    left       : 18.67vw;
     top        : 28vh;
     font-family: TsangerXWZ;
     color      : white;
@@ -74,11 +76,22 @@ input {
     text-shadow: 0px 3px 5px#888888;
 }
 
-.text-tip {
-    position  : relative;
-    left      : 0;
-    right     : 0;
-    text-align: center;
-    font-size : 1.97vw;
+.tip-text {
+    position   : relative;
+    font-size  : 1.97vw;
     font-family: TsangerShuYuanTW02;
+}
+
+.tip-email {
+    margin-top   : 5.17vh;
+    margin-bottom: 5.42vh;
+    font-size    : 4.267vw;
+}
+
+.label-email {
+    width: 27vw;
+}
+
+.input-email{
+    width: 50vw;
 }
