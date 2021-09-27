@@ -7,22 +7,26 @@
  * @FilePath: \JSStudye:\Bili前端学习\5.React\workspace\react-admin-client\src\config\menuConfig.js
  */
 const menuList = [
-  {
-    title: "标签页",
-    key: "/home",
-  },
-  {
-    title: "投递我的小幸运",
-    key: "/send",
-  },
-  {
-    title: "愿望详情",
-    key:"/detail"
-  },
-  {
-    title: "我的愿望池",
-    key:"/wish"
-  }
+    {
+        title: "标签页",
+        key: "/home",
+    },
+    {
+        title: "投递我的小幸运",
+        key: "/send",
+    },
+    {
+        title: "愿望详情",
+        key: "/detail"
+    },
+    {
+        title: "我的愿望池",
+        key: "/wish"
+    },
+    {
+        title: "我的愿望池",
+        key: "/mywish"
+    }
 ];
 
 export default menuList;
