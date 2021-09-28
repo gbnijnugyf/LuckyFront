@@ -8,19 +8,20 @@ import './index.css'
 
 export default function Send(props) {
 
-    const [value, setValue] = useState('把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~')
-    const [nameValue, setNameValue] = useState('')
-    const [numberValue, setNumberValue] = useState('')
-    const [isTagShow, setIsTagShow] = useState(false)
-    const [isAlert, setIsAlert] = useState(false)
-    const [isCover, setIsCover] = useState(false)
-    const [content, setContent] = useState('')
-    const [tagName, setTagName] = useState('#选择标签')
+    const [value, setValue] = useState('把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~') //控制 textarea
+    const [nameValue, setNameValue] = useState('') //控制 name input
+    const [numberValue, setNumberValue] = useState('') //控制 number input
+    const [isTagShow, setIsTagShow] = useState(false) //控制选择标签弹窗
+    const [isAlert, setIsAlert] = useState(false)// 控制警示弹窗(没填信息会弹出来)
+    const [isCover, setIsCover] = useState(false)// 控制遮罩
+    const [content, setContent] = useState('')// 控制弹窗内容
+    const [tagName, setTagName] = useState('#选择标签') //控制选择标签后的显示
 
-    const { tags } = props.location.state || { }
+    // 获得标签列表
+    const { tags } = props.location.state || {}
 
 
-
+    // 处理选择标签的点击事件
     const handleTagName = (name) => {
         setIsCover(!isCover)
         setIsTagShow(!isTagShow)
@@ -28,6 +29,7 @@ export default function Send(props) {
 
     }
 
+    // 处理弹窗警告
     const handleIsAlert = (str) => {
         setIsAlert(!isAlert)
         setContent(str)
@@ -38,6 +40,7 @@ export default function Send(props) {
         }, 1000)
     }
 
+    // 处理填写愿望的字数限制
     const handleValue = (e) => {
         let newValue = e.target.value
         setValue(newValue)
@@ -49,23 +52,27 @@ export default function Send(props) {
 
     }
 
+    // 处理 name input
     const handleNameValue = (e) => {
         setNameValue(e.target.value)
     }
 
+    // 处理 number input
     const handleNumberValue = (e) => {
         setNumberValue(e.target.value)
     }
 
+    // 处理点击发送后的提交失败/成功
     const handleInput = () => {
         if (numberValue === '')
             handleIsAlert('留下联系方式可以及时收获你的小幸运哦')
         else if (nameValue === '')
             handleIsAlert('你的小幸运还没有署名哦～')
         else
-        props.history.push('/home')
+            props.history.push('/home')
     }
 
+    // 打开选择标签页
     const goSelectTag = () => {
         setIsCover(!isCover)
         setIsTagShow(!isTagShow)
