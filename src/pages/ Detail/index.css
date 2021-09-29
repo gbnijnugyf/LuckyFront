@@ -11,13 +11,88 @@
   height: 87vh;
   width: 100vw;
 }
-.Detail .wish p {
+.Detail .msg-borad {
+  position: absolute;
+  overflow: hidden;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: #fbd192;
+  width: 80vw;
+  height: 40vh;
+  border-radius: 3vh;
+  color: #FF7A59;
+}
+.Detail .msg-borad .msg-content {
+  width: 80%;
+  margin: 3vh auto;
+}
+.Detail .msg-borad .msg-content input {
+  margin-right: 3vw;
+}
+.Detail .msg-borad .msg-content p {
+  display: inline-block;
+}
+.Detail .msg-borad .no-msg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5vh;
+  width: 50%;
+  display: inline-block;
+  background-color: white;
+  color: black;
+  text-align: center;
+  line-height: 5vh;
+  font-size: 5vw;
+}
+.Detail .msg-borad .sure-msg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 5vh;
+  width: 50%;
+  display: inline-block;
+  background-color: #ff7959;
+  color: #fff;
+  text-align: center;
+  line-height: 5vh;
+  font-size: 5vw;
+}
+.Detail .wish {
+  position: absolute;
+  width: 86.4vw;
+  height: 46.3vh;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url('images/3.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.Detail .wish .p-content {
   position: absolute;
   bottom: -13vh;
   width: 80%;
   height: 90%;
   left: 8vw;
   line-height: 5vh;
+}
+.Detail .wish .p-name {
+  position: absolute;
+  color: white;
+  bottom: 6vh;
+  right: 5vw;
+  text-align: center;
+}
+.Detail .wish .p-time {
+  position: absolute;
+  color: white;
+  right: 5vw;
+  bottom: 2vh;
+  font-size: 14px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .Detail .wish .underline {
   position: absolute;
@@ -100,17 +175,6 @@
   line-height: 7vh;
   text-align: center;
   font-size: 5vw;
-}
-.Detail .wish {
-  position: absolute;
-  width: 86.4vw;
-  height: 46.3vh;
-  top: 42%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-image: url('images/3.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 .Detail .msg {
   position: absolute;

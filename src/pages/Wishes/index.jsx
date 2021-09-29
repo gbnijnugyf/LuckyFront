@@ -27,7 +27,9 @@ export default function Wishes(props) {
             wish: '刘宇乐是305大爹啊！'
         }
     ]
-    const [moveX, setmoveX] = useState(-10) // 控制树叶的动画状态
+    const [moveX, setmoveX] = useState(-10) // 控制树叶1的动画状态
+    const [move, setMove] = useState(0)
+    const [move3, setMove3] = useState(10)
     const [startX, setStartX] = useState() // 树叶动画相关状态
     const [update, setUpDate] = useState({ isUpdate: false, isShow: true }) // 控制动画以及愿望内容的更新
     const [opacity, setOpacity] = useState(1) // 控制愿望的渐变效果
@@ -66,13 +68,15 @@ export default function Wishes(props) {
         const move_X = ((touch.pageX - startX.start) / 5) - 10
         setStartX(startX)
         setmoveX(move_X)
-        setOpacity(Math.abs(moveX / 60))
+        setOpacity(Math.abs(moveX / 85))
     }
 
     const handleTouchEnd = () => {
         if (moveX < -30) {
             setUpDate({ isUpdate: true, isShow: true })
             setmoveX(-90)
+            setMove(-10)
+            setMove3(0)
         }
         else if (moveX > 20) {
             setUpDate({ isUpdate: true, isShow: true })
@@ -84,8 +88,8 @@ export default function Wishes(props) {
         }
         setTimeout(() => {
             setUpDate({ isUpdate: false, isShow: false })
-            setmoveX(-10)
-            setOpacity(0)
+            // setmoveX(-10)
+            setOpacity(1)
             // 刷新愿望
             let newWishSource = wish
             newWishSource.splice(0, 1)
@@ -129,13 +133,13 @@ export default function Wishes(props) {
             <div className="input-msg" style={{ display: appear.input ? 'block' : 'none' }}>
                 <p className='h3'>填写联系方式，方便他来联系你哦～</p>
                 <div className="form">
-                    <div className="name">投递人  : <input type="text" placeholder='必填内容哦～' onChange={handleName} /></div>
+                    <div className="name">投递人  : <input type="text" placeholder='必填内容哦～' onChange={handleName} value={name} /></div>
                     <div className="number"><p style={{ display: 'inline-block' }}>联系方式  :</p>
                         <select style={{ color: 'rgb(239, 96, 63)', marginBottom: '1vh' }}>
                             <option value="QQ">QQ</option>
                             <option value="WeChat">微信</option>
                         </select>
-                        <input type="text" placeholder='必填内容哦～' onChange={handleNumber} />
+                        <input type="text" placeholder='必填内容哦～' onChange={handleNumber} value={number} />
                         <br />
                         <p style={{ display: 'inline-block' }}>或 Tel  : </p><input type="text" placeholder='选填内容哦～' style={{ marginLeft: '9vw' }} />
                     </div>
@@ -157,19 +161,35 @@ export default function Wishes(props) {
                     <div className="underline ud2"></div>
                     <div className="underline ud3"></div>
                     <div className="underline ud4"></div>
-                    <div className="msg"><span>{wish[0].school}</span><span>{wish[0].name}</span></div>
+                    <div className="msg">
+                        <span>{wish[0].school}</span>
+                        <span>{wish[0].name}</span></div>
                 </div>
-                <div className="img2">
-                    <div style={{ opacity: opacity }}>
+                <div className="img2" style={{
+                    transition: update.isUpdate ? 'all 0.2s' : 'none',
+                    left: `${move}vw`
+                }}>
+                    <div style={{
+                        opacity: opacity,
+                    }}>
                         <p>{update.isShow ? wish[1].wish : wish[0].wish}</p>
                         <div className="underline ud1"></div>
                         <div className="underline ud2"></div>
                         <div className="underline ud3"></div>
                         <div className="underline ud4"></div>
-                        <div className="msg"><span>{update.isShow ? wish[1].school : wish[0].school}</span><span>{update.isShow ? wish[1].name : wish[0].name}</span></div>
+                        <div className="msg">
+                            <span>{update.isShow ? wish[1].school : wish[0].school}</span>
+                            <span>{update.isShow ? wish[1].name : wish[0].name}</span></div>
                     </div>
                 </div>
-                <div className="img3"></div>
+                <div
+                    className="img3"
+                    style={{
+                        transition: update.isUpdate ? 'all 0.2s' : 'none',
+                        left: `${move3}vw`
+                    }}>
+                </div>
+                <div className={move === 0 ? '' : 'img4'}></div>
             </div>
             <div className="checklight"></div>
             <div className="tip"></div>
