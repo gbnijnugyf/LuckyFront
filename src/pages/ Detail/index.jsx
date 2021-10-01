@@ -36,25 +36,35 @@ const PersonMsg = () => {
     )
 }
 
-const MsgBorad = () => {
+const MsgBorad = (props) => {
+    const { handleAlert } = props
+
     return (
         <div className='msg-borad'>
             <div className="msg-content">
                 <p>你想要放弃这个愿望,</p>
                 <p>建议给对方留言说明原因哦 ：</p>
                 <br />
-                <div style={{ display: 'flex' }}><div><input type="radio" name='msg' value='aa' /></div><p>刚刚误触了点亮按钮，不好意思啦～</p></div>
-                {/* <div><div style={{ float: 'left' }}><input type="radio" name='msg' value='aa' /></div><div style={{ float: 'left' }}>最近有点忙，短时间没有精力实现愿望了，抱歉</div></div> */}
-                {/* <div>
-                    <input type='radio' name='msg' value='aa' />
-                    <span>
-                        留言给对方
-                        <br />
-                        <input type="text" placeholder='输入其他原因' />
-                    </span>
-                </div> */}
+                <br />
+                <div className='options'>
+                    <div><input type="radio" name='msg' value='' /></div>
+                    <p>刚刚误触了点亮按钮，不好意思啦～</p>
+                </div>
+                <br />
+                <div className='options'>
+                    <div> <input type="radio" name='msg' value='aa' /></div>
+                    <p>最近有点忙，短时间没有精力实现愿望了，抱歉</p>
+                </div>
+                <br />
+                <div className='options'>
+                    <div><input type='radio' name='msg' value='aa' /></div>
+                    <p>
+                        留言给对方：
+                        <input type="text" placeholder='输入其他原因' className='reson' />
+                    </p>
+                </div>
             </div>
-            <div className='no-msg'>不留言</div>
+            <div className='no-msg' onClick={() => handleAlert('不留言')}>不留言</div>
             <div className='sure-msg'>发送</div>
         </div>
     )
@@ -63,12 +73,16 @@ const MsgBorad = () => {
 
 function Detail() {
 
+
     const [isAlert, setIsAlert] = useState(false) // 设置遮罩状态
     const [content, setContent] = useState({ text: '', isLong: false }) // 设置弹窗内容
     const [isSure, setIsSure] = useState(false) // 设置愿望状态
+    const [borad, setBorad] = useState(false) //设置留言板
 
     // Effect里面判断该愿望是自己的还是其他人的愿望 然后拿到愿望的值渲染 这里应该不需要放state的  然后更改状态 通过props传入button组件
-    const wishType = 0
+    const [wishType, setWishType] = useState(false)
+
+
 
     const handleAlert = (newContent) => {
         //  设置遮罩
@@ -76,7 +90,10 @@ function Detail() {
         // 判断弹窗内容设置样式
         if (typeof newContent === 'string') {
             if (newContent.length > 15) setContent({ text: newContent, isLong: true })
-
+            else if (newContent === '不留言') {
+                setIsAlert(false)
+                setBorad(false)
+            }
             else setContent({ text: newContent, isLong: false })
         }
         else if (typeof newContent === 'number' && newContent === 1)
@@ -90,8 +107,8 @@ function Detail() {
                 break;
 
             case '确认放弃这个愿望吗?':
-                console.log('放弃啦牛逼');
                 setIsAlert(true)
+                setBorad(true)
                 break;
 
             case '确认要删除这个愿望':
@@ -100,7 +117,6 @@ function Detail() {
             case '确认愿望已经实现了吗':
                 break
             default:
-                console.log();
         }
     }
 
@@ -110,22 +126,18 @@ function Detail() {
         <div className='Detail'>
             <WishDetail />
             <div className='alert' style={{ display: isAlert ? 'block' : 'none' }}></div>
-            <MsgBorad />
-            {/* <div className="content"
-                style={{ display: isAlert ? 'block' : 'none' }}>
+            {borad ? <MsgBorad handleAlert={handleAlert} /> : <div></div>}
+            <div className="content"
+                style={{ display: isAlert ? borad ? 'none' : 'block' : 'none' }}>
                 <div className={content.isLong ? 'long-text' : 'text'}>
                     <span>{content.text}</span>
                 </div>
                 <div className="sure" onClick={() => handleAlert(1)}>确认</div>
-                <div className="cancel" onClick={() => handleAlert(0)}>取消</div></div> */}
+                <div className="cancel" onClick={() => handleAlert(0)}>取消</div></div>
             <Button handleAlert={handleAlert} isSure={isSure} wishType={wishType} />
             <PersonMsg />
         </div>
     )
 }
-
-
-
-
 
 export default Detail
