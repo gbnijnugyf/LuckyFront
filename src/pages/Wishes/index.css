@@ -15,6 +15,38 @@
   width: 80vw;
   height: 41vh;
 }
+.wishpage .wishes .wish-img {
+  display: flex;
+  flex-direction: column;
+}
+.wishpage .wishes .wish-img p {
+  width: 52vw;
+  line-height: 3.5vh;
+  position: absolute;
+  z-index: 10;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+}
+.wishpage .wishes .wish-img .underline {
+  width: 53vw;
+  height: 0px;
+  border: 1px solid #707070;
+  opacity: 1;
+}
+.wishpage .wishes .wish-img .ud1 {
+  top: 13vh;
+}
+.wishpage .wishes .wish-img .ud2 {
+  top: 16.5vh;
+}
+.wishpage .wishes .wish-img .ud3 {
+  top: 20vh;
+}
+.wishpage .wishes .wish-img .ud4 {
+  top: 23.5vh;
+}
 .wishpage .wishes .img1 {
   z-index: 5;
   width: 100%;
@@ -58,37 +90,6 @@
   background-size: cover;
   left: 10vw;
 }
-.wishpage .wishes p {
-  width: 52vw;
-  line-height: 3.5vh;
-  position: absolute;
-  z-index: 10;
-  top: 10vh;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-}
-.wishpage .wishes .underline {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 53vw;
-  height: 0px;
-  border: 1px solid #707070;
-  opacity: 1;
-}
-.wishpage .wishes .ud1 {
-  top: 13vh;
-}
-.wishpage .wishes .ud2 {
-  top: 16.5vh;
-}
-.wishpage .wishes .ud3 {
-  top: 20vh;
-}
-.wishpage .wishes .ud4 {
-  top: 23.5vh;
-}
 .wishpage .wishes .msg {
   position: absolute;
   color: white;
@@ -112,11 +113,11 @@
 .wishpage .tip {
   position: absolute;
   background-image: url('images/slide.png');
-  width: 43.3vw;
+  width: 35vw;
   height: 4vh;
   right: 0;
   top: 60vh;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
 }
 .wishpage .tolight {

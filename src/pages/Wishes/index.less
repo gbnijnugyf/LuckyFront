@@ -17,6 +17,45 @@
         width: 80vw;
         height: 41vh;
 
+        .wish-img {
+            display: flex;
+            flex-direction: column;
+
+            p {
+                width: 52vw;
+                line-height: 3.5vh;
+                position: absolute;
+                z-index: 10;
+                top: 10vh;
+                left: 50%;
+                transform: translateX(-50%);
+                color: white;
+            }
+
+            .underline {
+                width: 53vw;
+                height: 0px;
+                border: 1px solid #707070;
+                opacity: 1;
+            }
+
+            .ud1 {
+                top: 13vh;
+            }
+
+            .ud2 {
+                top: 16.5vh
+            }
+
+            .ud3 {
+                top: 20vh;
+            }
+
+            .ud4 {
+                top: 23.5vh;
+            }
+        }
+
         .img1 {
             z-index: 5;
             width: 100%;
@@ -64,46 +103,6 @@
             left: 10vw;
         }
 
-
-        p {
-            width: 52vw;
-            line-height: 3.5vh;
-            position: absolute;
-            z-index: 10;
-            top: 10vh;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-        }
-
-        .underline {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 53vw;
-            height: 0px;
-            border: 1px solid #707070;
-            opacity: 1;
-        }
-
-        .ud1 {
-            top: 13vh;
-        }
-
-        .ud2 {
-            top: 16.5vh
-        }
-
-        .ud3 {
-            top: 20vh;
-        }
-
-        .ud4 {
-            top: 23.5vh;
-        }
-
-
-
         .msg {
             position: absolute;
             color: white;
@@ -130,11 +129,11 @@
     .tip {
         position: absolute;
         background-image: url('./images/slide.png');
-        width: 43.3vw;
+        width: 35vw;
         height: 4vh;
         right: 0;
         top: 60vh;
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
     }
 

@@ -18,7 +18,7 @@ const Wish = (props) => {
                         jsx = (
                             <div
                                 key={name}
-                                className="img1"
+                                className="img1 wish-img"
                                 onTouchStart={handleTouchStart}
                                 onTouchMove={handleTouchMove}
                                 onTouchEnd={handleTouchEnd}
@@ -41,7 +41,7 @@ const Wish = (props) => {
                         jsx = (
                             <div
                                 key={name}
-                                className="img2"
+                                className="img2 wish-img"
                                 style={{
                                     transition: update ? 'all 0.2s' : 'none',
                                     left: `${move.img2}vw`
@@ -79,6 +79,8 @@ const Wish = (props) => {
         </div>
     )
 }
+
+
 export default function Wishes(props) {
     // const { tagName } = props.history.location.state || { } 先拿到这个Home传过来的标签，根据标签(id)去发请求
     // 定义初始化动画状态
@@ -86,7 +88,7 @@ export default function Wishes(props) {
     const [move, setMove] = useState(moveState) // 树叶动画相关状态
     const [startX, setStartX] = useState() // 树叶动画相关状态
     const [update, setUpDate] = useState(false) // 控制动画以及愿望内容的更新
-    const [opacity, setOpacity] = useState(1) // 控制愿望的渐变效果
+    const [opacity, setOpacity] = useState(0) // 控制愿望的渐变效果
     const [appear, setAppear] = useState({ cover: false, input: false, alert: false }) // 还是动画状态
     const [wish, setWish] = useState([
         {
@@ -198,18 +200,17 @@ export default function Wishes(props) {
         }
         else {
             setMove({ img1: -10, img2: 0, img3: 10 })
+            setOpacity(0)
             return
         }
-
-
         // 刷新愿望
         setTimeout(() => {
             setUpDate(false)
+            setOpacity(0)
             let newWishSource = wish
             newWishSource.splice(0, 1)
             setWish(newWishSource)
             // 刷新动画
-            setOpacity(1)
             setMove(moveState)
             if (wish.length <= 2) {
                 setRely(!rely) // 原本的意思就是愿望刷新就剩2个改变依赖调用hooks再发送一次请求刷新愿望列表

@@ -3,11 +3,11 @@
   padding: 0;
 }
 @font-face {
-  font-family: TsangerShuYuanT\ W02 ;
+  font-family: TsangerShuYuanT\ W02;
   src: url('../../font/TsangerShuYuanT\ W02.TTF');
 }
 body {
-  font-family: TsangerShuYuanT\ W02 ;
+  font-family: TsangerShuYuanT\ W02;
 }
 .send {
   position: relative;
@@ -70,12 +70,12 @@ body {
   top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70vw;
-  height: 11vh;
+  width: 80vw;
+  height: 13.6vh;
   background-image: url('images/alert.svg');
   background-repeat: no-repeat;
   z-index: 99;
-  background-size: contain;
+  background-size: cover;
   color: #FF7A59;
   font-size: 2.5vh;
   text-align: center;
@@ -92,41 +92,37 @@ body {
   background-image: url('images/sendbc.svg');
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
 }
 .send .sendbc img {
   height: 100%;
   width: 100%;
 }
-.send .sendbc .input {
-  position: absolute;
-  height: 44%;
-  width: 72%;
-  top: 8vh;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-}
-.send .sendbc .input .notes {
+.send .sendbc .notes {
   background-image: linear-gradient(to right, #f1c57e 10px, transparent 10px), linear-gradient(to left, #f1c57e 10px, transparent 10px), linear-gradient(#f1c57e 30px, black 30px, black 31px, white 31px);
   border: 0px;
   background-size: 100% 100%, 100% 100%, 100% 31px;
-  line-height: 31px;
+  line-height: 30px;
   font-family: TsangerShuYuanT\ W02;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 43%;
   background-color: #f1c57e;
   resize: none;
   color: white;
   padding: 8px;
+  font-size: 1.85vh;
+  margin-top: 8vh;
 }
-.send .sendbc .input .notes:focus {
+.send .sendbc .notes:focus {
   outline: none;
 }
 .send .sendbc .send-msg {
-  position: relative;
-  top: -1.8vh;
+  margin-top: 2vh;
   height: 30%;
-  width: 108%;
+  width: 77%;
   color: white;
 }
 .send .sendbc .send-msg h6 {
@@ -165,6 +161,15 @@ body {
   padding: 1vw;
   font-family: TsangerShuYuanT\ W02;
 }
+.send .sendbc .tosend {
+  width: 26.7vw;
+  height: 3.71vh;
+  margin-bottom: 3vh;
+}
+.send .sendbc .tosend img {
+  width: 100%;
+  height: 100%;
+}
 .send .ink {
   position: absolute;
   width: 37.6vw;
@@ -176,29 +181,18 @@ body {
   width: 100%;
   height: 100%;
 }
-.send .tosend {
-  position: absolute;
-  top: 76vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 26.7vw;
-  height: 3.71vh;
-}
-.send .tosend img {
-  width: 100%;
-  height: 100%;
-}
 .send .select {
   position: absolute;
   top: 30vh;
-  right: 20vw;
+  right: 15vw;
   height: 3.7vh;
   width: 26.7vw;
-  border-radius: 4vw ;
+  border-radius: 4vw;
   background-color: #fff;
   text-align: center;
   line-height: 3.7vh;
   color: #FF7A59;
+  z-index: 2;
 }
 .send .select img {
   width: 100%;
