@@ -26,6 +26,38 @@
   background-size: cover;
   touch-action: none;
 }
+.wishpage .wishes .img2 {
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-image: url('images/5.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.wishpage .wishes .img3 {
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-image: url('images/5.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  left: 10vw;
+}
+.wishpage .wishes .img4 {
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-image: url('images/5.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  left: 10vw;
+}
 .wishpage .wishes p {
   width: 52vw;
   line-height: 3.5vh;
@@ -56,27 +88,6 @@
 }
 .wishpage .wishes .ud4 {
   top: 23.5vh;
-}
-.wishpage .wishes .img2 {
-  z-index: 4;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  background-image: url('images/5.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.wishpage .wishes .img3 {
-  z-index: 3;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  background-image: url('images/5.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  left: 10vw;
 }
 .wishpage .wishes .msg {
   position: absolute;
@@ -147,7 +158,7 @@
   font-size: 2.2vh;
 }
 .wishpage .input-msg .form {
-  height: 60%;
+  height: 80%;
   width: 80%;
   position: relative;
   top: 50%;
@@ -166,7 +177,7 @@
   border-radius: 1vh;
   padding: 1vw;
   box-sizing: border-box;
-  margin-left: 7vw ;
+  margin-left: 7vw;
 }
 .wishpage .input-msg .form .number input {
   width: 25vw;
@@ -175,10 +186,10 @@
   border-radius: 1vh;
   padding: 1vw;
   box-sizing: border-box;
-  margin-left: 2vw ;
+  margin-left: 2vw;
 }
 .wishpage .input-msg .form select {
-  margin-left: 4vw ;
+  margin-left: 4vw;
   height: 3vh;
   border: 0;
   border-radius: 1vh;
