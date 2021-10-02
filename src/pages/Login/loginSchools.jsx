@@ -31,7 +31,7 @@ export function LoginWHUT(props) {
                         <input type="password"></input>
                     </li>
                 </ul>
-                <p className="text-tip">（身份证后六位或智慧理工大密码）</p>
+                <p className="tip-login">（身份证后六位或智慧理工大密码）</p>
             </form>
         </LoginPannel>
     )
@@ -68,11 +68,12 @@ export function BindEmail(props) {
     return (
         <LoginPannel text="邮箱绑定" onClick={goBind} btnImage={okbtn}>
             <form className="panel-login">
-                <p className="tip-email">填写邮箱地址，可以及时查收愿望状态哦~</p>
-                <div>
+                <p className="tip-email">填写邮箱地址，可以及时<br />
+                    查收愿望状态哦~</p>
+                <li>
                     <label className="label-email">邮箱：</label>
                     <input className="input-email"></input>
-                </div>
+                </li>
             </form>
         </LoginPannel>
     )
