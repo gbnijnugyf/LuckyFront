@@ -29,11 +29,7 @@ function Header(props) {
     }
 
     let title = getTitle()
-
-
-
-
-
+    
     return (
         <div style={{ height: '13vh' }}>
             <div className='comp-header'>

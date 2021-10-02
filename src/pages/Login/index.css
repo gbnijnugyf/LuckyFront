@@ -1,78 +1,63 @@
-* {
-    margin : 0;
-    padding: 0;
-}
-
-@font-face {
-    font-family: TsangerXWZ;
-    src        : url('../../font/TsangerXWZ.TTF')
-}
-
-@font-face {
-    font-family: TsangerShuYuanTW02;
-    src        : url(../../font/TsangerShuYuanT\ W02.TTF);
-}
-
-
 .login {
-    position: relative;
-    width   : 100vw;
-    height  : 100vh;
+    height: 100vh;
+    background-image: url("./../../static/images/bg.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position-x: center;
 }
 
-.background-image {
-    display: inline-block;
-    height : 100vh;
-    width  : 100vw;
+.login-main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .text-title {
-    position   : absolute;
-    left       : 21vw;
-    top        : 25.6vh;
     font-family: TsangerShuYuanTW02;
-    color      : white;
-    font-size  : 19.2vw;
+    color: white;
+    font-size: 72px;
     text-shadow: 0px 3px 5px#888888;
+    margin: 1em 0 0;
 }
 
 .text-subtitle {
-    position   : absolute;
-    left       : 15.5vw;
-    top        : 38.55vh;
     font-family: TsangerXWZ;
-    color      : white;
-    font-size  : 6.4vw;
+    color: white;
+    font-size: 24px;
     text-shadow: 0px 3px 5px#888888;
+    margin: 0.5em 0 3em;
 }
 
 .div-school {
-    position: absolute;
-    left    : 10vw;
-    top     : 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
 }
 
 .btn-school {
-    position: relative;
+    display: flex;
+    width: 100%;
 }
 
 .birdimg {
-    width         : 20vw;
-    padding-bottom: 2.5vh;
-}
-
-.underlineimg {
-    position: relative;
-    width   : 54.7vw;
+    width: 72px;
+    height: 61px;
 }
 
 .text-school {
-    position: absolute;
-
+    width: 100%;
+    padding-top: 0.75em;
     font-family: TsangerXWZ;
-    color      : #F2552A;
-    font-size  : 8vw;
-    margin-left: 23.7vw;
-    top        : 0;
-    left       : 2vw;
+    color: #f2552a;
+    font-size: x-large;
+    background-image: url("./images/underline.png");
+    background-repeat: no-repeat;
+    background-size: 80% 80%;
+    background-position-x: center;
+    background-position-y: 1.25em;
 }

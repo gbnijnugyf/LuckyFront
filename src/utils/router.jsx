@@ -1,20 +1,19 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
+import { Redirect } from 'react-router'
+import Login from '../pages/Login'
+import Home from '../pages/Home'
+import Send from '../pages/Send'
+import Detail from '../pages/Detail'
+import Wishes from '../pages/Wishes'
+import Header from '../components/Header'
+import MyWish from '../pages/MyWish'
 
-import Login from '../Login'
-import Home from '../Home'
-import Send from '../Send'
-import Detail from '../ Detail'
-import Wishes from '../Wishes'
-import Header from '../../components/Header'
-import MyWish from '../MyWish'
-
-export default function Admin() {
-    // TODO to be fixed
-    let isLogin = true;
+export default function Router() {
+    // TODO: add login logical
+    let isLogin = false;
     return (
-        <div>
+        <>
             {isLogin ? <Header></Header> : null}
             <Switch>
                 <Route path='/login' component={Login}></Route>
@@ -25,8 +24,7 @@ export default function Admin() {
                 <Route path='/mywish' component={MyWish}></Route>
                 <Redirect to={isLogin ? '/home' : '/login'}></Redirect>
             </Switch>
-        </div>
-
+        </>
     )
 }
 

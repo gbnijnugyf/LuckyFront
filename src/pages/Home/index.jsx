@@ -26,7 +26,7 @@ export default function Home(props) {
     const goSend = (tags) => {
         props.history.push('/send', { tags })
     }
-    
+
     return (
         <div>
             <div className="tags">

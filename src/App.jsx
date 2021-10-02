@@ -1,10 +1,12 @@
-import Admin from './pages/Admin'
-
+import Router from './utils/router'
+import './App.css';
 
 function App() {
-  return (
-    <Admin></Admin>
-  );
+    return (
+        <div className='app'>
+            <Router />
+        </div>
+    );
 }
 
 export default App;
