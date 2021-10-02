@@ -1,63 +1,64 @@
 .login {
-    height: 100vh;
-    background-image: url("./../../static/images/bg.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    height               : 100vh;
+    background-image     : url("./../../static/images/bg.png");
+    background-repeat    : no-repeat;
+    background-size      : 100% 100%;
     background-position-x: center;
 }
 
 .login-main {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    width          : 100%;
+    height         : 100%;
+    display        : flex;
+    flex-direction : column;
     justify-content: center;
-    align-items: center;
+    align-items    : center;
 }
 
 .text-title {
     font-family: TsangerShuYuanTW02;
-    color: white;
-    font-size: 72px;
+    color      : white;
+    font-size  : 72px;
     text-shadow: 0px 3px 5px#888888;
-    margin: 1em 0 0;
 }
 
 .text-subtitle {
     font-family: TsangerXWZ;
-    color: white;
-    font-size: 24px;
+    color      : white;
+    font-size  : 24px;
     text-shadow: 0px 3px 5px#888888;
-    margin: 0.5em 0 3em;
+    margin     : 0.5em 0 3em;
 }
 
 .div-school {
-    display: flex;
+    display        : flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 80%;
+    align-items    : center;
+    flex-direction : column;
+    width          : 80%;
 }
 
 .btn-school {
-    display: flex;
-    width: 100%;
+    margin-bottom: 5vh;
+    display      : flex;
+    width        : 100%;
 }
 
 .birdimg {
-    width: 72px;
+    width : 72px;
     height: 61px;
 }
 
 .text-school {
-    width: 100%;
-    padding-top: 0.75em;
-    font-family: TsangerXWZ;
-    color: #f2552a;
-    font-size: x-large;
-    background-image: url("./images/underline.png");
-    background-repeat: no-repeat;
-    background-size: 80% 80%;
+    width                : 100%;
+    padding-top          : 0.5em;
+    padding-bottom       : 0.5em;
+    font-family          : TsangerXWZ;
+    color                : #f2552a;
+    font-size            : xx-large;
+    background-image     : url("./images/underline.png");
+    background-repeat    : no-repeat;
+    background-size      : 80% 80%;
     background-position-x: center;
     background-position-y: 1.25em;
 }
