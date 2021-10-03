@@ -8,7 +8,7 @@
       .cls-2 {
         fill: #f59d65;
         font-size: 24px;
-        font-family: '\.PingFang-SC-Medium', '\.PingFang SC';
+        font-family: '\.PingFang-SC-Medium', '\.PingFangSC';
         font-weight: 500;
       }
     </style>

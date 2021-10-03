@@ -21,7 +21,7 @@ label {
     display    : inline-block;
     text-align : right;
     font-size  : x-large;
-    font-family: PingFang SC;
+    font-family: PingFangSC;
     color      : white;
 }
 
@@ -31,7 +31,7 @@ input {
     border-radius: 2.13vw;
     border       : 0;
     text-align   : center;
-    font-family  : PingFang SC;
+    font-family  : PingFangSC;
     font-size    : 4.8vw;
 }
 
