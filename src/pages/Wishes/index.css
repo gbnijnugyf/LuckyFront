@@ -68,7 +68,7 @@
   top: 0;
   background-image: url('images/5.svg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   touch-action: none;
 }
 .wishpage .wishes .img2 {
@@ -79,7 +79,7 @@
   top: 0;
   background-image: url('images/5.svg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 .wishpage .wishes .img3 {
   z-index: 3;
@@ -89,7 +89,7 @@
   top: 0;
   background-image: url('images/5.svg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   left: 10vw;
 }
 .wishpage .wishes .img4 {
@@ -100,7 +100,7 @@
   top: 0;
   background-image: url('images/5.svg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   left: 10vw;
 }
 .wishpage .checklight {
