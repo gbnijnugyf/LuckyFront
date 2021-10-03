@@ -26,6 +26,7 @@ const Wish = (props) => {
                                     left: `${move.img1}vw`,
                                     transition: update ? 'all 0.2s' : 'none',
                                 }} >
+                                <div className="wish-content"></div>
                                 <p> {content}</p>
                                 <div className="underline ud1"></div>
                                 <div className="underline ud2"></div>
@@ -94,7 +95,7 @@ export default function Wishes(props) {
         {
             name: '张旷',
             school: '华小师',
-            content: '我是要超越李劲哲的男人'
+            content: '我是要超越李劲哲的男人,读书王害得是我'
         },
         {
             name: '李劲哲',
@@ -143,12 +144,12 @@ export default function Wishes(props) {
             {
                 name: '张旷',
                 school: '华小师',
-                content: '我是要超越李劲哲的男人'
+                content: '我是要超越李劲哲的男人,因为我才是310读书王'
             },
             {
                 name: '李劲哲',
                 school: '华小师',
-                content: '小小张旷还企图超越我？'
+                content: '小小张旷还企图超越我？你可以是310读书王，但计科读书王还得是我'
             },
             {
                 name: '汤鲜柠',

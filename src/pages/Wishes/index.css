@@ -12,21 +12,23 @@
   top: 58%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80vw;
+  width: 85vw;
   height: 41vh;
 }
 .wishpage .wishes .wish-img {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 .wishpage .wishes .wish-img p {
-  width: 52vw;
-  line-height: 3.5vh;
   position: absolute;
   z-index: 10;
   top: 10vh;
   left: 50%;
   transform: translateX(-50%);
+  width: 52vw;
+  line-height: 3.5vh;
   color: white;
 }
 .wishpage .wishes .wish-img .underline {
@@ -34,6 +36,17 @@
   height: 0px;
   border: 1px solid #707070;
   opacity: 1;
+}
+.wishpage .wishes .wish-img .msg {
+  position: absolute;
+  bottom: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  width: 48vw;
+  font-size: 3vh;
+  display: flex;
+  justify-content: space-between;
 }
 .wishpage .wishes .wish-img .ud1 {
   top: 13vh;
@@ -55,7 +68,7 @@
   top: 0;
   background-image: url('images/5.svg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   touch-action: none;
 }
 .wishpage .wishes .img2 {
@@ -66,7 +79,7 @@
   top: 0;
   background-image: url('images/5.svg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 .wishpage .wishes .img3 {
   z-index: 3;
@@ -76,7 +89,7 @@
   top: 0;
   background-image: url('images/5.svg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   left: 10vw;
 }
 .wishpage .wishes .img4 {
@@ -87,19 +100,8 @@
   top: 0;
   background-image: url('images/5.svg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   left: 10vw;
-}
-.wishpage .wishes .msg {
-  position: absolute;
-  color: white;
-  width: 48vw;
-  font-size: 3vh;
-  bottom: 11.5vh;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: space-between;
 }
 .wishpage .checklight {
   position: absolute;
