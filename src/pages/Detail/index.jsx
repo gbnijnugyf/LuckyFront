@@ -81,8 +81,6 @@ function Detail() {
     // Effect里面判断该愿望是自己的还是其他人的愿望 然后拿到愿望的值渲染 这里应该不需要放state的  然后更改状态 通过props传入button组件
     const [wishType, setWishType] = useState(false)
 
-
-
     const handleAlert = (newContent) => {
         //  设置遮罩
         setIsAlert(!isAlert)
@@ -138,5 +136,9 @@ function Detail() {
         </div>
     )
 }
+
+
+
+
 
 export default Detail

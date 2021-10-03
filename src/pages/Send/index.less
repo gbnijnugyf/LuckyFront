@@ -1,32 +1,42 @@
-body{
-    font-family:TsangerShuYuanT\ W02 ;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-.send{
+@font-face {
+    font-family: TsangerShuYuanT\ W02;
+    src: url('../../font/TsangerShuYuanT\ W02.TTF');
+}
+
+body {
+    font-family: TsangerShuYuanT\ W02;
+}
+
+.send {
     position: relative;
     width: 100vw;
     height: 87vh;
 
-    .select-tag{
+    .select-tag {
         position: absolute;
         width: 80vw;
         height: 37vh;
         top: 50%;
         left: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         border-radius: 3vh;
-        background-color: rgb(249,210,146);
+        background-color: rgb(249, 210, 146);
         z-index: 99;
 
-        .tagcontent{
+        .tagcontent {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             width: 80%;
             height: 80%;
 
-            .tag{
+            .tag {
                 position: relative;
                 display: inline-block;
                 height: 30%;
@@ -34,13 +44,13 @@ body{
                 box-sizing: border-box;
                 margin-left: 2vw;
 
-                img{
+                img {
                     display: inline-block;
                     width: 100%;
                     height: 100%;
                 }
 
-                 p{
+                p {
                     position: absolute;
                     top: 35%;
                     left: 23.5%;
@@ -50,10 +60,10 @@ body{
                     font-family: TsangerShuYuanT\ W02;
                     color: white;
                     font-size: 2.5vh;
-                  }
+                }
             }
 
-         
+
 
         }
 
@@ -64,22 +74,22 @@ body{
         top: -13vh;
         height: 100vh;
         width: 100vw;
-        background-color:black;
+        background-color: black;
         opacity: 0.5;
         z-index: 90;
     }
 
-    .content{
+    .content {
         position: relative;
         top: 48%;
         left: 50%;
-        transform: translate(-50%,-50%);
-        width: 70vw;
-        height: 11vh;
+        transform: translate(-50%, -50%);
+        width: 80vw;
+        height: 13.6vh;
         background-image: url('./images/alert.svg');
         background-repeat: no-repeat;
         z-index: 99;
-        background-size: contain;
+        background-size: cover;
         color: #FF7A59;
         font-size: 2.5vh;
         text-align: center;
@@ -87,84 +97,81 @@ body{
         padding-top: 3.5vh;
     }
 
-    .sendbc{
+    .sendbc {
         position: absolute;
         top: 27vh;
         left: 50%;
         transform: translateX(-50%);
         width: 90vw;
         height: 55vh;
-        background-image: url('./images/sendbc.svg') ;
+        background-image: url('./images/sendbc.svg');
         background-repeat: no-repeat;
         background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
 
-        img{
+        img {
             height: 100%;
             width: 100%;
         }
 
-        .input{
-            position: absolute;
-            height: 44%;
-            width: 72%;
-            top: 8vh;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-    
-            .notes {
-                background-image: linear-gradient(to right, rgb(241, 197, 126) 10px, transparent 10px), 
-                linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px), 
+        .notes {
+            background-image: linear-gradient(to right, rgb(241, 197, 126) 10px, transparent 10px),
+                linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
                 linear-gradient(rgb(241, 197, 126) 30px, black 30px, black 31px, white 31px);
-                border: 0px;
-                background-size: 100% 100%, 100% 100%, 100% 31px;
-                line-height: 31px;
-                font-family: TsangerShuYuanT\ W02;
-                width: 100%;
-                height: 100%;
-                background-color: rgb(241, 197, 126);
-                resize:none;
-                color: white;
-                padding: 8px;
-            }
-            
-            .notes:focus {
-                outline: none;
-            }
+            border: 0px;
+            background-size: 100% 100%, 100% 100%, 100% 31px;
+            line-height: 30px;
+            font-family: TsangerShuYuanT\ W02;
+            width: 80%;
+            height: 43%;
+            background-color: rgb(241, 197, 126);
+            resize: none;
+            color: white;
+            padding: 8px;
+            font-size: 1.85vh;
+            margin-top: 8vh;
         }
 
-        .send-msg{
-            position: relative;
-            top: -1.8vh;
+        .notes:focus {
+            outline: none;
+        }
+
+        .send-msg {
+            margin-top: 2vh;
             height: 30%;
-            width: 108%;
+            width: 77%;
             color: white;
 
-            h6{
+            h6 {
                 color: gray;
             }
 
-            .name{
+            .name {
                 margin-bottom: 1.5vh;
-                input{
+
+                input {
                     width: 21.3vw;
                     height: 2vh;
-                    margin-left:5vw;
+                    margin-left: 5vw;
                     border: 0ch;
                     border-radius: 1vh;
                     padding: 1vw;
                     font-family: TsangerShuYuanT\ W02;
                 }
             }
-            .number{
-                p{
+
+            .number {
+                p {
                     display: inline-block;
                     margin-bottom: 1.5vh;
                 }
 
-               
 
-                select{
+
+                select {
                     background-color: white;
                     margin-left: 1vw;
                     border: 0ch;
@@ -173,10 +180,10 @@ body{
                     color: #FF7A59;
                 }
 
-                input{
+                input {
                     width: 24.3vw;
                     height: 2vh;
-                    margin-left:3vw;
+                    margin-left: 3vw;
                     border: 0ch;
                     border-radius: 1vh;
                     padding: 1vw;
@@ -184,48 +191,46 @@ body{
                 }
             }
         }
+
+        .tosend {
+            width: 26.7vw;
+            height: 3.71vh;
+            margin-bottom: 3vh;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
     }
 
-    .ink{
+    .ink {
         position: absolute;
         width: 37.6vw;
         height: 16.75vh;
         top: 16vh;
         z-index: 2;
 
-        img{
+        img {
             width: 100%;
             height: 100%;
         }
     }
 
-    .tosend{
-        position: absolute;
-        top: 76vh;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 26.7vw;
-        height: 3.71vh;
-
-        img{
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    .select{
+    .select {
         position: absolute;
         top: 30vh;
-        right: 20vw;
+        right: 15vw;
         height: 3.7vh;
         width: 26.7vw;
-        border-radius:4vw ;
+        border-radius: 4vw;
         background-color: #fff;
         text-align: center;
         line-height: 3.7vh;
-        color:#FF7A59 ;
+        color: #FF7A59;
+        z-index: 2;
 
-        img{
+        img {
             width: 100%;
             height: 100%;
         }

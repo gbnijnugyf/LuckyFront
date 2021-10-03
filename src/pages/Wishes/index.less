@@ -11,8 +11,61 @@
         top: 58%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 80vw;
+        width: 85vw;
         height: 41vh;
+
+        .wish-img {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                position: absolute;
+                z-index: 10;
+                top: 10vh;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 52vw;
+                line-height: 3.5vh;
+                color: white;
+            }
+
+            .underline {
+                width: 53vw;
+                height: 0px;
+                border: 1px solid #707070;
+                opacity: 1;
+            }
+
+            .msg {
+                position: absolute;
+                bottom: 10vh;
+                left: 50%;
+                transform: translateX(-50%);
+                color: white;
+                width: 48vw;
+                font-size: 3vh;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .ud1 {
+                top: 13vh;
+            }
+
+            .ud2 {
+                top: 16.5vh
+            }
+
+            .ud3 {
+                top: 20vh;
+            }
+
+            .ud4 {
+                top: 23.5vh;
+            }
+        }
 
         .img1 {
             z-index: 5;
@@ -60,58 +113,6 @@
             background-size: cover;
             left: 10vw;
         }
-
-
-        p {
-            width: 52vw;
-            line-height: 3.5vh;
-            position: absolute;
-            z-index: 10;
-            top: 10vh;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-        }
-
-        .underline {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 53vw;
-            height: 0px;
-            border: 1px solid #707070;
-            opacity: 1;
-        }
-
-        .ud1 {
-            top: 13vh;
-        }
-
-        .ud2 {
-            top: 16.5vh
-        }
-
-        .ud3 {
-            top: 20vh;
-        }
-
-        .ud4 {
-            top: 23.5vh;
-        }
-
-
-
-        .msg {
-            position: absolute;
-            color: white;
-            width: 48vw;
-            font-size: 3vh;
-            bottom: 11.5vh;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: space-between;
-        }
     }
 
     .checklight {
@@ -127,11 +128,11 @@
     .tip {
         position: absolute;
         background-image: url('./images/slide.png');
-        width: 43.3vw;
+        width: 35vw;
         height: 4vh;
         right: 0;
         top: 60vh;
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
     }
 
