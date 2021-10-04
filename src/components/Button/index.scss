@@ -1,94 +1,105 @@
-.button{
-    position: absolute;
-    height: 4.4vh;
-    width: 86.4vw;
-    top: 61vh;
-    left: 50%;
+.button {
+    position : absolute;
+    height   : 4.4vh;
+    width    : 86.4vw;
+    top      : 61vh;
+    left     : 50%;
     transform: translateX(-50%);
-    // justify-content: space-between;
-    .myWish{
 
-        height: 100%;
-        width: 100%;
-        display: flex;
+    // justify-content: space-between;
+    .myWish {
+
+        height         : 100%;
+        width          : 100%;
+        display        : flex;
         justify-content: space-between;
 
-        .delete{
-            background-image: url('./images/deleteW.png');
+        .delete {
+            background-image : url('./images/deleteW.png');
             background-repeat: no-repeat;
-            background-size: contain;
-            height: 100%;
-            width: 44.5%;
+            background-size  : contain;
+            height           : 100%;
+            width            : 44.5%;
         }
 
-        .deleted{
-            background-image: url('./images/deleteY.png');
+        .deleted {
+            background-image : url('./images/deleteY.png');
             background-repeat: no-repeat;
-            background-size: contain;
-            height: 100%;
-            width: 44.5%;
-        }
-    
-        .sure-my{
-            background-image: url('./images/sure.png');
-            background-repeat: no-repeat;
-            background-size: contain;
-            height: 100%;
-            width: 44.5%;
+            background-size  : contain;
+            height           : 100%;
+            width            : 44.5%;
         }
 
-        .sured-my{
-            pointer-events: none;
-            background-image: url('./images/sured.png');
+        .sure-my {
+            background-image : url('./images/sure.png');
             background-repeat: no-repeat;
-            background-size: contain;
-            height: 100%;
-            width: 44.5%;
+            background-size  : contain;
+            height           : 100%;
+            width            : 44.5%;
+        }
+
+        .sured-my {
+            pointer-events   : none;
+            background-image : url('./images/sured.png');
+            background-repeat: no-repeat;
+            background-size  : contain;
+            height           : 100%;
+            width            : 44.5%;
         }
 
     }
-    
-    .otherWish{
-        height: 100%;
-        width: 100%;
+
+    .otherWish {
+        height : 100%;
+        width  : 100%;
         display: flex;
 
-        .giveUp{
-            background-image: url('./images/giveUp.png');
+        .giveUp {
+            background-image : url('./images/giveUp.png');
             background-repeat: no-repeat;
-            background-size: contain;
-            height: 100%;
-            width: 44.5%;
+            background-size  : contain;
+            height           : 100%;
+            width            : 44.5%;
         }
 
-        .sure-other{
-            background-image: url('./images/sure.png');
+        .sure-other {
+            background-image : url('./images/sure.png');
             background-repeat: no-repeat;
-            background-size: contain;
-            height: 100%;
-            width: 44.5%;
+            background-size  : contain;
+            height           : 100%;
+            width            : 44.5%;
         }
 
 
-        .sured-other{
-            background-image: url('./images/sured.png');
+        .sured-other {
+            background-image : url('./images/sured.png');
             background-repeat: no-repeat;
-            background-size: contain;
-            height: 100%;
-            width: 44.5%;
+            background-size  : contain;
+            height           : 100%;
+            width            : 44.5%;
         }
-    
+
 
     }
 }
 
+.button-large {
+    font-family  : TsangerShuYuanTW02;
+    border-radius: 0.5em;
+    font-size    : xx-large;
+    padding      : 0.4em 1.5em;
+    margin-top   : 2em;
+    background   : #FEF6E9;
+    color        : #F25125;
+}
 
-.underline{
-    position: absolute;
-    left: 50%;
-    bottom: 19vh;
-    transform: translateX(-50%);
+
+.underline {
+    position        : absolute;
+    left            : 50%;
+    bottom          : 19vh;
+    transform       : translateX(-50%);
     background-color: gray;
-    width: 86.4vw;
-    height: .2vh;
+    width           : 86.4vw;
+    height          : .2vh;
 }

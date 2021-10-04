@@ -37,3 +37,13 @@ export default function Button(props) {
         </div>
     )
 }
+
+
+export function ButtonL(props) {
+
+    return (
+        <div className="button-large" onClick={props.onClick}>
+            {props.text}
+        </div>
+    )
+}
