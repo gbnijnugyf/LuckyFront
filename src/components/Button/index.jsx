@@ -38,12 +38,19 @@ export default function Button(props) {
     )
 }
 
-
 export function ButtonL(props) {
 
     return (
         <div className="button-large" onClick={props.onClick}>
-            {props.text}
+            {props.children}
+        </div>
+    )
+}
+export function ButtonS(props) {
+
+    return (
+        <div className="button-small" onClick={props.onClick} style={{ background: props.background, color: props.textcolor }}>
+            {props.children}
         </div>
     )
 }

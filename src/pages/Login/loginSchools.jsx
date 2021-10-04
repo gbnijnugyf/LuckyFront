@@ -6,7 +6,9 @@ function LoginPannel(props) {
         <div className="login-pannel">
             <p className="text-login-title">{props.text}</p>
             {props.children}
-            <ButtonL onClick={props.onClick} text={props.btnText} />
+            <ButtonL onClick={props.onClick} >
+                {props.btnText}
+            </ButtonL>
         </div>
     )
 }
