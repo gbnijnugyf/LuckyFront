@@ -1,4 +1,5 @@
 import React from 'react'
+import { ButtonS } from '../../components/Button'
 import tagimg from './images/tag.svg'
 import './index.scss'
 
@@ -28,20 +29,24 @@ export default function Home(props) {
     }
 
     return (
-        <div>
+        <div className="panel-home">
             <div className="tags">
                 {
                     tags.map((tag) => {
-                        return (<div onClick={() => goWishes(tag.name)} className="tag" key={tag.name}>
-                            <img src={tagimg} alt="" />
-                            <p>
-                                {tag.name}
-                            </p>
-                        </div>);
+                        return (
+                            <div onClick={() => goWishes(tag.name)}
+                                className="tag" key={tag.name}>
+                                <img src={tagimg} alt="" />
+                                <p>
+                                    {tag.name}
+                                </p>
+                            </div>);
                     })
                 }
-                <div className="send-button" onClick={() => goSend(tags)}>投递我的小幸运</div>
             </div>
+            <ButtonS onClick={() => goSend(tags)} background="#F0EEEA" textcolor="#F25125">
+                投递我的小幸运
+            </ButtonS>
         </div>
     )
 }
