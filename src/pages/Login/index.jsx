@@ -1,5 +1,5 @@
 import birdimg from './images/bird.png'
-import './index.css'
+import './index.scss'
 import { Switch, Route } from 'react-router-dom'
 import { LoginWHUT, LoginCCNU, BindEmail } from './loginSchools.jsx'
 

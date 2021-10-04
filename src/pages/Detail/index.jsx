@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from '../../components/Button'
 
-import './index.css'
+import './index.scss'
 
 const WishDetail = () => {
     return (

@@ -4,7 +4,7 @@ import ink from './images/ink.svg'
 import send from './images/send.png'
 import tagimg from './images/tag.svg'
 
-import './index.css'
+import './index.scss'
 
 const WishInput = (props) => {
 

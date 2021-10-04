@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import menuList from '../../config/menuConfig'
-import './index.css'
+import './index.scss'
 import rulebutton from './images/rulebutton.svg'
 import backbutton from './images/backbutton.svg'
 import logo from './images/logo.svg'

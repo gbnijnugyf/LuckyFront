@@ -1,5 +1,5 @@
 import leafimg from "./images/5.svg"
-import './index.css'
+import './index.scss'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { Switch, Route } from 'react-router-dom'
 import WishItemimg from "./images/WishItem.png"

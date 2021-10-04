@@ -1,4 +1,4 @@
-import './loginSchools.css'
+import './loginSchools.scss'
 import nextbtn from './images/button.png'
 import okbtn from './images/okbutton.png'
 

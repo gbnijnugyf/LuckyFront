@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import './index.css'
+import './index.scss'
 
 const Wish = (props) => {
     // 三张img

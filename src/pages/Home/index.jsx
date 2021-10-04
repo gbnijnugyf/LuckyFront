@@ -1,6 +1,6 @@
 import React from 'react'
 import tagimg from './images/tag.svg'
-import './index.css'
+import './index.scss'
 
 
 
