@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "TsangerShuYuanTW02";
+    src        : url("./static/font/TsangerShuYuanT W02.TTF");
+}
+
+@font-face {
+    font-family: "TsangerXWZ";
+    src        : url("./static/font/TsangerXWZ.TTF");
+}
+
+@font-face {
+    font-family: "PingFangSC";
+    src        : url("./static/font/苹方-简.ttf");
+}
+
+* {
+    padding: 0;
+    margin : 0;
+}
+
+.app {
+    height   : 100vh;
+    max-width: 667px;
+    margin   : auto;
+    overflow : hidden;
+}
+
+p {
+    font-family: PingFangSC;
+}

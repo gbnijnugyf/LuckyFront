@@ -1,0 +1,283 @@
+
+
+
+.wishpage {
+    width: 100vw;
+    height: 87vh;
+    overflow: hidden;
+
+    .wishes {
+        position: relative;
+        top: 58%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 85vw;
+        height: 41vh;
+
+        .wish-img {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                position: absolute;
+                z-index: 10;
+                top: 10vh;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 52vw;
+                line-height: 3.5vh;
+                color: white;
+            }
+
+            .underline {
+                width: 53vw;
+                height: 0px;
+                border: 1px solid #707070;
+                opacity: 1;
+            }
+
+            .msg {
+                position: absolute;
+                bottom: 10vh;
+                left: 50%;
+                transform: translateX(-50%);
+                color: white;
+                width: 48vw;
+                font-size: 3vh;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .ud1 {
+                top: 13vh;
+            }
+
+            .ud2 {
+                top: 16.5vh
+            }
+
+            .ud3 {
+                top: 20vh;
+            }
+
+            .ud4 {
+                top: 23.5vh;
+            }
+        }
+
+        .img1 {
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            background-image: url('./images/5.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            touch-action: none;
+        }
+
+        .img2 {
+            z-index: 4;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            background-image: url('./images/5.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .img3 {
+            z-index: 3;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            background-image: url('./images/5.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            left: 10vw;
+        }
+
+        .img4 {
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            background-image: url('./images/5.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            left: 10vw;
+        }
+    }
+
+    .checklight {
+        position: absolute;
+        top: 36vh;
+        width: 44.3vw;
+        height: 6.9vh;
+        background-image: url('./images/look.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .tip {
+        position: absolute;
+        background-image: url('./images/slide.png');
+        width: 35vw;
+        height: 4vh;
+        right: 0;
+        top: 60vh;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .tolight {
+        position: absolute;
+        width: 48vw;
+        height: 4.5vh;
+        bottom: 8vh;
+        left: 50%;
+        transform: translateX(-50%);
+        background-image: url('./images/send.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .cover {
+        height: 100vh;
+        width: 100vw;
+        position: absolute;
+        z-index: 11;
+        background-color: black;
+        opacity: 0.5;
+        top: 0;
+    }
+
+    .input-msg {
+        position: absolute;
+        z-index: 12;
+        width: 80vw;
+        height: 30vh;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgb(251, 209, 146);
+        border-radius: 3vh;
+        box-sizing: border-box;
+
+        .h3 {
+            margin-top: 3vh;
+            color: rgb(239, 96, 63);
+            text-align: center;
+            font-size: 2.2vh;
+        }
+
+        .form {
+            height: 80%;
+            width: 80%;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2vh;
+
+            .name {
+                margin-bottom: 1vh;
+
+                input {
+                    width: 25vw;
+                    height: 3vh;
+                    border: 0px;
+                    border-radius: 1vh;
+                    padding: 1vw;
+                    box-sizing: border-box;
+                    margin-left: 7vw;
+                }
+            }
+
+            .number {
+                input {
+                    width: 25vw;
+                    height: 3vh;
+                    border: 0px;
+                    border-radius: 1vh;
+                    padding: 1vw;
+                    box-sizing: border-box;
+                    margin-left: 2vw;
+                }
+            }
+
+
+
+            select {
+                margin-left: 4vw;
+                height: 3vh;
+                border: 0;
+                border-radius: 1vh;
+            }
+
+            .send {
+                position: relative;
+                margin-top: 2vh;
+                height: 5vh;
+                width: 25vw;
+                left: 50%;
+                transform: translateX(-50%);
+                background-image: url('./images/over.png');
+                background-repeat: no-repeat;
+                background-size: contain;
+
+            }
+        }
+    }
+
+    .alert {
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+        background-color: rgb(251, 209, 146);
+        width: 80vw;
+        height: 25vh;
+        border-radius: 3vh;
+
+        .text {
+            font-family: TsangerShuYuanT\ W02;
+            text-align: center;
+            line-height: 18vh;
+            height: 18vh;
+            font-size: 5.5vw;
+            color: #FF7A59;
+        }
+
+        .sure {
+            height: 7vh;
+            width: 50%;
+            display: inline-block;
+            background-color: white;
+            text-align: center;
+            line-height: 7vh;
+            font-size: 5vw;
+
+        }
+
+        .cancel {
+            height: 7vh;
+            width: 50%;
+            display: inline-block;
+            background-color: rgb(255, 121, 89);
+            line-height: 7vh;
+            text-align: center;
+            font-size: 5vw;
+        }
+    }
+
+}
