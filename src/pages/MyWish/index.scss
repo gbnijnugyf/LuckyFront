@@ -1,34 +1,33 @@
-
-
 .div-leaf-empty {
-    position: absolute;
-    top: 39vh;
-    width: 100vw;
+    position      : relative;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    margin        : 0 10vw;
+
+    .text-empty {
+        margin-top         : 28vh;
+        padding            : 5em 3em;
+        font-size          : x-large;
+        font-family        : TsangerShuYuanTW02;
+        color              : white;
+        background         : url("../../static/images/leaf.svg");
+        background-size    : contain;
+        background-repeat  : no-repeat;
+        background-position: center;
+        text-align         : left;
+    }
+
+
 }
 
 .div-wishlist {
-    position: absolute;
+    position  : absolute;
     margin-top: 40vh;
-    width: 100vw;
+    width     : 100vw;
 }
 
-.text-empty {
-    font-family: TsangerShuYuanTW02;
-    position: absolute;
-    text-align: left;
-    font-size: 5.5vw;
-    top: 30%;
-    left: 28%;
-    color: white;
-}
 
-.btn-sendwish {
-    width: 48vw;
-    height: 4.53vh;
-    background: url("images/SendWish.png");
-    background-size: 48vw 4.53vh;
-    border-style: none;
-}
 
 .item-wish {
     margin: 0;
@@ -36,38 +35,38 @@
 
 .img-wishitem {
     position: relative;
-    left: 2%;
-    width: 96%;
-    height: 12.32%;
+    left    : 2%;
+    width   : 96%;
+    height  : 12.32%;
 }
 
 .text-detail {
-    position: absolute;
-    top: 30%;
-    left: 11.11%;
-    right: 11.11%;
-    overflow: hidden;
+    position     : absolute;
+    top          : 30%;
+    left         : 11.11%;
+    right        : 11.11%;
+    overflow     : hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    color: white;
+    white-space  : nowrap;
+    color        : white;
 }
 
 .img-status {
     position: absolute;
-    width: 17.06vw;
-    left: 13%;
-    top: 57%;
+    width   : 17.06vw;
+    left    : 13%;
+    top     : 57%;
 }
 
 .text-wishtime {
-    color: #666666;
-    font-size: 3.73vw;
+    color      : #666666;
+    font-size  : 3.73vw;
     font-family: PingFangSC;
-    position: absolute;
-    right: 12.53vw;
-    left: auto;
-    top: 58%;
-    text-align: right;
+    position   : absolute;
+    right      : 12.53vw;
+    left       : auto;
+    top        : 58%;
+    text-align : right;
 }
 
 .div-listbottom {
@@ -75,22 +74,22 @@
 }
 
 .div-wishlist .div-listbottom p {
-    font-size: 4.8vw;
+    font-size    : 4.8vw;
     margin-bottom: 1.5vh;
-    margin-top: 1.5vh;
-    text-align: center;
-    color: #ff7a59;
+    margin-top   : 1.5vh;
+    text-align   : center;
+    color        : #ff7a59;
 }
 
 .div-wishlist .div-listbottom hr {
     background-color: #ff7a59;
-    margin: 0 10vw 0 10vw;
+    margin          : 0 10vw 0 10vw;
 }
 
 .div-wishlist-toppadding {
-    position: fixed;
-    width: 100%;
-    height: 42vh;
-    z-index: 501;
+    position        : fixed;
+    width           : 100%;
+    height          : 42vh;
+    z-index         : 501;
     background-color: #f9d291;
 }
