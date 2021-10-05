@@ -131,12 +131,12 @@ function Detail() {
                 <div className="cancel" onClick={() => handleAlert(0)}>取消</div>
             </div>
             <div className="panel-button">
-                <ButtonS onClick={() => confirmSure('确认放弃这个愿望吗?')}
-                    style={{ background: "#FFFFFF", textcolor: "#F25125", width: "6em" }}>
+                <ButtonS onClick={() => { handleAlert('确认放弃这个愿望吗?') }}
+                    style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}>
                     删除这个心愿
                 </ButtonS>
-                <ButtonS onClick={() => confirmSure(`确认已经实现这个愿望了嘛?\n若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望`)}
-                    style={{ background: "#FF7A59", textcolor: "#FFFFFF", width: "6em", "margin-left": "2em" }}>
+                <ButtonS onClick={() => { handleAlert(`确认已经实现这个愿望了嘛?\n若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望`) }}
+                    style={{ background: "#FF7A59", color: "#FFFFFF", width: "6em", marginLeft: "2em" }}>
                     确认实现
                 </ButtonS>
             </div>
