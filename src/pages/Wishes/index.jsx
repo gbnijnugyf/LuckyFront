@@ -268,19 +268,20 @@ export default function Wishes(props) {
                         <input type="text" placeholder='选填内容哦～' style={{ marginLeft: '9vw' }} />
                     </div>
                 </div>
-                <ButtonS onClick={handleSend} style={{ background: "white", "color": "#f25125", fontSize: "medium", margin:"1em 0 0 0",}}>
+                <ButtonS onClick={handleSend} style={{ background: "white", "color": "#f25125", fontSize: "medium", margin: "1em 0 0 0", }}>
                     <img src={paperplane} alt="" style={{ "padding-bottom": "0.2em" }} /> 完成
                 </ButtonS>
             </div>
             <ButtonS style={{
                 background: "#F59D65",
                 color: "white",
-                "margin-top": "9em",
-                "align-self": "flex-start",
-                "padding": "0.4em 0.7em",
-                "font-size": "medium"
+                marginTop: "13em",
+                alignSelf: "flex-start",
+                padding: "0.4em 0.7em",
+                fontSize: "medium"
             }}>
-                <img style={{ transform: "scale(3) translate(2%, 12%)" }} src={calendar} alt="" /> 查看我的点亮
+                <img style={{ transform: "scale(3) translate(2%, 12%)" }} src={calendar} alt="" />
+                查看我的点亮
             </ButtonS>
             <Wish handleTouchStart={handleTouchStart}
                 handleTouchMove={handleTouchMove}
@@ -290,7 +291,9 @@ export default function Wishes(props) {
                 wish={wish}
                 opacity={opacity} />
             <div className="tip"></div>
-            <ButtonS onClick={handleAlert} style={{ background: "white", color: "#F59D65", "margin-top": "1.5em" }}>点亮TA的小幸运</ButtonS>
+            <ButtonS onClick={handleAlert} style={{ background: "white", color: "#F59D65", "margin-top": "1.5em" }}>
+                点亮TA的小幸运
+            </ButtonS>
             <div className="tolight" onTouchStart={handleAlert}></div>
         </div>
     )
