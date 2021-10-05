@@ -44,7 +44,7 @@ export default function Home(props) {
                     })
                 }
             </div>
-            <ButtonS onClick={() => goSend(tags)} style={{ background: "##FFFFFF", textcolor: "#F25125" }}>
+            <ButtonS onClick={() => goSend(tags)} style={{ background: "#FFFFFF", color: "#F25125" }}>
                 投递我的小幸运
             </ButtonS>
         </div>
