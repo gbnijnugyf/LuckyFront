@@ -1,0 +1,229 @@
+.wishpage {
+    height        : 100%;
+    overflow      : hidden;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+
+    .wishes {
+        position: relative;
+        width   : 85vw;
+        height  : 41vh;
+
+        .wish-img {
+            display        : flex;
+            flex-direction : column;
+            justify-content: space-between;
+            align-items    : center;
+
+            p {
+                position   : absolute;
+                z-index    : 10;
+                top        : 10vh;
+                left       : 50%;
+                transform  : translateX(-50%);
+                width      : 52vw;
+                line-height: 3.5vh;
+                color      : white;
+            }
+
+            .underline {
+                width  : 53vw;
+                height : 0px;
+                border : 1px solid #707070;
+                opacity: 1;
+            }
+
+            .msg {
+                position       : absolute;
+                bottom         : 10vh;
+                left           : 50%;
+                transform      : translateX(-50%);
+                color          : white;
+                width          : 48vw;
+                font-size      : 3vh;
+                display        : flex;
+                justify-content: space-between;
+            }
+
+            .ud1 {
+                top: 13vh;
+            }
+
+            .ud2 {
+                top: 16.5vh
+            }
+
+            .ud3 {
+                top: 20vh;
+            }
+
+            .ud4 {
+                top: 23.5vh;
+            }
+        }
+
+        .img1 {
+            z-index          : 5;
+            width            : 100%;
+            height           : 100%;
+            position         : absolute;
+            top              : 0;
+            background-image : url('../../static/images/leaf.svg');
+            background-repeat: no-repeat;
+            background-size  : cover;
+            touch-action     : none;
+        }
+
+        .img2 {
+            z-index          : 4;
+            width            : 100%;
+            height           : 100%;
+            position         : absolute;
+            top              : 0;
+            background-image : url('../../static/images/leaf.svg');
+            background-repeat: no-repeat;
+            background-size  : cover;
+        }
+
+        .img3 {
+            z-index          : 3;
+            width            : 100%;
+            height           : 100%;
+            position         : absolute;
+            top              : 0;
+            background-image : url('../../static/images/leaf.svg');
+            background-repeat: no-repeat;
+            background-size  : cover;
+            left             : 10vw;
+        }
+
+        .img4 {
+            z-index          : 2;
+            width            : 100%;
+            height           : 100%;
+            position         : absolute;
+            top              : 0;
+            background-image : url('../../static/images/leaf.svg');
+            background-repeat: no-repeat;
+            background-size  : cover;
+            left             : 10vw;
+        }
+    }
+
+
+    .tip {
+        position         : absolute;
+        background-image : url('./images/slide.png');
+        width            : 35vw;
+        height           : 4vh;
+        right            : 0;
+        top              : 60vh;
+        background-size  : contain;
+        background-repeat: no-repeat;
+        z-index          : 401;
+    }
+
+
+    .cover {
+        height          : 100vh;
+        width           : 100vw;
+        position        : absolute;
+        z-index         : 600;
+        background-color: black;
+        opacity         : 0.5;
+        top             : 0;
+    }
+
+    .input-msg {
+        position        : absolute;
+        z-index         : 601;
+        width           : 80vw;
+        height          : 28vh;
+        top             : 50%;
+        left            : 50%;
+        transform       : translate(-50%, -50%);
+        background-color: rgb(251, 209, 146);
+        border-radius   : 3vh;
+        box-sizing      : border-box;
+        flex-direction  : column;
+        align-items     : center;
+
+        .h3 {
+            margin-top: 3vh;
+            color     : rgb(239, 96, 63);
+            text-align: center;
+            font-size : 2.2vh;
+        }
+
+        .form {
+            margin         : 1em 0 0;
+            position       : relative;
+            color          : white;
+            font-size      : small;
+            display        : flex;
+            flex-direction : column;
+            align-items    : center;
+            justify-content: space-between;
+            height         : 5em;
+
+            input {
+                font-family  : TsangerShuYuanTW02;
+                font-size    : small;
+                border-radius: 0.3em;
+                border       : none;
+            }
+
+            select {
+                margin-left  : 4vw;
+                border       : none;
+                border-radius: 1vh;
+            }
+
+        }
+    }
+
+    .alert {
+        position        : absolute;
+        overflow        : hidden;
+        top             : 50%;
+        left            : 50%;
+        transform       : translate(-50%, -50%);
+        z-index         : 601;
+        background-color: rgb(251, 209, 146);
+        width           : 80vw;
+        height          : 25vh;
+        border-radius   : 3vh;
+
+        .text {
+            font-family: TsangerShuYuanTW02;
+            text-align : center;
+            line-height: 18vh;
+            height     : 18vh;
+            font-size  : 5.5vw;
+            color      : #FF7A59;
+        }
+
+        .sure {
+            height          : 7vh;
+            width           : 50%;
+            display         : inline-block;
+            background-color: white;
+            text-align      : center;
+            line-height     : 7vh;
+            font-size       : 5vw;
+
+        }
+
+        .cancel {
+            height          : 7vh;
+            width           : 50%;
+            display         : inline-block;
+            background-color: rgb(255, 121, 89);
+            line-height     : 7vh;
+            text-align      : center;
+            font-size       : 5vw;
+        }
+    }
+
+}

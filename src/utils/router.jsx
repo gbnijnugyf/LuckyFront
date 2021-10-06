@@ -11,7 +11,7 @@ import MyWish from '../pages/MyWish'
 
 export default function Router() {
     // TODO: add login logical
-    let isLogin = false;
+    let isLogin = true;
     return (
         <>
             {isLogin ? <Header></Header> : null}

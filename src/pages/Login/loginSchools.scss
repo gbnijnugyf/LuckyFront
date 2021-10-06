@@ -21,19 +21,11 @@ label {
     display    : inline-block;
     text-align : right;
     font-size  : x-large;
-    font-family: PingFang SC;
+    font-family: PingFangSC;
     color      : white;
 }
 
-input {
-    width        : 42.7vw;
-    height       : 4.43vh;
-    border-radius: 2.13vw;
-    border       : 0;
-    text-align   : center;
-    font-family  : PingFang SC;
-    font-size    : 4.8vw;
-}
+
 
 .login-pannel {
     width          : 100%;
@@ -68,6 +60,16 @@ input {
     border-radius   : 1.5em;
     padding         : 1em 1.5em;
     max-width       : 90%;
+
+    input {
+        width        : 42.7vw;
+        height       : 4.43vh;
+        border-radius: 2.13vw;
+        border       : 0;
+        text-align   : center;
+        font-family  : PingFangSC;
+        font-size    : 4.8vw;
+    }
 }
 
 .input-email {

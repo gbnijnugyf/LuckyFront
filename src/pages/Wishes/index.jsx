@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { ButtonS } from '../../components/Button'
+import calendar from '../../static/images/calendar.svg'
+import paperplane from '../../static/images/paperplane.svg'
 
-import './index.css'
+import './index.scss'
 
 const Wish = (props) => {
     // 三张img
@@ -245,22 +248,41 @@ export default function Wishes(props) {
                 </div>
                 <div className="sure" onClick={handleLight}>确认</div>
                 <div className="cancel" onClick={handleAlert}>取消</div></div></div>
-            <div className="input-msg" style={{ display: appear.input ? 'block' : 'none' }}>
+            <div className="input-msg" style={{ display: appear.input ? 'flex' : 'none' }}>
                 <p className='h3'>填写联系方式，方便他来联系你哦～</p>
                 <div className="form">
-                    <div className="name">投递人  : <input type="text" placeholder='必填内容哦～' onChange={handleName} value={name} /></div>
-                    <div className="number"><p style={{ display: 'inline-block' }}>联系方式  :</p>
-                        <select style={{ color: 'rgb(239, 96, 63)', marginBottom: '1vh' }}>
+                    <div className="name">
+                        投递人 :
+                        <input type="text" placeholder='必填内容哦～' onChange={handleName} value={name} style={{ marginLeft: "2em" }} />
+                    </div>
+                    <div className="number">
+                        联系方式 :
+                        <select style={{ color: 'rgb(239, 96, 63)' }}>
                             <option value="QQ">QQ</option>
                             <option value="WeChat">微信</option>
                         </select>
-                        <input type="text" placeholder='必填内容哦～' onChange={handleNumber} value={number} />
-                        <br />
-                        <p style={{ display: 'inline-block' }}>或 Tel  : </p><input type="text" placeholder='选填内容哦～' style={{ marginLeft: '9vw' }} />
+                        <input type="text" placeholder='必填内容哦～' onChange={handleNumber} value={number} style={{ marginLeft: ".3em", width: "5.6em" }} />
                     </div>
-                    <div className="send" onTouchStart={handleSend}></div>
+                    <div className="tel">
+                        或 Tel :
+                        <input type="text" placeholder='选填内容哦～' style={{ marginLeft: '9vw' }} />
+                    </div>
                 </div>
+                <ButtonS onClick={handleSend} style={{ background: "white", "color": "#f25125", fontSize: "medium", margin: "1em 0 0 0", }}>
+                    <img src={paperplane} alt="" style={{ "padding-bottom": "0.2em" }} /> 完成
+                </ButtonS>
             </div>
+            <ButtonS style={{
+                background: "#F59D65",
+                color: "white",
+                marginTop: "13em",
+                alignSelf: "flex-start",
+                padding: "0.4em 0.7em",
+                fontSize: "medium"
+            }}>
+                <img style={{ transform: "scale(3) translate(2%, 12%)" }} src={calendar} alt="" />
+                查看我的点亮
+            </ButtonS>
             <Wish handleTouchStart={handleTouchStart}
                 handleTouchMove={handleTouchMove}
                 handleTouchEnd={handleTouchEnd}
@@ -268,8 +290,10 @@ export default function Wishes(props) {
                 update={update}
                 wish={wish}
                 opacity={opacity} />
-            <div className="checklight"></div>
             <div className="tip"></div>
+            <ButtonS onClick={handleAlert} style={{ background: "white", color: "#F59D65", "margin-top": "1.5em" }}>
+                点亮TA的小幸运
+            </ButtonS>
             <div className="tolight" onTouchStart={handleAlert}></div>
         </div>
     )

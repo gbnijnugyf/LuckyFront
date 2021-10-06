@@ -1,13 +1,14 @@
-import './loginSchools.css'
-import nextbtn from './images/button.png'
-import okbtn from './images/okbutton.png'
+import './loginSchools.scss'
+import { ButtonL } from '../../components/Button'
 
 function LoginPannel(props) {
     return (
         <div className="login-pannel">
             <p className="text-login-title">{props.text}</p>
             {props.children}
-            <img className="btn-next" src={props.btnImage} alt="" onClick={props.onClick}></img>
+            <ButtonL onClick={props.onClick} >
+                {props.btnText}
+            </ButtonL>
         </div>
     )
 }
@@ -19,7 +20,7 @@ export function LoginWHUT(props) {
     }
 
     return (
-        <LoginPannel text="我是武小理" onClick={goVerify} btnImage={nextbtn}>
+        <LoginPannel text="我是武小理" onClick={goVerify} btnText="下一步">
             <form className="panel-login">
                 <ul>
                     <li>
@@ -43,7 +44,7 @@ export function LoginCCNU(props) {
         props.history.push("/login/bindemail")
     }
     return (
-        <LoginPannel text="我是华小师" onClick={goVerify} btnImage={nextbtn}>
+        <LoginPannel text="我是华小师" onClick={goVerify} btnText="下一步">
             <form className="panel-login">
                 <ul>
                     <li>
@@ -66,7 +67,7 @@ export function BindEmail(props) {
     }
 
     return (
-        <LoginPannel text="邮箱绑定" onClick={goBind} btnImage={okbtn}>
+        <LoginPannel text="邮箱绑定" onClick={goBind} btnText="完成">
             <form className="panel-login">
                 <p className="tip-email">填写邮箱地址，可以及时<br />
                     查收愿望状态哦~</p>

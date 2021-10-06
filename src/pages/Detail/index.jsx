@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Button from '../../components/Button'
+import { ButtonS } from '../../components/Button'
 
-import './index.css'
+import './index.scss'
 
 const WishDetail = () => {
     return (
@@ -78,9 +78,6 @@ function Detail() {
     const [isSure, setIsSure] = useState(false) // 设置愿望状态
     const [borad, setBorad] = useState(false) //设置留言板
 
-    // Effect里面判断该愿望是自己的还是其他人的愿望 然后拿到愿望的值渲染 这里应该不需要放state的  然后更改状态 通过props传入button组件
-    const [wishType, setWishType] = useState(false)
-
     const handleAlert = (newContent) => {
         //  设置遮罩
         setIsAlert(!isAlert)
@@ -111,6 +108,7 @@ function Detail() {
             case '确认要删除这个愿望':
                 break;
 
+
             case '确认愿望已经实现了吗':
                 break
             default:
@@ -118,7 +116,7 @@ function Detail() {
     }
 
 
-
+    // TODO 按钮事件有问题
     return (
         <div className='Detail'>
             <WishDetail />
@@ -130,10 +128,21 @@ function Detail() {
                     <span>{content.text}</span>
                 </div>
                 <div className="sure" onClick={() => handleAlert(1)}>确认</div>
-                <div className="cancel" onClick={() => handleAlert(0)}>取消</div></div>
-            <Button handleAlert={handleAlert} isSure={isSure} wishType={wishType} />
+                <div className="cancel" onClick={() => handleAlert(0)}>取消</div>
+            </div>
+            <div className="panel-button">
+                <ButtonS onClick={() => { handleAlert('确认放弃这个愿望吗?') }}
+                    style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}>
+                    删除这个心愿
+                </ButtonS>
+                <ButtonS onClick={() => { handleAlert(`确认已经实现这个愿望了嘛?\n若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望`) }}
+                    style={{ background: "#FF7A59", color: "#FFFFFF", width: "6em", marginLeft: "2em" }}>
+                    确认实现
+                </ButtonS>
+            </div>
+            <hr />
             <PersonMsg />
-        </div>
+        </div >
     )
 }
 

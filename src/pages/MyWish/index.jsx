@@ -1,11 +1,11 @@
-import leafimg from "./images/5.svg"
-import './index.css'
+import './index.scss'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { Switch, Route } from 'react-router-dom'
 import WishItemimg from "./images/WishItem.png"
 import Trueimg from "./images/Yes.png"
 import NotTrueimg from "./images/Not.png"
 import React, { useState } from 'react'
+import { ButtonS } from '../../components/Button'
 
 export default function MyWish(props) {
 
@@ -15,7 +15,7 @@ export default function MyWish(props) {
                 <Route path="/mywish/empty" component={Empty} />
                 <Route path="/mywish/list" component={MyWishList} />
                 <Route path="/mywish/detail" component={MyWishDetail} />
-                <Redirect to="/mywish/empty"></Redirect>
+                <Redirect to="/mywish/empty" />
             </Switch>
         </div >
     )
@@ -30,7 +30,6 @@ export function Empty(props) {
 
     return (
         <div className="div-leaf-empty" align="center">
-            <img className="img-leaf" src={leafimg} alt="" />
             <div className="text-empty">
                 空空如也~
                 <br />
@@ -40,7 +39,9 @@ export function Empty(props) {
                 <br />
                 万一就实现了呢~
             </div>
-            <button className="btn-sendwish" onClick={goSendWish}></button>
+            <ButtonS onClick={goSendWish} style={{ background: "white", color: "#F25125", "font-size": "x-large" }}>
+                投递我的小幸运
+            </ButtonS>
         </div>
     )
 
@@ -174,13 +175,17 @@ function Button(props) {
     const handleSure = (content) => {
         props.handleAlert(content)
     }
+    const goDeleteWish = () => {
 
+    }
 
     return (
         <div>
             <div className="button">
                 <div className="otherWish" style={{ justifyContent: 'center' }}>
-                    <div className="btn-deletewish" onClick={() => handleSure('确认删除这个愿望吗？')}>删除这个心愿</div>
+                    <ButtonS onClick={goDeleteWish} style={{ background: "white", color: "#F25125", "font-size": "x-large" }}>
+                        删除这个心愿
+                    </ButtonS>
                 </div>
             </div>
         </div>
