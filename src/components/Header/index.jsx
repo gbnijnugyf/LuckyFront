@@ -33,7 +33,7 @@ function Header(props) {
     return (
         <div className="header">
             <div className='comp-header'>
-                <img className="back-button" src={backbutton} style={{ display: title === '标签页' ? 'none' : 'block' }} onClick={handleBack} />
+                <img className="back-button" src={backbutton} style={{ opacity: title === '标签页' ? 0 : 1 }} onClick={title === '标签页' ? null : handleBack} />
                 <p className="comp-header-text">{title}</p>
                 <img className="rule-button" src={rulebutton} onClick={handleShow} alt="" />
                 <img className="logo" src={logo} alt='' />
