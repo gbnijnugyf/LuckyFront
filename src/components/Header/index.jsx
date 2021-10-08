@@ -33,10 +33,10 @@ function Header(props) {
     return (
         <div className="header">
             <div className='comp-header'>
-                <div className="back-button" style={{ display: title === '标签页' ? 'none' : 'block' }} onClick={handleBack}><img src={backbutton} alt="" /></div>
+                <img className="back-button" src={backbutton} style={{ display: title === '标签页' ? 'none' : 'block' }} onClick={handleBack} />
                 <p className="comp-header-text">{title}</p>
                 <img className="rule-button" src={rulebutton} onClick={handleShow} alt="" />
-                <div className="logo"><img src={logo} alt=''></img></div>
+                <img className="logo" src={logo} alt='' />
                 <div className="rule-alert" style={{ display: isShow ? 'block' : 'none' }}>
                     <div className='rule-text'>
                         1.这次活动男生女生都可以许愿哦~<p>你一共有5次许愿的机会</p>，快来遇见你的小幸运吧~
@@ -59,7 +59,7 @@ function Header(props) {
                 </div>
                 <div className="cover" style={{ display: isShow ? 'block' : 'none' }} ></div>
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -11,46 +11,40 @@
         position        : fixed;
         z-index         : 501;
         display         : flex;
+        justify-content : space-between;
         align-items     : center;
         height          : $HeaderHeight;
-        width           : $AppMaxWidth;
+        width           : 100%;
+        max-width       : $AppMaxWidth;
         background-color: rgb(246, 157, 101);
 
         box-shadow: 0px 3px 5px #888888;
 
-
         .comp-header-text {
             position   : relative;
             display    : block;
-            font-family: TsangerShuYuanTW02;
+            font-family: TsangerXWZ;
             text-align : center;
         }
 
         .rule-button {
-            position: absolute;
-            right   : 5vw;
-            bottom  : 2vh;
+            position    : relative;
+            width       : 1.2em;
+            margin-right: 5%;
         }
 
         .back-button {
-            position: absolute;
-            left    : 5vw;
-            bottom  : 2.8vh;
+            position   : relative;
+            width      : 0.7em;
+            margin-left: 5%;
         }
 
         .logo {
-            position: absolute;
-            top     : $HeaderHeight;
-            width   : 100vw;
-            height  : 25.7vh;
+            position  : absolute;
+            top       : $HeaderHeight;
+            width     : 100%;
+            max-height: 7em;
         }
-
-        .logo img {
-            height: 100%;
-            width : 100%;
-        }
-
-
 
         .rule-alert {
             box-sizing      : border-box;
