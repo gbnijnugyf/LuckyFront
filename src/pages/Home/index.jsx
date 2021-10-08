@@ -34,19 +34,15 @@ export default function Home(props) {
                 {
                     tags.map((tag) => {
                         return (
-                            <div onClick={() => goWishes(tag.name)}
-                                className="tag" key={tag.name}>
-                                <img src={tagimg} alt="" />
-                                <p>
-                                    {tag.name}
-                                </p>
+                            <div onClick={() => goWishes(tag.name)} className="tag" key={tag.name}>
+                                {tag.name}
                             </div>);
                     })
                 }
             </div>
-            <ButtonS onClick={() => goSend(tags)} style={{ background: "#FFFFFF", color: "#F25125" }}>
+            <ButtonS onClick={() => goSend(tags)} style={{ background: "#FFFFFF", color: "#F25125", fontSize: "x-large", marginTop: "1em" }}>
                 投递我的小幸运
             </ButtonS>
-        </div>
+        </div >
     )
 }
