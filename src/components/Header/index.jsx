@@ -29,13 +29,13 @@ function Header(props) {
     }
 
     let title = getTitle()
-    
+
     return (
-        <div style={{ height: '13vh' }}>
+        <div className="header">
             <div className='comp-header'>
-                <div className="comp-header-text" style={{ fontSize: title.length > 5 ? '7vw' : '10vw' }}><p>{title}</p></div>
-                <div className="rule-button" onClick={handleShow}><img src={rulebutton} alt="" /></div>
                 <div className="back-button" style={{ display: title === '标签页' ? 'none' : 'block' }} onClick={handleBack}><img src={backbutton} alt="" /></div>
+                <p className="comp-header-text">{title}</p>
+                <img className="rule-button" src={rulebutton} onClick={handleShow} alt="" />
                 <div className="logo"><img src={logo} alt=''></img></div>
                 <div className="rule-alert" style={{ display: isShow ? 'block' : 'none' }}>
                     <div className='rule-text'>
@@ -58,8 +58,8 @@ function Header(props) {
                     <div className="close" onClick={handleShow}>我知道了</div>
                 </div>
                 <div className="cover" style={{ display: isShow ? 'block' : 'none' }} ></div>
-            </div >
-        </div >
+            </div>
+        </div>
     )
 }
 
