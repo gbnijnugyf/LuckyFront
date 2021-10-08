@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom'
 
 import menuList from '../../config/menuConfig'
 import './index.scss'
-import rulebutton from './images/rulebutton.svg'
-import backbutton from './images/backbutton.svg'
-import logo from './images/logo.svg'
+import rulebutton from '../../static/images/rulebutton.svg'
+import backbutton from '../../static/images/backbutton.svg'
+import logo from '../../static/images/logo.svg'
 
 function Header(props) {
     const [isShow, setIsShow] = useState(false)
