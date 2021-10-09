@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import Service from '../../common/service'
+
 import './loginSchools.scss'
 import { ButtonL } from '../../components/Button'
 
@@ -39,8 +42,22 @@ export function LoginWHUT(props) {
 }
 
 export function LoginCCNU(props) {
+    const [ccnuId, setCcnuId] = useState('')
+    const [ccnuPwd, setCcnuPwd] = useState('')
 
+    const handleCcnuId = (e) => {
+        setCcnuId(e.target.value)
+    }
+
+    const handleCcnuPwd = (e) => {
+        setCcnuPwd(e.target.value)
+    }
     const goVerify = () => {
+        Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
+            if (res.status === 0) localStorage.setItem('token', res.data)
+            //else
+            //弹出密码错误    
+        })
         props.history.push("/login/bindemail")
     }
     return (
@@ -49,11 +66,11 @@ export function LoginCCNU(props) {
                 <ul>
                     <li>
                         <label>学号：</label>
-                        <input></input>
+                        <input value={ccnuId} onChange={handleCcnuId}></input>
                     </li>
                     <li>
                         <label>密码：</label>
-                        <input type="password"></input>
+                        <input type="password" value={ccnuPwd} onChange={handleCcnuPwd}></input>
                     </li>
                 </ul>
             </form>

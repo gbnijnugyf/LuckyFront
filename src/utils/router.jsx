@@ -1,5 +1,5 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Switch, Route, withRouter } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
@@ -9,9 +9,18 @@ import Wishes from '../pages/Wishes'
 import Header from '../components/Header'
 import MyWish from '../pages/MyWish'
 
-export default function Router() {
+function Router(props) {
+
+    const [isLogin, setIsLogin] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) {
+            setIsLogin(true)
+            props.history.push("/home")
+        }
+    }, [props.history])
     // TODO: add login logical
-    let isLogin = false;
     return (
         <>
             {isLogin ? <Header></Header> : null}
@@ -28,3 +37,4 @@ export default function Router() {
     )
 }
 
+export default withRouter(Router)

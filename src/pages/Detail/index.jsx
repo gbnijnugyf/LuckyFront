@@ -79,6 +79,7 @@ function Detail() {
     const [borad, setBorad] = useState(false) //设置留言板
 
     const handleAlert = (newContent) => {
+        console.log(1);
         //  设置遮罩
         setIsAlert(!isAlert)
         // 判断弹窗内容设置样式
@@ -131,12 +132,12 @@ function Detail() {
                 <div className="cancel" onClick={() => handleAlert(0)}>取消</div>
             </div>
             <div className="panel-button">
-                <ButtonS onClick={() => confirmSure('确认放弃这个愿望吗?')}
+                <ButtonS onClick={() => { handleAlert('确认放弃这个愿望吗?') }}
                     style={{ background: "#FFFFFF", textcolor: "#F25125", width: "6em" }}>
                     删除这个心愿
                 </ButtonS>
-                <ButtonS onClick={() => confirmSure(`确认已经实现这个愿望了嘛?\n若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望`)}
-                    style={{ background: "#FF7A59", textcolor: "#FFFFFF", width: "6em", "margin-left": "2em" }}>
+                <ButtonS onClick={() => handleAlert(`确认已经实现这个愿望了嘛?\n若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望`)}
+                    style={{ background: "#FF7A59", textcolor: "#FFFFFF", width: "6em", "marginLeft": "2em" }}>
                     确认实现
                 </ButtonS>
             </div>
