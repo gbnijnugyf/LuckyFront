@@ -1,6 +1,6 @@
 import React from 'react'
 import { ButtonS } from '../../components/Button'
-import tagimg from './images/tag.svg'
+import tagimg from '../../static/images/leaftag.svg'
 import './index.scss'
 
 
