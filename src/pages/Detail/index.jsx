@@ -6,15 +6,16 @@ import './index.scss'
 const WishDetail = () => {
     return (
         <div className="wish">
-            <p className='p-content'>啊啊啊啊我是一个愿望就随便写IE啦想看看换行啥的我受不了了好慢哲课怎么办吗啊我在开班会也忒无聊了再加点呗看看有没有写满哦吼哦吼哦吼</p>
-            <div className="underline ud1"></div>
-            <div className="underline ud2"></div>
-            <div className="underline ud3"></div>
-            <div className="underline ud4"></div>
-            <p className='p-name'>
-                来自&nbsp;&nbsp; 某同学
+            <div className="underlines">
+                <hr /><hr /><hr /><hr />
+            </div>
+            <p className='p-content'>
+                速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅
             </p>
-            <p className='p-time'>2021.7.29 18: 24</p>
+            <p className='p-name'>
+                来自&nbsp;&nbsp; 李东哲
+            </p>
+            <p className='p-time'>2021.10.10 12 : 54</p>
         </div>
     )
 }
@@ -24,12 +25,17 @@ const PersonMsg = () => {
         <div className="msg">
             <div className="msg-text">
                 <p className='h'>许愿人</p>
-                <p className='name'>某某A</p>
+                <p className='name'>李东哲</p>
             </div>
-            <div className="msg-number">
+            <div className="msg-info">
                 <p>于 2021-09-01&nbsp;&nbsp;00:00 许愿</p>
-                <p>联系方式 : QQ : 1204312199</p>
-                <p>电话 : 82088208820</p>
+                <div className="msg-connect">
+                    <p>联系方式 :</p>
+                    <ul className="msg-number">
+                        <li> QQ : 1204312199</li>
+                        <li>电话 : 82088208820</li>
+                    </ul>
+                </div>
             </div>
         </div>
     )
@@ -116,14 +122,12 @@ function Detail() {
     }
 
 
-    // TODO 按钮事件有问题
     return (
         <div className='Detail'>
             <WishDetail />
             <div className='alert' style={{ display: isAlert ? 'block' : 'none' }}></div>
-            {borad ? <MsgBorad handleAlert={handleAlert} /> : <div></div>}
-            <div className="content"
-                style={{ display: isAlert ? borad ? 'none' : 'block' : 'none' }}>
+            {borad ? <MsgBorad handleAlert={handleAlert} /> : null}
+            <div className="content" style={{ display: isAlert ? borad ? 'none' : 'block' : 'none' }}>
                 <div className={content.isLong ? 'long-text' : 'text'}>
                     <span>{content.text}</span>
                 </div>
@@ -132,11 +136,11 @@ function Detail() {
             </div>
             <div className="panel-button">
                 <ButtonS onClick={() => { handleAlert('确认放弃这个愿望吗?') }}
-                    style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}>
+                    style={{ background: "#FFFFFF", color: "#F25125", width: "6em", fontSize: "x-large" }}>
                     删除这个心愿
                 </ButtonS>
                 <ButtonS onClick={() => { handleAlert(`确认已经实现这个愿望了嘛?\n若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望`) }}
-                    style={{ background: "#FF7A59", color: "#FFFFFF", width: "6em", marginLeft: "2em" }}>
+                    style={{ background: "#FF7A59", color: "#FFFFFF", width: "6em", marginLeft: "2em", fontSize: "x-large" }}>
                     确认实现
                 </ButtonS>
             </div>
