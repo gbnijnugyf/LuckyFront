@@ -3,18 +3,6 @@ p {
     text-align: center;
 }
 
-ul {
-    display        : flex;
-    flex-direction : column;
-    justify-content: flex-end;
-    align-items    : flex-end;
-}
-
-li {
-    list-style: none;
-    position  : relative;
-    margin    : 1rem 0;
-}
 
 
 label {
@@ -61,6 +49,13 @@ label {
     padding         : 1em 1.5em;
     max-width       : 90%;
 
+
+    li {
+        list-style: none;
+        position  : relative;
+        margin    : 1rem 0;
+    }
+
     input {
         width        : 42.7vw;
         height       : 4.43vh;
@@ -70,6 +65,14 @@ label {
         font-family  : PingFangSC;
         font-size    : 4.8vw;
     }
+
+    ul {
+        display        : flex;
+        flex-direction : column;
+        justify-content: flex-end;
+        align-items    : flex-end;
+    }
+
 }
 
 .input-email {
