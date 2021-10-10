@@ -20,7 +20,6 @@ function Router(props) {
             props.history.push("/home")
         }
     }, [props.history])
-    // TODO: add login logical
     return (
         <>
             {isLogin ? <Header></Header> : null}
@@ -31,7 +30,7 @@ function Router(props) {
                 <Route path='/detail' component={Detail}></Route>
                 <Route path='/wish' component={Wishes}></Route>
                 <Route path='/mywish' component={MyWish}></Route>
-                <Redirect to={isLogin ? '/home' : '/login'}></Redirect>
+                <Redirect to='/login'></Redirect>
             </Switch>
         </>
     )
