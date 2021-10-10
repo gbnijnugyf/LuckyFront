@@ -3,16 +3,19 @@ body {
 }
 
 .panel-home {
-    display       : flex;
-    flex-direction: column;
-    align-items   : center;
+    display        : flex;
+    flex-direction : column;
+    align-items    : center;
+    height         : 100%;
+    justify-content: center;
 
     .tags {
+        width          : 80%;
         position       : relative;
         display        : flex;
         justify-content: space-around;
         flex-wrap      : wrap;
-        margin         : 55% 10% 0 10%;
+        margin-top     : 40%;
 
         .tag {
             width              : 15%;
@@ -24,9 +27,9 @@ body {
             text-align         : center;
             font-family        : TsangerShuYuanTW02;
             color              : white;
-            font-size          : xx-large;
+            font-size          : 130%;
             padding            : 1em;
-            margin-bottom      : 0.8em;
+            margin-top         : 0.8em;
         }
 
     }

@@ -35,11 +35,12 @@ export default function Home(props) {
                         return (
                             <div onClick={() => goWishes(tag.name)} className="tag" key={tag.name}>
                                 {tag.name}
-                            </div>);
+                            </div>
+                        );
                     })
                 }
             </div>
-            <ButtonS onClick={() => goSend(tags)} style={{ background: "#FFFFFF", color: "#F25125", fontSize: "x-large", marginTop: "1em" }}>
+            <ButtonS onClick={() => goSend(tags)} style={{ background: "#FFFFFF", color: "#F25125", marginTop: "10%" }}>
                 投递我的小幸运
             </ButtonS>
         </div >
