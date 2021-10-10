@@ -3,9 +3,10 @@
 .header {
     position: relative;
 
-    font-size: xx-large;
+    font-size: x-large;
     height   : $HeaderHeight;
     width    : $AppMaxWidth;
+    flex-grow: 0;
 
     .comp-header {
         position        : fixed;
@@ -43,7 +44,7 @@
             position  : absolute;
             top       : $HeaderHeight;
             width     : 100%;
-            max-height: 10em;
+            max-height: 8em;
         }
 
         .rule-alert {
