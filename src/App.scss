@@ -21,11 +21,17 @@
 }
 
 .app {
-    height   : 100vh;
-    max-width: $AppMaxWidth;
+    height        : 100vh;
+    max-width     : $AppMaxWidth;
+    display       : flex;
+    flex-direction: column;
+    margin        : auto;
+    overflow      : hidden;
 
-    margin  : auto;
-    overflow: hidden;
+
+    .content {
+        flex-grow: 1;
+    }
 }
 
 p {
