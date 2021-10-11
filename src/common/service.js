@@ -48,8 +48,14 @@ function Fetch(url, opt = {}) {
 
 let Service = {
   // 绑定邮箱
-  bindEmail() {
-    return Fetch('user/email')
+  bindEmail(idcard_number, email) {
+    return Fetch('/user/email', {
+      method: "POST",
+      data: {
+        idcard_number: idcard_number,
+        email: email
+      }
+    })
   },
   // whut登陆
   whutLogin() {

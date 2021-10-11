@@ -79,7 +79,6 @@ function Detail() {
     const [borad, setBorad] = useState(false) //设置留言板
 
     const handleAlert = (newContent) => {
-        console.log(1);
         //  设置遮罩
         setIsAlert(!isAlert)
         // 判断弹窗内容设置样式

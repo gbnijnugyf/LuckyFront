@@ -58,7 +58,11 @@ export function LoginCCNU(props) {
             //else
             //弹出密码错误    
         })
-        props.history.push("/login/bindemail")
+        props.history.push({
+            pathname: "/login/bindemail",
+            id: ccnuId
+        })
+
     }
     return (
         <LoginPannel text="我是华小师" onClick={goVerify} btnText="下一步">
@@ -79,8 +83,16 @@ export function LoginCCNU(props) {
 }
 
 export function BindEmail(props) {
+
+    const { id } = props.location
+    const [email, setEmail] = useState('')
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+    }
     const goBind = () => {
         props.history.push("/home")
+        Service.bindEmail(id, email)
     }
 
     return (
@@ -90,7 +102,7 @@ export function BindEmail(props) {
                     查收愿望状态哦~</p>
                 <li>
                     <label className="label-email">邮箱：</label>
-                    <input className="input-email"></input>
+                    <input className="input-email" onChange={handleEmail} value={email} ></input>
                 </li>
             </form>
         </LoginPannel>
