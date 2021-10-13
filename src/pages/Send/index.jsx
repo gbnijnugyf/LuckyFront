@@ -50,7 +50,6 @@ const WishInput = (props) => {
             handleIsAlert('留下联系方式可以及时收获你的小幸运哦')
         else if (name === '')
             handleIsAlert('你的小幸运还没有署名哦～')
-
         else {
             if (select === 'QQ') Service.postWish(name, qqOrWechat, '', tel, content)
             else Service.postWish(name, '', qqOrWechat, tel, content)
@@ -91,7 +90,7 @@ export default function Send(props) {
 
     // 获得标签列表
     const { tags } = props.location.state || {}
-
+    console.log(props.location)
 
     // 处理选择标签的点击事件
     const handleTagName = (name) => {
@@ -122,13 +121,13 @@ export default function Send(props) {
         <div className='send'>
             <div className="alert" style={{ display: isCover ? 'block' : 'none' }} ></div>
             <div className="select-tag" style={{ display: isTagShow ? 'block' : 'none' }}>
-                <div className='tagcontent'>
+                {/* <div className='tagcontent'>
                     {
                         tags.map((tag) => {
                             return <div onClick={() => handleTagName(tag.name)} className="tag" key={tag.name}><img src={tagimg} alt="" /><p>{tag.name}</p></div>
                         })
                     }
-                </div>
+                </div> */}
             </div>
             <div className="content" style={{ display: isAlert ? 'block' : 'none' }}><span>{content}</span></div>
             <div className="ink"><img src={ink} alt=''></img></div>

@@ -12,14 +12,14 @@ import MyWish from '../pages/MyWish'
 function Router(props) {
 
     const [isLogin, setIsLogin] = useState(false)
-
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        if (token) {
-            setIsLogin(true)
-            props.history.push("/home")
-        }
-    }, [props.history])
+    // 不能通过浏览器地址栏直接跳转页面 不然只要有token就会一直停在detail页面
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token')
+    //     if (token) {
+    //         setIsLogin(true)
+    //         props.history.push("/home")
+    //     }
+    // }, [props.history])
     return (
         <>
             {isLogin ? <Header></Header> : null}
@@ -28,7 +28,7 @@ function Router(props) {
                 <Route path='/home' component={Home}></Route>
                 <Route path='/send' component={Send}></Route>
                 <Route path='/detail' component={Detail}></Route>
-                <Route path='/wish' component={Wishes}></Route>
+                <Route path='/wish/:tag' component={Wishes}></Route>
                 <Route path='/mywish' component={MyWish}></Route>
                 <Redirect to='/login'></Redirect>
             </Switch>

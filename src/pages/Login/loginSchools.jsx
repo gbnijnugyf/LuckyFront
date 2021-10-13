@@ -55,8 +55,7 @@ export function LoginCCNU(props) {
     const goVerify = () => {
         Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
             if (res.status === 0) localStorage.setItem('token', res.data)
-            //else
-            //弹出密码错误    
+            else console.log('密码错误');
         })
         props.history.push({
             pathname: "/login/bindemail",
@@ -91,8 +90,9 @@ export function BindEmail(props) {
         setEmail(e.target.value)
     }
     const goBind = () => {
-        props.history.push("/home")
-        Service.bindEmail(id, email)
+        Service.bindEmail(id, email).then(() => {
+            props.history.push("/home")
+        })
     }
 
     return (

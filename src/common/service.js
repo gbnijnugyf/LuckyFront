@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import Notification from 'rc-notification';
 
 function Fetch(url, opt = {}) {
-  // const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token')
   const BASEURL = 'http://127.0.0.1:4523/mock/382189';
   url = BASEURL + url;
 
@@ -12,7 +12,7 @@ function Fetch(url, opt = {}) {
     'Content-Type': 'application/json',
   };
 
-  //  opt.headers.Authorization = `Bearer ` + token
+   opt.headers.Authorization = `Bearer ` + token
   if (opt.body) {
     opt.body = JSON.stringify(opt.body)
   }
@@ -105,8 +105,8 @@ let Service = {
     return Fetch('/wishes/user')
   },
   // 根据分类获取愿望
-  getWishByCategories() {
-    return Fetch('/wishes/categories')
+  getWishByCategories(query) {
+    return Fetch(`/wishes/categories`)
   },
   // 删除愿望
   deleteWish() {
