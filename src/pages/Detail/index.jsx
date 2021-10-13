@@ -3,15 +3,23 @@ import { ButtonS } from '../../components/Button'
 
 import './index.scss'
 
+const DetailLine = (props) => {
+    return (
+        <div className="p-content">
+            <p>{props.text}</p>
+            <hr />
+        </div>
+    )
+}
+
 const WishDetail = () => {
     return (
         <div className="wish">
-            <div className="underlines">
-                <hr /><hr /><hr /><hr />
-            </div>
-            <p className='p-content'>
-                速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅速速修锅
-            </p>
+            <DetailLine text="帮我修锅帮我修锅帮我修锅"></DetailLine>
+            <DetailLine text="帮我修锅帮我修锅帮我修锅"></DetailLine>
+            <DetailLine text="帮我修锅帮我修锅帮我修锅"></DetailLine>
+            <DetailLine text="帮我修锅帮我修锅帮我修锅"></DetailLine>
+            <DetailLine text="帮我修锅帮我修锅帮我修锅"></DetailLine>
             <p className='p-name'>
                 来自&nbsp;&nbsp; 李东哲
             </p>
@@ -28,14 +36,12 @@ const PersonMsg = () => {
                 <p className='name'>李东哲</p>
             </div>
             <div className="msg-info">
-                <p>于 2021-09-01&nbsp;&nbsp;00:00 许愿</p>
-                <div className="msg-connect">
-                    <p>联系方式 :</p>
-                    <ul className="msg-number">
-                        <li> QQ : 1204312199</li>
-                        <li>电话 : 82088208820</li>
-                    </ul>
-                </div>
+                <p>于 2021-09-01&nbsp;&nbsp;00:00许愿</p>
+                <p style={{ marginTop: "0.5em", textAlign: "left" }}>联系方式 :</p>
+                <ul className="msg-number">
+                    <li> QQ : 2601548431</li>
+                    <li>电话 : 15373815535</li>
+                </ul>
             </div>
         </div>
     )
@@ -136,11 +142,11 @@ function Detail() {
             </div>
             <div className="panel-button">
                 <ButtonS onClick={() => { handleAlert('确认放弃这个愿望吗?') }}
-                    style={{ background: "#FFFFFF", color: "#F25125", width: "6em", fontSize: "x-large" }}>
+                    style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}>
                     删除这个心愿
                 </ButtonS>
                 <ButtonS onClick={() => { handleAlert(`确认已经实现这个愿望了嘛?\n若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望`) }}
-                    style={{ background: "#FF7A59", color: "#FFFFFF", width: "6em", marginLeft: "2em", fontSize: "x-large" }}>
+                    style={{ background: "#FF7A59", color: "#FFFFFF", width: "6em", marginLeft: "2em" }}>
                     确认实现
                 </ButtonS>
             </div>
