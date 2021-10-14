@@ -105,8 +105,8 @@ let Service = {
     return Fetch('/wishes/user')
   },
   // 根据分类获取愿望
-  getWishByCategories(query) {
-    return Fetch(`/wishes/categories`)
+  getWishByCategories(category) {
+    return Fetch(`/wishes/categories/${category}`)
   },
   // 删除愿望
   deleteWish() {
