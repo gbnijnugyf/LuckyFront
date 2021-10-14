@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import Service from '../../common/service'
+
 import './loginSchools.scss'
 import { ButtonL } from '../../components/Button'
 
@@ -39,9 +42,26 @@ export function LoginWHUT(props) {
 }
 
 export function LoginCCNU(props) {
+    const [ccnuId, setCcnuId] = useState('')
+    const [ccnuPwd, setCcnuPwd] = useState('')
 
+    const handleCcnuId = (e) => {
+        setCcnuId(e.target.value)
+    }
+
+    const handleCcnuPwd = (e) => {
+        setCcnuPwd(e.target.value)
+    }
     const goVerify = () => {
-        props.history.push("/login/bindemail")
+        Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
+            if (res.status === 0) localStorage.setItem('token', res.data)
+            else console.log('密码错误');
+        })
+        props.history.push({
+            pathname: "/login/bindemail",
+            id: ccnuId
+        })
+
     }
     return (
         <LoginPannel text="我是华小师" onClick={goVerify} btnText="下一步">
@@ -49,11 +69,11 @@ export function LoginCCNU(props) {
                 <ul>
                     <li>
                         <label>学号：</label>
-                        <input></input>
+                        <input value={ccnuId} onChange={handleCcnuId}></input>
                     </li>
                     <li>
                         <label>密码：</label>
-                        <input type="password"></input>
+                        <input type="password" value={ccnuPwd} onChange={handleCcnuPwd}></input>
                     </li>
                 </ul>
             </form>
@@ -62,8 +82,17 @@ export function LoginCCNU(props) {
 }
 
 export function BindEmail(props) {
+
+    const { id } = props.location
+    const [email, setEmail] = useState('')
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+    }
     const goBind = () => {
-        props.history.push("/home")
+        Service.bindEmail(id, email).then(() => {
+            props.history.push("/home")
+        })
     }
 
     return (
@@ -73,7 +102,7 @@ export function BindEmail(props) {
                     查收愿望状态哦~</p>
                 <li>
                     <label className="label-email">邮箱：</label>
-                    <input className="input-email"></input>
+                    <input className="input-email" onChange={handleEmail} value={email} ></input>
                 </li>
             </form>
         </LoginPannel>
