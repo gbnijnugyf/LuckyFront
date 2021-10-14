@@ -42,23 +42,27 @@
     margin-bottom: 5vh;
     display      : flex;
     width        : 100%;
-}
 
-.birdimg {
-    width : 72px;
-    height: 61px;
-}
 
-.text-school {
-    width                : 100%;
-    padding-top          : 0.5em;
-    padding-bottom       : 0.5em;
-    font-family          : TsangerXWZ;
-    color                : #f2552a;
-    font-size            : xx-large;
-    background-image     : url("./images/underline.png");
-    background-repeat    : no-repeat;
-    background-size      : 80% 80%;
-    background-position-x: center;
-    background-position-y: 1.25em;
+    .birdimg {
+        background-image : url("../../static/images/bird.svg");
+        background-repeat: no-repeat;
+        background-size  : cover;
+        width            : 90px;
+        height           : 61px;
+    }
+
+    .text-school {
+        width                : 100%;
+        padding-top          : 0.5em;
+        padding-bottom       : 0.5em;
+        font-family          : TsangerXWZ;
+        color                : #f2552a;
+        font-size            : xx-large;
+        background-image     : url("../../static/images/ubderline.svg");
+        background-repeat    : no-repeat;
+        background-size      : 80% 80%;
+        background-position-x: center;
+        background-position-y: 1.25em;
+    }
 }

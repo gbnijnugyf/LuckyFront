@@ -1,4 +1,3 @@
-import birdimg from './images/bird.png'
 import './index.scss'
 import { Switch, Route } from 'react-router-dom'
 import { LoginWHUT, LoginCCNU, BindEmail } from './loginSchools.jsx'
@@ -6,7 +5,7 @@ import { LoginWHUT, LoginCCNU, BindEmail } from './loginSchools.jsx'
 function Btn(props) {
     return (
         <div className="btn-school" onClick={props.onClick}>
-            <img className="birdimg" src={birdimg} alt="" />
+            <div className="birdimg"/>
             <p className="text-school">{props.text}</p>
         </div>
     )

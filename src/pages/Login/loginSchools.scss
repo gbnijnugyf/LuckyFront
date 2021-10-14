@@ -8,7 +8,7 @@ p {
 label {
     display    : inline-block;
     text-align : right;
-    font-size  : x-large;
+    font-size  : large;
     font-family: PingFangSC;
     color      : white;
 }
@@ -22,68 +22,67 @@ label {
     flex-direction : column;
     justify-content: center;
     align-items    : center;
-}
 
-.btn-next {
-    margin: 2em;
-    width : 42.67vw;
-    height: 7.39vh;
-}
-
-.text-login-title {
-    font-family: TsangerXWZ;
-    color      : white;
-    font-size  : 60px;
-    margin     : 0.5em;
-    text-shadow: 0px 3px 5px#888888;
-}
-
-.panel-login {
-    margin          : 5vw;
-    display         : flex;
-    flex-direction  : column;
-    align-items     : center;
-    justify-content : center;
-    background-color: #ff7a59;
-    border-radius   : 1.5em;
-    padding         : 1em 1.5em;
-    max-width       : 90%;
-
-
-    li {
-        list-style: none;
-        position  : relative;
-        margin    : 1rem 0;
-    }
-
-    input {
-        width        : 42.7vw;
-        height       : 4.43vh;
-        border-radius: 2.13vw;
-        border       : 0;
-        text-align   : center;
-        font-family  : PingFangSC;
-        font-size    : 4.8vw;
-    }
 
     ul {
         display        : flex;
         flex-direction : column;
         justify-content: flex-end;
         align-items    : flex-end;
+        li{
+
+            margin    : 1rem 0;
+        }
     }
 
-}
 
-.input-email {
-    width: 55vw;
-}
+    li {
+        list-style: none;
+        position  : relative;
+    }
 
-.tip-login {
-    font-family: TsangerShuYuanTW02;
-}
+    input {
+        width        : 42.7vw;
+        height       : 1.5em;
+        border-radius: 2.13vw;
+        border       : 0;
+        text-align   : center;
+        font-family  : PingFangSC;
+        font-size    : large;
+    }
 
-.tip-email {
-    margin   : 1em 0;
-    font-size: large;
+    .btn-next {
+        margin: 2em;
+        width : 42.67vw;
+        height: 7.39vh;
+    }
+
+    .text-login-title {
+        margin-top   : 20%;
+        margin-bottom: 5%;
+        font-family  : TsangerXWZ;
+        color        : white;
+        font-size    : 50px;
+        text-shadow  : 0px 3px 5px#888888;
+    }
+
+
+    .panel-login {
+        margin          : 5vw;
+        display         : flex;
+        flex-direction  : column;
+        align-items     : center;
+        justify-content : space-around;
+        background-color: #ff7a59;
+        border-radius   : 1.5em;
+        padding         : 1em 1.5em;
+        max-width       : 90%;
+        min-width: 70%;
+        min-height: 20%;
+        .tip-login {
+            font-family: TsangerShuYuanTW02;
+            font-size  : small;
+        }
+
+    }
 }
