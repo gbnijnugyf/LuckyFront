@@ -3,11 +3,12 @@ import { ButtonS } from '../../components/Button'
 import calendar from '../../static/images/calendar.svg'
 import paperplane from '../../static/images/paperplane.svg'
 
+import Service from '../../common/service'
 import './index.scss'
 
 const Wish = (props) => {
     // 三张img
-    // 思路1:划走第一张 2，3两张左移动，第四张代替第三张的位置，然后2变1，3变2，4变3，再多1个4
+    // 思路1:划走第一张 2，3两张左移动，第四张代替第三张的位置，然后2变1，3变2，4变3，再多1个4 实际效果使用思路1
     // 思路2:类似轮播图，一划掉后瞬间归位 其他的也复原 但可能会有闪动的bug
     const { handleTouchStart, handleTouchEnd, handleTouchMove, move, update, wish, opacity } = props
     // let wishImg = [1, 2, 3]
@@ -16,6 +17,7 @@ const Wish = (props) => {
             {wish.map((item, index) => {
                 let jsx
                 const { content, name, school } = item
+                // 这里后端的学校字段还没给 然后返回的姓名和学校是随机值会 这里就暂时不改字段了
                 switch (index) {
                     case 0:
                         jsx = (
@@ -86,7 +88,8 @@ const Wish = (props) => {
 
 
 export default function Wishes(props) {
-    // const { tagName } = props.history.location.state || { } 先拿到这个Home传过来的标签，根据标签(id)去发请求
+    // 拿着这个分类去发请求
+    const { category } = props.location.state
     // 定义初始化动画状态
     const moveState = { img1: -10, img2: 0, img3: 10 }
     const [move, setMove] = useState(moveState) // 树叶动画相关状态
@@ -94,39 +97,14 @@ export default function Wishes(props) {
     const [update, setUpDate] = useState(false) // 控制动画以及愿望内容的更新
     const [opacity, setOpacity] = useState(0) // 控制愿望的渐变效果
     const [appear, setAppear] = useState({ cover: false, input: false, alert: false }) // 还是动画状态
-    const [wish, setWish] = useState([
-        {
-            name: '张旷',
-            school: '华小师',
-            content: '我是要超越李劲哲的男人,读书王害得是我'
-        },
-        {
-            name: '李劲哲',
-            school: '华小师',
-            content: '小小张旷还企图超越我？'
-        },
-        {
-            name: '汤鲜柠',
-            school: '武小理',
-            content: '我当个假数据看看哈'
-        },
-        {
-            name: '王丰',
-            school: '华小师',
-            content: '刘宇乐是305大爹啊！'
-        },
-        {
-            name: '王jy',
-            school: '华小师',
-            content: '刘宇乐是305大爹啊！'
-        },
-        {
-            name: 'sxz',
-            school: '华小师',
-            content: '刘宇乐是305大爹啊！'
-        }
-    ])  // 愿望(请求过来的wish)
+    const [wish, setWish] = useState([{}])  // 愿望(请求过来的wish)
     const [rely, setRely] = useState(0)
+
+    useEffect(() => {
+        Service.getWishByCategories(category).then((res) => {
+            setWish(...wish, ...res.data)
+        })
+    }, [category, rely, wish])
     // 控制表单
     const [name, setName] = useState()
     const [number, setNumber] = useState()
@@ -138,49 +116,6 @@ export default function Wishes(props) {
     const handleNumber = (e) => {
         setNumber(e.target.value)
     }
-
-
-    // 在这里拿数据得到wishes 上面是假数据
-    useEffect(() => {
-        // const wishSource = getSouce啥的
-        const wishes = [
-            {
-                name: '张旷',
-                school: '华小师',
-                content: '我是要超越李劲哲的男人,因为我才是310读书王'
-            },
-            {
-                name: '李劲哲',
-                school: '华小师',
-                content: '小小张旷还企图超越我？你可以是310读书王，但计科读书王还得是我'
-            },
-            {
-                name: '汤鲜柠',
-                school: '武小理',
-                content: '我当个假数据看看哈'
-            },
-            {
-                name: '王丰',
-                school: '华小师',
-                content: '刘宇乐是305大爹啊！'
-            },
-            {
-                name: '王jy',
-                school: '华小师',
-                content: '刘宇乐是305大爹啊！'
-            },
-            {
-                name: 'sxz',
-                school: '华小师',
-                content: '刘宇乐是305大爹啊！'
-            }
-        ]
-        setWish((wish) => {
-            return [...wish, ...wishes]
-        })
-    }, [rely])
-
-
     // Start/Move/End 都是控制愿望刷新动画的相关函数
     const handleTouchStart = (e) => {
         const touch = e.targetTouches[0]

@@ -21,7 +21,7 @@ function Header(props) {
         let title = ''
         const { pathname } = props.location
         menuList.forEach((item) => {
-            if (item.key === pathname) {
+            if (item.key === pathname || pathname.includes('wish')) {
                 title = item.title
             }
         })

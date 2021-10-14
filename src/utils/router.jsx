@@ -1,5 +1,5 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Switch, Route, withRouter } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
@@ -9,9 +9,17 @@ import Wishes from '../pages/Wishes'
 import Header from '../components/Header'
 import MyWish from '../pages/MyWish'
 
-export default function Router() {
-    // TODO: add login logical
-    let isLogin = true;
+function Router(props) {
+
+    const [isLogin, setIsLogin] = useState(false)
+    // 不能通过浏览器地址栏直接跳转页面 不然只要有token就会一直停在detail页面
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token')
+    //     if (token) {
+    //         setIsLogin(true)
+    //         props.history.push("/home")
+    //     }
+    // }, [props.history])
     return (
         <>
             {isLogin ? <Header></Header> : null}
@@ -21,12 +29,13 @@ export default function Router() {
                     <Route path='/home' component={Home}></Route>
                     <Route path='/send' component={Send}></Route>
                     <Route path='/detail' component={Detail}></Route>
-                    <Route path='/wish' component={Wishes}></Route>
+                    <Route path='/wish/:tag' component={Wishes}></Route>
                     <Route path='/mywish' component={MyWish}></Route>
-                    <Redirect to={isLogin ? '/home' : '/login'}></Redirect>
+                    <Redirect to='/login'></Redirect>
                 </Switch>
             </div>
         </>
     )
 }
 
+export default withRouter(Router)
