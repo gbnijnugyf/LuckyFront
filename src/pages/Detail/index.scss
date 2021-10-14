@@ -91,7 +91,7 @@
         position         : relative;
         margin           : 0 5%;
         width            : 76%;
-        background-image : url('./images/3.svg');
+        background-image : url('../../static/images/panel_upper.svg');
         background-repeat: no-repeat;
         background-size  : cover;
         padding          : 40% 7% 2% 7%;
@@ -209,7 +209,7 @@
     .msg {
         position         : relative;
         width            : 80%;
-        background-image : url('./images/2.svg');
+        background-image : url('../../static/images/panel_lower.svg');
         background-repeat: no-repeat;
         background-size  : cover;
         display          : flex;
