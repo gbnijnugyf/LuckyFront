@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom'
 
 import menuList from '../../config/menuConfig'
 import './index.scss'
-import rulebutton from './images/rulebutton.svg'
-import backbutton from './images/backbutton.svg'
-import logo from './images/logo.svg'
+import rulebutton from '../../static/images/rulebutton.svg'
+import backbutton from '../../static/images/backbutton.svg'
+import logo from '../../static/images/logo.svg'
 
 function Header(props) {
     const [isShow, setIsShow] = useState(false)
@@ -31,12 +31,12 @@ function Header(props) {
     let title = getTitle()
 
     return (
-        <div style={{ height: '13vh' }}>
+        <div className="header">
             <div className='comp-header'>
-                <div className="comp-header-text" style={{ fontSize: title.length > 5 ? '7vw' : '10vw' }}><p>{title}</p></div>
-                <div className="rule-button" onClick={handleShow}><img src={rulebutton} alt="" /></div>
-                <div className="back-button" style={{ display: title === '标签页' ? 'none' : 'block' }} onClick={handleBack}><img src={backbutton} alt="" /></div>
-                <div className="logo"><img src={logo} alt=''></img></div>
+                <img className="back-button" src={backbutton} style={{ opacity: title === '标签页' ? 0 : 1 }} onClick={title === '标签页' ? null : handleBack} />
+                <p className="comp-header-text">{title}</p>
+                <img className="rule-button" src={rulebutton} onClick={handleShow} alt="" />
+                <img className="logo" src={logo} alt='' />
                 <div className="rule-alert" style={{ display: isShow ? 'block' : 'none' }}>
                     <div className='rule-text'>
                         1.这次活动男生女生都可以许愿哦~<p>你一共有5次许愿的机会</p>，快来遇见你的小幸运吧~
@@ -58,7 +58,7 @@ function Header(props) {
                     <div className="close" onClick={handleShow}>我知道了</div>
                 </div>
                 <div className="cover" style={{ display: isShow ? 'block' : 'none' }} ></div>
-            </div >
+            </div>
         </div >
     )
 }

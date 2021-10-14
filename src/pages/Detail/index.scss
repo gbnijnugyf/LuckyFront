@@ -1,11 +1,19 @@
 .Detail {
 
-    position      : relative;
-    height        : 87vh;
-    width         : 100vw;
-    display       : flex;
-    flex-direction: column;
-    align-items   : center;
+    position       : relative;
+    width          : 100%;
+    height         : 90%;
+    margin-top     : 10vh;
+    display        : flex;
+    flex-direction : column;
+    align-items    : center;
+    justify-content: space-around;
+
+
+    hr {
+        width           : 90%;
+        background-color: #707070;
+    }
 
     .msg-borad {
         position        : absolute;
@@ -81,63 +89,44 @@
     .wish {
 
         position         : relative;
-        width            : 86.4vw;
-        height           : 46.3vh;
-        margin-top       : 13vh;
-        background-image : url('./images/3.svg');
+        margin           : 0 5%;
+        width            : 76%;
+        background-image : url('../../static/images/panel_upper.svg');
         background-repeat: no-repeat;
         background-size  : cover;
+        padding          : 40% 7% 2% 7%;
+        font-size        : medium;
+
+        p {
+            font-family: TsangerShuYuanTW02;
+            color      : white;
+        }
 
         .p-content {
-            position   : absolute;
-            top:17.5vh;
-            width      : 80%;
-            height     : 50%;
-            left       : 8vw;
-            line-height: 5vh;
+
+            position  : relative;
+            width     : 100%;
+            margin-top: 3%;
+
+            p {
+                text-align: left;
+            }
+
+            hr {
+                margin          : auto;
+                width           : 100%;
+                background-color: black;
+            }
         }
 
         .p-name {
-            position  : absolute;
-            color     : white;
-            bottom    : 6vh;
-            right     : 5vw;
-            text-align: center;
+            margin-top: 10%;
+            text-align: right;
         }
 
         .p-time {
-            position   : absolute;
-            color      : white;
-            right      : 5vw;
-            bottom     : 2vh;
-            font-size  : 14px;
+            text-align : right;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-
-        .underline {
-            position        : absolute;
-            left            : 50%;
-            bottom          : 19vh;
-            transform       : translateX(-50%);
-            background-color: gray;
-            width           : 70vw;
-            height          : 0.1vh;
-        }
-
-        .ud1 {
-            bottom: 25vh;
-        }
-
-        .ud2 {
-            bottom: 20vh;
-        }
-
-        .ud3 {
-            bottom: 15vh;
-        }
-
-        .ud4 {
-            bottom: 10vh;
         }
     }
 
@@ -164,7 +153,7 @@
         border-radius   : 3vh;
 
         .text {
-            font-family : TsangerShuYuanT\ W02;
+            font-family : TsangerShuYuanTW02;
             text-align  : center;
             line-height : 18vh;
             padding-left: 3vw;
@@ -214,48 +203,65 @@
 
     .panel-button {
         display: flex;
-        margin : 1em 0;
     }
 
-
-    hr {
-        width           : 90%;
-        background-color: #707070;
-    }
 
     .msg {
         position         : relative;
-        width            : 86.4vw;
-        height           : 13.4vh;
-        background-image : url('./images/2.svg');
+        width            : 80%;
+        background-image : url('../../static/images/panel_lower.svg');
         background-repeat: no-repeat;
         background-size  : cover;
         display          : flex;
         justify-content  : space-between;
-        margin-top       : 2vh;
+        margin-left      : 0.5em;
+        padding          : 1em;
 
-        .h {
-            color        : #FF7A59;
-            margin-bottom: 1vh;
-            padding-top  : 4vw;
-            padding-left : 4vw;
-            font-size    : 2.4vh;
+        p {
+            font-family: TsangerShuYuanTW02;
         }
 
-        .name {
-            color       : #fff;
-            font-size   : 3vh;
-            padding-left: 10vw;
+        .msg-text {
+            font-size  : large;
+            margin-left: 0.5em;
+
+            .h {
+                color     : #FF7A59;
+                margin-top: 0.5em;
+                text-align: left;
+            }
+
+            .name {
+                color     : #fff;
+                margin-top: 0.5em;
+                font-size : larger;
+                width     : 4em;
+                text-align: right;
+            }
         }
 
-        .msg-number {
-            margin-right   : 5vw;
-            font-size      : 1.8vh;
-            display        : flex;
-            flex-direction : column;
+        .msg-info {
+            margin-right   : 1em;
             justify-content: space-evenly;
             color          : white;
             align-items    : flex-end;
+
+            p {
+                font-size : small;
+                text-align: right;
+            }
+
+            ul {
+                margin-top: 0.5em;
+            }
+
+            li {
+                list-style   : none;
+                // margin-top: 1em;
+                font-size    : small;
+                text-align   : right;
+            }
+
         }
     }
 

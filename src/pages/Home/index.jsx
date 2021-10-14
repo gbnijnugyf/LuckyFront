@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { ButtonS } from '../../components/Button'
-import tagimg from './images/tag.svg'
 import './index.scss'
 
 
@@ -10,7 +9,7 @@ export default function Home(props) {
 
     // const [tags, setTags] = useState()
     const tags = [
-        { name: '影音', enName: 'video',category: 1 },
+        { name: '影音', enName: 'video', category: 1 },
         { name: '游戏', enName: 'game', category: 2 },
         { name: '美食', enName: 'food', category: 3 },
         { name: '学习', enName: 'study', category: 4 },
@@ -22,7 +21,7 @@ export default function Home(props) {
     ]
 
     const goWishes = (tag) => {
-        props.history.push(`/wish/${tag.enName}`, {category: tag.category})
+        props.history.push(`/wish/${tag.enName}`, { category: tag.category })
     }
 
     const goSend = (tags) => {
@@ -35,19 +34,16 @@ export default function Home(props) {
                 {
                     tags.map((tag) => {
                         return (
-                            <div onClick={() => goWishes(tag)}
-                                className="tag" key={tag.category}>
-                                <img src={tagimg} alt="" />
-                                <p>
-                                    {tag.name}
-                                </p>
-                            </div>);
+                            <div onClick={() => goWishes(tag)} className="tag" key={tag.category}>
+                                {tag.name}
+                            </div>
+                        );
                     })
                 }
             </div>
-            <ButtonS onClick={() => goSend(tags)} style={{ background: "#FFFFFF", color: "#F25125" }}>
+            <ButtonS onClick={() => goSend(tags)} style={{ background: "#FFFFFF", color: "#F25125", marginTop: "10%" }}>
                 投递我的小幸运
             </ButtonS>
-        </div>
+        </div >
     )
 }
