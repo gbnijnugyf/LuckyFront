@@ -27,6 +27,47 @@
     position  : absolute;
     margin-top: $LogoHeight + 2vh;
     width     : 100vw;
+
+    ol {
+        position  : relative;
+        margin-top: 5%;
+
+        li {
+            background-image : url("./images/WishItem.png");
+            background-repeat: no-repeat;
+            background-size  : contain;
+            font-size        : medium;
+            padding          : 2em 0 0.5em 2em;
+            max-width        : 88%;
+
+            .text-detail {
+                position     : relative;
+                text-align   : start;
+                overflow     : hidden;
+                text-overflow: ellipsis;
+                white-space  : nowrap;
+                color        : white;
+            }
+
+            .status {
+                position       : relative;
+                display        : flex;
+                width          : 85%;
+                justify-content: space-between;
+                align-items    : center;
+                margin-top     : 0.5em;
+
+
+                .text-wishtime {
+                    color      : #666666;
+                    font-size  : small;
+                    font-family: PingFangSC;
+                    position   : relative;
+                    text-align : end;
+                }
+            }
+        }
+    }
 }
 
 
@@ -35,41 +76,7 @@
     margin: 0;
 }
 
-.img-wishitem {
-    position: relative;
-    left    : 2%;
-    width   : 96%;
-    height  : 12.32%;
-}
 
-.text-detail {
-    position     : absolute;
-    top          : 30%;
-    left         : 11.11%;
-    right        : 11.11%;
-    overflow     : hidden;
-    text-overflow: ellipsis;
-    white-space  : nowrap;
-    color        : white;
-}
-
-.img-status {
-    position: absolute;
-    width   : 17.06vw;
-    left    : 13%;
-    top     : 57%;
-}
-
-.text-wishtime {
-    color      : #666666;
-    font-size  : 3.73vw;
-    font-family: PingFangSC;
-    position   : absolute;
-    right      : 12.53vw;
-    left       : auto;
-    top        : 58%;
-    text-align : right;
-}
 
 .div-listbottom {
     margin-top: 5vh;
