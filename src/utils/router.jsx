@@ -10,19 +10,17 @@ import Header from '../components/Header'
 import MyWish from '../pages/MyWish'
 
 function Router(props) {
-
-    const [isLogin, setIsLogin] = useState(true)
-    //不能通过浏览器地址栏直接跳转页面 不然只要有token就会一直停在detail页面
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        if (token) {
-            setIsLogin(true)
-            props.history.push("/home")
-        }
-    }, [props.history])
+    // 不能通过浏览器地址栏直接跳转页面 不然只要有token就会一直停在detail页面
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token')
+    //     if (token) {
+    //         setIsLogin(true)
+    //         props.history.push("/home")
+    //     }
+    // }, [props.history])
     return (
         <>
-            {isLogin ? <Header></Header> : null}
+            {props.location.pathname.match(/login/) ? null : <Header></Header>}
             <div className="content">
                 <Switch>
                     <Route path='/login' component={Login}></Route>
