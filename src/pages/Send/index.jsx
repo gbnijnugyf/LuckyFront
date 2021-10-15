@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import Service from '../../common/service'
 import ink from './images/ink.svg'
 import tagimg from './images/tag.svg'
 import { ButtonS } from '../../components/Button'
@@ -94,13 +93,12 @@ export default function Send(props) {
                     "fontFamily": "MicrosoftJhengHeiUIRegular, Microsoft JhengHei UI",
                     "color": "#f25125",
                     "alignSelf": "flex-end",
-                    "margin": "2em 3em 0 0",
+                    "margin": "2em 2em 0 0",
                     "fontSize": "medium"
                 }}>
                     {tagName}
                 </ButtonS>
-                <textarea className='notes' value={value} onChange={handleValue}>
-                </textarea>
+                <textarea className='notes' value={value} onChange={handleValue}></textarea>
                 <div className="send-msg">
                     <div className="name">投递人  :<input type="text" placeholder='必填内容哦～' value={nameValue} onChange={handleNameValue} /></div>
                     <div className="number"><p>联系方式  :</p>
@@ -111,10 +109,10 @@ export default function Send(props) {
                         <input type="text" placeholder='必填内容哦～' value={numberValue} onChange={handleNumberValue} /><br />
                         <p>或 Tel  : </p><input type="text" placeholder='选填内容哦～' style={{ marginLeft: '6vw' }} />
                     </div>
-                    <h6>填写电话可以确保第一时间知道你的愿望状态哦~</h6>
+                    <p className="tip">填写电话可以确保第一时间知道你的愿望状态哦~</p>
                 </div>
                 <ButtonS onClick={handleInput} style={{ background: "white", "color": "#f25125" }}>
-                    <img src={paperplane} alt="" style={{"paddingBottom":"0.2em"}} /> 完成
+                    <img src={paperplane} alt="" style={{ "paddingBottom": "0.2em" }} /> 完成
                 </ButtonS>
             </div >
         )
