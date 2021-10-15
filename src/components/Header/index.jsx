@@ -1,11 +1,19 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
-
-import menuList from '../../config/menuConfig'
 import './index.scss'
 import rulebutton from '../../static/images/rulebutton.svg'
 import backbutton from '../../static/images/backbutton.svg'
 import logo from '../../static/images/logo.svg'
+
+const titleList = {
+    "/home": "标签页",
+    "/send": "投递我的小幸运",
+    "/detail": "愿望详情",
+    "/wish": "我的愿望池",
+    "/mywish": "我的愿望池"
+};
+
+
 
 function Header(props) {
     const [isShow, setIsShow] = useState(false)
@@ -18,14 +26,11 @@ function Header(props) {
     }
 
     const getTitle = () => {
-        let title = ''
-        const { pathname } = props.location
-        menuList.forEach((item) => {
-            if (item.key === pathname || pathname.includes('wish')) {
-                title = item.title
-            }
-        })
-        return title
+        let key = props.location.pathname;
+        let index = key.indexOf("/", 2)
+        if (index !== -1)
+            key = key.substr(0, index);
+        return titleList[key];
     }
 
     let title = getTitle()
