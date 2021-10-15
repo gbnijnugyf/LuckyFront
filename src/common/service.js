@@ -47,7 +47,7 @@ function Fetch(url, opt = {}) {
 }
 
 let Service = {
-  // 绑定邮箱
+  // 绑定邮箱 ok
   bindEmail(idcard_number, email) {
     return Fetch('/user/email', {
       method: "POST",
@@ -57,11 +57,11 @@ let Service = {
       }
     })
   },
-  // whut登陆
+  // whut登陆 
   whutLogin() {
     return Fetch('/WhutLogin')
   },
-  // ccnu登陆
+  // ccnu登陆 ok
   ccnuLogin(idcard_number, password) {
     return Fetch('/Ccnulogin', {
       method: "POST",
@@ -71,11 +71,11 @@ let Service = {
       }
     })
   },
-  // 获取所有愿望
+  // 获取所有愿望 应该不需要
   getAllDesire() {
     return Fetch('/wishes')
   },
-  // 发出自己的愿望
+  // 发出自己的愿望 差一个type 后端要改
   postWish(name, QQ, weChat, tel, wish) {
     return Fetch('/wishes', {
       method: 'POST',
@@ -88,7 +88,7 @@ let Service = {
       }
     })
   },
-  // 点亮别人的愿望
+  // 点亮别人的愿望 后端在改
   lightWishOn(id) {
     return Fetch('/wishes/light', {
       method: 'POST',
@@ -104,9 +104,9 @@ let Service = {
   getUserWish() {
     return Fetch('/wishes/user')
   },
-  // 根据分类获取愿望
+  // 根据分类获取愿望 要改query路径啊
   getWishByCategories(category) {
-    return Fetch(`/wishes/categories/${category}`)
+    return Fetch(`/wishes/categories`)
   },
   // 删除愿望
   deleteWish() {

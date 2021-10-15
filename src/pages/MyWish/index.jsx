@@ -39,7 +39,7 @@ export function Empty(props) {
                 <br />
                 万一就实现了呢~
             </div>
-            <ButtonS onClick={goSendWish} style={{ background: "white", color: "#F25125", "font-size": "x-large" }}>
+            <ButtonS onClick={goSendWish} style={{ background: "white", color: "#F25125", "fontSize": "x-large" }}>
                 投递我的小幸运
             </ButtonS>
         </div>
@@ -55,37 +55,37 @@ export function MyWishList(props) {
             "status": true,
             "time": "2021.3.7 12:21"
         }, {
-            "id": 0,
+            "id": 1,
             "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
             "status": false,
             "time": "2021.3.7sadasdas  12:21"
         }, {
-            "id": 0,
+            "id": 2,
             "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
             "status": false,
             "time": "2021.3.7sadasdas  12:21"
         }, {
-            "id": 0,
+            "id": 3,
             "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
             "status": false,
             "time": "2021.3.7sadasdas  12:21"
         }, {
-            "id": 0,
+            "id": 4,
             "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
             "status": false,
             "time": "2021.3.7sadasdas  12:21"
         }, {
-            "id": 0,
+            "id": 5,
             "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
             "status": false,
             "time": "2021.3.7sadasdas  12:21"
         }, {
-            "id": 0,
+            "id": 6,
             "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
             "status": false,
             "time": "2021.3.7sadasdas  12:21"
         }, {
-            "id": 0,
+            "id": 7,
             "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
             "status": false,
             "time": "2021.3.7sadasdas  12:21"
@@ -99,7 +99,7 @@ export function MyWishList(props) {
                 <ol>
                     {wishList.map(wish => {
                         return (
-                            <li className="item-wish">
+                            <li className="item-wish" key={wish.id}>
                                 <img className="img-wishitem" src={WishItemimg} alt="" />
                                 <p className="text-detail">{wish.detail}</p>
                                 <img className="img-status" src={wish.status ? Trueimg : NotTrueimg} alt="" />
@@ -183,7 +183,7 @@ function Button(props) {
         <div>
             <div className="button">
                 <div className="otherWish" style={{ justifyContent: 'center' }}>
-                    <ButtonS onClick={goDeleteWish} style={{ background: "white", color: "#F25125", "font-size": "x-large" }}>
+                    <ButtonS onClick={goDeleteWish} style={{ background: "white", color: "#F25125", "fontSize": "x-large" }}>
                         删除这个心愿
                     </ButtonS>
                 </div>

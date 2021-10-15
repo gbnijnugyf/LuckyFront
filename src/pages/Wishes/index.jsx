@@ -11,18 +11,17 @@ const Wish = (props) => {
     // 思路1:划走第一张 2，3两张左移动，第四张代替第三张的位置，然后2变1，3变2，4变3，再多1个4 实际效果使用思路1
     // 思路2:类似轮播图，一划掉后瞬间归位 其他的也复原 但可能会有闪动的bug
     const { handleTouchStart, handleTouchEnd, handleTouchMove, move, update, wish, opacity } = props
-    // let wishImg = [1, 2, 3]
     return (
         <div className='wishes'>
             {wish.map((item, index) => {
                 let jsx
-                const { content, name, school } = item
+                const { wish, wishman_name} = item
                 // 这里后端的学校字段还没给 然后返回的姓名和学校是随机值会 这里就暂时不改字段了
                 switch (index) {
                     case 0:
                         jsx = (
                             <div
-                                key={name}
+                                key={index}
                                 className="img1 wish-img"
                                 onTouchStart={handleTouchStart}
                                 onTouchMove={handleTouchMove}
@@ -32,42 +31,42 @@ const Wish = (props) => {
                                     transition: update ? 'all 0.2s' : 'none',
                                 }} >
                                 <div className="wish-content"></div>
-                                <p> {content}</p>
+                                <p> {wish}</p>
                                 <div className="underline ud1"></div>
                                 <div className="underline ud2"></div>
                                 <div className="underline ud3"></div>
                                 <div className="underline ud4"></div>
                                 <div className="msg">
-                                    <span>{school}</span>
-                                    <span>{name}</span></div>
+                                    <span>华小师</span>
+                                    <span>{wishman_name}</span></div>
                             </div>
                         )
                         break;
                     case 1:
                         jsx = (
                             <div
-                                key={name}
+                                key={index}
                                 className="img2 wish-img"
                                 style={{
                                     transition: update ? 'all 0.2s' : 'none',
                                     left: `${move.img2}vw`
                                 }}>
                                 <div style={{ opacity: opacity }}>
-                                    <p>{content}</p>
+                                    <p>{wish}</p>
                                     <div className="underline ud1"></div>
                                     <div className="underline ud2"></div>
                                     <div className="underline ud3"></div>
                                     <div className="underline ud4"></div>
                                     <div className="msg">
-                                        <span>{school}</span>
-                                        <span>{name}</span></div>
+                                        <span>华小师</span>
+                                        <span>{wishman_name}</span></div>
                                 </div>
                             </div>
                         )
                         break;
                     case 2:
                         jsx = (<div
-                            key={name}
+                            key={index}
                             className="img3"
                             style={{
                                 transition: update ? 'all 0.2s' : 'none',
@@ -102,17 +101,16 @@ export default function Wishes(props) {
 
     useEffect(() => {
         Service.getWishByCategories(category).then((res) => {
-            setWish(...wish, ...res.data)
+            rely === 0 ? setWish(res.data) : setWish([...wish, ...res.data])
         })
-    }, [category, rely, wish])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [rely])
     // 控制表单
     const [name, setName] = useState()
     const [number, setNumber] = useState()
-
     const handleName = (e) => {
         setName(e.target.value)
     }
-
     const handleNumber = (e) => {
         setNumber(e.target.value)
     }
@@ -152,7 +150,10 @@ export default function Wishes(props) {
             // 刷新动画
             setMove(moveState)
             if (wish.length <= 2) {
-                setRely(!rely) // 原本的意思就是愿望刷新就剩2个改变依赖调用hooks再发送一次请求刷新愿望列表
+                setRely(rely => {
+                    const newRely = rely + 1
+                    return newRely
+                }) // 原本的意思就是愿望刷新就剩2个改变依赖调用hooks再发送一次请求刷新愿望列表
             }
         }, 200)
     }
@@ -204,10 +205,12 @@ export default function Wishes(props) {
                     </div>
                 </div>
                 <ButtonS onClick={handleSend} style={{ background: "white", "color": "#f25125", fontSize: "medium", margin: "1em 0 0 0", }}>
-                    <img src={paperplane} alt="" style={{ "padding-bottom": "0.2em" }} /> 完成
+                    <img src={paperplane} alt="" style={{ "paddingBottom": "0.2em" }} /> 完成
                 </ButtonS>
             </div>
-            <ButtonS style={{
+            <ButtonS
+                onClick = {() => {props.history.push('/mywish')}}
+                style={{
                 background: "#F59D65",
                 color: "white",
                 marginTop: "13em",
@@ -226,7 +229,7 @@ export default function Wishes(props) {
                 wish={wish}
                 opacity={opacity} />
             <div className="tip"></div>
-            <ButtonS onClick={handleAlert} style={{ background: "white", color: "#F59D65", "margin-top": "1.5em" }}>
+            <ButtonS onClick={handleAlert} style={{ background: "white", color: "#F59D65", "marginTop": "1.5em" }}>
                 点亮TA的小幸运
             </ButtonS>
             <div className="tolight" onTouchStart={handleAlert}></div>
