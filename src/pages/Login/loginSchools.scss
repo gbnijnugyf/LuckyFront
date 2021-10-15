@@ -29,9 +29,10 @@ label {
         flex-direction : column;
         justify-content: flex-end;
         align-items    : flex-end;
-        li{
 
-            margin    : 1rem 0;
+        li {
+
+            margin: 1rem 0;
         }
     }
 
@@ -42,19 +43,13 @@ label {
     }
 
     input {
-        width        : 42.7vw;
+        width        : 10em;
         height       : 1.5em;
-        border-radius: 2.13vw;
+        border-radius: 0.5em;
         border       : 0;
         text-align   : center;
         font-family  : PingFangSC;
         font-size    : large;
-    }
-
-    .btn-next {
-        margin: 2em;
-        width : 42.67vw;
-        height: 7.39vh;
     }
 
     .text-login-title {
@@ -77,8 +72,9 @@ label {
         border-radius   : 1.5em;
         padding         : 1em 1.5em;
         max-width       : 90%;
-        min-width: 70%;
-        min-height: 20%;
+        min-width       : 70%;
+        min-height      : 20%;
+
         .tip-login {
             font-family: TsangerShuYuanTW02;
             font-size  : small;
