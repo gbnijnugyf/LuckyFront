@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Service from '../../common/service'
 import ink from './images/ink.svg'
-import tagimg from './images/tag.svg'
+import { tags } from '../../config/Global'
 import { ButtonS } from '../../components/Button'
 import paperplane from '../../static/images/paperplane.svg'
 import './index.scss'
@@ -127,7 +127,11 @@ export default function Send(props) {
                 <div className='tagcontent'>
                     {
                         tags.map((tag) => {
-                            return <div onClick={() => handleTagName(tag.name)} className="tag" key={tag.name}><img src={tagimg} alt="" /><p>{tag.name}</p></div>
+                            return (
+                                <div onClick={() => handleTagName(tag.name)} className="tag" key={tag.name}>
+                                    <p>{tag.name}</p>
+                                </div>
+                            )
                         })
                     }
                 </div>
