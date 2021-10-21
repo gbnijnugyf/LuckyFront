@@ -51,45 +51,20 @@ export function MyWishList(props) {
     let wishList = [
         {
             "id": 0,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
+            "detail": "愿望内容",
+            "status": false,
+            "time": "2021.3.7sadasdas  12:21"
+        }, {
+            "id": 0,
+            "detail": "愿望内容",
+            "status": false,
+            "time": "2021.3.7sadasdas  12:21"
+        }, {
+            "id": 0,
+            "detail": "愿望内容",
             "status": true,
-            "time": "2021.3.7 12:21"
-        }, {
-            "id": 1,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
             "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 2,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 3,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 4,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 5,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 6,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 7,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }
+        },
     ]
 
     return (
@@ -99,11 +74,13 @@ export function MyWishList(props) {
                 <ol>
                     {wishList.map(wish => {
                         return (
-                            <li className="item-wish" key={wish.id}>
-                                <img className="img-wishitem" src={WishItemimg} alt="" />
+                            <li className="item-wish">
                                 <p className="text-detail">{wish.detail}</p>
-                                <img className="img-status" src={wish.status ? Trueimg : NotTrueimg} alt="" />
-                                <p className="text-wishtime">{wish.time}</p>
+                                <div className="status">
+                                    <ButtonS style={{ background: "#FFFFFF", color: wish.status ? "#F25C33" : "#1DCB1D", fontSize: "small", fontFamily: "PingFangSC" }}>
+                                        {wish.status ? "已实现" : "待实现"}</ButtonS>
+                                    <p className="text-wishtime">{wish.time}</p>
+                                </div>
                             </li>
                         )
                     })}
@@ -114,7 +91,7 @@ export function MyWishList(props) {
                     <p>人家也是有底线的</p>
                 </div>
             </div>
-        </div>
+        </div >
     )
 
 }

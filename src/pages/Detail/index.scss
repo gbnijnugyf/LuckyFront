@@ -9,83 +9,7 @@
     align-items    : center;
     justify-content: space-around;
 
-
-    hr {
-        width           : 90%;
-        background-color: #707070;
-    }
-
-    .msg-borad {
-        position        : absolute;
-        overflow        : hidden;
-        top             : 40%;
-        left            : 50%;
-        transform       : translate(-50%, -50%);
-        z-index         : 100;
-        background-color: rgb(251, 209, 146);
-        width           : 80vw;
-        height          : 40vh;
-        border-radius   : 3vh;
-        color           : #FF7A59;
-
-        .msg-content {
-
-            width : 80%;
-            margin: 3vh auto;
-
-            .options {
-                display: flex;
-
-                .reson {
-                    height       : 3vh;
-                    border       : none;
-                    border-radius: 1vh;
-                    width        : 50vw;
-                    padding-left : 2vw;
-                    margin-top   : 1vh;
-                }
-            }
-
-            input {
-                margin-right: 3vw;
-            }
-
-            p {
-                display: inline-block;
-            }
-        }
-
-        .no-msg {
-            position        : absolute;
-            bottom          : 0;
-            left            : 0;
-            height          : 5vh;
-            width           : 50%;
-            display         : inline-block;
-            background-color: white;
-            color           : black;
-            text-align      : center;
-            line-height     : 5vh;
-            font-size       : 5vw;
-        }
-
-        .sure-msg {
-            position        : absolute;
-            bottom          : 0;
-            right           : 0;
-            height          : 5vh;
-            width           : 50%;
-            display         : inline-block;
-            background-color: rgb(255, 121, 89);
-            color           : #fff;
-            text-align      : center;
-            line-height     : 5vh;
-            font-size       : 5vw;
-        }
-
-
-    }
-
+    // 愿望主界面
     .wish {
 
         position         : relative;
@@ -130,82 +54,20 @@
         }
     }
 
-    .alert {
-        height          : 100vh;
-        width           : 100vw;
-        position        : absolute;
-        z-index         : 99;
-        background-color: black;
-        opacity         : 0.5;
-        top             : -13vh;
-    }
 
-    .content {
-        position        : absolute;
-        overflow        : hidden;
-        top             : 40%;
-        left            : 50%;
-        transform       : translate(-50%, -50%);
-        z-index         : 100;
-        background-color: rgb(251, 209, 146);
-        width           : 80vw;
-        height          : 25vh;
-        border-radius   : 3vh;
-
-        .text {
-            font-family : TsangerShuYuanTW02;
-            text-align  : center;
-            line-height : 18vh;
-            padding-left: 3vw;
-            height      : 18vh;
-            font-size   : 5.5vw;
-            color       : #FF7A59;
-            box-sizing  : border-box;
-        }
-
-        .long-text {
-            font-family   : TsangerShuYuanT\ W02;
-            // text-align: center;
-            // line-height: 18vh;
-            padding-top   : 5vh;
-            padding-left  : 3vw;
-            height        : 18vh;
-            font-size     : 5.5vw;
-            color         : #FF7A59;
-            box-sizing    : border-box;
-
-            span {
-                white-space: pre-line;
-            }
-        }
-
-        .sure {
-            height          : 7vh;
-            width           : 50%;
-            display         : inline-block;
-            background-color: white;
-            text-align      : center;
-            line-height     : 7vh;
-            font-size       : 5vw;
-
-        }
-
-        .cancel {
-            height          : 7vh;
-            width           : 50%;
-            display         : inline-block;
-            background-color: rgb(255, 121, 89);
-            line-height     : 7vh;
-            text-align      : center;
-            font-size       : 5vw;
-        }
-    }
-
+    // 按钮
     .panel-button {
         display: flex;
     }
 
 
+    hr {
+        width           : 90%;
+        background-color: #707070;
+    }
+
+
+    // 许愿人信息
     .msg {
         position         : relative;
         width            : 80%;
@@ -264,6 +126,44 @@
 
         }
     }
+
+    // 取消心愿时的表
+    .msg-borad {
+        position      : relative;
+        display       : flex;
+        flex-direction: column;
+        align-items   : center;
+        align-content : space-around;
+
+        p {
+            display: contents;
+        }
+
+        .options {
+            display: flex;
+
+            input {
+                margin-right: 0.5em;
+            }
+
+            p {
+                margin-left: 0.5em;
+                text-align : left;
+            }
+
+            .reason {
+                height       : 2em;
+                border       : none;
+                border-radius: 1em;
+                width        : max-content;
+                padding-left : 1em;
+            }
+        }
+
+    }
+
+
+
 
 
 }
