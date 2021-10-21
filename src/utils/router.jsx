@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import Login from '../pages/Login'
@@ -14,7 +14,6 @@ function Router(props) {
     // useEffect(() => {
     //     const token = localStorage.getItem('token')
     //     if (token) {
-    //         setIsLogin(true)
     //         props.history.push("/home")
     //     }
     // }, [props.history])

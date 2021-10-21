@@ -54,14 +54,15 @@ export function LoginCCNU(props) {
     }
     const goVerify = () => {
         Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
-            if (res.status === 0) localStorage.setItem('token', res.data)
-            else console.log('密码错误');
+            if (res.status === 0) {
+                localStorage.setItem('token', res.data)
+                props.history.push({
+                    pathname: "/login/bindemail",
+                    id: ccnuId
+                })
+            }
+            else alert('密码错误');
         })
-        props.history.push({
-            pathname: "/login/bindemail",
-            id: ccnuId
-        })
-
     }
     return (
         <LoginPannel text="我是华小师" onClick={goVerify} btnText="下一步">

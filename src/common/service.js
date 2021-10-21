@@ -3,7 +3,7 @@ import Notification from 'rc-notification';
 
 function Fetch(url, opt = {}) {
   const token = localStorage.getItem('token')
-  const BASEURL = 'http://127.0.0.1:4523/mock/382189';
+  const BASEURL = "/api"
   url = BASEURL + url;
 
   opt.method = opt.method || 'GET';
@@ -12,7 +12,7 @@ function Fetch(url, opt = {}) {
     'Content-Type': 'application/json',
   };
 
-   opt.headers.Authorization = `Bearer ` + token
+   opt.headers.token =  token
   if (opt.body) {
     opt.body = JSON.stringify(opt.body)
   }
@@ -21,6 +21,7 @@ function Fetch(url, opt = {}) {
   if (opt.formdata) {
     opt.body = opt.formdata;
   }
+  console.log(opt);
   return fetch(url, opt)
     .then(response => {
       if (response.ok) {
@@ -47,7 +48,7 @@ function Fetch(url, opt = {}) {
 }
 
 let Service = {
-  // 绑定邮箱 ok
+  // 绑定邮箱 等后端改
   bindEmail(idcard_number, email) {
     return Fetch('/user/email', {
       method: "POST",
@@ -57,13 +58,13 @@ let Service = {
       }
     })
   },
-  // whut登陆 
+  // whut登陆  我暂时测不了
   whutLogin() {
     return Fetch('/WhutLogin')
   },
   // ccnu登陆 （ok
   ccnuLogin(idcard_number, password) {
-    return Fetch('/Ccnulogin', {
+    return Fetch('/ccnulogin', {
       method: "POST",
       data: {
         idcard_number: idcard_number,
@@ -75,8 +76,8 @@ let Service = {
   getAllDesire() {
     return Fetch('/wishes')
   },
-  // 发出自己的愿望 （差一个type 后端要改
-  postWish(name, QQ, weChat, tel, wish) {
+  // 发出自己的愿望 ok
+  postWish(name, QQ, weChat, tel, wish, type) {
     return Fetch('/wishes', {
       method: 'POST',
       data: {
@@ -84,7 +85,8 @@ let Service = {
         wishMan_QQ: QQ,
         wishMan_Wechat: weChat,
         wishMan_Tel: tel,
-        wish: wish
+        wish: wish,
+        type: type
       }
     })
   },
@@ -97,16 +99,17 @@ let Service = {
       }
     })
   },
-  // 查看愿望 （不知道具体用处 在myWish里面跳转到detail？
+  // 查看愿望详情
   getWishById() {
     return Fetch('/wishes/id')
   },
-  getUserWish() { 
+  // 获取自己的愿望 后端要改
+  getUserWish() {  
     return Fetch('/wishes/user')
   },
-  // 根据分类获取愿望 要改query路径啊
+  // 根据分类获取愿望 返回的school不对
   getWishByCategories(category) {
-    return Fetch(`/wishes/categories`)
+    return Fetch(`/wishes/categories?categories=${category}`)
   },
   // 删除愿望 
   deleteWish() {

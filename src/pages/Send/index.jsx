@@ -8,7 +8,7 @@ import paperplane from '../../static/images/paperplane.svg'
 import './index.scss'
 
 const WishInput = (props) => {
-    const { handleIsAlert, content, goSelectTag, tagName } = props
+    const { handleIsAlert, goSelectTag, tagName, type } = props
     const [value, setValue] = useState('把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~') //控制 textarea
     const [nameValue, setNameValue] = useState('') //控制 name input
     const [numberValue, setNumberValue] = useState('') //控制 number input
@@ -45,7 +45,7 @@ const WishInput = (props) => {
     const handleSend = () => {
         if (numberValue === '' || nameValue === '') numberValue === '' ? handleIsAlert('留下联系方式可以及时收获你的小幸运哦') : handleIsAlert('你的小幸运还没有署名哦～')
         else {
-            select === 'QQ' ? Service.postWish(nameValue, numberValue, ' ', tel, content) : Service.postWish(nameValue, ' ', numberValue, tel, content)
+            select === 'QQ' ? Service.postWish(nameValue, numberValue, ' ', tel, value, type) : Service.postWish(nameValue, ' ', numberValue, tel, value, type)
             props.history.push('/home')
         }   
     }
@@ -90,6 +90,7 @@ export default function Send(props) {
     const [isCover, setIsCover] = useState(false)// 控制遮罩
     const [content, setContent] = useState('')// 控制弹窗内容
     const [tagName, setTagName] = useState('# 选择标签') //控制选择标签后的显示
+    const [type, setType] = useState(9)
     // 获得标签列表 不能通过路由传 不然从myWish页面跳过来tags就是undefine
     const tags = [
         { name: '影音', enName: 'video', category: 1 },
@@ -103,11 +104,11 @@ export default function Send(props) {
         { name: '其他', enName: 'other', category: 9 }
     ]
     // 处理选择标签的点击事件
-    const handleTagName = (name) => {
+    const handleTagName = (name,type) => {
         setIsCover(!isCover)
         setIsTagShow(!isTagShow)
         setTagName(name)
-
+        setType(type)
     }
     // 处理弹窗警告
     const handleIsAlert = (str) => {
@@ -132,14 +133,20 @@ export default function Send(props) {
                 <div className='tagcontent'>
                     {
                         tags.map((tag) => {
-                            return <div onClick={() => handleTagName(tag.name)} className="tag" key={tag.name}><img src={tagimg} alt="" /><p>{tag.name}</p></div>
+                            return <div onClick={() => handleTagName(tag.name, tag.category)} className="tag" key={tag.name}><img src={tagimg} alt="" /><p>{tag.name}</p></div>
                         })
                     }
                 </div>
             </div>
             <div className="content" style={{ display: isAlert ? 'block' : 'none' }}><span>{content}</span></div>
             <div className="ink"><img src={ink} alt=''></img></div>
-            <WishInput history={props.history} handleIsAlert={handleIsAlert} content={content} tagName={tagName} goSelectTag={goSelectTag} />
+            <WishInput
+                history={props.history}
+                handleIsAlert={handleIsAlert}
+                tagName={tagName}
+                goSelectTag={goSelectTag}
+                type={type}
+            />
         </div>
     )
 }
