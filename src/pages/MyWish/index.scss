@@ -28,22 +28,23 @@
     margin-top: $LogoHeight + 2vh;
     width     : 100vw;
 
-    ol {
+    ul {
         position  : relative;
         margin-top: 5%;
 
         li {
             background-image : url("./images/WishItem.png");
             background-repeat: no-repeat;
-            background-size  : contain;
+            background-size  : cover;
             font-size        : medium;
-            padding          : 2em 0 0.5em 2em;
+            padding          : 2em 0 0.8em 2em;
             max-width        : 88%;
 
             .text-detail {
                 position     : relative;
                 text-align   : start;
                 overflow     : hidden;
+                width        : 90%;
                 text-overflow: ellipsis;
                 white-space  : nowrap;
                 color        : white;

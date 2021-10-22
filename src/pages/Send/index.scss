@@ -15,12 +15,9 @@
         z-index         : 99;
 
         .tagcontent {
-            position : absolute;
-            top      : 50%;
-            left     : 50%;
-            transform: translate(-50%, -50%);
-            width    : 80%;
-            height   : 80%;
+            position: absolute;
+            width   : 80%;
+            height  : 80%;
 
             .tag {
                 position   : relative;
@@ -88,6 +85,7 @@
         flex-direction   : column;
         align-items      : center;
         justify-content  : start;
+        padding-bottom   : 4%;
 
         .ink {
             position: absolute;
@@ -97,6 +95,7 @@
 
 
         .notes {
+            display: relative;
             background-image: linear-gradient(to right, rgb(241, 197, 126) 10px, transparent 10px),
                 linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
                 linear-gradient(rgb(241, 197, 126) 30px, black 30px, black 31px, white 31px);
@@ -110,7 +109,7 @@
             resize          : none;
             color           : white;
             padding         : 8px;
-            font-size       : 1.85vh;
+            font-size       : medium;
             margin-top      : .8em;
         }
 

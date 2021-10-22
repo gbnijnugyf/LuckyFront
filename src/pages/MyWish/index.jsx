@@ -51,40 +51,43 @@ export function MyWishList(props) {
     let wishList = [
         {
             "id": 0,
-            "detail": "愿望内容",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容",
+            "detail": "愿望内容不告诉你不告诉你不告诉你不告诉你不告诉你不告诉你",
             "status": true,
             "time": "2021.3.7sadasdas  12:21"
-        },
+        }, {
+            "id": 0,
+            "detail": "救命啊救命啊救命啊救命啊救命啊救命啊救命啊救命啊",
+            "status": false,
+            "time": "2021.3.7sadasdas  12:21"
+        }
     ]
 
     return (
         <div>
             <div className="div-wishlist-toppadding" />
             <div className="div-wishlist">
-                <ol>
+                <ul>
                     {wishList.map(wish => {
                         return (
                             <li className="item-wish">
                                 <p className="text-detail">{wish.detail}</p>
                                 <div className="status">
-                                    <ButtonS style={{ background: "#FFFFFF", color: wish.status ? "#F25C33" : "#1DCB1D", fontSize: "small", fontFamily: "PingFangSC" }}>
+                                    <ButtonS style={{
+                                        background: "#FFFFFF",
+                                        color: wish.status ? "#F25C33" : "#1DCB1D",
+                                        fontSize: "medium",
+                                        fontFamily: "PingFangSC",
+                                        fontWeight: "Bold",
+                                        padding: "0 0.5em"
+
+                                    }}>
                                         {wish.status ? "已实现" : "待实现"}</ButtonS>
                                     <p className="text-wishtime">{wish.time}</p>
                                 </div>
                             </li>
                         )
                     })}
-                </ol>
+                </ul>
                 <div className="div-listbottom">
                     <p>你还剩{7 - wishList.length}次实现小幸运的机会哦~</p>
                     <hr></hr>
