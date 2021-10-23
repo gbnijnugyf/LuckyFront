@@ -1,9 +1,6 @@
 import './index.scss'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { Switch, Route } from 'react-router-dom'
-import WishItemimg from "./images/WishItem.png"
-import Trueimg from "./images/Yes.png"
-import NotTrueimg from "./images/Not.png"
 import React, { useState } from 'react'
 import { ButtonS } from '../../components/Button'
 

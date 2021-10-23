@@ -25,7 +25,7 @@
 
 .div-wishlist {
     position  : absolute;
-    margin-top: $LogoHeight + 2vh;
+    margin-top: calc($LogoHeight + 2vh);
     width     : 100vw;
 
     ul {
@@ -33,9 +33,9 @@
         margin-top: 5%;
 
         li {
-            background-image : url("./images/WishItem.png");
+            background-image : url("../../static/images/wishitem.svg");
             background-repeat: no-repeat;
-            background-size  : cover;
+            background-size  : contain;
             font-size        : medium;
             padding          : 2em 0 0.8em 2em;
             max-width        : 88%;
@@ -56,7 +56,8 @@
                 width          : 85%;
                 justify-content: space-between;
                 align-items    : center;
-                margin-top     : 0.5em;
+                margin-top     : 1em;
+                margin-bottom  : 0.5em;
 
 
                 .text-wishtime {
