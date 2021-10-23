@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import ConfirmPanel from '../../components/ConfirmPanel'
 import { ButtonS } from '../../components/Button'
 import calendar from '../../static/images/calendar.svg'
-import paperplane from '../../static/images/paperplane.svg'
 import leaf from '../../static/images/leaf.svg'
 import Service from '../../common/service'
 import './index.scss'
@@ -38,7 +37,7 @@ export default function Wishes(props) {
     const [update, setUpDate] = useState(false) // 控制动画以及愿望内容的更新
     const [appear, setAppear] = useState({ cover: false, input: false, alert: false })
     const [display, setDisplay] = useState(false);// 弹出确认框
-    const [light, setLight] = useState(true)
+    const [light, setLight] = useState(false)
     const [wishes, setWishes] = useState(
         [{ "id": 0, "content": "nihaonihao1nihaonihao1nihaonihao1nihaonihao1nihaonihao1nihaonihao1", "school": "爸大", "name": "tcy" },
         { "id": 1, "content": "nihaonihao2", "school": "爸大", "name": "tcy" },
