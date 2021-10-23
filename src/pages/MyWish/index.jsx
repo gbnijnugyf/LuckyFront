@@ -64,6 +64,31 @@ export function MyWishList(props) {
             "detail": "愿望内容",
             "status": true,
             "time": "2021.3.7sadasdas  12:21"
+        }, {
+            "id": 0,
+            "detail": "愿望内容",
+            "status": true,
+            "time": "2021.3.7sadasdas  12:21"
+        }, {
+            "id": 0,
+            "detail": "愿望内容",
+            "status": true,
+            "time": "2021.3.7sadasdas  12:21"
+        }, {
+            "id": 0,
+            "detail": "愿望内容",
+            "status": true,
+            "time": "2021.3.7sadasdas  12:21"
+        }, {
+            "id": 0,
+            "detail": "愿望内容",
+            "status": true,
+            "time": "2021.3.7sadasdas  12:21"
+        }, {
+            "id": 0,
+            "detail": "愿望内容",
+            "status": true,
+            "time": "2021.3.7sadasdas  12:21"
         },
     ]
 
