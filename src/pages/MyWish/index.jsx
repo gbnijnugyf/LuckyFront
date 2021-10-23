@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './index.scss'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { Switch, Route } from 'react-router-dom'
@@ -6,8 +7,15 @@ import Trueimg from "./images/Yes.png"
 import NotTrueimg from "./images/Not.png"
 import React, { useState } from 'react'
 import { ButtonS } from '../../components/Button'
+import Service from '../../common/service'
 
 export default function MyWish(props) {
+
+    useEffect(() => {
+        Service.getUserWish().then((res) => {
+            if (res.data.length !== 0) props.history.push('/mywish/list', {wishList: res.data})
+        })
+    }, [props.history])
 
     return (
         <div>
@@ -15,7 +23,6 @@ export default function MyWish(props) {
                 <Route path="/mywish/empty" component={Empty} />
                 <Route path="/mywish/list" component={MyWishList} />
                 <Route path="/mywish/detail" component={MyWishDetail} />
-                <Redirect to="/mywish/empty" />
             </Switch>
         </div >
     )
@@ -48,70 +55,36 @@ export function Empty(props) {
 }
 
 export function MyWishList(props) {
-    let wishList = [
-        {
-            "id": 0,
-            "detail": "愿望内容",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容",
-            "status": true,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容",
-            "status": true,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容",
-            "status": true,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容",
-            "status": true,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容",
-            "status": true,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容",
-            "status": true,
-            "time": "2021.3.7sadasdas  12:21"
-        },
-    ]
-
+    const { wishes } = props.location.state.wishList
+    const wishState = ['待实现','待实现','已实现']
     return (
         <div>
             <div className="div-wishlist-toppadding" />
             <div className="div-wishlist">
-                <ol>
-                    {wishList.map(wish => {
+                <ul>
+                    {wishes.map(wish => {
                         return (
-                            <li className="item-wish">
-                                <p className="text-detail">{wish.detail}</p>
+                            <li className="item-wish" key={wish.wish_id}>
+                                <p className="text-detail">{wish.wish}</p>
                                 <div className="status">
-                                    <ButtonS style={{ background: "#FFFFFF", color: wish.status ? "#F25C33" : "#1DCB1D", fontSize: "small", fontFamily: "PingFangSC" }}>
-                                        {wish.status ? "已实现" : "待实现"}</ButtonS>
+                                    <ButtonS style={{
+                                        background: "#FFFFFF",
+                                        color: wish.status ? "#F25C33" : "#1DCB1D",
+                                        fontSize: "medium",
+                                        fontFamily: "PingFangSC",
+                                        fontWeight: "Bold",
+                                        padding: "0 0.5em"
+
+                                    }}>
+                                        {wishState[wish.state]}</ButtonS>
                                     <p className="text-wishtime">{wish.time}</p>
                                 </div>
                             </li>
                         )
                     })}
-                </ol>
+                </ul>
                 <div className="div-listbottom">
-                    <p>你还剩{7 - wishList.length}次实现小幸运的机会哦~</p>
+                    <p>你还剩{7 - wishes.length}次实现小幸运的机会哦~</p>
                     <hr></hr>
                     <p>人家也是有底线的</p>
                 </div>

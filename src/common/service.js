@@ -78,7 +78,7 @@ let Service = {
   },
   // 发出自己的愿望 ok
   postWish(name, QQ, weChat, tel, wish, type) {
-    return Fetch('/wishes', {
+    return Fetch('/wishes/add', {
       method: 'POST',
       data: {
         wishMan_name: name,

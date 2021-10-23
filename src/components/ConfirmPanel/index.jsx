@@ -9,10 +9,10 @@ export default function ConfirmPanel(props) {
                 </div>
                 <div className="confirmPanel">
                     <div className="confirmFalse" onClick={props.action.no}>
-                        {props.btnText.no ? props.btnText.no : "取消"}
+                        {props.btnText?.no ? props.btnText.no : "取消"}
                     </div>
                     <div className="confirmTrue" onClick={props.action.yes}>
-                        {props.btnText.yes ? props.btnText.yes : "确认"}
+                        {props.btnText?.yes ? props.btnText.yes : "确认"}
                     </div>
                 </div>
             </div>
