@@ -192,7 +192,9 @@ export default function Wishes(props) {
                     }} />
             </div>
 
-            <div className="tip"></div>
+            <ButtonS style={{ position: "fixed", background: "#F59D65A0", color: "#FFFFFFA0", top: "65vh", right: "-1em", zIndex: "301", }}>
+                左右滑查看更多许愿哦~
+            </ButtonS>
             <ButtonS onClick={showConfirm} style={{ background: "white", color: "#F59D65", marginTop: "22.5em" }}>
                 点亮TA的小幸运
             </ButtonS>
