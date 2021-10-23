@@ -191,7 +191,6 @@ export default function Wishes(props) {
                         zIndex: "98"
                     }} />
             </div>
-
             <ButtonS style={{ position: "fixed", background: "#F59D65A0", color: "#FFFFFFA0", top: "65vh", right: "-1em", zIndex: "301", }}>
                 左右滑查看更多许愿哦~
             </ButtonS>

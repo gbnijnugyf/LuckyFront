@@ -48,7 +48,7 @@ function Fetch(url, opt = {}) {
 }
 
 let Service = {
-  // 绑定邮箱 等后端改
+  // 绑定邮箱 等后端改 已加入代码
   bindEmail(idcard_number, email) {
     return Fetch('/user/email', {
       method: "POST",
@@ -58,11 +58,11 @@ let Service = {
       }
     })
   },
-  // whut登陆  我暂时测不了
+  // whut登陆  我暂时测不了 未加入代码
   whutLogin() {
     return Fetch('/WhutLogin')
   },
-  // ccnu登陆 （ok
+  // ccnu登陆 （ok 已加入代码
   ccnuLogin(idcard_number, password) {
     return Fetch('/ccnulogin', {
       method: "POST",
@@ -72,11 +72,7 @@ let Service = {
       }
     })
   },
-  // 获取所有愿望 （应该不需要
-  getAllDesire() {
-    return Fetch('/wishes')
-  },
-  // 发出自己的愿望 ok
+  // 发出自己的愿望 ok 已加入代码
   postWish(name, QQ, weChat, tel, wish, type) {
     return Fetch('/wishes/add', {
       method: 'POST',
@@ -90,7 +86,7 @@ let Service = {
       }
     })
   },
-  // 点亮别人的愿望 （后端在改
+  // 点亮别人的愿望 ok APIfox测了 不知道加在哪儿 点亮有个表单要填写啊
   lightWishOn(id) {
     return Fetch('/wishes/light', {
       method: 'POST',
@@ -99,31 +95,41 @@ let Service = {
       }
     })
   },
-  // 查看愿望详情
-  getWishById() {
-    return Fetch('/wishes/id')
+  // 查看愿望详情 ok 已加入代码
+  getWishDetail(id) {
+    return Fetch(`/wishes/details?wish_id=${id}`)
   },
-  // 获取自己的愿望 后端要改
+  // 获取自己的愿望 已加入代码 
   getUserWish() {  
     return Fetch('/wishes/user')
   },
-  // 根据分类获取愿望 返回的school不对
+  // 根据分类获取愿望 ok 已加入代码
   getWishByCategories(category) {
     return Fetch(`/wishes/categories?categories=${category}`)
   },
-  // 删除愿望 
-  deleteWish() {
-    return Fetch('')
+  // 删除愿望 ok 未加入代码
+  deleteWish(wish_id) {
+    return Fetch(`/wishes?wish_id=${wish_id}`)
   },
-  // 留言
-  leaveMessage() {
-    return Fetch('/message/leave')
+  // 放弃点亮别人的愿望 ok  未加入代码
+  giveUpLightWish(wish_id, msg) {
+    return Fetch(`/wishes/giveup`, {
+      method: 'POST',
+      data: {
+        wish_id: wish_id,
+        message: msg
+      }
+    })
   },
-  //??
-  getUserMessage() {
-    return Fetch('/message')
-  }
-
+  // 实现别人的愿望 ok  未加入代码
+  achieveWish(wish_id) {
+    return Fetch(`/wishes/achieve`, {
+      method: 'POST',
+      data: {
+        wish_id: wish_id
+      }
+    })
+  },
 };
 
 export default Service;

@@ -11,11 +11,11 @@ import Service from '../../common/service'
 
 export default function MyWish(props) {
 
-    useEffect(() => {
-        Service.getUserWish().then((res) => {
-            if (res.data.length !== 0) props.history.push('/mywish/list', {wishList: res.data})
-        })
-    }, [props.history])
+    // useEffect(() => {
+    //     Service.getUserWish().then((res) => {
+    //         if (res.data.length !== 0) props.history.push('/mywish/list', {wishList: res.data})
+    //     })
+    // }, [props.history])
 
     return (
         <div>
@@ -56,7 +56,10 @@ export function Empty(props) {
 
 export function MyWishList(props) {
     const { wishes } = props.location.state.wishList
-    const wishState = ['待实现','待实现','已实现']
+    const wishState = ['待实现', '待实现', '已实现']
+    const goWishDetail = (id) => {
+        props.history.push('mywish/detail', {id: id})
+    }
     return (
         <div>
             <div className="div-wishlist-toppadding" />
@@ -64,7 +67,7 @@ export function MyWishList(props) {
                 <ul>
                     {wishes.map(wish => {
                         return (
-                            <li className="item-wish" key={wish.wish_id}>
+                            <li className="item-wish" key={wish.wish_id} onClick={() => goWishDetail(wish.wish_id)}>
                                 <p className="text-detail">{wish.wish}</p>
                                 <div className="status">
                                     <ButtonS style={{
@@ -74,7 +77,6 @@ export function MyWishList(props) {
                                         fontFamily: "PingFangSC",
                                         fontWeight: "Bold",
                                         padding: "0 0.5em"
-
                                     }}>
                                         {wishState[wish.state]}</ButtonS>
                                     <p className="text-wishtime">{wish.time}</p>
@@ -95,12 +97,18 @@ export function MyWishList(props) {
 }
 
 export function MyWishDetail(props) {
-
+    const { id } = props.location.state
     const [isAlert, setIsAlert] = useState(false)
     const [content, setContent] = useState('')
     const [isSure, setIsSure] = useState(false)
     const [isLong, setIsLong] = useState(false)
     const [msg, setMsg] = useState({ name: '旷旷', time: '2021-09-01 00:00', contact: {} })
+
+    // useEffect(() => {
+    //     Service.getWishDetail(id).then((res) => {
+    //         setContent or setMsg?
+    //     })
+    // }, [id])
 
     const handleAlert = (newContent) => {
 
@@ -141,12 +149,8 @@ export function MyWishDetail(props) {
     )
 }
 
-
-
 function Button(props) {
-
     const [isSure, setIsSure] = useState(false)
-
     const handleSure = (content) => {
         props.handleAlert(content)
     }
