@@ -1,7 +1,9 @@
+@import "../../config/globalCssVar.scss";
+
 .send {
     position      : relative;
     width         : 100vw;
-    height        : 87vh;
+    height        : calc(100% - $HeaderHeight);
     display       : flex;
     align-items   : center;
     flex-direction: column;
@@ -34,14 +36,14 @@
                 }
 
                 p {
-                    position    : absolute;
-                    top         : 35%;
-                    left        : 23.5%;
-                    height      : 100%;
-                    width       : 100%;
-                    font-family : TsangerShuYuanTW02;
-                    color       : white;
-                    font-size   : 2.5vh;
+                    position   : absolute;
+                    top        : 35%;
+                    left       : 23.5%;
+                    height     : 100%;
+                    width      : 100%;
+                    font-family: TsangerShuYuanTW02;
+                    color      : white;
+                    font-size  : 2.5vh;
                 }
             }
 

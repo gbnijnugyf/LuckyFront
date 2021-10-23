@@ -1,8 +1,11 @@
+@import "../../config/globalCssVar.scss";
+
+
 .Detail {
 
     position       : relative;
     width          : 100%;
-    height         : 90%;
+    height         : calc(100% - $HeaderHeight);
     margin-top     : 10vh;
     display        : flex;
     flex-direction : column;
