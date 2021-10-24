@@ -1,9 +1,6 @@
 import './index.scss'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { Switch, Route } from 'react-router-dom'
-import WishItemimg from "./images/WishItem.png"
-import Trueimg from "./images/Yes.png"
-import NotTrueimg from "./images/Not.png"
 import React, { useState } from 'react'
 import { ButtonS } from '../../components/Button'
 
@@ -51,42 +48,12 @@ export function MyWishList(props) {
     let wishList = [
         {
             "id": 0,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
+            "detail": "愿望内容不告诉你不告诉你不告诉你不告诉你不告诉你不告诉你",
             "status": true,
-            "time": "2021.3.7 12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
             "time": "2021.3.7sadasdas  12:21"
         }, {
             "id": 0,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
-            "status": false,
-            "time": "2021.3.7sadasdas  12:21"
-        }, {
-            "id": 0,
-            "detail": "愿望内容啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧",
+            "detail": "救命啊救命啊救命啊救命啊救命啊救命啊救命啊救命啊",
             "status": false,
             "time": "2021.3.7sadasdas  12:21"
         }
@@ -96,25 +63,35 @@ export function MyWishList(props) {
         <div>
             <div className="div-wishlist-toppadding" />
             <div className="div-wishlist">
-                <ol>
+                <ul>
                     {wishList.map(wish => {
                         return (
                             <li className="item-wish">
-                                <img className="img-wishitem" src={WishItemimg} alt="" />
                                 <p className="text-detail">{wish.detail}</p>
-                                <img className="img-status" src={wish.status ? Trueimg : NotTrueimg} alt="" />
-                                <p className="text-wishtime">{wish.time}</p>
+                                <div className="status">
+                                    <ButtonS style={{
+                                        background: "#FFFFFF",
+                                        color: wish.status ? "#F25C33" : "#1DCB1D",
+                                        fontSize: "medium",
+                                        fontFamily: "PingFangSC",
+                                        fontWeight: "Bold",
+                                        padding: "0 0.5em"
+
+                                    }}>
+                                        {wish.status ? "已实现" : "待实现"}</ButtonS>
+                                    <p className="text-wishtime">{wish.time}</p>
+                                </div>
                             </li>
                         )
                     })}
-                </ol>
+                </ul>
                 <div className="div-listbottom">
                     <p>你还剩{7 - wishList.length}次实现小幸运的机会哦~</p>
                     <hr></hr>
                     <p>人家也是有底线的</p>
                 </div>
             </div>
-        </div>
+        </div >
     )
 
 }
