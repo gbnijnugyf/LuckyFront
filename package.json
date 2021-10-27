@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "http-proxy-middleware": "^2.0.1",
     "localStorage": "^1.0.4",
     "rc-notification": "^4.5.7",
     "react": "^17.0.2",
@@ -39,5 +40,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://lucky2021.muxixyz.com"
 }
