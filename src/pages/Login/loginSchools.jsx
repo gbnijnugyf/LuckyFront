@@ -56,10 +56,13 @@ export function LoginCCNU(props) {
         Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
             if (res.status === 0) {
                 localStorage.setItem('token', res.data)
-                props.history.push({
-                    pathname: "/login/bindemail",
-                    id: ccnuId
+                Service.checkUserEmail().then(res =>{
+                    // TODO: 检查是否已经绑定邮箱，接口还没写好
+                    // props.history.push({
+                    //     pathname: "/login/bindemail",
+                    // })
                 })
+                
             }
             else alert('密码错误');
         })
@@ -84,14 +87,13 @@ export function LoginCCNU(props) {
 
 export function BindEmail(props) {
 
-    const { id } = props.location
     const [email, setEmail] = useState('')
 
     const handleEmail = (e) => {
         setEmail(e.target.value)
     }
     const goBind = () => {
-        Service.bindEmail(id, email).then(() => {
+        Service.bindEmail(email).then(() => {
             props.history.push("/home")
         })
     }
