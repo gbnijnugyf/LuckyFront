@@ -14,8 +14,8 @@ export default function Home(props) {
         props.history.push(`/wish/${tag.enName}`, { category: tag.category })
     }
 
-    const goSend = (tags) => {
-        props.history.push('/send', { tags })
+    const goSend = () => {
+        props.history.push('/send')
     }
 
     return (
