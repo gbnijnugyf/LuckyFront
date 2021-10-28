@@ -53,17 +53,14 @@ export default function Send(props) {
         } else if (numberValue === '') {
             alert('留下联系方式可以及时收获你的小幸运哦')
         } else {
-            switch (selectValue) {
-                case 'QQ':
-                    Service.postWish(nameValue, numberValue, "", tel, wishContent, category)
-                        .then(props.history.push('/home'))
-                    break;
-                case '微信':
-                    Service.postWish(nameValue, "", numberValue, tel, wishContent, category)
-                        .then(props.history.push('/home'))
-                    break;
-                default:
-            }
+            let QQ = selectValue === 'QQ' ? numberValue : ""
+            let wechat = selectValue === '微信' ? numberValue : ""
+
+            Service.postWish(nameValue, QQ, wechat, tel, wishContent, category)
+                .then(() => {
+                    alert('投递成功！')
+                    props.history.push('/home')
+                })
         }
     }
     // 处理选择标签的点击事件
