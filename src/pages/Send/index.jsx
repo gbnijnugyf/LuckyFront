@@ -43,14 +43,23 @@ export default function Send(props) {
     }
     // 处理点击发送后的提交失败/成功
     const goSubmit = () => {
-        if (numberValue === '' || nameValue === '')
-            numberValue === '' ? alert('留下联系方式可以及时收获你的小幸运哦') : alert('你的小幸运还没有署名哦～')
+        // 判断必填项
+        if (nameValue === '') {
+            alert('你的小幸运还没有署名哦～')
+        } else if (numberValue === '')
+            alert('留下联系方式可以及时收获你的小幸运哦')
         else {
-            selectValue === 'QQ' ?
-                Service.postWish(nameValue, numberValue, " ", tel, wishContent, categories)
-                    .then(props.history.push('/home')) :
-                Service.postWish(nameValue, " ", numberValue, tel, wishContent, categories)
-                    .then(props.history.push('/home'))
+            switch (selectValue) {
+                case 'QQ':
+                    Service.postWish(nameValue, numberValue, "", tel, wishContent, categories)
+                        .then(props.history.push('/home'))
+                    break;
+                case '微信':
+                    Service.postWish(nameValue, "", numberValue, tel, wishContent, categories)
+                        .then(props.history.push('/home'))
+                    break;
+                default:
+            }
         }
     }
     // 处理选择标签的点击事件
