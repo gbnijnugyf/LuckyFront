@@ -11,12 +11,12 @@ export default function Send(props) {
 
     const [showTag, setShowTag] = useState(false) //控制标签弹窗
     const [tagName, setTagName] = useState('选择标签') //控制选择标签后的显示
-    const [wishContent, setWishContent] = useState('把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~') //控制 textarea
+    const [wishContent, setWishContent] = useState('') //控制 textarea
     const [nameValue, setNameValue] = useState('') //控制 name input
     const [numberValue, setNumberValue] = useState('') //控制 number input
     const [tel, setTel] = useState('') // 控制tel input
     const [selectValue, setSelectValue] = useState('QQ')// 控制select的值
-    const [categories, setCategories] = useState(9) // 控制愿望分类
+    const [category, setCategory] = useState(-1) // 控制愿望分类
     // 处理填写愿望的字数限制
     const handleWishContent = (e) => {
         if (e.target.value.length > 160) {
@@ -44,18 +44,22 @@ export default function Send(props) {
     // 处理点击发送后的提交失败/成功
     const goSubmit = () => {
         // 判断必填项
-        if (nameValue === '') {
+        if (wishContent === '') {
+            alert('你还没有填写内容哦~')
+        } else if (category === -1) {
+            alert('你还没有选择标签分类哦~')
+        } else if (nameValue === '') {
             alert('你的小幸运还没有署名哦～')
-        } else if (numberValue === '')
+        } else if (numberValue === '') {
             alert('留下联系方式可以及时收获你的小幸运哦')
-        else {
+        } else {
             switch (selectValue) {
                 case 'QQ':
-                    Service.postWish(nameValue, numberValue, "", tel, wishContent, categories)
+                    Service.postWish(nameValue, numberValue, "", tel, wishContent, category)
                         .then(props.history.push('/home'))
                     break;
                 case '微信':
-                    Service.postWish(nameValue, "", numberValue, tel, wishContent, categories)
+                    Service.postWish(nameValue, "", numberValue, tel, wishContent, category)
                         .then(props.history.push('/home'))
                     break;
                 default:
@@ -67,7 +71,7 @@ export default function Send(props) {
         setShowTag(false)
         setTagName(name)
         tags.forEach((tag) => {
-            if (tag.name === name) setCategories(tag.category)
+            if (tag.name === name) setCategory(tag.category)
         })
     }
     // 打开选择标签页
@@ -98,7 +102,7 @@ export default function Send(props) {
                 }}>
                     {"# " + tagName}
                 </ButtonS>
-                <textarea className='notes' placeholder={wishContent} onChange={handleWishContent}></textarea>
+                <textarea className='notes' placeholder={'把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~'} value={wishContent} onChange={handleWishContent}></textarea>
                 <div className="send-msg">
                     <div className="name">
                         <p>投递人：</p>
