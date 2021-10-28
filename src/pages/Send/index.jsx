@@ -89,7 +89,7 @@ export default function Send(props) {
                 }}>
                     {"# " + tagName}
                 </ButtonS>
-                <textarea className='notes' value={wishContent} onChange={handleWishContent}></textarea>
+                <textarea className='notes' placeholder={wishContent} onChange={handleWishContent}></textarea>
                 <div className="send-msg">
                     <div className="name">
                         <p>投递人：</p>
