@@ -3,6 +3,7 @@ import Service from '../../common/service'
 
 import './loginSchools.scss'
 import { ButtonL } from '../../components/Button'
+import { useEffect } from 'react/cjs/react.development'
 
 function LoginPannel(props) {
     return (
@@ -17,6 +18,9 @@ function LoginPannel(props) {
 }
 
 export function LoginWHUT(props) {
+    useEffect(() => {
+        Service.whutLogin()
+    },[])
 
     const goVerify = () => {
         props.history.push("/login/bindemail")

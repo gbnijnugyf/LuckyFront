@@ -3,7 +3,7 @@ import Notification from 'rc-notification';
 
 function Fetch(url, opt = {}) {
     const token = localStorage.getItem('token')
-  const BASEURL = "/api"
+    const BASEURL = "/api"
     url = BASEURL + url;
 
     opt.method = opt.method || 'GET';
@@ -59,7 +59,9 @@ let Service = {
     },
     // whut登陆  我暂时测不了 未加入代码
     whutLogin() {
-        return Fetch('/whutlogin')
+        return Fetch('/whutlogin', {
+            method: "POST"
+        })
     },
     // ccnu登陆 （ok 已加入代码
     ccnuLogin(idcard_number, password) {

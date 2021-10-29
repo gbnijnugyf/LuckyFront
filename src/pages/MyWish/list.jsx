@@ -6,8 +6,8 @@ import Service from '../../common/service'
 
 
 export function MyWishList(props) {
-    const { wishPost, wishLight } = props
-    console.log(props)
+    const { wishPost, wishLight } = props.location.state
+    console.log(props.location)
     const wishState = ['待实现', '已实现']
     const goWishDetail = (id) => {
         props.history.push('/mywish/detail', { id: id })
