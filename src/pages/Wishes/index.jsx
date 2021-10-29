@@ -35,7 +35,6 @@ export default function Wishes(props) {
     const [move, setMove] = useState(moveState) // 树叶动画相关状态
     const [startX, setStartX] = useState() // 树叶动画相关状态
     const [update, setUpDate] = useState(false) // 控制动画以及愿望内容的更新
-    const [appear, setAppear] = useState({ cover: false, input: false, alert: false })
     const [display, setDisplay] = useState(false);// 弹出确认框
     const [light, setLight] = useState(false)
     const [wishes, setWishes] = useState(

@@ -5,9 +5,9 @@ import React from 'react'
 import { Empty } from './empty.jsx'
 import { MyWishList } from './list'
 import { MyWishDetail } from './detail'
+import Service from '../../common/service'
 
 export default function MyWish(props) {
-
     return (
         <div>
             <Switch>

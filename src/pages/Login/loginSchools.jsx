@@ -57,10 +57,11 @@ export function LoginCCNU(props) {
             if (res.status === 0) {
                 localStorage.setItem('token', res.data)
                 Service.checkUserEmail().then(res =>{
-                    // TODO: 检查是否已经绑定邮箱，接口还没写好
-                    // props.history.push({
-                    //     pathname: "/login/bindemail",
-                    // })
+                    if(res.status === -1)
+                    props.history.push({
+                        pathname: "/login/bindemail",
+                    })
+                    else props.history.push("/home")
                 })
                 
             }

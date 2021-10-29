@@ -8,7 +8,6 @@ import './index.scss'
 
 export default function Home(props) {
 
-    // const [tags, setTags] = useState()
 
     const goWishes = (tag) => {
         props.history.push(`/wish/${tag.enName}`, { category: tag.category })

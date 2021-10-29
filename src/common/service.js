@@ -104,9 +104,13 @@ let Service = {
     getWishDetail(id) {
         return Fetch(`/wishes/details?wish_id=${id}`)
     },
-    // 获取自己的愿望 已加入代码 
-    getUserWish() {
-        return Fetch('/wishes/user')
+    // 获取自己点亮的愿望 已加入代码 
+    getUserWishLight() {
+        return Fetch('/wishes/user/light')
+    },
+      // 获取自己投递的愿望 已加入代码 
+    getUserWishPost() {
+        return Fetch('/wishes/user/post')
     },
     // 根据分类获取愿望 ok 已加入代码
     getWishByCategories(category) {
