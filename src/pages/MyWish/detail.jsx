@@ -13,15 +13,15 @@ export function MyWishDetail(props) {
     const [wish, setWish] = useState({})
 
 
-    useEffect(() => {
-        Service.getWishDetail(id).then((res) => {
-            setWish({
-                content: res.data.wish,
-                wishman_name: res.data.wishman_name,
-                time: res.data.creat_at
-            })
-        })
-    }, [id])
+    // useEffect(() => {
+    //     Service.getWishDetail(id).then((res) => {
+    //         setWish({
+    //             content: res.data.wish,
+    //             wishman_name: res.data.wishman_name,
+    //             time: res.data.creat_at
+    //         })
+    //     })
+    // }, [id])
 
     const goDeleteWish = () => {
 

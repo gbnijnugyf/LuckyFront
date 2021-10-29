@@ -6,32 +6,19 @@ import Service from '../../common/service'
 
 
 export function MyWishList(props) {
-
-    let [wishes, setWishes] = useState([])
+    const { wishPost, wishLight } = props
+    console.log(props)
     const wishState = ['待实现', '已实现']
     const goWishDetail = (id) => {
         props.history.push('/mywish/detail', { id: id })
     }
-
-    useEffect(() => {
-        Service.getUserWish().then((res) => {
-            console.log(res)
-            if (res.data.wishes.length === 0)
-                props.history.push('/mywish/empty')
-            else
-                setWishes(res.data.wishes);
-        })
-    }, [props.history])
-
-
-
 
     return (
         <div>
             <div className="div-wishlist-toppadding" />
             <div className="div-wishlist">
                 <ul>
-                    {wishes.map(wish => {
+                    {wishPost.map(wish => {
                         return (
                             <li className="item-wish" key={wish.wish_id} onClick={() => goWishDetail(wish.wish_id)}>
                                 <p className="text-detail">{wish.wish}</p>
@@ -52,7 +39,7 @@ export function MyWishList(props) {
                     })}
                 </ul>
                 <div className="div-listbottom">
-                    <p>你还剩{7 - wishes.length}次实现小幸运的机会哦~</p>
+                    <p>你还剩{7 - wishLight.length}次实现小幸运的机会哦~</p>
                     <hr></hr>
                     <p>人家也是有底线的</p>
                 </div>
