@@ -8,17 +8,17 @@ import './index.scss'
 
 const WishItem = (props) => {
     return (
-        <div key={props.wish.wishman_name} className="wish-item" style={props.style}
+        <div key={props.wish?.wishman_name} className="wish-item" style={props.style}
             onTouchStart={props.onTouchStart} onTouchMove={props.onTouchMove} onTouchEnd={props.onTouchEnd} >
             <img src={leaf} className="wish-img" alt="" />
             <div className="underline"></div>
             <div className="underline"></div>
             <div className="underline"></div>
             <div className="underline"></div>
-            <p className="content">{props.wish.wish}</p>
+            <p className="content">{props.wish?.wish}</p>
             <div className="msg">
-                <p>{props.wish.school === 0 ? '华小师' : '武小理'}</p>
-                <p>{props.wish.wishman_name}</p>
+                <p>{props.wish?.school === 0 ? '华小师' : '武小理'}</p>
+                <p>{props.wish?.wishman_name}</p>
             </div>
         </div>
 
@@ -38,20 +38,14 @@ export default function Wishes(props) {
     const [appear, setAppear] = useState({ cover: false, input: false, alert: false })
     const [display, setDisplay] = useState(false);// 弹出确认框
     const [light, setLight] = useState(false)
-    const [wishes, setWishes] = useState(
-        [{ "id": 0, "content": "nihaonihao1nihaonihao1nihaonihao1nihaonihao1nihaonihao1nihaonihao1", "school": "爸大", "name": "tcy" },
-        { "id": 1, "content": "nihaonihao2", "school": "爸大", "name": "tcy" },
-        { "id": 2, "content": "nihaonihao3", "school": "爸大", "name": "tcy" },
-        { "id": 3, "content": "nihaonihao3", "school": "爸大", "name": "tcy" }
-        ]
-    )
+    const [wishes, setWishes] = useState([])
     const [name, setName] = useState()
     const [number, setNumber] = useState()
     useEffect(() => {
         Service.getWishByCategories(category).then((res) => {
             setWishes(res.data)
-      }) 
-    },[category])
+        })
+    }, [category])
     const handleName = (e) => {
         setName(e.target.value)
     }
@@ -149,13 +143,13 @@ export default function Wishes(props) {
             <ButtonS
                 onClick={goMyWish}
                 style={{
-                background: "#F59D65",
-                color: "white",
-                marginTop: "13em",
-                alignSelf: "flex-start",
-                padding: "0.4em 0.7em",
-                fontSize: "medium"
-            }}>
+                    background: "#F59D65",
+                    color: "white",
+                    marginTop: "13em",
+                    alignSelf: "flex-start",
+                    padding: "0.4em 0.7em",
+                    fontSize: "medium"
+                }}>
                 <img style={{ transform: "scale(3) translate(2%, 12%)" }} src={calendar} alt="" />
                 查看我的点亮
             </ButtonS>
