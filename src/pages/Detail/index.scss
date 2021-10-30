@@ -6,11 +6,80 @@
     position       : relative;
     width          : 100%;
     height         : calc(100% - $HeaderHeight);
-    margin-top     : 10vh;
+    margin-top     : $HeaderHeight;
     display        : flex;
     flex-direction : column;
     align-items    : center;
-    justify-content: space-around;
+    justify-content: space-between;
+
+
+    .content {
+
+        position           : relative;
+        height             : 43%;
+        margin-top         : 5%;
+        display            : flex;
+        flex-direction     : column;
+        align-items        : center;
+        flex-grow          : 0 !important;
+        width              : 85%;
+        background         : url('../../static/images/panel_upper.svg');
+        background-repeat  : no-repeat;
+        background-position: top;
+        padding            : 29% 9% 0% 9%;
+
+        .forward {
+            width       : 1.5rem;
+            align-self  : flex-end;
+            margin-right: 1.5rem;
+            margin-top  : 0.5rem;
+        }
+
+        .text {
+
+            display: relative;
+            background-image: linear-gradient(to right, rgb(241, 197, 126) 10px, transparent 10px),
+                linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
+                linear-gradient(rgb(241, 197, 126) 30px, black 30px, black 31px, white 31px);
+
+            word-break      : break-all;
+            border          : 0px;
+            background-size : 100% 100%, 100% 100%, 100% 31px;
+            line-height     : 30px;
+            font-family     : TsangerShuYuanTW02;
+            width           : 80%;
+            height          : 9em;
+            background-color: rgb(241, 197, 126);
+            resize          : none;
+            color           : white;
+            padding         : 8px;
+            font-size       : medium;
+            margin-top      : .8em;
+        }
+
+        .wishInfo {
+            align-self  : flex-end;
+            margin-right: 2em;
+            margin-top  : 0.5em;
+
+            p {
+                font-family: TsangerShuYuanTW02;
+                font-size  : large;
+            }
+        }
+    }
+
+
+    .other {
+        flex-grow      : 1;
+        display        : flex;
+        flex-direction : column;
+        align-items    : center;
+        justify-content: space-around;
+        width          : 100%;
+    }
+
+
 
     // 愿望主界面
     .wish {
