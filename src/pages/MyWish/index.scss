@@ -27,26 +27,68 @@ b {
 
 }
 
-.div-postlist {
-    margin-top: calc($LogoHeight + 2vh);
+.div-wishlist-toppadding {
+    position  : fixed;
+    z-index   : 101;
+    top       : 0;
     width     : 100vw;
-
+    height    : calc($HeaderHeight + $LogoHeight + 2vh);
+    background: linear-gradient(rgba(249, 210, 145, 1) 90%, rgba(249, 210, 145, 0));
 }
 
-.div-lightlist {
-    position  : relative;
-    margin-top: calc($LogoHeight + 2vh);
-    width     : 100vw;
+.div-wishlist {
+    position      : relative;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    margin-top    : calc($LogoHeight + 2vh);
+    width         : 100vw;
+
+    hr {
+        width: 100%;
+    }
+
+    h3 {
+        align-self   : flex-start;
+        margin-left  : 2em;
+        font-family  : TsangerShuYuanTW02;
+        color        : #FF7A59;
+        margin-bottom: 0.2em;
+    }
+
+    ul {
+        position     : relative;
+        width        : 90%;
+        align-self   : flex-start;
+        margin-bottom: 3em;
+    }
+
+    .div-listbottom {
+        width     : 80%;
+        margin-top: 1em;
+
+        hr {
+            background-color: #FF7A59;
+            border-color    : #FF7A59;
+        }
+
+        p {
+            margin: 0.5em 0;
+            color : #FF7A59;
+        }
+
+    }
 }
 
 .item-wish {
+    position         : relative;
     background-image : url("../../static/images/wishitem.svg");
     background-repeat: no-repeat;
     background-size  : contain;
     font-size        : medium;
     padding          : 2em 0 0.8em 2em;
-    max-width        : 88%;
-    list-style: none;
+    width            : 100%;
+    list-style       : none;
 
     .text-detail {
         position     : relative;
@@ -64,8 +106,8 @@ b {
         width          : 85%;
         justify-content: space-between;
         align-items    : center;
-        margin-top     : 1em;
-        margin-bottom  : 0.5em;
+        margin-top     : 0.5em;
+        margin-bottom  : 1em;
 
 
         .text-wishtime {
@@ -98,7 +140,7 @@ b {
         display       : flex;
         flex-direction: column;
         align-items   : center;
-        flex-grow: 0 !important;
+        flex-grow     : 0 !important;
 
         background         : url('../../static/images/panel_upper.svg');
         background-repeat  : no-repeat;
