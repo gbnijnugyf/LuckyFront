@@ -3,6 +3,7 @@ import Service from '../../common/service'
 
 import './loginSchools.scss'
 import { ButtonL } from '../../components/Button'
+import { useEffect } from 'react/cjs/react.development'
 
 function LoginPannel(props) {
     return (
@@ -17,6 +18,9 @@ function LoginPannel(props) {
 }
 
 export function LoginWHUT(props) {
+    useEffect(() => {
+        Service.whutLogin()
+    },[])
 
     const goVerify = () => {
         props.history.push("/login/bindemail")
@@ -54,14 +58,19 @@ export function LoginCCNU(props) {
     }
     const goVerify = () => {
         Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
-            if (res.status === 0) localStorage.setItem('token', res.data)
-            else console.log('密码错误');
+            if (res.status === 0) {
+                localStorage.setItem('token', res.data)
+                Service.checkUserEmail().then(res =>{
+                    if(res.status === -1)
+                    props.history.push({
+                        pathname: "/login/bindemail",
+                    })
+                    else props.history.push("/home")
+                })
+                
+            }
+            else alert('密码错误');
         })
-        props.history.push({
-            pathname: "/login/bindemail",
-            id: ccnuId
-        })
-
     }
     return (
         <LoginPannel text="我是华小师" onClick={goVerify} btnText="下一步">
@@ -83,14 +92,13 @@ export function LoginCCNU(props) {
 
 export function BindEmail(props) {
 
-    const { id } = props.location
     const [email, setEmail] = useState('')
 
     const handleEmail = (e) => {
         setEmail(e.target.value)
     }
     const goBind = () => {
-        Service.bindEmail(id, email).then(() => {
+        Service.bindEmail(email).then(() => {
             props.history.push("/home")
         })
     }

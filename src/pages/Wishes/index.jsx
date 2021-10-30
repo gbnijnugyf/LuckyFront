@@ -8,17 +8,17 @@ import './index.scss'
 
 const WishItem = (props) => {
     return (
-        <div key={props.wish.name} className="wish-item" style={props.style}
+        <div key={props.wish?.wishman_name} className="wish-item" style={props.style}
             onTouchStart={props.onTouchStart} onTouchMove={props.onTouchMove} onTouchEnd={props.onTouchEnd} >
             <img src={leaf} className="wish-img" alt="" />
             <div className="underline"></div>
             <div className="underline"></div>
             <div className="underline"></div>
             <div className="underline"></div>
-            <p className="content">{props.wish.content}</p>
+            <p className="content">{props.wish?.wish}</p>
             <div className="msg">
-                <p>{props.wish.school}</p>
-                <p>{props.wish.name}</p>
+                <p>{props.wish?.school === 0 ? '华小师' : '武小理'}</p>
+                <p>{props.wish?.wishman_name}</p>
             </div>
         </div>
 
@@ -35,30 +35,19 @@ export default function Wishes(props) {
     const [move, setMove] = useState(moveState) // 树叶动画相关状态
     const [startX, setStartX] = useState() // 树叶动画相关状态
     const [update, setUpDate] = useState(false) // 控制动画以及愿望内容的更新
-    const [appear, setAppear] = useState({ cover: false, input: false, alert: false })
     const [display, setDisplay] = useState(false);// 弹出确认框
     const [light, setLight] = useState(false)
-    const [wishes, setWishes] = useState(
-        [{ "id": 0, "content": "nihaonihao1nihaonihao1nihaonihao1nihaonihao1nihaonihao1nihaonihao1", "school": "爸大", "name": "tcy" },
-        { "id": 1, "content": "nihaonihao2", "school": "爸大", "name": "tcy" },
-        { "id": 2, "content": "nihaonihao3", "school": "爸大", "name": "tcy" },
-        { "id": 3, "content": "nihaonihao3", "school": "爸大", "name": "tcy" }
-        ]
-    )
+    const [wishes, setWishes] = useState([])
     const [name, setName] = useState()
     const [number, setNumber] = useState()
-
-    // Service.getWishByCategories(category).then((res) => {
-    //     console.log(res.data)
-    //     setWish(res.data)
-    // })
-    // 控制表单
-
-
+    useEffect(() => {
+        Service.getWishByCategories(category).then((res) => {
+            setWishes(res.data)
+        })
+    }, [category])
     const handleName = (e) => {
         setName(e.target.value)
     }
-
     const handleNumber = (e) => {
         setNumber(e.target.value)
     }
@@ -100,7 +89,10 @@ export default function Wishes(props) {
             // }
         }, 200)
     }
-
+    // 查看我的点亮
+    const goMyWish = () => {
+        props.history.push('/mywish')
+    }
     const SendMessage = () => {
         //TODO: 发送逻辑
         handleAlert();
@@ -147,14 +139,16 @@ export default function Wishes(props) {
                 ) : <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗</p>}
             </ConfirmPanel>
 
-            <ButtonS style={{
-                background: "#F59D65",
-                color: "white",
-                marginTop: "13em",
-                alignSelf: "flex-start",
-                padding: "0.4em 0.7em",
-                fontSize: "medium"
-            }}>
+            <ButtonS
+                onClick={goMyWish}
+                style={{
+                    background: "#F59D65",
+                    color: "white",
+                    marginTop: "13em",
+                    alignSelf: "flex-start",
+                    padding: "0.4em 0.7em",
+                    fontSize: "medium"
+                }}>
                 <img style={{ transform: "scale(3) translate(2%, 12%)" }} src={calendar} alt="" />
                 查看我的点亮
             </ButtonS>
@@ -190,7 +184,6 @@ export default function Wishes(props) {
                         zIndex: "98"
                     }} />
             </div>
-
             <ButtonS style={{ position: "fixed", background: "#F59D65A0", color: "#FFFFFFA0", top: "65vh", right: "-1em", zIndex: "301", }}>
                 左右滑查看更多许愿哦~
             </ButtonS>

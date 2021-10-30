@@ -2,125 +2,145 @@ import 'whatwg-fetch';
 import Notification from 'rc-notification';
 
 function Fetch(url, opt = {}) {
-  const token = localStorage.getItem('token')
-  const BASEURL = 'http://127.0.0.1:4523/mock/382189';
-  url = BASEURL + url;
+    const token = localStorage.getItem('token')
+    const BASEURL = "/api"
+    url = BASEURL + url;
 
-  opt.method = opt.method || 'GET';
-  opt.headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
+    opt.method = opt.method || 'GET';
+    opt.headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    };
 
-   opt.headers.Authorization = `Bearer ` + token
-  if (opt.body) {
-    opt.body = JSON.stringify(opt.body)
-  }
+    opt.headers.token = token
+    if (opt.body) {
+        opt.body = JSON.stringify(opt.body)
+    }
 
-  opt.body = JSON.stringify(opt.data) || null;
-  if (opt.formdata) {
-    opt.body = opt.formdata;
-  }
-  return fetch(url, opt)
-    .then(response => {
-      if (response.ok) {
-        return response.json().then(res => {
-          console.log(res);
-          return res;
+    opt.body = JSON.stringify(opt.data) || null;
+    if (opt.formdata) {
+        opt.body = opt.formdata;
+    }
+    console.log(opt);
+    return fetch(url, opt)
+        .then(response => {
+            if (response.ok) {
+                return response.json().then(res => {
+                    console.log(res);
+                    return res;
+                });
+            } else {
+                return response.json().then(res => {
+                    return new Promise((_, reject) => {
+                        reject(res);
+                    });
+                });
+            }
+        })
+        .catch(e => {
+            Notification.newInstance({}, notification => {
+                notification.notice({
+                    content: `服务端错误：${e.message}`
+                });
+            });
+            throw e;
         });
-      } else {
-        return response.json().then(res => {
-          return new Promise((_, reject) => {
-            reject(res);
-          });
-        });
-      }
-    })
-    .catch(e => {
-      Notification.newInstance({}, notification => {
-        notification.notice({
-          content: `服务端错误：${e.message}`
-        });
-      });
-      throw e;
-    });
 }
 
 let Service = {
-  // 绑定邮箱
-  bindEmail(idcard_number, email) {
-    return Fetch('/user/email', {
-      method: "POST",
-      data: {
-        idcard_number: idcard_number,
-        email: email
-      }
-    })
-  },
-  // whut登陆
-  whutLogin() {
-    return Fetch('/WhutLogin')
-  },
-  // ccnu登陆
-  ccnuLogin(idcard_number, password) {
-    return Fetch('/Ccnulogin', {
-      method: "POST",
-      data: {
-        idcard_number: idcard_number,
-        password: password
-      }
-    })
-  },
-  // 获取所有愿望
-  getAllDesire() {
-    return Fetch('/wishes')
-  },
-  // 发出自己的愿望
-  postWish(name, QQ, weChat, tel, wish) {
-    return Fetch('/wishes', {
-      method: 'POST',
-      data: {
-        wishMan_name: name,
-        wishMan_QQ: QQ,
-        wishMan_Wechat: weChat,
-        wishMan_Tel: tel,
-        wish: wish
-      }
-    })
-  },
-  // 点亮别人的愿望
-  lightWishOn(id) {
-    return Fetch('/wishes/light', {
-      method: 'POST',
-      data: {
-        wish_id: id
-      }
-    })
-  },
-  // 查看愿望
-  getWishById() {
-    return Fetch('/wishes/id')
-  },
-  getUserWish() {
-    return Fetch('/wishes/user')
-  },
-  // 根据分类获取愿望
-  getWishByCategories(category) {
-    return Fetch(`/wishes/categories/${category}`)
-  },
-  // 删除愿望
-  deleteWish() {
-    return Fetch('')
-  },
-  // 留言
-  leaveMessage() {
-    return Fetch('/message/leave')
-  },
-  //??
-  getUserMessage() {
-    return Fetch('/message')
-  }
-
+    // 绑定邮箱
+    bindEmail(email) {
+        return Fetch('/user/email', {
+            method: "POST",
+            data: {
+                email: email
+            }
+        })
+    },
+    // whut登陆  我暂时测不了 未加入代码
+    whutLogin() {
+        return Fetch('/whutlogin', {
+            method: "POST"
+        })
+    },
+    // ccnu登陆 （ok 已加入代码
+    ccnuLogin(idcard_number, password) {
+        return Fetch('/ccnulogin', {
+            method: "POST",
+            data: {
+                idcard_number: idcard_number,
+                password: password
+            }
+        })
+    },
+    // 查询邮箱是否绑定
+    checkUserEmail() {
+        return Fetch('/user/email/check', {
+            method: 'POST',
+        })
+    },
+    // 发出自己的愿望 ok 已加入代码
+    postWish(name, QQ, weChat, tel, wish, type) {
+        return Fetch('/wishes/add', {
+            method: 'POST',
+            data: {
+                wishMan_name: name,
+                wishMan_QQ: QQ,
+                wishMan_Wechat: weChat,
+                wishMan_Tel: tel,
+                wish: wish,
+                type: type
+            }
+        })
+    },
+    // 点亮别人的愿望 ok APIfox测了 不知道加在哪儿 点亮有个表单要填写啊
+    lightWishOn(id) {
+        return Fetch('/wishes/light', {
+            method: 'POST',
+            data: {
+                wish_id: id
+            }
+        })
+    },
+    // 查看愿望详情 ok 已加入代码
+    getWishDetail(id) {
+        return Fetch(`/wishes/details?wish_id=${id}`)
+    },
+    // 获取自己点亮的愿望 已加入代码 
+    getUserWishLight() {
+        return Fetch('/wishes/user/light')
+    },
+      // 获取自己投递的愿望 已加入代码 
+    getUserWishPost() {
+        return Fetch('/wishes/user/post')
+    },
+    // 根据分类获取愿望 ok 已加入代码
+    getWishByCategories(category) {
+        return Fetch(`/wishes/categories?categories=${category}`)
+    },
+    // 删除愿望 ok 未加入代码
+    deleteWish(wish_id) {
+        return Fetch(`/wishes?wish_id=${wish_id}`)
+    },
+    // 放弃点亮别人的愿望 ok  未加入代码
+    giveUpLightWish(wish_id, msg) {
+        return Fetch(`/wishes/giveup`, {
+            method: 'POST',
+            data: {
+                wish_id: wish_id,
+                message: msg
+            }
+        })
+    },
+    // 实现别人的愿望 ok  未加入代码
+    achieveWish(wish_id) {
+        return Fetch(`/wishes/achieve`, {
+            method: 'POST',
+            data: {
+                wish_id: wish_id
+            }
+        })
+    },
 };
 
 export default Service;

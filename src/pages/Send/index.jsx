@@ -7,63 +7,74 @@ import { ButtonS } from '../../components/Button'
 import paperplane from '../../static/images/paperplane.svg'
 import './index.scss'
 
-
 export default function Send(props) {
-
 
     const [showTag, setShowTag] = useState(false) //控制标签弹窗
     const [tagName, setTagName] = useState('选择标签') //控制选择标签后的显示
-
-    // 获得标签列表
-    const [value, setValue] = useState('把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~') //控制 textarea
+    const [wishContent, setWishContent] = useState('') //控制 textarea
     const [nameValue, setNameValue] = useState('') //控制 name input
     const [numberValue, setNumberValue] = useState('') //控制 number input
-
-
-
+    const [tel, setTel] = useState('') // 控制tel input
+    const [selectValue, setSelectValue] = useState('QQ')// 控制select的值
+    const [category, setCategory] = useState(-1) // 控制愿望分类
     // 处理填写愿望的字数限制
-    const handleText = (e) => {
+    const handleWishContent = (e) => {
         if (e.target.value.length > 160) {
-            setValue(e.target.value.substr(0, 161));
+            setWishContent(e.target.value.substr(0, 161));
             alert('不能写下更多了哦')
         }
-        setValue(e.target.value)
+        setWishContent(e.target.value)
     }
-
-
-
     // 处理 name input
     const handleNameValue = (e) => {
         setNameValue(e.target.value)
     }
-
     // 处理 number input
     const handleNumberValue = (e) => {
         setNumberValue(e.target.value)
     }
-
+    // 处理 tel input
+    const handleTelValue = (e) => {
+        setTel(e.target.value)
+    }
+    // 处理 select options
+    const handleSelectValue = (e) => {
+        setSelectValue(e.target.value)
+    }
     // 处理点击发送后的提交失败/成功
     const goSubmit = () => {
-        if (numberValue === '')
-            alert('留下联系方式可以及时收获你的小幸运哦')
-        else if (nameValue === '')
+        // 判断必填项
+        if (wishContent === '') {
+            alert('你还没有填写内容哦~')
+        } else if (category === -1) {
+            alert('你还没有选择标签分类哦~')
+        } else if (nameValue === '') {
             alert('你的小幸运还没有署名哦～')
-        else
-            //TODO: 点击发送后逻辑
-            props.history.push('/home')
+        } else if (numberValue === '') {
+            alert('留下联系方式可以及时收获你的小幸运哦')
+        } else {
+            console.log(selectValue, numberValue)
+            let QQ = selectValue === 'QQ' ? numberValue : ""
+            let wechat = selectValue === 'WeChat' ? numberValue : ""
+            Service.postWish(nameValue, QQ, wechat, tel, wishContent, category)
+                .then(() => {
+                    alert('投递成功！')
+                    props.history.push('/home')
+                })
+        }
     }
-
     // 处理选择标签的点击事件
     const changeTagName = (name) => {
         setShowTag(false)
         setTagName(name)
+        tags.forEach((tag) => {
+            if (tag.name === name) setCategory(tag.category)
+        })
     }
     // 打开选择标签页
     const goSelectTag = () => {
         setShowTag(true)
     }
-
-
     return (
         <div className='send'>
             <div className="mask" style={{ display: showTag ? 'flex' : 'none' }} >
@@ -88,7 +99,7 @@ export default function Send(props) {
                 }}>
                     {"# " + tagName}
                 </ButtonS>
-                <textarea className='notes' value={value} onChange={handleText}></textarea>
+                <textarea className='notes' placeholder={'把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~'} value={wishContent} onChange={handleWishContent}></textarea>
                 <div className="send-msg">
                     <div className="name">
                         <p>投递人：</p>
@@ -96,13 +107,13 @@ export default function Send(props) {
                     </div>
                     <div className="number">
                         <p>联系方式：</p>
-                        <select>
+                        <select value={selectValue} onChange={handleSelectValue}>
                             <option value="QQ">QQ</option>
                             <option value="WeChat">微信</option>
                         </select>
                         <input type="text" id="connect" placeholder='必填内容哦～' value={numberValue} onChange={handleNumberValue} /><br />
                         <p>或 Tel：</p>
-                        <input type="text" id="tel" placeholder='选填内容哦～' style={{ marginLeft: '2em' }} />
+                        <input type="text" id="tel" placeholder='选填内容哦～' value={tel} onChange={handleTelValue} style={{ marginLeft: '2em' }} />
                     </div>
                 </div>
                 <h6>填写电话可以确保第一时间知道你的愿望状态哦~</h6>
