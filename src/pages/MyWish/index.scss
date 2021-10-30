@@ -1,5 +1,9 @@
 @import "../../config/globalCssVar.scss";
 
+b {
+    color: rgb(54, 53, 53);
+}
+
 .div-leaf-empty {
     position      : relative;
     display       : flex;
@@ -23,51 +27,53 @@
 
 }
 
-.div-wishlist {
-    position  : absolute;
+.div-postlist {
     margin-top: calc($LogoHeight + 2vh);
     width     : 100vw;
 
-    ul {
-        position  : relative;
-        margin-top: 5%;
+}
 
-        li {
-            background-image : url("../../static/images/wishitem.svg");
-            background-repeat: no-repeat;
-            background-size  : contain;
-            font-size        : medium;
-            padding          : 2em 0 0.8em 2em;
-            max-width        : 88%;
+.div-lightlist {
+    position  : relative;
+    margin-top: calc($LogoHeight + 2vh);
+    width     : 100vw;
+}
 
-            .text-detail {
-                position     : relative;
-                text-align   : start;
-                overflow     : hidden;
-                width        : 90%;
-                text-overflow: ellipsis;
-                white-space  : nowrap;
-                color        : white;
-            }
+.item-wish {
+    background-image : url("../../static/images/wishitem.svg");
+    background-repeat: no-repeat;
+    background-size  : contain;
+    font-size        : medium;
+    padding          : 2em 0 0.8em 2em;
+    max-width        : 88%;
+    list-style: none;
 
-            .status {
-                position       : relative;
-                display        : flex;
-                width          : 85%;
-                justify-content: space-between;
-                align-items    : center;
-                margin-top     : 1em;
-                margin-bottom  : 0.5em;
+    .text-detail {
+        position     : relative;
+        text-align   : start;
+        overflow     : hidden;
+        width        : 90%;
+        text-overflow: ellipsis;
+        white-space  : nowrap;
+        color        : white;
+    }
+
+    .status {
+        position       : relative;
+        display        : flex;
+        width          : 85%;
+        justify-content: space-between;
+        align-items    : center;
+        margin-top     : 1em;
+        margin-bottom  : 0.5em;
 
 
-                .text-wishtime {
-                    color      : #666666;
-                    font-size  : small;
-                    font-family: PingFangSC;
-                    position   : relative;
-                    text-align : end;
-                }
-            }
+        .text-wishtime {
+            color      : #666666;
+            font-size  : small;
+            font-family: PingFangSC;
+            position   : relative;
+            text-align : end;
         }
     }
 }

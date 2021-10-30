@@ -21,7 +21,7 @@ function Fetch(url, opt = {}) {
     if (opt.formdata) {
         opt.body = opt.formdata;
     }
-    // console.log(opt);
+    console.log(opt);
     return fetch(url, opt)
         .then(response => {
             if (response.ok) {

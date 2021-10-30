@@ -19,14 +19,12 @@ const Index = (props) => {
     }, [])
     useEffect(() => {
         Service.getUserWishLight().then(res => {
-            console.log(res.data.wishes,'res')
             setWishLight(res.data)
             setGotLight(true)
         })
     }, [])
     useEffect(() => {
         if (gotPost && gotLight) {
-            console.log(1112)
             if (wishPost?.length === 0 && wishLight?.length === 0) props.history.push("/mywish/empty")
             else props.history.push("/mywish/list", {wishPost, wishLight})
         }
