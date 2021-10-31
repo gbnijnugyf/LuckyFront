@@ -27,7 +27,7 @@ body {
 
 
 .app {
-    height        : 100vh;
+    min-height    : 100vh;
     max-width     : $AppMaxWidth;
     display       : flex;
     flex-direction: column;
