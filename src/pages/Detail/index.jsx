@@ -62,8 +62,16 @@ const PersonMsg = (props) => {
 // 别人的愿望，我已经点亮/实现
 const OtherLighted = (props) => {
     const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
-    const wish = props.wish
-    let achieved = wish.state === 2
+
+    const [currentIndex, setCurrentIndex] = useState("wuchu")
+    const [otherMsg, setOtherMsg] = useState("")
+
+    const msgs = {
+        "wuchu": "刚刚误触了点亮按钮，不好意思啦~",
+        "mang": "最近有点忙，短时间没有精力实现愿望了，抱歉"
+    }
+
+    const achieved = props.wish.state === 2
 
     // 点击已经实现愿望
     const pressAchieve = () => {
@@ -100,27 +108,32 @@ const OtherLighted = (props) => {
         changeConfirmAction(() => {
             changeShowConfirm(false);
             changeBtnText('', '');
-            //TODO: 放弃愿望结果过程
+            let message = currentIndex === 'other' ? otherMsg : msgs[currentIndex]
+            Service.giveUpLightWish(props.wish.wish_id, message).then(() => {
+                props.goOtherPage("/mywish")
+            })
         }, () => {
             changeShowConfirm(false);
             changeBtnText('', '');
-            //TODO: 不发送留言
+            Service.giveUpLightWish(props.wish.wish_id).then(() => {
+                props.goOtherPage("/mywish")
+            })
         })
         changeConfirmContent(
             <div className='msg-borad'><p>你想要放弃这个愿望，<br />建议给对方留言说明原因哦：</p>
                 <div className='options'>
-                    <div><input type="radio" name='msg' value='' /></div>
-                    <p>刚刚误触了点亮按钮，不好意思啦～</p>
+                    <div><input type="radio" name='msg' value='wuchu' checked={true} onChange={(e) => { setCurrentIndex(e.currentTarget.value) }} /></div>
+                    <p>刚刚误触了点亮按钮，不好意思啦~</p>
                 </div>
                 <div className='options'>
-                    <div> <input type="radio" name='msg' value='aa' /></div>
+                    <div> <input type="radio" name='msg' value='mang' onChange={(e) => { setCurrentIndex(e.currentTarget.value) }} /></div>
                     <p>最近有点忙，短时间没有精力实现愿望了，抱歉</p>
                 </div>
                 <div className='options'>
-                    <div><input type='radio' name='msg' value='aa' /></div>
+                    <div><input type='radio' name='msg' value='other' onChange={(e) => { setCurrentIndex(e.currentTarget.value) }} /></div>
                     <div>
                         <p>留言给对方：</p>
-                        <input type="text" placeholder='输入其他原因' className='reason' />
+                        <input type="text" placeholder='输入其他原因' className='reason' value={otherMsg} onChange={(e) => { setOtherMsg(e.target.value) }} />
                     </div>
                 </div>
             </div>
@@ -141,7 +154,7 @@ const OtherLighted = (props) => {
                 </ButtonS>
             </div>
             <hr />
-            <PersonMsg wish={wish} isWisher={true} />
+            <PersonMsg wish={props.wish} isWisher={true} />
         </>
     )
 }
@@ -313,6 +326,10 @@ export default function Detail(props) {
     const [wish, setWish] = useState({})            // 愿望内容
     const [isMine, setIsMine] = useState(true)     // 是不是自己的愿望
 
+    const goOtherPage = (path) => {
+        props.history.push(path)
+    }
+
     const changeShowConfirm = (confirm) => {
         setShowConfirm(confirm)
     }
@@ -348,7 +365,8 @@ export default function Detail(props) {
         changeShowConfirm: changeShowConfirm,
         changeConfirmContent: changeConfirmContent,
         changeBtnText: changeBtnText,
-        changeConfirmAction: changeConfirmAction
+        changeConfirmAction: changeConfirmAction,
+        goOtherPage: goOtherPage
     }
 
     return (
