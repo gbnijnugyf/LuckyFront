@@ -40,11 +40,23 @@ export default function Wishes(props) {
     const [wishes, setWishes] = useState([])
     const [name, setName] = useState()
     const [number, setNumber] = useState()
+    // 获取愿望
     useEffect(() => {
         Service.getWishByCategories(category).then((res) => {
-            setWishes(res.data)
+            let wishes = []
+            if (res.data.length === 0) {
+                let wish = { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }
+                wishes.push(wish);
+            } else {
+                wishes = res.data
+            }
+            while (wishes.length < 3) {
+                wishes = wishes.concat(wishes)
+            }
+            setWishes(wishes)
         })
     }, [category])
+
     const handleName = (e) => {
         setName(e.target.value)
     }
