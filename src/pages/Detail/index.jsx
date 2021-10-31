@@ -161,7 +161,7 @@ const OtherLighted = (props) => {
 // 别人的愿望，没人实现
 const OtherNotLighted = (props) => {
 
-    const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
+    const { goOtherPage, changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
     const [tel, setTel] = useState("")
@@ -222,7 +222,16 @@ const OtherNotLighted = (props) => {
             "发送"
         )
         changeConfirmAction(() => {
-            //TODO: 发送点亮请求 
+            let id = props.wish.wish_id
+            let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
+            Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
+                if (res.status === 0) {
+                    alert("点亮成功~")
+                    goOtherPage("/mywish")
+                } else {
+                    alert(res.msg)
+                }
+            })
             changeShowConfirm(false)
         }, () => {
             changeShowConfirm(false)
@@ -239,13 +248,16 @@ const OtherNotLighted = (props) => {
 // 我的愿望，没人实现
 const MineNotLighted = (props) => {
 
-    const { changeShowConfirm, changeConfirmContent, changeConfirmAction } = props.onChange
+    const { goOtherPage, changeShowConfirm, changeConfirmContent, changeConfirmAction } = props.onChange
 
     const pressDelete = () => {
         changeConfirmContent(<p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>)
         changeConfirmAction(
             () => {
-                //TODO: 删除自己的愿望
+                Service.deleteWish(props.wish.wish_id).then(() => {
+                    alert("删除成功")
+                    goOtherPage("/mywish")
+                })
                 changeShowConfirm(false)
             },
             () => {
@@ -264,7 +276,7 @@ const MineNotLighted = (props) => {
 }
 
 const MineLighted = (props) => {
-    const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
+    const { goOtherPage, changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
     const wish = props.wish
     let achieved = wish.state === 2
 
@@ -272,7 +284,10 @@ const MineLighted = (props) => {
         changeConfirmContent(<p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>)
         changeConfirmAction(
             () => {
-                //TODO: 删除自己的愿望
+                Service.deleteWish(props.wish.wish_id).then(() => {
+                    alert("删除成功")
+                    goOtherPage("/mywish")
+                })
                 changeShowConfirm(false)
             },
             () => {
@@ -284,7 +299,9 @@ const MineLighted = (props) => {
     const pressAchieve = () => {
         changeConfirmAction(() => {
             changeShowConfirm(false);
-            //TODO: 确认实现愿望后续操作
+            Service.achieveWish(props.wish.wish_id).then(() => {
+                goOtherPage("/mywish")
+            })
         }, () => {
             changeShowConfirm(false)
         })
