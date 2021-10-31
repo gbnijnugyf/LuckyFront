@@ -184,7 +184,8 @@ export default function Wishes(props) {
                     marginTop: "13em",
                     alignSelf: "flex-start",
                     padding: "0.4em 0.7em",
-                    fontSize: "medium"
+                    fontSize: "medium",
+                    zIndex: "999"
                 }}>
                 <img style={{ transform: "scale(3) translate(2%, 12%)" }} src={calendar} alt="" />
                 查看我的点亮
@@ -224,7 +225,7 @@ export default function Wishes(props) {
             <ButtonS style={{ position: "fixed", background: "#F59D65A0", color: "#FFFFFFA0", top: "65vh", right: "-1em", zIndex: "301", }}>
                 左右滑查看更多许愿哦~
             </ButtonS>
-            <ButtonS onClick={showConfirm} style={{ background: "white", color: "#F59D65", marginTop: "22.5em" }}>
+            <ButtonS onClick={showConfirm} style={{ background: "white", color: "#F59D65", marginTop: "22.5em", zIndex: "999" }}>
                 点亮TA的小幸运
             </ButtonS>
         </div >
