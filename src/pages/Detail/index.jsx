@@ -6,9 +6,27 @@ import forwardimg from '../../static/images/forward.svg'
 import './index.scss'
 
 const WishDetail = (props) => {
+
+    const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
+
+    const showForward = () => {
+        changeConfirmContent(
+            <>
+                <p>快去复制以下链接</p>
+                <p>将你的愿望分享出去吧~</p>
+                <p>{props.pathname}</p>
+            </>
+        )
+        changeConfirmAction(
+            () => { changeShowConfirm(false) },
+            () => { changeShowConfirm(false) }
+        )
+        changeShowConfirm(true)
+    }
+
     return (
         <div className="content" >
-            <img src={forwardimg} onClick={() => {/*TODO: 分享事件*/ }} className="forward" style={{ display: props.needForward ? "relative" : "none" }} alt="" />
+            <img src={forwardimg} onClick={showForward} className="forward" style={{ display: props.needForward ? "relative" : "none" }} alt="" />
             <div className="text">
                 {props.wish.wish}
             </div>
@@ -335,7 +353,7 @@ export default function Detail(props) {
 
     return (
         <div className='Detail'>
-            <WishDetail wish={wish} needForward={!wish.state && isMine} onChange={onChange} />
+            <WishDetail wish={wish} needForward={!wish.state && isMine} onChange={onChange} pathname={props.location.pathname} />
             <div className="other">
                 {
                     [
