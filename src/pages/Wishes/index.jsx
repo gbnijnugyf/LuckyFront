@@ -38,10 +38,14 @@ export default function Wishes(props) {
     const [display, setDisplay] = useState(false);// 弹出确认框
     const [light, setLight] = useState(false)
     const [wishes, setWishes] = useState([])
-    const [name, setName] = useState()
-    const [number, setNumber] = useState()
+    const [name, setName] = useState("")
+    const [number, setNumber] = useState("")
+    const [tel, setTel] = useState("")
+    const [option, setOption] = useState("QQ")
     // 获取愿望
-    useEffect(() => {
+    useEffect(refreshWishes, [category])
+
+    const refreshWishes = () => {
         Service.getWishByCategories(category).then((res) => {
             let wishes = []
             if (res.data.length === 0) {
@@ -55,14 +59,20 @@ export default function Wishes(props) {
             }
             setWishes(wishes)
         })
-    }, [category])
-
+    }
     const handleName = (e) => {
         setName(e.target.value)
     }
     const handleNumber = (e) => {
         setNumber(e.target.value)
     }
+    const handleTel = (e) => {
+        setTel(e.target.value)
+    }
+    const handleOption = (e) => {
+        setOption(e.target.value)
+    }
+
     // Start/Move/End 都是控制愿望刷新动画的相关函数
     const onTouchStart = (e) => {
         const touch = e.targetTouches[0]
@@ -105,9 +115,23 @@ export default function Wishes(props) {
     const goMyWish = () => {
         props.history.push('/mywish')
     }
-    const SendMessage = () => {
-        //TODO: 发送逻辑
-        handleAlert();
+    const LightWish = () => {
+        if (name === "") alert("还没有填写姓名哦~")
+        else if (number === "") alert("还没有填写联系方式哦~")
+        else {
+
+            let id = wishes[0].id
+            let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
+            Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
+                if (res.status === 0) {
+                    alert("点亮成功~")
+                    refreshWishes()
+                } else {
+                    alert(res.msg)
+                }
+            })
+            handleAlert();
+        }
     }
     // 处理遮罩
     const handleAlert = () => {
@@ -125,7 +149,7 @@ export default function Wishes(props) {
     return (
         <div className='wishpage'>
 
-            <ConfirmPanel display={display} action={{ "yes": light ? SendMessage : handleLight, "no": handleAlert }} >
+            <ConfirmPanel display={display} action={{ "yes": light ? LightWish : handleLight, "no": handleAlert }} >
                 {light ? (
                     <div className="input-msg" >
                         <p className='info'>填写联系方式，方便他来联系你哦～</p>
@@ -136,7 +160,7 @@ export default function Wishes(props) {
                             </div>
                             <div className="number">
                                 联系方式 :
-                                <select style={{ color: 'rgb(239, 96, 63)' }}>
+                                <select onChange={handleOption} style={{ color: 'rgb(239, 96, 63)' }}>
                                     <option value="QQ">QQ</option>
                                     <option value="WeChat">微信</option>
                                 </select>
@@ -144,7 +168,7 @@ export default function Wishes(props) {
                             </div>
                             <div className="tel">
                                 或 Tel :
-                                <input type="text" placeholder='选填内容哦～' style={{ marginLeft: '2.3em' }} />
+                                <input type="text" placeholder='选填内容哦～' onChange={handleTel} value={tel} style={{ marginLeft: '2.3em' }} />
                             </div>
                         </div>
                     </div>

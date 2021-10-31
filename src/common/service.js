@@ -94,11 +94,15 @@ let Service = {
         })
     },
     // 点亮别人的愿望 ok APIfox测了 不知道加在哪儿 点亮有个表单要填写啊
-    lightWishOn(id) {
+    lightWishOn(id, name, tel, qq, wechat) {
         return Fetch('/wishes/light', {
             method: 'POST',
             data: {
-                wish_id: id
+                wish_id: id,
+                light_name: name,
+                light_tel: tel,
+                light_qq: qq,
+                light_wechat: wechat
             }
         })
     },
@@ -110,7 +114,7 @@ let Service = {
     getUserWishLight() {
         return Fetch('/wishes/user/light')
     },
-      // 获取自己投递的愿望 已加入代码 
+    // 获取自己投递的愿望 已加入代码 
     getUserWishPost() {
         return Fetch('/wishes/user/post')
     },
