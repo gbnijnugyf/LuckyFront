@@ -69,7 +69,7 @@ const OtherLighted = (props) => {
     const pressAchieve = () => {
         changeConfirmAction(() => {
             changeShowConfirm(false);
-            //TODO: 确认实现愿望后续操作
+            Service.achieveWish(props.wish.wish_id)
         }, () => {
             changeShowConfirm(false)
         })
