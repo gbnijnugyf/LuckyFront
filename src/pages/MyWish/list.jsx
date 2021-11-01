@@ -4,7 +4,12 @@ import { ButtonS } from '../../components/Button'
 import { useState, useEffect } from 'react'
 import Service from '../../common/service'
 function WishItem(props) {
-    const { wish } = props
+    const forMatTime = (time) => {
+        time = time.slice(0, time.length - 1)
+        time = time.replace("T", " ")
+        return time
+    }
+    const { wish, time } = props
     return (
         <li className="item-wish" key={wish.wish_id} onClick={props.onClick}>
             <p className="text-detail">{wish.wish}</p>
@@ -22,7 +27,7 @@ function WishItem(props) {
                         wish.state === 1 ?
                             "已点亮" :
                             "已实现"}</ButtonS>
-                <p className="text-wishtime">{wish.time}</p>
+                <p className="text-wishtime">{forMatTime(time)}</p>
             </div>
         </li>
     )
@@ -67,7 +72,7 @@ export function MyWishList(props) {
         wish_id: 123,
         wish: "asdkjfhakshdgf",
         state: 0,
-        time: "akdfjhsdf"
+        time: "2021-10-29T14:48:05Z"
     }, {
         wish_id: 123,
         wish: "asdkjfhakshdgf",
@@ -133,14 +138,14 @@ export function MyWishList(props) {
                 <hr />
                 <ul>
                     {wishPost.map(wish => {
-                        return <WishItem wish={wish} onClick={() => { goWishDetail(wish.wish_id) }} />
+                        return <WishItem time={wish.creat_at} wish={wish} onClick={() => { goWishDetail(wish.wish_id) }} />
                     })}
                 </ul >
                 <h3>我点亮的愿望</h3>
                 <hr />
                 <ul>
                     {wishLight.map(wish => {
-                        return <WishItem wish={wish} onClick={() => { goWishDetail(wish.wish_id) }} />
+                        return <WishItem time={wish.light_at} wish={wish} onClick={() => { goWishDetail(wish.wish_id) }} />
                     })}
                 </ul >
                 <div className="div-listbottom">

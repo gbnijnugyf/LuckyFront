@@ -3,7 +3,7 @@ import Notification from 'rc-notification';
 
 function Fetch(url, opt = {}) {
     const token = localStorage.getItem('token')
-    const BASEURL = "http://127.0.0.1:4523/mock/382189"
+    const BASEURL = "/api"
     url = BASEURL + url;
 
     opt.method = opt.method || 'GET';
