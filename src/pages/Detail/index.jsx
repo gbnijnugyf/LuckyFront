@@ -341,7 +341,7 @@ export default function Detail(props) {
     const [btnText, setBtnText] = useState({}); // 设置按钮文本
     const [confirmAction, setConfirmAction] = useState({}); // 设置按钮触发
     const [wish, setWish] = useState({})            // 愿望内容
-    const [isMine, setIsMine] = useState(true)     // 是不是自己的愿望
+    const [isMine, setIsMine] = useState(false)     // 是不是自己的愿望
 
     const goOtherPage = (path) => {
         props.history.push(path)
@@ -374,7 +374,12 @@ export default function Detail(props) {
         id = parseInt(id)
         Service.getWishDetail(id).then((res) => {
             setWish(res.data)
-            //TODO: 自己的还是别人的接口还没写
+            Service.getUserWishPost().then((res) => {
+                res.data.wishes.forEach((wish) => {
+                    if (wish.wish_id === id)
+                        setIsMine(true)
+                })
+            })
         })
     }, [props.location.pathname])
 
