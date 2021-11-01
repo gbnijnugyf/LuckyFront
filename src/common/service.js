@@ -109,6 +109,9 @@ let Service = {
     // 查看愿望详情 ok 已加入代码
     getWishDetail(id) {
         return Fetch(`/wishes/details?wish_id=${id}`)
+    },// 查找点亮人信息 
+    getLightManInfo(id) {
+        return Fetch(`/user/info/lightman?wish_id=${id}`)
     },
     // 获取自己点亮的愿望 已加入代码 
     getUserWishLight() {
