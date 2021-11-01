@@ -4,6 +4,7 @@ import ConfirmPanel from '../../components/ConfirmPanel'
 import Service from '../../common/service'
 import forwardimg from '../../static/images/forward.svg'
 import './index.scss'
+import { formatTime } from '../../common/global'
 
 const WishDetail = (props) => {
 
@@ -39,23 +40,47 @@ const WishDetail = (props) => {
 }
 
 const PersonMsg = (props) => {
-    const { isWisher } = props
+    const { isMine, wish } = props
+    const [name, setName] = useState("")
+    const [time, setTime] = useState("")
+    const [QQ, setQQ] = useState("")
+    const [wechat, setWechat] = useState("")
+    const [tel, setTel] = useState("")
+    console.log()
+    useEffect(() => {
+        if (isMine) {
+            Service.getLightManInfo(wish.wish_id).then((res) => {
+                setName(res.data.light_name)
+                setTime("于" + formatTime(wish.light_at) + "点亮")
+                setQQ(res.data.light_qq)
+                setWechat(res.data.light_wechat)
+                setTel(res.data.light_tel)
+            })
+        } else {
+            setName(wish.wishman_name)
+            setTime("于" + formatTime(wish.creat_at) + "许愿")
+            setQQ(wish.wishman_qq)
+            setWechat(wish.wishman_wechat)
+            setTel(wish.wishman_tel)
+        }
+    }, [isMine, wish])
 
     return (
         <div className="msg">
             <div className="msg-text">
-                <p className='h'>{isWisher ? "许愿人" : "点亮人"}</p>
-                <p className='name'>李东哲</p>
+                <p className='h'>{isMine ? "点亮人" : "许愿人"}</p>
+                <p className='name'>{name}</p>
             </div>
             <div className="msg-info">
-                <p>于 2021-09-01&nbsp;&nbsp;00:00许愿</p>
+                <p>{time}</p>
                 <p style={{ marginTop: "0.5em", textAlign: "left" }}>联系方式 :</p>
                 <ul className="msg-number">
-                    <li> QQ : 2601548431</li>
-                    <li>电话 : 15373815535</li>
+                    {QQ === "" ? null : <li>QQ：{QQ}</li >}
+                    {wechat === "" ? null : <li>微信：{wechat}</li >}
+                    {tel === "" ? null : <li>电话：{tel}</li >}
                 </ul>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 
@@ -154,7 +179,7 @@ const OtherLighted = (props) => {
                 </ButtonS>
             </div>
             <hr />
-            <PersonMsg wish={props.wish} isWisher={true} />
+            <PersonMsg wish={props.wish} isMine={false} />
         </>
     )
 }
@@ -327,7 +352,7 @@ const MineLighted = (props) => {
                 </ButtonS>
             </div>
             <hr />
-            <PersonMsg wish={wish} isWisher={false} />
+            <PersonMsg wish={wish} isMine={true} />
         </>
     )
 
