@@ -3,15 +3,13 @@ import React from 'react'
 import { ButtonS } from '../../components/Button'
 import { useState, useEffect } from 'react'
 import Service from '../../common/service'
+import { formatTime } from '../../common/global'
 function WishItem(props) {
-    const forMatTime = (time) => {
-        time = time.slice(0, time.length - 1)
-        time = time.replace("T", " ")
-        return time
-    }
-    const { wish, time } = props
+    const { wish } = props
+    console.log(wish)
+    const time = wish.state === 1 ? formatTime(wish.light_at) : formatTime(wish.creat_at)
     return (
-        <li className="item-wish" key={wish.wish_id} onClick={props.onClick}>
+        <li className="item-wish" onClick={props.onClick}>
             <p className="text-detail">{wish.wish}</p>
             <div className="status">
                 <ButtonS style={{
@@ -27,7 +25,7 @@ function WishItem(props) {
                         wish.state === 1 ?
                             "已点亮" :
                             "已实现"}</ButtonS>
-                <p className="text-wishtime">{forMatTime(time)}</p>
+                <p className="text-wishtime">{time}</p>
             </div>
         </li>
     )
@@ -36,74 +34,14 @@ function WishItem(props) {
 
 export function MyWishList(props) {
 
-    let [wishLight, setWishLight] = useState([{
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 1,
-        time: "akdfjhsdf"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 1,
-        time: "akdfjhsdf"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 1,
-        time: "akdfjhsdf"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 1,
-        time: "akdfjhsdf"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 1,
-        time: "akdfjhsdf"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 1,
-        time: "akdfjhsdf"
-    }])
+    let [wishLight, setWishLight] = useState([])
 
-    let [wishPost, setWishPost] = useState([{
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 0,
-        time: "2021-10-29T14:48:05Z"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 2,
-        time: "akdfjhsdf"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 1,
-        time: "akdfjhsdf"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 0,
-        time: "akdfjhsdf"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 0,
-        time: "akdfjhsdf"
-    }, {
-        wish_id: 123,
-        wish: "asdkjfhakshdgf",
-        state: 0,
-        time: "akdfjhsdf"
-    }])
+    let [wishPost, setWishPost] = useState([])
 
     // 排序愿望为需要的顺序
     const sortWishes = (oldwishes) => {
         let sorted = []
-        let priority = [1, 2, 0]
+        const priority = [1, 2, 0]
         for (let p = 0; p < priority.length; p++)
             for (let i = 0; i < oldwishes.length; i++)
                 if (oldwishes[i].state === priority[p])
@@ -114,16 +52,12 @@ export function MyWishList(props) {
 
 
     useEffect(() => {
-
-        setWishLight(sortWishes(wishLight));
-        setWishPost(sortWishes(wishPost));
-
-        // Service.getUserWishLight().then((res) => {
-        //     setWishLight(sortWishes(res.data.wishes));
-        // })
-        // Service.getUserWishPost().then((res) => {
-        //     setWishPost(sortWishes(res.data.wishes));
-        // })
+        Service.getUserWishLight().then((res) => {
+            setWishLight(sortWishes(res.data));
+        })
+        Service.getUserWishPost().then((res) => {
+            setWishPost(sortWishes(res.data.wishes));
+        })
     }, [props.history])
 
     const goWishDetail = (id) => {
@@ -138,14 +72,14 @@ export function MyWishList(props) {
                 <hr />
                 <ul>
                     {wishPost.map(wish => {
-                        return <WishItem time={wish.creat_at} wish={wish} onClick={() => { goWishDetail(wish.wish_id) }} />
+                        return <WishItem time={wish.creat_at} wish={wish} key={wish.wish_id} onClick={() => { goWishDetail(wish.wish_id) }} />
                     })}
                 </ul >
                 <h3>我点亮的愿望</h3>
                 <hr />
                 <ul>
                     {wishLight.map(wish => {
-                        return <WishItem time={wish.light_at} wish={wish} onClick={() => { goWishDetail(wish.wish_id) }} />
+                        return <WishItem time={wish.light_at} wish={wish} key={wish.wish_id} onClick={() => { goWishDetail(wish.wish_id) }} />
                     })}
                 </ul >
                 <div className="div-listbottom">
