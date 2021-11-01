@@ -10,13 +10,6 @@ import Header from '../components/Header'
 import MyWish from '../pages/MyWish'
 
 function Router(props) {
-    // 不能通过浏览器地址栏直接跳转页面 不然只要有token就会一直停在detail页面
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token')
-    //     if (token) {
-    //         props.history.push("/home")
-    //     }
-    // }, [props.history])
     return (
         <>
             {props.location.pathname.match(/login/) ? null : <Header></Header>}
@@ -28,7 +21,7 @@ function Router(props) {
                     <Route path='/detail' component={Detail}></Route>
                     <Route path='/wish/:tag' component={Wishes}></Route>
                     <Route path='/mywish' component={MyWish}></Route>
-                    <Redirect to='/login'></Redirect>
+                    <Redirect to={localStorage.getItem("token") === null ? '/login' : '/home'}></Redirect>
                 </Switch>
             </div>
         </>

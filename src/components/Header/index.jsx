@@ -4,7 +4,7 @@ import './index.scss'
 import rulebutton from '../../static/images/rulebutton.svg'
 import backbutton from '../../static/images/backbutton.svg'
 import logo from '../../static/images/logo.svg'
-
+import arrowimg from '../../static/images/arrow.svg'
 const titleList = {
     "/home": "标签页",
     "/send": "投递我的小幸运",
@@ -33,16 +33,21 @@ function Header(props) {
         return titleList[key];
     }
 
-    let title = getTitle()
-
-    return (
-        <div className="header">
-            <div className='comp-header'>
-                <img className="back-button" src={backbutton} style={{ opacity: title === '标签页' ? 0 : 1 }} onClick={title === '标签页' ? null : handleBack} />
-                <p className="comp-header-text">{title}</p>
-                <img className="rule-button" src={rulebutton} onClick={handleShow} alt="" />
-                <img className="logo" src={logo} alt='' />
-                
+    const getAlert = () => {
+        let key = props.location.pathname.split('/')[1];
+        if (key === 'wish') {
+            return (
+                <div className="rule-alert-2" onClick={handleShow} style={{ display: isShow ? 'block' : 'none' }}>
+                    <p className="tipalert" style={{ top: '13vh', right: '20vw' }}>点击这里查看规则</p>
+                    <img src={arrowimg} className="imgalert" style={{ top: '7vh', right: '15vw' }} alt="" />
+                    <p className="tipalert" style={{ top: '20vh', left: '20vw' }}>在这里查看你点亮的愿望哦~</p>
+                    <img src={arrowimg} className="imgalert" style={{ top: '27vh', left: '25vw', transform: "rotate(150deg)" }} alt="" />
+                    <p className="tipalert" style={{ top: '70vh', left: '30vw' }}>在这里帮TA实现心愿</p>
+                    <img src={arrowimg} className="imgalert" style={{ top: '75vh', left: '40vw', transform: "rotate(120deg)" }} alt="" />
+                </div >
+            )
+        } else {
+            return (
                 <div className="rule-alert" style={{ display: isShow ? 'block' : 'none' }}>
                     <div className='rule-text'>
                         1.这次活动男生女生都可以许愿哦~<p>你一共有5次许愿的机会</p>，快来遇见你的小幸运吧~
@@ -63,6 +68,24 @@ function Header(props) {
                     </div>
                     <div className="close" onClick={handleShow}>我知道了</div>
                 </div>
+            )
+        }
+
+    }
+
+    let title = getTitle()
+
+
+
+
+    return (
+        <div className="header">
+            <div className='comp-header'>
+                <img className="back-button" src={backbutton} style={{ opacity: title === '标签页' ? 0 : 1 }} onClick={title === '标签页' ? null : handleBack} alt="" />
+                <p className="comp-header-text">{title}</p>
+                <img className="rule-button" src={rulebutton} onClick={handleShow} alt="" />
+                <img className="logo" src={logo} alt='' />
+                {getAlert()}
                 <div className="cover" style={{ display: isShow ? 'block' : 'none' }} ></div>
             </div>
         </div >
