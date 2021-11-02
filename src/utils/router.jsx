@@ -8,8 +8,18 @@ import Detail from '../pages/Detail'
 import Wishes from '../pages/Wishes'
 import Header from '../components/Header'
 import MyWish from '../pages/MyWish'
+import cookie from 'react-cookies'
 
 function Router(props) {
+
+    useEffect(() => {
+        let token = cookie.load('jwt_token');
+        if (token) {
+            localStorage.setItem('token', token)
+        }
+    })
+
+
     return (
         <>
             {props.location.pathname.match(/login/) ? null : <Header></Header>}

@@ -14,8 +14,8 @@ function Btn(props) {
 function LoginMain(props) {
 
     const goWHUT = () => {
-        props.history.push("/login/whut")
-    }
+        window.location.href = "https://ias.sso.itoken.team/portal.php?posturl=https%3A%2F%2Fipandai.club%2Fapi%2Flogin%2Fwhut%2Fcallback&continueurl=https://ipandai.club"
+      }
     const goCCNU = () => {
         props.history.push("/login/ccnu")
     }
