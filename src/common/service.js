@@ -60,7 +60,8 @@ let Service = {
     // whut登陆  我暂时测不了 未加入代码
     whutLogin() {
         return Fetch('/whutlogin', {
-            method: "POST"
+            method: "POST",
+            data: {}
         })
     },
     // ccnu登陆 （ok 已加入代码
