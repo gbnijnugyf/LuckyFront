@@ -40,7 +40,11 @@ function Fetch(url, opt = {}) {
             }
             else if (res.status === -2) {
                 localStorage.removeItem('token')
-                window.location.href(`http://localhost:3000/login`)
+
+                // 重定向到根目录，重新登录
+                let redirectpos = window.location.href
+                redirectpos = redirectpos.slice(0, redirectpos.indexOf('/', 10) + 1)
+                window.location.href(redirectpos)
             }
             else
                 return res
