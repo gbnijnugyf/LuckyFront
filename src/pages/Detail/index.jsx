@@ -15,7 +15,7 @@ const WishDetail = (props) => {
             <>
                 <p>快去复制以下链接</p>
                 <p>将你的愿望分享出去吧~</p>
-                <p>{props.pathname}</p>
+                <p>{window.location.href}</p>
             </>
         )
         changeConfirmAction(
