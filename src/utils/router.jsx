@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import Login from '../pages/Login'
@@ -9,6 +9,12 @@ import Wishes from '../pages/Wishes'
 import Header from '../components/Header'
 import MyWish from '../pages/MyWish'
 function Router(props) {
+
+    useEffect(() => {
+        if (!localStorage.getItem("token")) {
+            props.history.push("/login")
+        }
+    }, [props.history])
 
     return (
         <>
