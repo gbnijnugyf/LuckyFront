@@ -63,12 +63,10 @@ export default function Send(props) {
         }
     }
     // 处理选择标签的点击事件
-    const changeTagName = (name) => {
+    const changeTagName = (name, category) => {
         setShowTag(false)
         setTagName(name)
-        tags.forEach((tag) => {
-            if (tag.name === name) setCategory(tag.category)
-        })
+        setCategory(category)
     }
     // 打开选择标签页
     const goSelectTag = () => {
@@ -78,9 +76,9 @@ export default function Send(props) {
         <div className='send'>
             <div className="mask" style={{ display: showTag ? 'flex' : 'none' }} >
                 <div className="tags">{
-                    tags.map((tag) => {
+                    tags.map((tag, index) => {
                         return (
-                            <div onClick={() => changeTagName(tag.name)} className="tag" key={tag.name}>
+                            <div onClick={() => changeTagName(tag.name, index + 1)} className="tag" key={tag.name}>
                                 <p>{tag.name}</p>
                             </div>)
                     })
