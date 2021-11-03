@@ -1,11 +1,14 @@
 import './index.scss'
 import { Switch, Route } from 'react-router-dom'
 import { LoginWHUT, LoginCCNU, BindEmail } from './loginSchools.jsx'
+import cookie from 'react-cookies'
+import { useEffect } from 'react'
+
 
 function Btn(props) {
     return (
         <div className="btn-school" onClick={props.onClick}>
-            <div className="birdimg"/>
+            <div className="birdimg" />
             <p className="text-school">{props.text}</p>
         </div>
     )
@@ -13,9 +16,19 @@ function Btn(props) {
 
 function LoginMain(props) {
 
+    // 保存WHUT登录后返回的token
+    useEffect(() => {
+        let token = cookie.load('jwt_token');
+        if (token) {
+            localStorage.setItem('token', token)
+            props.history.push("/")
+        }
+    }, [props.history])
+
+
     const goWHUT = () => {
         window.location.href = "https://ias.sso.itoken.team/portal.php?posturl=https%3A%2F%2Fipandai.club%2Fapi%2Flogin%2Fwhut%2Fcallback&continueurl=https://ipandai.club"
-      }
+    }
     const goCCNU = () => {
         props.history.push("/login/ccnu")
     }
@@ -33,6 +46,8 @@ function LoginMain(props) {
 }
 
 export default function Login(props) {
+
+
     return (
         <div className="login">
             <Switch>
