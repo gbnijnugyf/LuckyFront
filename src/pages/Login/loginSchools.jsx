@@ -38,6 +38,7 @@ export function LoginCCNU(props) {
         Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
             if (res.status === 0) {
                 localStorage.setItem('token', res.data)
+                props.history.push('/')
             }
             else alert('用户名或密码错误');
         })
