@@ -156,7 +156,7 @@ export default function Wishes(props) {
                         <p className='info'>填写联系方式，方便他来联系你哦～</p>
                         <div className="form">
                             <div className="name">
-                                投递人 :
+                                点亮人 :
                                 <input type="text" placeholder='必填内容哦～' onChange={handleName} value={name} style={{ marginLeft: "2em" }} />
                             </div>
                             <div className="number">
