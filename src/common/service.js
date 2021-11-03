@@ -21,12 +21,10 @@ function Fetch(url, opt = {}) {
     if (opt.formdata) {
         opt.body = opt.formdata;
     }
-    console.log(opt);
     return fetch(url, opt)
         .then(response => {
             if (response.ok) {
                 return response.json().then(res => {
-                    console.log(res);
                     return res;
                 });
             } else {
@@ -36,6 +34,16 @@ function Fetch(url, opt = {}) {
                     });
                 });
             }
+        }).then(res => {
+            if (res.status !== 0) {
+                alert(res.msg)
+            }
+            else if (res.status === -2) {
+                localStorage.removeItem('token')
+                window.location.href(`http://localhost:3000/login`)
+            }
+            else
+                return res
         })
         .catch(e => {
             Notification.newInstance({}, notification => {
@@ -60,7 +68,8 @@ let Service = {
     // whut登陆  我暂时测不了 未加入代码
     whutLogin() {
         return Fetch('/whutlogin', {
-            method: "POST"
+            method: "POST",
+            data: {}
         })
     },
     // ccnu登陆 （ok 已加入代码
@@ -94,23 +103,30 @@ let Service = {
         })
     },
     // 点亮别人的愿望 ok APIfox测了 不知道加在哪儿 点亮有个表单要填写啊
-    lightWishOn(id) {
+    lightWishOn(id, name, tel, qq, wechat) {
         return Fetch('/wishes/light', {
             method: 'POST',
             data: {
-                wish_id: id
+                wish_id: id,
+                light_name: name,
+                light_tel: tel,
+                light_qq: qq,
+                light_wechat: wechat
             }
         })
     },
     // 查看愿望详情 ok 已加入代码
     getWishDetail(id) {
         return Fetch(`/wishes/details?wish_id=${id}`)
+    },// 查找点亮人信息 
+    getLightManInfo(id) {
+        return Fetch(`/user/info/lightman?wish_id=${id}`)
     },
     // 获取自己点亮的愿望 已加入代码 
     getUserWishLight() {
         return Fetch('/wishes/user/light')
     },
-      // 获取自己投递的愿望 已加入代码 
+    // 获取自己投递的愿望 已加入代码 
     getUserWishPost() {
         return Fetch('/wishes/user/post')
     },

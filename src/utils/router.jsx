@@ -8,15 +8,18 @@ import Detail from '../pages/Detail'
 import Wishes from '../pages/Wishes'
 import Header from '../components/Header'
 import MyWish from '../pages/MyWish'
+import cookie from 'react-cookies'
 
 function Router(props) {
-    // 不能通过浏览器地址栏直接跳转页面 不然只要有token就会一直停在detail页面
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token')
-    //     if (token) {
-    //         props.history.push("/home")
-    //     }
-    // }, [props.history])
+
+    useEffect(() => {
+        let token = cookie.load('jwt_token');
+        if (token) {
+            localStorage.setItem('token', token)
+        }
+    })
+
+
     return (
         <>
             {props.location.pathname.match(/login/) ? null : <Header></Header>}
@@ -28,7 +31,7 @@ function Router(props) {
                     <Route path='/detail' component={Detail}></Route>
                     <Route path='/wish/:tag' component={Wishes}></Route>
                     <Route path='/mywish' component={MyWish}></Route>
-                    <Redirect to='/login'></Redirect>
+                    <Redirect to={localStorage.getItem("token") === null ? '/login' : '/home'}></Redirect>
                 </Switch>
             </div>
         </>

@@ -53,7 +53,6 @@ export default function Send(props) {
         } else if (numberValue === '') {
             alert('留下联系方式可以及时收获你的小幸运哦')
         } else {
-            console.log(selectValue, numberValue)
             let QQ = selectValue === 'QQ' ? numberValue : ""
             let wechat = selectValue === 'WeChat' ? numberValue : ""
             Service.postWish(nameValue, QQ, wechat, tel, wishContent, category)

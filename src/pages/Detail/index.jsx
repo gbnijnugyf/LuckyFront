@@ -4,11 +4,30 @@ import ConfirmPanel from '../../components/ConfirmPanel'
 import Service from '../../common/service'
 import forwardimg from '../../static/images/forward.svg'
 import './index.scss'
+import { formatTime } from '../../common/global'
 
 const WishDetail = (props) => {
+
+    const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
+
+    const showForward = () => {
+        changeConfirmContent(
+            <>
+                <p>快去复制以下链接</p>
+                <p>将你的愿望分享出去吧~</p>
+                <p>{props.pathname}</p>
+            </>
+        )
+        changeConfirmAction(
+            () => { changeShowConfirm(false) },
+            () => { changeShowConfirm(false) }
+        )
+        changeShowConfirm(true)
+    }
+
     return (
         <div className="content" >
-            <img src={forwardimg} onClick={() => {/*TODO: 分享事件*/ }} className="forward" style={{ display: props.needForward ? "relative" : "none" }} alt="" />
+            <img src={forwardimg} onClick={showForward} className="forward" style={{ display: props.needForward ? "relative" : "none" }} alt="" />
             <div className="text">
                 {props.wish.wish}
             </div>
@@ -21,37 +40,68 @@ const WishDetail = (props) => {
 }
 
 const PersonMsg = (props) => {
-    const { isWisher } = props
+    const { isMine, wish } = props
+    const [name, setName] = useState("")
+    const [time, setTime] = useState("")
+    const [QQ, setQQ] = useState("")
+    const [wechat, setWechat] = useState("")
+    const [tel, setTel] = useState("")
+    useEffect(() => {
+        if (isMine) {
+            Service.getLightManInfo(wish.wish_id).then((res) => {
+                setName(res.data.light_name)
+                setTime("于" + formatTime(wish.light_at) + "点亮")
+                setQQ(res.data.light_qq)
+                setWechat(res.data.light_wechat)
+                setTel(res.data.light_tel)
+            })
+        } else {
+            setName(wish.wishman_name)
+            setTime("于" + formatTime(wish.creat_at) + "许愿")
+            setQQ(wish.wishman_qq)
+            setWechat(wish.wishman_wechat)
+            setTel(wish.wishman_tel)
+        }
+    }, [isMine, wish])
 
     return (
         <div className="msg">
             <div className="msg-text">
-                <p className='h'>{isWisher ? "许愿人" : "点亮人"}</p>
-                <p className='name'>李东哲</p>
+                <p className='h'>{isMine ? "点亮人" : "许愿人"}</p>
+                <p className='name'>{name}</p>
             </div>
             <div className="msg-info">
-                <p>于 2021-09-01&nbsp;&nbsp;00:00许愿</p>
+                <p>{time}</p>
                 <p style={{ marginTop: "0.5em", textAlign: "left" }}>联系方式 :</p>
                 <ul className="msg-number">
-                    <li> QQ : 2601548431</li>
-                    <li>电话 : 15373815535</li>
+                    {QQ === "" ? null : <li>QQ：{QQ}</li >}
+                    {wechat === "" ? null : <li>微信：{wechat}</li >}
+                    {tel === "" ? null : <li>电话：{tel}</li >}
                 </ul>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 
 // 别人的愿望，我已经点亮/实现
 const OtherLighted = (props) => {
     const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
-    const wish = props.wish
-    let achieved = wish.state === 2
+
+    const [currentIndex, setCurrentIndex] = useState("wuchu")
+    const [otherMsg, setOtherMsg] = useState("")
+
+    const msgs = {
+        "wuchu": "刚刚误触了点亮按钮，不好意思啦~",
+        "mang": "最近有点忙，短时间没有精力实现愿望了，抱歉"
+    }
+
+    const achieved = props.wish.state === 2
 
     // 点击已经实现愿望
     const pressAchieve = () => {
         changeConfirmAction(() => {
             changeShowConfirm(false);
-            //TODO: 确认实现愿望后续操作
+            Service.achieveWish(props.wish.wish_id)
         }, () => {
             changeShowConfirm(false)
         })
@@ -82,27 +132,32 @@ const OtherLighted = (props) => {
         changeConfirmAction(() => {
             changeShowConfirm(false);
             changeBtnText('', '');
-            //TODO: 放弃愿望结果过程
+            let message = currentIndex === 'other' ? otherMsg : msgs[currentIndex]
+            Service.giveUpLightWish(props.wish.wish_id, message).then(() => {
+                props.goOtherPage("/mywish")
+            })
         }, () => {
             changeShowConfirm(false);
             changeBtnText('', '');
-            //TODO: 不发送留言
+            Service.giveUpLightWish(props.wish.wish_id).then(() => {
+                props.goOtherPage("/mywish")
+            })
         })
         changeConfirmContent(
             <div className='msg-borad'><p>你想要放弃这个愿望，<br />建议给对方留言说明原因哦：</p>
                 <div className='options'>
-                    <div><input type="radio" name='msg' value='' /></div>
-                    <p>刚刚误触了点亮按钮，不好意思啦～</p>
+                    <div><input type="radio" name='msg' value='wuchu' checked={true} onChange={(e) => { setCurrentIndex(e.currentTarget.value) }} /></div>
+                    <p>刚刚误触了点亮按钮，不好意思啦~</p>
                 </div>
                 <div className='options'>
-                    <div> <input type="radio" name='msg' value='aa' /></div>
+                    <div> <input type="radio" name='msg' value='mang' onChange={(e) => { setCurrentIndex(e.currentTarget.value) }} /></div>
                     <p>最近有点忙，短时间没有精力实现愿望了，抱歉</p>
                 </div>
                 <div className='options'>
-                    <div><input type='radio' name='msg' value='aa' /></div>
+                    <div><input type='radio' name='msg' value='other' onChange={(e) => { setCurrentIndex(e.currentTarget.value) }} /></div>
                     <div>
                         <p>留言给对方：</p>
-                        <input type="text" placeholder='输入其他原因' className='reason' />
+                        <input type="text" placeholder='输入其他原因' className='reason' value={otherMsg} onChange={(e) => { setOtherMsg(e.target.value) }} />
                     </div>
                 </div>
             </div>
@@ -123,14 +178,14 @@ const OtherLighted = (props) => {
                 </ButtonS>
             </div>
             <hr />
-            <PersonMsg wish={wish} isWisher={true} />
+            <PersonMsg wish={props.wish} isMine={false} />
         </>
     )
 }
 // 别人的愿望，没人实现
 const OtherNotLighted = (props) => {
 
-    const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
+    const { goOtherPage, changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
     const [tel, setTel] = useState("")
@@ -191,7 +246,16 @@ const OtherNotLighted = (props) => {
             "发送"
         )
         changeConfirmAction(() => {
-            //TODO: 发送点亮请求 
+            let id = props.wish.wish_id
+            let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
+            Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
+                if (res.status === 0) {
+                    alert("点亮成功~")
+                    goOtherPage("/mywish")
+                } else {
+                    alert(res.msg)
+                }
+            })
             changeShowConfirm(false)
         }, () => {
             changeShowConfirm(false)
@@ -208,13 +272,16 @@ const OtherNotLighted = (props) => {
 // 我的愿望，没人实现
 const MineNotLighted = (props) => {
 
-    const { changeShowConfirm, changeConfirmContent, changeConfirmAction } = props.onChange
+    const { goOtherPage, changeShowConfirm, changeConfirmContent, changeConfirmAction } = props.onChange
 
     const pressDelete = () => {
         changeConfirmContent(<p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>)
         changeConfirmAction(
             () => {
-                //TODO: 删除自己的愿望
+                Service.deleteWish(props.wish.wish_id).then(() => {
+                    alert("删除成功")
+                    goOtherPage("/mywish")
+                })
                 changeShowConfirm(false)
             },
             () => {
@@ -233,7 +300,7 @@ const MineNotLighted = (props) => {
 }
 
 const MineLighted = (props) => {
-    const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
+    const { goOtherPage, changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
     const wish = props.wish
     let achieved = wish.state === 2
 
@@ -241,7 +308,10 @@ const MineLighted = (props) => {
         changeConfirmContent(<p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>)
         changeConfirmAction(
             () => {
-                //TODO: 删除自己的愿望
+                Service.deleteWish(props.wish.wish_id).then(() => {
+                    alert("删除成功")
+                    goOtherPage("/mywish")
+                })
                 changeShowConfirm(false)
             },
             () => {
@@ -253,7 +323,9 @@ const MineLighted = (props) => {
     const pressAchieve = () => {
         changeConfirmAction(() => {
             changeShowConfirm(false);
-            //TODO: 确认实现愿望后续操作
+            Service.achieveWish(props.wish.wish_id).then(() => {
+                goOtherPage("/mywish")
+            })
         }, () => {
             changeShowConfirm(false)
         })
@@ -279,7 +351,7 @@ const MineLighted = (props) => {
                 </ButtonS>
             </div>
             <hr />
-            <PersonMsg wish={wish} isWisher={false} />
+            <PersonMsg wish={wish} isMine={true} />
         </>
     )
 
@@ -293,7 +365,11 @@ export default function Detail(props) {
     const [btnText, setBtnText] = useState({}); // 设置按钮文本
     const [confirmAction, setConfirmAction] = useState({}); // 设置按钮触发
     const [wish, setWish] = useState({})            // 愿望内容
-    const [isMine, setIsMine] = useState(true)     // 是不是自己的愿望
+    const [isMine, setIsMine] = useState(false)     // 是不是自己的愿望
+
+    const goOtherPage = (path) => {
+        props.history.push(path)
+    }
 
     const changeShowConfirm = (confirm) => {
         setShowConfirm(confirm)
@@ -322,7 +398,12 @@ export default function Detail(props) {
         id = parseInt(id)
         Service.getWishDetail(id).then((res) => {
             setWish(res.data)
-            //TODO: 自己的还是别人的接口还没写
+            Service.getUserWishPost().then((res) => {
+                res.data.forEach((wish) => {
+                    if (wish.wish_id === id)
+                        setIsMine(true)
+                })
+            })
         })
     }, [props.location.pathname])
 
@@ -330,12 +411,13 @@ export default function Detail(props) {
         changeShowConfirm: changeShowConfirm,
         changeConfirmContent: changeConfirmContent,
         changeBtnText: changeBtnText,
-        changeConfirmAction: changeConfirmAction
+        changeConfirmAction: changeConfirmAction,
+        goOtherPage: goOtherPage
     }
 
     return (
         <div className='Detail'>
-            <WishDetail wish={wish} needForward={!wish.state && isMine} onChange={onChange} />
+            <WishDetail wish={wish} needForward={!wish.state && isMine} onChange={onChange} pathname={props.location.pathname} />
             <div className="other">
                 {
                     [
