@@ -5,8 +5,7 @@
 
     position       : relative;
     width          : 100%;
-    height         : calc(100% - $HeaderHeight);
-    margin-top     : $HeaderHeight;
+    height         : calc(100vh - $HeaderHeight);
     display        : flex;
     flex-direction : column;
     align-items    : center;
@@ -16,8 +15,8 @@
     .content {
 
         position           : relative;
-        height             : 43%;
-        margin-top         : 5%;
+        height             : 40%;
+        margin-top         : 25%;
         display            : flex;
         flex-direction     : column;
         align-items        : center;
