@@ -136,7 +136,9 @@ let Service = {
     },
     // 删除愿望 ok 未加入代码
     deleteWish(wish_id) {
-        return Fetch(`/wishes?wish_id=${wish_id}`)
+        return Fetch(`/wishes?wish_id=${wish_id}`, {
+            method: 'DELETE'
+        })
     },
     // 放弃点亮别人的愿望 ok  未加入代码
     giveUpLightWish(wish_id, msg) {
