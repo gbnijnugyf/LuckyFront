@@ -6,7 +6,6 @@ import Service from '../../common/service'
 import { formatTime } from '../../common/global'
 function WishItem(props) {
     const { wish } = props
-    console.log(wish)
     const time = wish.state === 1 ? formatTime(wish.light_at) : formatTime(wish.creat_at)
     return (
         <li className="item-wish" onClick={props.onClick}>
@@ -56,7 +55,7 @@ export function MyWishList(props) {
             setWishLight(sortWishes(res.data));
         })
         Service.getUserWishPost().then((res) => {
-            setWishPost(sortWishes(res.data.wishes));
+            setWishPost(sortWishes(res.data));
         })
     }, [props.history])
 

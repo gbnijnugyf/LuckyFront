@@ -22,7 +22,8 @@ function Header(props) {
         setIsShow(!isShow)
     }
     const handleBack = () => {
-        props.history.go(-1)
+        if (props.location.pathname.includes('mywish')) props.history.go(-2)
+        else props.history.go(-1)
     }
 
     const getTitle = () => {

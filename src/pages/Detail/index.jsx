@@ -46,7 +46,6 @@ const PersonMsg = (props) => {
     const [QQ, setQQ] = useState("")
     const [wechat, setWechat] = useState("")
     const [tel, setTel] = useState("")
-    console.log()
     useEffect(() => {
         if (isMine) {
             Service.getLightManInfo(wish.wish_id).then((res) => {
@@ -400,7 +399,7 @@ export default function Detail(props) {
         Service.getWishDetail(id).then((res) => {
             setWish(res.data)
             Service.getUserWishPost().then((res) => {
-                res.data.wishes.forEach((wish) => {
+                res.data.forEach((wish) => {
                     if (wish.wish_id === id)
                         setIsMine(true)
                 })
