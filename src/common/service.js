@@ -35,11 +35,15 @@ function Fetch(url, opt = {}) {
                 });
             }
         }).then(res => {
-            if (res.code !== 0) alert(res.msg)
-            else if (res.code === -2) {
+            if (res.status !== 0) {
+                alert(res.msg)
+            }
+            else if (res.status === -2) {
                 localStorage.removeItem('token')
                 window.location.href(`http://localhost:3000/login`)
-            }    
+            }
+            else
+                return res
         })
         .catch(e => {
             Notification.newInstance({}, notification => {
