@@ -20,7 +20,7 @@ function LoginPannel(props) {
 export function LoginWHUT(props) {
     useEffect(() => {
         window.location.href = "https://ias.sso.itoken.team/portal.php?posturl=https%3A%2F%2Fipandai.club%2Fapi%2Flogin%2Fwhut%2Fcallback&continueurl=https://ipandai.club"
-    },[])
+    }, [])
 
     const goVerify = () => {
         props.history.push("/login/bindemail")
@@ -60,16 +60,8 @@ export function LoginCCNU(props) {
         Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
             if (res.status === 0) {
                 localStorage.setItem('token', res.data)
-                Service.checkUserEmail().then(res =>{
-                    if(res.status === -1)
-                    props.history.push({
-                        pathname: "/login/bindemail",
-                    })
-                    else props.history.push("/home")
-                })
-                
             }
-            else alert('密码错误');
+            else alert('用户名或密码错误');
         })
     }
     return (

@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { ButtonS } from '../../components/Button'
 import { tags } from '../../config/Global'
 import './index.scss'
+import Service from '../../common/service'
 
 
 
 export default function Home(props) {
 
+
+    // 检查是否绑定邮箱
+    useEffect(() => {
+        Service.checkUserEmail().then(res => {
+            if (res.status === -1)
+                props.history.push("/login/bindemail")
+        })
+    }, [props.history])
 
     const goWishes = (tag) => {
         props.history.push(`/wish/${tag.enName}`, { category: tag.category })
