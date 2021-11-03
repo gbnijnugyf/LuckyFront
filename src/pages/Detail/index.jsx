@@ -33,7 +33,7 @@ const WishDetail = (props) => {
             </div>
             <div className="wishInfo">
                 <p>来自 {props.wish.wishman_name}</p>
-                <p>{props.wish.creat_at}</p>
+                <p>{formatTime(props.wish.creat_at)}</p>
             </div>
         </div>
     )
