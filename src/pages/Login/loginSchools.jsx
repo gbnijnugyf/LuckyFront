@@ -21,28 +21,6 @@ export function LoginWHUT(props) {
     useEffect(() => {
         window.location.href = "https://ias.sso.itoken.team/portal.php?posturl=https%3A%2F%2Fipandai.club%2Fapi%2Flogin%2Fwhut%2Fcallback&continueurl=https://ipandai.club"
     }, [])
-
-    const goVerify = () => {
-        props.history.push("/login/bindemail")
-    }
-
-    return (
-        <LoginPannel text="我是武小理" onClick={goVerify} btnText="下一步">
-            <form className="panel-login">
-                <ul>
-                    <li>
-                        <label>校园卡号：</label>
-                        <input></input>
-                    </li>
-                    <li>
-                        <label>密码：</label>
-                        <input type="password"></input>
-                    </li>
-                </ul>
-                <p className="tip-login">（身份证后六位或智慧理工大密码）</p>
-            </form>
-        </LoginPannel>
-    )
 }
 
 export function LoginCCNU(props) {
