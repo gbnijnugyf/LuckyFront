@@ -121,7 +121,7 @@ export default function Wishes(props) {
         else if (number === "") alert("还没有填写联系方式哦~")
         else {
 
-            let id = wishes[0].id
+            let id = wishes[0].wish_id
             let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
             Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
                 if (res.status === 0) {
