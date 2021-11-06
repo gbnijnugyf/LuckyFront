@@ -1,6 +1,6 @@
 import './index.scss'
 import { Switch, Route } from 'react-router-dom'
-import { LoginWHUT, LoginCCNU, BindEmail } from './loginSchools.jsx'
+import { LoginCCNU, BindEmail } from './loginSchools.jsx'
 import cookie from 'react-cookies'
 import { useEffect } from 'react'
 
@@ -27,7 +27,10 @@ function LoginMain(props) {
 
 
     const goWHUT = () => {
-        window.location.href = "https://ias.sso.itoken.team/portal.php?posturl=https%3A%2F%2Fipandai.club%2Fapi%2Flogin%2Fwhut%2Fcallback&continueurl=https://ipandai.club"
+        let position = window.location.href
+        let continueurl = position.slice(0, position.indexOf('/', 10))
+        let posturl = continueurl + "/api/login/whut/callback"
+        window.location.href = `https://ias.sso.itoken.team/portal.php?posturl=${encodeURIComponent(posturl)}&continueurl=${encodeURIComponent(continueurl)}`
     }
     const goCCNU = () => {
         props.history.push("/login/ccnu")
@@ -51,7 +54,6 @@ export default function Login(props) {
     return (
         <div className="login">
             <Switch>
-                <Route path="/login/whut" component={LoginWHUT} />
                 <Route path="/login/ccnu" component={LoginCCNU} />
                 <Route path="/login/bindemail" component={BindEmail} />
                 <Route path="/login" component={LoginMain} />

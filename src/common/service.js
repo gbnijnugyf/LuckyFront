@@ -35,10 +35,8 @@ function Fetch(url, opt = {}) {
                 });
             }
         }).then(res => {
-            if (res.status !== 0) {
+            if (res.status === -2) {
                 alert(res.msg)
-            }
-            else if (res.status === -2) {
                 localStorage.removeItem('token')
 
                 // 重定向到根目录，重新登录
@@ -46,17 +44,17 @@ function Fetch(url, opt = {}) {
                 redirectpos = redirectpos.slice(0, redirectpos.indexOf('/', 10) + 1)
                 window.location.href(redirectpos)
             }
-            else
-                return res
+            else {
+                if (res.status !== 0) {
+                    alert(res.msg)
+                }
+                return res;
+            }
         })
         .catch(e => {
-            Notification.newInstance({}, notification => {
-                notification.notice({
-                    content: `服务端错误：${e.message}`
-                });
-            });
+            alert(`服务端错误：${e.message}`)
             throw e;
-        });
+        })
 }
 
 let Service = {

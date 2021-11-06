@@ -17,11 +17,6 @@ function LoginPannel(props) {
     )
 }
 
-export function LoginWHUT(props) {
-    useEffect(() => {
-        window.location.href = "https://ias.sso.itoken.team/portal.php?posturl=https%3A%2F%2Fipandai.club%2Fapi%2Flogin%2Fwhut%2Fcallback&continueurl=https://ipandai.club"
-    }, [])
-}
 
 export function LoginCCNU(props) {
     const [ccnuId, setCcnuId] = useState('')
