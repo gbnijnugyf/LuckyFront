@@ -40,7 +40,7 @@ export function LoginCCNU(props) {
     }
     return (
         <LoginPannel text="我是华小师" onClick={goVerify} btnText="下一步">
-            <form className="panel-login">
+            <div className="panel-login">
                 <ul>
                     <li>
                         <label>学号：</label>
@@ -51,7 +51,7 @@ export function LoginCCNU(props) {
                         <input type="password" value={ccnuPwd} onChange={handleCcnuPwd}></input>
                     </li>
                 </ul>
-            </form>
+            </div>
         </LoginPannel>
     )
 }
@@ -71,14 +71,14 @@ export function BindEmail(props) {
 
     return (
         <LoginPannel text="邮箱绑定" onClick={goBind} btnText="完成">
-            <form className="panel-login">
+            <div className="panel-login">
                 <p className="tip-email">填写邮箱地址，可以及时<br />
                     查收愿望状态哦~</p>
                 <li>
                     <label className="label-email">邮箱：</label>
                     <input className="input-email" onChange={handleEmail} value={email} ></input>
                 </li>
-            </form>
+            </div>
         </LoginPannel>
     )
 }

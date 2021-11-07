@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.scss'
 import rulebutton from '../../static/images/rulebutton.svg'
@@ -17,6 +17,7 @@ const titleList = {
 
 function Header(props) {
     const [isShow, setIsShow] = useState(false)
+    const [key, setKey] = useState("")
 
     const handleShow = () => {
         setIsShow(!isShow)
@@ -34,8 +35,29 @@ function Header(props) {
         return titleList[key];
     }
 
+    useEffect(() => {
+        setKey(props.location.pathname.split('/')[1])
+
+    }, [props.location.pathname])
+
+    useEffect(() => {
+        if (key === 'wish') {
+            let used = localStorage.getItem("wish_tip")
+            if (!used) {
+                setIsShow(true)
+                localStorage.setItem("wish_tip", true)
+            }
+        } else {
+            let used = localStorage.getItem("other_tip")
+            if (!used) {
+                setIsShow(true)
+                localStorage.setItem("other_tip", true)
+            }
+        }
+    }, [key])
+
+
     const getAlert = () => {
-        let key = props.location.pathname.split('/')[1];
         if (key === 'wish') {
             return (
                 <div className="rule-alert-2" onClick={handleShow} style={{ display: isShow ? 'block' : 'none' }}>

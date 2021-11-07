@@ -68,15 +68,15 @@ const PersonMsg = (props) => {
         <div className="msg">
             <div className="msg-text">
                 <p className='h'>{isMine ? "点亮人" : "许愿人"}</p>
-                <p className='name'>{name}</p>
+                <p className='name'>{name.at(0) + "同学"}</p>
             </div>
             <div className="msg-info">
                 <p>{time}</p>
                 <p style={{ marginTop: "0.5em", textAlign: "left" }}>联系方式 :</p>
                 <ul className="msg-number">
-                    {QQ === "" ? null : <li>QQ：{QQ}</li >}
-                    {wechat === "" ? null : <li>微信：{wechat}</li >}
-                    {tel === "" ? null : <li>电话：{tel}</li >}
+                    {QQ ? <li>QQ：{QQ}</li > : null}
+                    {wechat ? <li>微信：{wechat}</li > : null}
+                    {tel ? <li>电话：{tel}</li > : null}
                 </ul>
             </div >
         </div >

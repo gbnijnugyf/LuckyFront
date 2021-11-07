@@ -18,7 +18,7 @@ const WishItem = (props) => {
             <p className="content">{props.wish?.wish}</p>
             <div className="msg">
                 <p>{props.wish?.school === 0 ? '华小师' : '武小理'}</p>
-                <p>{props.wish?.wishman_name}</p>
+                <p>{props.wish?.wishman_name.at(0) + "同学"}</p>
             </div>
         </div>
 
