@@ -47,7 +47,7 @@ function Header(props) {
                 setIsShow(true)
                 localStorage.setItem("wish_tip", true)
             }
-        } else {
+        } else if (key === 'home') {
             let used = localStorage.getItem("other_tip")
             if (!used) {
                 setIsShow(true)

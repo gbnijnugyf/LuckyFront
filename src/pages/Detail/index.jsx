@@ -68,7 +68,7 @@ const PersonMsg = (props) => {
         <div className="msg">
             <div className="msg-text">
                 <p className='h'>{isMine ? "点亮人" : "许愿人"}</p>
-                <p className='name'>{name.at(0) + "同学"}</p>
+                <p className='name'>{name}</p>
             </div>
             <div className="msg-info">
                 <p>{time}</p>
@@ -85,10 +85,11 @@ const PersonMsg = (props) => {
 
 // 别人的愿望，我已经点亮/实现
 const OtherLighted = (props) => {
-    const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
+    const { goOtherPage, changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
 
-    const [currentIndex, setCurrentIndex] = useState("wuchu")
-    const [otherMsg, setOtherMsg] = useState("")
+
+    let currentIndex = "wuchu"
+    let otherMsg = ""
 
     const msgs = {
         "wuchu": "刚刚误触了点亮按钮，不好意思啦~",
@@ -102,6 +103,7 @@ const OtherLighted = (props) => {
         changeConfirmAction(() => {
             changeShowConfirm(false);
             Service.achieveWish(props.wish.wish_id)
+            goOtherPage("/mywish")
         }, () => {
             changeShowConfirm(false)
         })
@@ -127,6 +129,11 @@ const OtherLighted = (props) => {
         changeShowConfirm(true);
     }
 
+    const handleRadioChange = (e) => {
+        currentIndex = e.target.value
+    }
+
+
     // 点击确定放弃
     const pressReallyAbandon = () => {
         changeConfirmAction(() => {
@@ -134,33 +141,33 @@ const OtherLighted = (props) => {
             changeBtnText('', '');
             let message = currentIndex === 'other' ? otherMsg : msgs[currentIndex]
             Service.giveUpLightWish(props.wish.wish_id, message).then(() => {
-                props.goOtherPage("/mywish")
+                goOtherPage("/mywish")
             })
         }, () => {
             changeShowConfirm(false);
             changeBtnText('', '');
             Service.giveUpLightWish(props.wish.wish_id).then(() => {
-                props.goOtherPage("/mywish")
+                goOtherPage("/mywish")
             })
         })
         changeConfirmContent(
-            <div className='msg-borad'><p>你想要放弃这个愿望，<br />建议给对方留言说明原因哦：</p>
+            <form className='msg-borad'><p>你想要放弃这个愿望，<br />建议给对方留言说明原因哦：</p>
                 <div className='options'>
-                    <div><input type="radio" name='msg' value='wuchu' checked={true} onChange={(e) => { setCurrentIndex(e.currentTarget.value) }} /></div>
+                    <div><input type="radio" name='msg' value='wuchu' defaultChecked={true} onChange={handleRadioChange} /></div>
                     <p>刚刚误触了点亮按钮，不好意思啦~</p>
                 </div>
                 <div className='options'>
-                    <div> <input type="radio" name='msg' value='mang' onChange={(e) => { setCurrentIndex(e.currentTarget.value) }} /></div>
+                    <div> <input type="radio" name='msg' value='mang' onChange={handleRadioChange} /></div>
                     <p>最近有点忙，短时间没有精力实现愿望了，抱歉</p>
                 </div>
                 <div className='options'>
-                    <div><input type='radio' name='msg' value='other' onChange={(e) => { setCurrentIndex(e.currentTarget.value) }} /></div>
+                    <div><input type='radio' name='msg' value='other' onChange={handleRadioChange} /></div>
                     <div>
                         <p>留言给对方：</p>
-                        <input type="text" placeholder='输入其他原因' className='reason' value={otherMsg} onChange={(e) => { setOtherMsg(e.target.value) }} />
+                        <input type="text" placeholder='输入其他原因' className='reason' onChange={(e) => { otherMsg = e.target.value }} defaultValue={otherMsg} />
                     </div>
                 </div>
-            </div>
+            </form>
         )
         changeBtnText("发送", "不留言")
     }
@@ -186,19 +193,19 @@ const OtherLighted = (props) => {
 const OtherNotLighted = (props) => {
 
     const { goOtherPage, changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
-    const [name, setName] = useState("")
-    const [number, setNumber] = useState("")
-    const [tel, setTel] = useState("")
+    let name = ""
+    let number = ""
+    let tel = ""
     const [option, setOption] = useState("QQ")
 
     const handleName = (e) => {
-        setName(e.target.value)
+        name = e.target.value
     }
     const handleNumber = (e) => {
-        setNumber(e.target.value)
+        number = e.target.value
     }
     const handleTel = (e) => {
-        setTel(e.target.value)
+        tel = e.target.value
     }
     const handleOption = (e) => {
         setOption(e.target.value)
@@ -225,7 +232,7 @@ const OtherNotLighted = (props) => {
                 <div className="form">
                     <div className="name">
                         投递人 :
-                        <input type="text" placeholder='必填内容哦～' onChange={handleName} value={name} style={{ marginLeft: "2em" }} />
+                        <input type="text" className="name" placeholder='必填内容哦～' onChange={handleName} defaultValue={name} />
                     </div>
                     <div className="number">
                         联系方式 :
@@ -233,11 +240,11 @@ const OtherNotLighted = (props) => {
                             <option value="QQ">QQ</option>
                             <option value="WeChat">微信</option>
                         </select>
-                        <input type="text" placeholder='必填内容哦～' onChange={handleNumber} value={number} style={{ marginLeft: ".3em", width: "30%" }} />
+                        <input type="text" placeholder='必填内容哦～' onChange={handleNumber} defaultValue={number} style={{ marginLeft: ".3em", width: "30%" }} />
                     </div>
                     <div className="tel" >
                         或 Tel :
-                        <input type="text" placeholder='选填内容哦～' onChange={handleTel} value={tel} style={{ marginLeft: '2.3em' }} />
+                        <input type="text" placeholder='选填内容哦～' onChange={handleTel} defaultValue={tel} />
                     </div>
                 </div>
             </div>

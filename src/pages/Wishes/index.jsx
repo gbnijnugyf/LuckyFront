@@ -7,6 +7,7 @@ import Service from '../../common/service'
 import './index.scss'
 
 const WishItem = (props) => {
+
     return (
         <div key={props.wish?.wishman_name} className="wish-item" style={props.style}
             onTouchStart={props.onTouchStart} onTouchMove={props.onTouchMove} onTouchEnd={props.onTouchEnd} >
@@ -18,8 +19,9 @@ const WishItem = (props) => {
             <p className="content">{props.wish?.wish}</p>
             <div className="msg">
                 <p>{props.wish.school === "" ? "" :
-                    props.wish?.school === 0 ? '华小师' : '武小理'}</p>
-                <p>{props.wish?.wishman_name.at(0) + "同学"}</p>
+                    props.wish.school === 0 ? '华小师' : '武小理'}</p>
+                <p>{props.wish.wishman_name.length > 0 ? props.wish.wishman_name.at(0) + "同学"
+                    : ""}</p>
             </div>
         </div>
 
@@ -31,26 +33,32 @@ const WishItem = (props) => {
 export default function Wishes(props) {
     // 拿着这个分类去发请求
     const { category } = props.location.state
-
+    const [showTip, setShowTip] = useState(true)
     const moveState = { img1: 0, img2: 10, img3: 20 }
     const [move, setMove] = useState(moveState) // 树叶动画相关状态
     const [startX, setStartX] = useState() // 树叶动画相关状态
     const [update, setUpDate] = useState(false) // 控制动画以及愿望内容的更新
     const [display, setDisplay] = useState(false);// 弹出确认框
     const [light, setLight] = useState(false)
-    const [wishes, setWishes] = useState([])
+    const [lightBtn, setLightBtn] = useState(true) // 点亮按钮是否存在
+    const [wishes, setWishes] = useState([{ wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
+    { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
+    { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }])
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
     const [tel, setTel] = useState("")
     const [option, setOption] = useState("QQ")
     const refreshWishes = () => {
         Service.getWishByCategories(category).then((res) => {
+            console.log(lightBtn)
             let wishes = []
             if (res.data.length === 0) {
+                setLightBtn(false)
                 let wish = { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }
                 wishes.push(wish);
             } else {
                 wishes = res.data
+                setLightBtn(true)
             }
             while (wishes.length < 3) {
                 wishes = wishes.concat(wishes)
@@ -59,8 +67,13 @@ export default function Wishes(props) {
         })
     }
     // 获取愿望
-    useEffect(refreshWishes, [category])
+    useEffect(refreshWishes, [category, lightBtn])
 
+    useEffect(() => {
+        setInterval(() => {
+            setShowTip(false)
+        }, 5000)
+    })
 
     const handleName = (e) => {
         setName(e.target.value)
@@ -223,10 +236,10 @@ export default function Wishes(props) {
                         zIndex: "98"
                     }} />
             </div>
-            <ButtonS style={{ position: "fixed", background: "#F59D65A0", color: "#FFFFFFA0", top: "65vh", right: "-1em", zIndex: "301", }}>
+            <ButtonS style={{ position: "fixed", background: "#F59D65A0", color: "#FFFFFFA0", top: "65vh", right: "-1em", zIndex: "301", display: showTip ? "absolute" : "none" }}>
                 左右滑查看更多许愿哦~
             </ButtonS>
-            <ButtonS onClick={showConfirm} style={{ background: "white", color: "#F59D65", marginTop: "22.5em", zIndex: "999" }}>
+            <ButtonS onClick={showConfirm} style={{ background: "white", color: "#F59D65", marginTop: "22.5em", zIndex: "999", display: lightBtn ? "relative" : "none" }}>
                 点亮TA的小幸运
             </ButtonS>
         </div >

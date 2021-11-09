@@ -234,7 +234,50 @@
     }
 
 
+    .input-msg {
+        width: 77%;
+        color: white;
 
+        p {
+            display: inline-block;
+        }
+
+        .name {
+            margin-top: 0.5em;
+
+            input {
+                width        : 60%;
+                height       : 2em;
+                margin-left  : 1em;
+                border       : none;
+                border-radius: 0.5em;
+                padding-left : 0.5em;
+                font-family  : TsangerShuYuanTW02;
+            }
+        }
+
+
+        select {
+            background-color: white;
+            margin-left     : 0.5em;
+            border          : none;
+            border-radius   : 0.5em;
+            height          : 2em;
+            color           : #FF7A59;
+        }
+
+        input {
+            margin-top   : 0.5em;
+            height       : 2em;
+            margin-left  : 3vw;
+            border       : none;
+            border-radius: 0.5em;
+            padding-left : 0.5em;
+            font-family  : TsangerShuYuanTW02;
+        }
+
+
+    }
 
 
 }
