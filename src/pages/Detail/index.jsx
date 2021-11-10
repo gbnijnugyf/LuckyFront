@@ -29,7 +29,9 @@ const WishDetail = (props) => {
         <div className="content" >
             <img src={forwardimg} onClick={showForward} className="forward" style={{ display: props.needForward ? "relative" : "none" }} alt="" />
             <div className="text">
-                {props.wish.wish}
+                <div className="text-content">
+                    {props.wish.wish}
+                </div>
             </div>
             <div className="wishInfo">
                 <p>来自 {props.wish.wishman_name}</p>

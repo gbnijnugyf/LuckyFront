@@ -36,24 +36,28 @@
 
         .text {
 
-            display: relative;
-            background-image: linear-gradient(to right, rgb(241, 197, 126) 10px, transparent 10px),
-                linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
-                linear-gradient(rgb(241, 197, 126) 30px, black 30px, black 31px, white 31px);
+            overflow  : scroll;
+            width     : 80%;
+            min-height: 9em;
+            max-height: 10em;
+            margin-top: 1.8em;
 
-            word-break      : break-all;
-            border          : 0px;
-            background-size : 100% 100%, 100% 100%, 100% 31px;
-            line-height     : 30px;
-            font-family     : TsangerShuYuanTW02;
-            width           : 80%;
-            height          : 9em;
-            background-color: rgb(241, 197, 126);
-            resize          : none;
-            color           : white;
-            padding         : 8px;
-            font-size       : medium;
-            margin-top      : .8em;
+            .text-content {
+                min-height: 9em;
+                background-image: linear-gradient(to right, rgb(241, 197, 126) 10px, transparent 10px),
+                    linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
+                    linear-gradient(rgb(241, 197, 126) 30px, black 30px, black 31px, white 31px);
+
+                word-break     : break-all;
+                border         : 0px;
+                background-size: 100% 100%, 100% 100%, 100% 31px;
+                line-height    : 31px;
+                font-family    : TsangerShuYuanTW02;
+                color          : white;
+                padding        : 8px;
+                font-size      : medium;
+
+            }
         }
 
         .wishInfo {

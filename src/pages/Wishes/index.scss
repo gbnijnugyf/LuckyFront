@@ -25,22 +25,29 @@
             touch-action: none;
         }
 
-        .underline {
-            position  : relative;
-            width     : 12em;
-            margin-top: 1.8em;
-            border    : 1px solid #707070;
-            opacity   : 1;
-        }
-
         .content {
-            position   : absolute;
+            position   : relative;
             font-family: TsangerShuYuanTW02;
-            top        : 6.2em;
             width      : 12em;
-            text-align : left;
-            word-break : break-word;
-            line-height: 2em;
+            min-height : 7em;
+            max-height : 8em;
+            overflow   : scroll;
+
+            .content-word {
+                min-height: 7em;
+                background-image: linear-gradient(to right, rgba(241, 197, 126, 0) 10px, transparent 10px),
+                    linear-gradient(to left, rgba(241, 197, 126, 0) 10px, transparent 10px),
+                    linear-gradient(rgba(241, 197, 126, 0) 30px, black 30px, black 31px, white 31px);
+
+                word-break     : break-all;
+                border         : 0px;
+                background-size: 100% 100%, 100% 100%, 100% 31px;
+                line-height    : 31px;
+                font-family    : TsangerShuYuanTW02;
+                color          : white;
+                padding        : 8px;
+                font-size      : medium;
+            }
         }
 
         .msg {

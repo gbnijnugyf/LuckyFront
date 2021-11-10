@@ -12,15 +12,15 @@ const WishItem = (props) => {
         <div key={props.wish?.wishman_name} className="wish-item" style={props.style}
             onTouchStart={props.onTouchStart} onTouchMove={props.onTouchMove} onTouchEnd={props.onTouchEnd} >
             <img src={leaf} className="wish-img" alt="" />
-            <div className="underline"></div>
-            <div className="underline"></div>
-            <div className="underline"></div>
-            <div className="underline"></div>
-            <p className="content">{props.wish?.wish}</p>
+            <div className="content">
+                <div className="content-word">
+                    {props.wish?.wish}
+                </div>
+            </div>
             <div className="msg">
                 <p>{props.wish.school === "" ? "" :
                     props.wish.school === 0 ? '华小师' : '武小理'}</p>
-                <p>{props.wish.wishman_name.length > 0 ? props.wish.wishman_name.at(0) + "同学"
+                <p>{props.wish.wishman_name.length > 0 ? props.wish.wishman_name.charAt(0) + "同学"
                     : ""}</p>
             </div>
         </div>
