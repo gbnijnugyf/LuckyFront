@@ -47,4 +47,5 @@ stages:
           - script: if [[ -n $(docker ps -a | grep $(CONTAINERNAME)) ]]; then docker stop $(CONTAINERNAME) && docker rm $(CONTAINERNAME); fi
           - script: docker pull $(IMAGENAME):$(TAG)
           - script: docker run -itd -p $(PORT):80 --name $(CONTAINERNAME) $(IMAGENAME):$(TAG)
+          - script: docker cp lucky-frontend:/usr/share/nginx/html /home/htdocs/LuckyFrontend/build/
 

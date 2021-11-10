@@ -7,15 +7,28 @@ import './index.scss'
 import { formatTime } from '../../common/global'
 
 const WishDetail = (props) => {
+    const [needForward, setNeedForward] = useState(true)
 
-    const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction } = props.onChange
 
+    const { changeShowConfirm, changeConfirmContent, changeBtnText, changeConfirmAction, } = props.onChange
+    const { isMine, wish } = props
+
+    //bad use
+    const getForward = () => {
+        console.log(isMine, wish.state)
+        if (isMine && wish.state === 0) {
+            return <img src={forwardimg} onClick={showForward} className="forward" alt="" />
+        }
+    }
     const showForward = () => {
         changeConfirmContent(
             <>
                 <p>快去复制以下链接</p>
-                <p>将你的愿望分享出去吧~</p>
-                <p>{window.location.href}</p>
+                <p >将你的愿望分享出去吧~</p>
+                <p style={{
+                    width: "80%",
+                    wordBreak: "break-all"
+                }}>{window.location.href}</p>
             </>
         )
         changeConfirmAction(
@@ -27,7 +40,7 @@ const WishDetail = (props) => {
 
     return (
         <div className="content" >
-            <img src={forwardimg} onClick={showForward} className="forward" style={{ display: props.needForward ? "relative" : "none" }} alt="" />
+            {getForward()}
             <div className="text">
                 <div className="text-content">
                     {props.wish.wish}
@@ -374,7 +387,7 @@ export default function Detail(props) {
     const [btnText, setBtnText] = useState({}); // 设置按钮文本
     const [confirmAction, setConfirmAction] = useState({}); // 设置按钮触发
     const [wish, setWish] = useState({})            // 愿望内容
-    const [isMine, setIsMine] = useState(false)     // 是不是自己的愿望
+    const [isMine, setIsMine] = useState(true)     // 是不是自己的愿望
 
     const goOtherPage = (path) => {
         props.history.push(path)
@@ -408,10 +421,10 @@ export default function Detail(props) {
         Service.getWishDetail(id).then((res) => {
             setWish(res.data)
             Service.getUserWishPost().then((res) => {
-                res.data.forEach((wish) => {
-                    if (wish.wish_id === id)
-                        setIsMine(true)
-                })
+                // res.data.wishes.forEach((wish) => {
+                //     if (wish.wish_id === id)
+                //         setIsMine(true)
+                // })
             })
         })
     }, [props.location.pathname])
@@ -424,9 +437,12 @@ export default function Detail(props) {
         goOtherPage: goOtherPage
     }
 
+    console.log(wish.state)
+    console.log(isMine)
+    console.log(wish.state === 0 && isMine)
     return (
         <div className='Detail'>
-            <WishDetail wish={wish} needForward={!wish.state && isMine} onChange={onChange} pathname={props.location.pathname} />
+            <WishDetail wish={wish} isMine={isMine} onChange={onChange} pathname={props.location.pathname} />
             <div className="other">
                 {
                     [

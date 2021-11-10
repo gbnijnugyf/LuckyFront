@@ -16,16 +16,7 @@ function Btn(props) {
 
 function LoginMain(props) {
 
-    // 保存WHUT登录后返回的token
-    useEffect(() => {
-        let token = cookie.load('jwt_token');
-        if (token) {
-            localStorage.setItem('token', token)
-            props.history.push("/")
-        }
-    }, [props.history])
-
-
+  
     const goWHUT = () => {
         let position = window.location.href
         let continueurl = position.slice(0, position.indexOf('/', 10))

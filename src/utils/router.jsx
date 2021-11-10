@@ -4,17 +4,27 @@ import { Redirect } from 'react-router'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
 import Send from '../pages/Send'
+import cookie from 'react-cookies'
 import Detail from '../pages/Detail'
 import Wishes from '../pages/Wishes'
 import Header from '../components/Header'
 import MyWish from '../pages/MyWish'
 function Router(props) {
 
+    // 保存WHUT登录后返回的token
     useEffect(() => {
+        let token = cookie.load('jwt_token');
+        if (token) {
+            localStorage.setItem('token', token)
+            props.history.push("/")
+        }
         if (!localStorage.getItem("token")) {
             props.history.push("/login")
         }
     }, [props.history])
+
+
+
 
     return (
         <>

@@ -1,18 +1,19 @@
 @import "config/globalCssVar.scss";
 
+
 @font-face {
     font-family: "TsangerShuYuanTW02";
-    src        : url("./static/font/TsangerShuYuanT W02.TTF");
+    src        : url("https://ryzenx.oss-accelerate.aliyuncs.com/font/TsangerShuYuanTW02.TTF");
 }
 
 @font-face {
     font-family: "TsangerXWZ";
-    src        : url("./static/font/TsangerXWZ.TTF");
+    src        : url("https://ryzenx.oss-accelerate.aliyuncs.com/font/TsangerXWZ.TTF");
 }
 
 @font-face {
     font-family: "PingFangSC";
-    src        : url("./static/font/苹方-简.ttf");
+    src        : url("https://ryzenx.oss-cn-hangzhou.aliyuncs.com/font/%E8%8B%B9%E6%96%B9-%E7%AE%80.ttf");
 }
 
 * {
