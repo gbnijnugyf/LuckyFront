@@ -1,6 +1,5 @@
 import 'whatwg-fetch';
-
-const BASEURL = "/api"
+const BASEURL = window.location.href.slice(0, window.location.href.indexOf('/', 10)) + "/api"
 
 function Fetch(url, opt = {}) {
     const token = localStorage.getItem('token')
