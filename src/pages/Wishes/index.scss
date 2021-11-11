@@ -14,7 +14,7 @@
         height        : 14em;
         padding       : 6em 3em 2em 3em;
         right         : 0em;
-        touch-action  : none;
+        touch-action: none;
 
         .wish-img {
             position    : absolute;
@@ -32,6 +32,7 @@
             min-height : 7em;
             max-height : 8em;
             overflow   : scroll;
+            touch-action: none;
 
             .content-word {
                 min-height: 7em;
@@ -47,6 +48,7 @@
                 color          : white;
                 padding        : 8px;
                 font-size      : medium;
+                touch-action: none;
             }
         }
 
@@ -58,6 +60,7 @@
             font-size      : x-large;
             display        : flex;
             justify-content: space-around;
+            touch-action: none;
 
             p {
                 position   : relative;
