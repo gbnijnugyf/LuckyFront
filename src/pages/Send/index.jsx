@@ -17,8 +17,19 @@ export default function Send(props) {
     const [tel, setTel] = useState('') // 控制tel input
     const [selectValue, setSelectValue] = useState('QQ')// 控制select的值
     const [category, setCategory] = useState(-1) // 控制愿望分类
+    const [isInk, setIsInk] = useState(true)
+
+    const handleNoneInk = () => {
+        setIsInk(false)
+    }
+    const handleShowInk = () => {
+        setIsInk(true)
+    }
     // 处理填写愿望的字数限制
     const handleWishContent = (e) => {
+        if (document.hasFocus()) {
+            setIsInk(false)
+        }
         if (e.target.value.length > 160) {
             setWishContent(e.target.value.substr(0, 161));
             alert('不能写下更多了哦')
@@ -85,7 +96,7 @@ export default function Send(props) {
                 }</div>
             </div>
             <div className="sendbc">
-                <img className="ink" src={ink} alt="" />
+                <img className="ink" style={{display : isInk ? 'block' : 'none' }} src={ink} alt="" />
                 <ButtonS onClick={goSelectTag} style={{
                     background: "white",
                     fontFamily: "MicrosoftJhengHeiUIRegular, Microsoft JhengHei UI",
@@ -96,7 +107,7 @@ export default function Send(props) {
                 }}>
                     {"# " + tagName}
                 </ButtonS>
-                <textarea className='notes' placeholder={'把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~'} value={wishContent} onChange={handleWishContent}></textarea>
+                <textarea onBlur={handleShowInk} onFocus={handleNoneInk} className='notes' placeholder={'把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~'} value={wishContent} onChange={handleWishContent}></textarea>
                 <div className="send-msg">
                     <div className="name">
                         <p>投递人：</p>
