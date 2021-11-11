@@ -145,7 +145,7 @@ let Service = {
     },
     // 根据分类获取愿望 ok 已加入代码
     getWishByCategories(category) {
-        let url = new URL(BASEURL + '/wishes/categories?categories')
+        let url = new URL(BASEURL + '/wishes/categories')
         url.searchParams.append("categories", category)
         url.searchParams.append("time", new Date().getTime())
         return Fetch(url)
