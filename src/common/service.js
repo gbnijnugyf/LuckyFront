@@ -119,22 +119,27 @@ let Service = {
     },
     // 查看愿望详情 ok 已加入代码
     getWishDetail(id) {
-        return Fetch(`/wishes/details?wish_id=${id}`)
+        var timestamp = new Date().getTime()
+        return Fetch(`/wishes/details?wish_id=${id}&time=${timestamp}`)
     },// 查找点亮人信息 
     getLightManInfo(id) {
-        return Fetch(`/user/info/lightman?wish_id=${id}`)
+        var timestamp = new Date().getTime()
+        return Fetch(`/user/info/lightman?wish_id=${id}&time=${timestamp}`)
     },
     // 获取自己点亮的愿望 已加入代码 
     getUserWishLight() {
-        return Fetch('/wishes/user/light')
+        var timestamp = new Date().getTime()
+        return Fetch(`/wishes/user/light?time=${timestamp}`)
     },
     // 获取自己投递的愿望 已加入代码 
     getUserWishPost() {
-        return Fetch('/wishes/user/post')
+        var timestamp = new Date().getTime()
+        return Fetch(`/wishes/user/post?time=${timestamp}`)
     },
     // 根据分类获取愿望 ok 已加入代码
     getWishByCategories(category) {
-        return Fetch(`/wishes/categories?categories=${category}`)
+        var timestamp = new Date().getTime()
+        return Fetch(`/wishes/categories?categories=${category}&time=${timestamp}`)
     },
     // 删除愿望 ok 未加入代码
     deleteWish(wish_id) {
