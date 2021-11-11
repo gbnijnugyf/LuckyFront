@@ -5,7 +5,6 @@ import calendar from '../../static/images/calendar.svg'
 import leaf from '../../static/images/leaf.svg'
 import Service from '../../common/service'
 import './index.scss'
-import { randomSortArray } from '../../common/global'
 
 const WishItem = (props) => {
 
@@ -63,7 +62,7 @@ export default function Wishes(props) {
             while (wishes.length < 3) {
                 wishes = wishes.concat(wishes)
             }
-            setWishes(randomSortArray(wishes))
+            setWishes(wishes)
         })
     }
     // 获取愿望
