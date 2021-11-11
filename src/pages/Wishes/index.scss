@@ -32,7 +32,6 @@
             min-height : 7em;
             max-height : 8em;
             overflow   : scroll;
-            touch-action: none;
 
             .content-word {
                 min-height: 7em;
@@ -48,7 +47,6 @@
                 color          : white;
                 padding        : 8px;
                 font-size      : medium;
-                touch-action: none;
             }
         }
 
