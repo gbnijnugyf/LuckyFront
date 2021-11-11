@@ -50,7 +50,6 @@ export default function Wishes(props) {
     const [option, setOption] = useState("QQ")
     const refreshWishes = () => {
         Service.getWishByCategories(category).then((res) => {
-            console.log(lightBtn)
             let wishes = []
             if (res.data.length === 0) {
                 setLightBtn(false)

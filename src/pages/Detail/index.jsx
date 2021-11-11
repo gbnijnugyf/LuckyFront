@@ -15,7 +15,6 @@ const WishDetail = (props) => {
 
     //bad use
     const getForward = () => {
-        console.log(isMine, wish.state)
         if (isMine && wish.state === 0) {
             return <img src={forwardimg} onClick={showForward} className="forward" alt="" />
         }
@@ -436,10 +435,6 @@ export default function Detail(props) {
         changeConfirmAction: changeConfirmAction,
         goOtherPage: goOtherPage
     }
-
-    console.log(wish.state)
-    console.log(isMine)
-    console.log(wish.state === 0 && isMine)
     return (
         <div className='Detail'>
             <WishDetail wish={wish} isMine={isMine} onChange={onChange} pathname={props.location.pathname} />

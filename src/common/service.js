@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import Notification from 'rc-notification';
+
 
 function Fetch(url, opt = {}) {
     const token = localStorage.getItem('token')
