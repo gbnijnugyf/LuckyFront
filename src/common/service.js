@@ -1,10 +1,10 @@
 import 'whatwg-fetch';
 
+const BASEURL = "/api"
 
 function Fetch(url, opt = {}) {
     const token = localStorage.getItem('token')
-    const BASEURL = "/api"
-    url = BASEURL + url;
+
 
     opt.method = opt.method || 'GET';
     opt.headers = {
@@ -60,7 +60,7 @@ function Fetch(url, opt = {}) {
 let Service = {
     // 绑定邮箱
     bindEmail(email) {
-        return Fetch('/user/email', {
+        return Fetch(new URL(BASEURL + '/user/email'), {
             method: "POST",
             data: {
                 email: email
@@ -69,14 +69,14 @@ let Service = {
     },
     // whut登陆  我暂时测不了 未加入代码
     whutLogin() {
-        return Fetch('/whutlogin', {
+        return Fetch(new URL(BASEURL + '/whutlogin'), {
             method: "POST",
             data: {}
         })
     },
     // ccnu登陆 （ok 已加入代码
     ccnuLogin(idcard_number, password) {
-        return Fetch('/ccnulogin', {
+        return Fetch(new URL(BASEURL + '/ccnulogin'), {
             method: "POST",
             data: {
                 idcard_number: idcard_number,
@@ -86,13 +86,13 @@ let Service = {
     },
     // 查询邮箱是否绑定
     checkUserEmail() {
-        return Fetch('/user/email/check', {
+        return Fetch(new URL(BASEURL + '/user/email/check'), {
             method: 'POST',
         })
     },
     // 发出自己的愿望 ok 已加入代码
     postWish(name, QQ, weChat, tel, wish, type) {
-        return Fetch('/wishes/add', {
+        return Fetch(new URL(BASEURL + '/wishes/add'), {
             method: 'POST',
             data: {
                 wishMan_name: name,
@@ -106,7 +106,7 @@ let Service = {
     },
     // 点亮别人的愿望 ok APIfox测了 不知道加在哪儿 点亮有个表单要填写啊
     lightWishOn(id, name, tel, qq, wechat) {
-        return Fetch('/wishes/light', {
+        return Fetch(new URL(BASEURL + '/wishes/light'), {
             method: 'POST',
             data: {
                 wish_id: id,
@@ -119,37 +119,47 @@ let Service = {
     },
     // 查看愿望详情 ok 已加入代码
     getWishDetail(id) {
-        var timestamp = new Date().getTime()
-        return Fetch(`/wishes/details?wish_id=${id}&time=${timestamp}`)
+        let url = new URL(BASEURL + '/wishes/details')
+        url.searchParams.append("wish_id", id)
+        url.searchParams.append("time", new Date().getTime())
+        return Fetch(url)
     },// 查找点亮人信息 
     getLightManInfo(id) {
-        var timestamp = new Date().getTime()
-        return Fetch(`/user/info/lightman?wish_id=${id}&time=${timestamp}`)
+
+        let url = new URL(BASEURL + '/user/info/lightman')
+        url.searchParams.append("wish_id", id)
+        url.searchParams.append("time", new Date().getTime())
+        return Fetch(url)
     },
     // 获取自己点亮的愿望 已加入代码 
     getUserWishLight() {
-        var timestamp = new Date().getTime()
-        return Fetch(`/wishes/user/light?time=${timestamp}`)
+        let url = new URL(BASEURL + '/wishes/user/light')
+        url.searchParams.append("time", new Date().getTime())
+        return Fetch(url)
+
     },
     // 获取自己投递的愿望 已加入代码 
     getUserWishPost() {
-        var timestamp = new Date().getTime()
-        return Fetch(`/wishes/user/post?time=${timestamp}`)
+        let url = new URL(BASEURL + '/wishes/user/post')
+        url.searchParams.append("time", new Date().getTime())
+        return Fetch(url)
     },
     // 根据分类获取愿望 ok 已加入代码
     getWishByCategories(category) {
-        var timestamp = new Date().getTime()
-        return Fetch(`/wishes/categories?categories=${category}&time=${timestamp}`)
+        let url = new URL(BASEURL + '/wishes/categories?categories')
+        url.searchParams.append("categories", category)
+        url.searchParams.append("time", new Date().getTime())
+        return Fetch(url)
     },
     // 删除愿望 ok 未加入代码
     deleteWish(wish_id) {
-        return Fetch(`/wishes?wish_id=${wish_id}`, {
+        return Fetch(BASEURL + `/wishes?wish_id=${wish_id}`, {
             method: 'DELETE'
         })
     },
     // 放弃点亮别人的愿望 ok  未加入代码
     giveUpLightWish(wish_id, msg) {
-        return Fetch(`/wishes/giveup`, {
+        return Fetch(BASEURL + `/wishes/giveup`, {
             method: 'POST',
             data: {
                 wish_id: wish_id,
@@ -159,7 +169,7 @@ let Service = {
     },
     // 实现别人的愿望 ok  未加入代码
     achieveWish(wish_id) {
-        return Fetch(`/wishes/achieve`, {
+        return Fetch(BASEURL + `/wishes/achieve`, {
             method: 'POST',
             data: {
                 wish_id: wish_id
