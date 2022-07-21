@@ -1,0 +1,27 @@
+.button-large {
+    font-family  : TsangerShuYuanTW02;
+    text-align   : center;
+    border-radius: 0.5em;
+    font-size    : x-large;
+    padding      : 0.4em 1.5em;
+    margin-top   : 2em;
+    background   : #FEF6E9;
+    color        : #F25125;
+}
+
+
+
+.button-small {
+    font-family  : TsangerShuYuanTW02;
+    text-align   : center;
+    width        : fit-content;
+    border-radius: 1em;
+    font-size    : medium;
+    padding      : 0.2em 1em;
+
+    img {
+        margin-right  : 0.3em;
+        height        : 1em;
+        vertical-align: middle;
+    }
+}

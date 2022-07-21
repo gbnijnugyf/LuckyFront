@@ -1,0 +1,63 @@
+@import "../../config/globalCssVar.scss";
+
+
+.mask {
+    position       : fixed;
+    display        : flex;
+    z-index        : 2001;
+    top            : 0vh;
+    height         : 100vh;
+    width          : 100%;
+    max-width      : $AppMaxWidth;
+    background     : rgba($color: gray, $alpha: 0.6);
+    align-items    : center;
+    justify-content: space-around;
+
+    .infoPanel {
+        background   : #F9D291;
+        font-size    : medium;
+        border-radius: 1em;
+        overflow     : hidden;
+        width        : 70%;
+
+        .textPanel {
+            min-height     : 3em;
+            padding        : 1em 1em;
+            display        : flex;
+            flex-direction : column;
+            text-align     : left;
+            align-items    : center;
+            justify-content: space-around;
+
+            * {
+                margin-top: 0.5em;
+            }
+
+            p {
+                color      : #FF7A59;
+                font-family: TsangerShuYuanTW02;
+                text-align : center;
+            }
+        }
+
+        .confirmPanel {
+            display: flex;
+
+            div {
+                padding   : 0.5em 0;
+                width     : 50%;
+                text-align: center;
+            }
+
+            .confirmFalse {
+                background-color: white;
+            }
+
+            .confirmTrue {
+                background-color: #FF7A59;
+                color           : white;
+            }
+        }
+
+    }
+}

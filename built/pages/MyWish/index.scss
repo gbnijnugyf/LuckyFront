@@ -1,0 +1,190 @@
+@import "../../config/globalCssVar.scss";
+
+b {
+    color: rgb(54, 53, 53);
+}
+
+.div-leaf-empty {
+    position      : relative;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    margin        : 0 10vw;
+
+    .text-empty {
+        margin-top         : 27vh;
+        padding            : 5em 2em;
+        font-size          : x-large;
+        font-family        : TsangerShuYuanTW02;
+        color              : white;
+        background         : url("../../static/images/leaf.svg");
+        background-size    : contain;
+        background-repeat  : no-repeat;
+        background-position: center;
+        text-align         : left;
+    }
+
+
+}
+
+.div-wishlist-toppadding {
+    position  : fixed;
+    z-index   : 101;
+    top       : 0;
+    width     : 100vw;
+    height    : calc($HeaderHeight + $LogoHeight + 2vh);
+    background: linear-gradient(rgba(249, 210, 145, 1) 90%, rgba(249, 210, 145, 0));
+}
+
+.div-wishlist {
+    position      : relative;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    margin-top    : calc($LogoHeight + 2vh);
+    width         : 100vw;
+
+    hr {
+        width: 100%;
+    }
+
+    h3 {
+        align-self   : flex-start;
+        margin-left  : 2em;
+        font-family  : TsangerShuYuanTW02;
+        color        : #FF7A59;
+        margin-bottom: 0.2em;
+    }
+
+    ul {
+        position     : relative;
+        width        : 90%;
+        align-self   : flex-start;
+        margin-bottom: 3em;
+    }
+
+    .div-listbottom {
+        width     : 80%;
+        margin-top: 1em;
+
+        hr {
+            background-color: #FF7A59;
+            border-color    : #FF7A59;
+        }
+
+        p {
+            margin: 0.5em 0;
+            color : #FF7A59;
+        }
+
+    }
+}
+
+.item-wish {
+    position         : relative;
+    background-image : url("../../static/images/wishitem.svg");
+    background-repeat: no-repeat;
+    background-size  : contain;
+    font-size        : medium;
+    padding          : 2em 0 0.8em 2em;
+    width            : 100%;
+    list-style       : none;
+
+    .text-detail {
+        position     : relative;
+        text-align   : start;
+        overflow     : hidden;
+        width        : 90%;
+        text-overflow: ellipsis;
+        white-space  : nowrap;
+        color        : white;
+    }
+
+    .status {
+        position       : relative;
+        display        : flex;
+        width          : 85%;
+        justify-content: space-between;
+        align-items    : center;
+        margin-top     : 0.5em;
+        margin-bottom  : 1em;
+
+
+        .text-wishtime {
+            color      : #666666;
+            font-size  : small;
+            font-family: PingFangSC;
+            position   : relative;
+            text-align : end;
+        }
+    }
+}
+
+
+
+
+.MywishDetail {
+    position      : relative;
+    width         : 100vw;
+    height        : 100vh;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+
+    .content {
+
+        position  : relative;
+        margin-top: calc($LogoHeight + 2vh);
+        height    : 43%;
+
+        display       : flex;
+        flex-direction: column;
+        align-items   : center;
+        flex-grow     : 0 !important;
+
+        background         : url('../../static/images/panel_upper.svg');
+        background-repeat  : no-repeat;
+        background-position: top;
+        padding            : 29% 9% 0% 9%;
+
+        .forward {
+            width       : 1.5rem;
+            align-self  : flex-end;
+            margin-right: 1.5rem;
+            margin-top  : 0.5rem;
+        }
+
+        .text {
+
+            display: relative;
+            background-image: linear-gradient(to right, rgb(241, 197, 126) 10px, transparent 10px),
+                linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
+                linear-gradient(rgb(241, 197, 126) 30px, black 30px, black 31px, white 31px);
+
+            word-break      : break-all;
+            border          : 0px;
+            background-size : 100% 100%, 100% 100%, 100% 31px;
+            line-height     : 30px;
+            font-family     : TsangerShuYuanTW02;
+            width           : 80%;
+            height          : 9em;
+            background-color: rgb(241, 197, 126);
+            resize          : none;
+            color           : white;
+            padding         : 8px;
+            font-size       : medium;
+            margin-top      : .8em;
+        }
+
+        .wishInfo {
+            align-self  : flex-end;
+            margin-right: 2em;
+            margin-top  : 0.5em;
+
+            p {
+                font-family: TsangerShuYuanTW02;
+                font-size  : large;
+            }
+        }
+    }
+}

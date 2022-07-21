@@ -1,0 +1,37 @@
+@import "../../config/globalCssVar.scss";
+
+
+
+.panel-home {
+    display        : flex;
+    flex-direction : column;
+    align-items    : center;
+    height         : calc(100% - $HeaderHeight);
+    justify-content: center;
+    margin-top     : 30%;
+
+    .tags {
+        width          : 80%;
+        position       : relative;
+        display        : flex;
+        justify-content: space-around;
+        flex-wrap      : wrap;
+        margin-top     : 40%;
+
+        .tag {
+            width              : 15%;
+            position           : relative;
+            background-image   : url("../../static/images/leaftag.svg");
+            background-position: center;
+            background-repeat  : no-repeat;
+            background-size    : contain;
+            text-align         : center;
+            font-family        : TsangerShuYuanTW02;
+            color              : white;
+            font-size          : 130%;
+            padding            : 1em;
+            margin-top         : 0.8em;
+        }
+
+    }
+}
