@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "./built",
+        "allowJs": true,
+        "target": "es5"
+    },
+
+    "include": [
+        "./src/common/**/*",
+        "./src/components/**/*",
+        "./src/config/**/*",
+        "./src/pages/Detail/**/*",
+        "./src/pages/Home/**/*",
+        "./src/pages/Login/**/*",
+        "./src/pages/MyWish/**/*",
+        "./src/pages/Send/**/*",
+        "./src/pages/Wishes/**/*",
+        "./src/static/**/*",
+        "./src/utils/**/*"
+    ]
+}
