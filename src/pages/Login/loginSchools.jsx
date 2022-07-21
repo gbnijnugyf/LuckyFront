@@ -1,9 +1,8 @@
-import { useState } from 'react'
 import Service from '../../common/service'
 
 import './loginSchools.scss'
 import { ButtonL } from '../../components/Button'
-import { useEffect } from 'react/cjs/react.development'
+import { useState } from 'react'
 
 function LoginPannel(props) {
     return (
