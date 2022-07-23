@@ -127,7 +127,7 @@ export default function Wishes(props) {
     }
     // 查看我的点亮
     const goMyWish = () => {
-        props.history.push('/mywish')
+        // props.history.push('/mywish')
     }
     const LightWish = () => {
         if (name === "") alert("还没有填写姓名哦~")

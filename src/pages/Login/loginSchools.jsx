@@ -37,7 +37,7 @@ export function LoginCCNU(props) {
             Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
                 if (res.status === 0) {
                     localStorage.setItem('token', res.data)
-                    props.history.push('/')
+                    // props.history.push('/')
                 }
                 else alert('用户名或密码错误');
             })
@@ -70,7 +70,7 @@ export function BindEmail(props) {
     }
     const goBind = () => {
         Service.bindEmail(email).then(() => {
-            props.history.push("/home")
+            // props.history.push("/home")
         })
     }
 

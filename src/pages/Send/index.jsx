@@ -69,7 +69,7 @@ export default function Send(props) {
             Service.postWish(nameValue, QQ, wechat, tel, wishContent, category)
                 .then(() => {
                     alert('投递成功！')
-                    props.history.push('/home')
+                    // props.history.push('/home')
                 })
         }
     }

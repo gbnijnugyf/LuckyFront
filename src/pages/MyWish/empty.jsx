@@ -5,7 +5,7 @@ import './index.scss'
 export function Empty(props) {
 
     const goSendWish = () => {
-        props.history.push("/send")
+        // props.history.push("/send")
     }
 
 

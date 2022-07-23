@@ -60,7 +60,7 @@ export function MyWishList(props) {
     }, [props.history])
 
     const goWishDetail = (id) => {
-        props.history.push('/detail/' + id)
+        // props.history.push('/detail/' + id)
     }
 
     return (
