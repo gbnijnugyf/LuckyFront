@@ -7,9 +7,18 @@ import Detail from "../pages/Detail";
 import Wishes from "../pages/Wishes";
 import Header from "../components/Header";
 import MyWish from "../pages/MyWish";
-import { Navigate, Route, Routes } from "react-router-dom";
-function Router(props:any) {
+
+import {LoginMain} from "../pages/Login/index";
+import {BindEmail, LoginCCNU} from "../pages/Login/loginSchools";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+function Router(props: any) {
   // 保存WHUT登录后返回的token
+  const location = useLocation();
+  if (1) {
+    console.log(location);
+
+  }
+
   useEffect(() => {
     let token = cookie.load("jwt_token");
     if (token) {
@@ -24,10 +33,18 @@ function Router(props:any) {
   return (
     <>
       {/* todo fixthis */}
+
       {/* {props.location.pathname.match(/login/) ? null : <Header></Header>} */}
+      {location.pathname.match(/login/) ? null : <Header></Header>}
       <div className="content">
         <Routes>
-          <Route path="login" element={<Login />}></Route>
+          {/* <Route path="login/*" element={<Login />}></Route> */}
+          <Route path="login/*" element={<Login />}>
+            <Route path="ccnu" element={<LoginCCNU />} />
+            <Route path="bindemail" element={<BindEmail />} />
+            <Route path="*" element={<LoginMain />} />
+          </Route>
+
           <Route path="home" element={<Home />}></Route>
           <Route path="send" element={<Send />}></Route>
           <Route path="detail" element={<Detail />}></Route>

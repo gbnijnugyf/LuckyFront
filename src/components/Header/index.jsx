@@ -5,6 +5,7 @@ import rulebutton from "../../static/images/rulebutton.svg";
 import backbutton from "../../static/images/backbutton.svg";
 import logo from "../../static/images/logo.svg";
 import arrowimg from "../../static/images/arrow.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 const titleList = {
   "/home": "标签页",
   "/send": "投递我的小幸运",
@@ -14,6 +15,8 @@ const titleList = {
 };
 
 function Header(props) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false);
   const [key, setKey] = useState("");
 
@@ -21,20 +24,20 @@ function Header(props) {
     setIsShow(!isShow);
   };
   const handleBack = () => {
-    if (props.location.pathname.includes("mywish")) props.history.go(-2);
+    if (location.pathname.includes("mywish")) props.history.go(-2);
     else props.history.go(-1);
   };
 
   const getTitle = () => {
-    let key = props.location.pathname;
+    let key = location.pathname;
     let index = key.indexOf("/", 2);
     if (index !== -1) key = key.substr(0, index);
     return titleList[key];
   };
 
   useEffect(() => {
-    setKey(props.location.pathname.split("/")[1]);
-  }, [props.location.pathname]);
+    setKey(location.pathname.split("/")[1]);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (key === "wish") {

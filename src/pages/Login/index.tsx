@@ -2,9 +2,10 @@ import "./index.scss";
 import { LoginCCNU, BindEmail } from "./loginSchools.jsx";
 import cookie from "react-cookies";
 import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
+import path from "path";
 
-function Btn(props) {
+function Btn(props:any) {
   return (
     <div className="btn-school" onClick={props.onClick}>
       <div className="birdimg" />
@@ -13,7 +14,9 @@ function Btn(props) {
   );
 }
 
-function LoginMain(props) {
+export function LoginMain(props:any) {
+  let navigate = useNavigate();
+
   const goWHUT = () => {
     let position = window.location.href;
     let continueurl = position.slice(0, position.indexOf("/", 10));
@@ -22,7 +25,9 @@ function LoginMain(props) {
       posturl
     )}&continueurl=${encodeURIComponent(continueurl)}`;
   };
+
   const goCCNU = () => {
+    navigate("/login/ccnu");
     // props.history.push("/login/ccnu");
   };
 
@@ -38,14 +43,15 @@ function LoginMain(props) {
   );
 }
 
-export default function Login(props) {
+export default function Login() {
   return (
     <div className="login">
-      <Routes>
-        <Route path="/login/ccnu" component={LoginCCNU} />
-        <Route path="/login/bindemail" component={BindEmail} />
-        <Route path="/login" component={LoginMain} />
-      </Routes>
+      {/* <Routes>
+        <Route path="/login/ccnu" element={<LoginCCNU/>} />
+        <Route path="/login/bindemail" element={<BindEmail/>} />
+        <Route path="/login" element={<LoginMain/>} />
+      </Routes> */}
+      <Outlet/>
     </div>
   );
 }
