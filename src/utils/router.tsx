@@ -8,7 +8,7 @@ import Wishes from "../pages/Wishes";
 import Header from "../components/Header";
 import MyWish from "../pages/MyWish";
 import { Navigate, Route, Routes } from "react-router-dom";
-function Router(props) {
+function Router(props:any) {
   // 保存WHUT登录后返回的token
   useEffect(() => {
     let token = cookie.load("jwt_token");
@@ -35,7 +35,7 @@ function Router(props) {
           <Route path="mywish" element={<MyWish />}></Route>
           <Route
             path="*"
-            to={localStorage.getItem("token") === null ? "/login" : "/home"}
+            element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/home'} replace />}
           />
         </Routes>
       </div>
