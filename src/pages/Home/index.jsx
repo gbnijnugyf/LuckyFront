@@ -4,22 +4,28 @@ import { ButtonS } from "../../components/Button";
 import { tags } from "../../config/Global";
 import "./index.scss";
 import Service from "../../common/service";
+import { useNavigate } from "react-router-dom";
 
 export default function Home(props) {
+  let navigate = useNavigate();
   // 检查是否绑定邮箱
   useEffect(() => {
     Service.checkUserEmail().then((res) => {
       if (res.status === -1) {
+        navigate("/login/bindemail");
       }
       // props.history.push("/login/bindemail")
     });
   }, [props.history]);
 
   const goWishes = (tag) => {
+    navigate(`/wish/${tag.enName}`, { category: tag.category });
+
     // props.history.push(`/wish/${tag.enName}`, { category: tag.category })
   };
 
   const goSend = () => {
+    navigate('/send');
     // props.history.push('/send')
   };
 

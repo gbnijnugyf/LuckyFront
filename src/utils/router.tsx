@@ -8,8 +8,11 @@ import Wishes from "../pages/Wishes";
 import Header from "../components/Header";
 import MyWish from "../pages/MyWish";
 
-import {LoginMain} from "../pages/Login/index";
-import {BindEmail, LoginCCNU} from "../pages/Login/loginSchools";
+import { Index } from "../pages/MyWish/index";
+import { Empty } from "../pages/MyWish/empty";
+import { MyWishList} from "../pages/MyWish/list";
+import { LoginMain } from "../pages/Login/index";
+import { BindEmail, LoginCCNU } from "../pages/Login/loginSchools";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 function Router(props: any) {
   // 保存WHUT登录后返回的token
@@ -49,7 +52,11 @@ function Router(props: any) {
           <Route path="send" element={<Send />}></Route>
           <Route path="detail" element={<Detail />}></Route>
           <Route path="wish/:tag" element={<Wishes />}></Route>
-          <Route path="mywish" element={<MyWish />}></Route>
+          <Route path="mywish" element={<MyWish />}>
+            <Route path="/mywish/index" element={<Index/>} />
+            <Route path="/mywish/empty" element={<Empty/>} />
+            <Route path="/mywish/list" element={<MyWishList/>} />
+          </Route>
           <Route
             path="*"
             element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/home'} replace />}

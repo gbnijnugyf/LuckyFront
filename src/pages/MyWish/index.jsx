@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Empty } from "./empty.jsx";
 import { MyWishList } from "./list";
 import Service from "../../common/service";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Brow, BrowserRouter, Outlet } from "react-router-dom";
 
-const Index = (props) => {
+export const Index = (props) => {
   const [wishPost, setWishPost] = useState([]);
   const [wishLight, setWishLight] = useState([]);
   const [gotPost, setGotPost] = useState(false);
@@ -38,12 +38,10 @@ const Index = (props) => {
 export default function MyWish(props) {
   return (
     <div>
-      <Routes>
-        <Route path="/mywish/index" component={Index} />
-        <Route path="/mywish/empty" component={Empty} />
-        <Route path="/mywish/list" component={MyWishList} />
+      <BrowserRouter>
+        <Outlet/>
         <Link to="/mywish/index" />
-      </Routes>
+      </BrowserRouter>
     </div>
   );
 }

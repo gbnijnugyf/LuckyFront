@@ -1,7 +1,7 @@
 import "./index.scss";
-import { LoginCCNU, BindEmail } from "./loginSchools.jsx";
-import cookie from "react-cookies";
-import { useEffect } from "react";
+// import { LoginCCNU, BindEmail } from "./loginSchools.jsx";
+// import cookie from "react-cookies";
+// import { useEffect } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import path from "path";
 
