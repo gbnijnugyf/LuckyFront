@@ -4,6 +4,7 @@ import { Empty } from "./empty.jsx";
 import { MyWishList } from "./list";
 import Service from "../../common/service";
 import { Link, Route, Brow, BrowserRouter, Outlet } from "react-router-dom";
+import { click } from "@testing-library/user-event/dist/click";
 
 export const Index = (props) => {
   const [wishPost, setWishPost] = useState([]);
@@ -38,10 +39,8 @@ export const Index = (props) => {
 export default function MyWish(props) {
   return (
     <div>
-      <BrowserRouter>
-        <Outlet/>
-        <Link to="/mywish/index" />
-      </BrowserRouter>
+      <Outlet />
+      {/* <Link to="/mywish/index" /> */}
     </div>
   );
 }
