@@ -17,7 +17,7 @@ function LoginPannel(props) {
 }
 
 
-export function LoginCCNU(props) {
+export function LoginCCNU() {
     const [ccnuId, setCcnuId] = useState('')
     const [ccnuPwd, setCcnuPwd] = useState('')
 
