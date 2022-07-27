@@ -60,7 +60,7 @@ const BASEURL = window.location.href.slice(0, window.location.href.indexOf('/', 
 }
 */
 function myAxios(url, data = {}, method = String) {
-    // let navigate = useNavigate();
+
     const token = localStorage.getItem('token');
 
     method = method || 'get';
@@ -83,11 +83,10 @@ function myAxios(url, data = {}, method = String) {
             if (res.status === -2) {
                 alert(res.msg)
                 localStorage.removeItem('token')
-                // navigate('/login');
                 // 重定向到根目录，重新登录
-                // let redirectpos = window.location.href
-                // redirectpos = redirectpos.slice(0, redirectpos.indexOf('/', 10) + 1)
-                // window.location.href(redirectpos)
+                let redirectpos = window.location.href
+                redirectpos = redirectpos.slice(0, redirectpos.indexOf('/', 10) + 1)
+                window.location.href(redirectpos)
             }
             else {
                 if (res.status !== 0) {
