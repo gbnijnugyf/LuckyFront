@@ -5,6 +5,7 @@ import calendar from '../../static/images/calendar.svg'
 import leaf from '../../static/images/leaf.svg'
 import Service from '../../common/service'
 import './index.scss'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 const WishItem = (props) => {
 
@@ -32,7 +33,9 @@ const WishItem = (props) => {
 
 export default function Wishes(props) {
     // 拿着这个分类去发请求
-    const { category } = props.location.state
+    let navigate = useNavigate();
+    const category = useLocation();
+    // const { category } = props.location.state
     const [showTip, setShowTip] = useState(true)
     const moveState = { img1: 0, img2: 10, img3: 20 }
     const [move, setMove] = useState(moveState) // 树叶动画相关状态
@@ -127,6 +130,7 @@ export default function Wishes(props) {
     }
     // 查看我的点亮
     const goMyWish = () => {
+        navigate('/mywish');
         // props.history.push('/mywish')
     }
     const LightWish = () => {

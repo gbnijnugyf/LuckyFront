@@ -1,5 +1,6 @@
 import 'whatwg-fetch';
-const BASEURL = window.location.href.slice(0, window.location.href.indexOf('/', 10)) + "/api"
+// const BASEURL = window.location.href.slice(0, window.location.href.indexOf('/', 10)) + "/api" //部署环境用
+const BASEURL = "http://127.0.0.1:4523/m1/1300958-0-default"
 
 function Fetch(url, opt = {}) {
     const token = localStorage.getItem('token')

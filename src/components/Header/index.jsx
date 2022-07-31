@@ -24,15 +24,15 @@ function Header(props) {
     setIsShow(!isShow);
   };
   const handleBack = () => {
-    if (location.pathname.includes("mywish")) props.history.go(-2);
-    else props.history.go(-1);
+    if (location.pathname.includes("mywish")) navigate(-2);
+    else navigate(-1);
   };
 
   const getTitle = () => {
     let key = location.pathname;
     let index = key.indexOf("/", 2);
     if (index !== -1) key = key.substr(0, index);
-    return titleList[key];
+    return titleList[key]; //通过路由截取数组titlelist的索引key
   };
 
   useEffect(() => {
@@ -146,7 +146,7 @@ function Header(props) {
     <div className="header">
       <div className="comp-header">
         <img
-          className="back-button"
+          className="back-button"  //回退按钮
           src={backbutton}
           style={{ opacity: title === "标签页" ? 0 : 1 }}
           onClick={title === "标签页" ? null : handleBack}

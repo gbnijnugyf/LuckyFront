@@ -3,44 +3,69 @@ import React, { useEffect, useState } from "react";
 import { Empty } from "./empty.jsx";
 import { MyWishList } from "./list";
 import Service from "../../common/service";
-import { Link, Route, Brow, BrowserRouter, Outlet } from "react-router-dom";
+import { Link, Route, Brow, BrowserRouter, Outlet, useNavigate } from "react-router-dom";
 import { click } from "@testing-library/user-event/dist/click";
 
 export const Index = (props) => {
+  let navigate = useNavigate();
+
   const [wishPost, setWishPost] = useState([]);
   const [wishLight, setWishLight] = useState([]);
   const [gotPost, setGotPost] = useState(false);
   const [gotLight, setGotLight] = useState(false);
+
+  // 排序愿望为需要的顺序
+  const sortWishes = (oldwishes) => {   //此处mock用例state值有问题，暂未修改mock
+    let sorted = []
+    const priority = [1, 2, 0]
+    for (let p = 0; p < priority.length; p++)
+      for (let i = 0; i < oldwishes.length; i++)
+        if (oldwishes[i].state === priority[p])
+          sorted.push(oldwishes[i]);
+
+    return sorted;
+  }
+
   useEffect(() => {
     Service.getUserWishPost().then((res) => {
-      setWishPost(res.data);
+      setWishPost(sortWishes(res.data));
       setGotPost(true);
     });
   }, []);
   useEffect(() => {
     Service.getUserWishLight().then((res) => {
-      setWishLight(res.data);
+      setWishLight(sortWishes(res.data));
       setGotLight(true);
     });
   }, []);
+
   useEffect(() => {
     if (gotPost && gotLight) {
-      if (wishPost?.length === 0 && wishLight?.length === 0) {
+      if (wishPost.length === 0 && wishLight.length === 0) {
+        console.log("empty!");
+        navigate("/mywish/empty");
+
       }
       // props.history.push("/mywish/empty");
       else {
-      } // props.history.push("/mywish/list", { wishPost, wishLight });{}
+        console.log("list!");//此处路由跳转后，list文件中的WishItem组件再次发出请求，并没有引用此处的通过路由传送的参数
+        console.log(wishLight);
+        console.log(wishPost);
+        navigate("/mywish/list", { state: {wishPost, wishLight}})//传值到List但没有引用？
+      } // props.history.push("/mywish/list", { wishPost, wishLight });{} 
     }
-  }, [gotLight, gotPost, props.history, wishLight, wishPost]);
+  }, [gotLight, gotPost, wishLight, wishPost]);
 
-  return <></>;
+  return <>
+    <Outlet />
+  </>;
 };
 
-export default function MyWish(props) {
-  return (
-    <div>
-      <Outlet />
-      {/* <Link to="/mywish/index" /> */}
-    </div>
-  );
-}
+// export default function MyWish() {
+//   return (
+//     <div>
+//       <Outlet />
+//       {/* <Link to="/mywish/index" /> */}
+//     </div>
+//   );
+// }

@@ -6,7 +6,7 @@ import cookie from "react-cookies";
 import Detail from "../pages/Detail";
 import Wishes from "../pages/Wishes";
 import Header from "../components/Header";
-import MyWish from "../pages/MyWish";
+// import MyWish from "../pages/MyWish";
 
 import { Index } from "../pages/MyWish/index";
 import { Empty } from "../pages/MyWish/empty";
@@ -52,10 +52,12 @@ function Router(props: any) {
           <Route path="send" element={<Send />}></Route>
           <Route path="detail" element={<Detail />}></Route>
           <Route path="wish/:tag" element={<Wishes />}></Route>
-          <Route path="mywish" element={<MyWish />}>
-            <Route path="/mywish/index" element={<Index/>} />
-            <Route path="/mywish/empty" element={<Empty/>} />
-            <Route path="/mywish/list" element={<MyWishList/>} />
+          <Route path="mywish/*" element={<Index />}>
+            {/* <Route path="index" element={<Index/>} /> */}
+            <Route path="empty" element={<Empty/>} />
+            <Route path="list" element={<MyWishList/>} />
+            {/* <Route path="*" element={<Index/>} /> */}
+          
           </Route>
           <Route
             path="*"
