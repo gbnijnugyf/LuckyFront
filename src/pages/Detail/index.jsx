@@ -142,7 +142,7 @@ const OtherLighted = (props) => {
       () => {
         changeShowConfirm(false);
         Service.achieveWish(props.wish.wish_id);
-        goOtherPage("/mywish");
+        goOtherPage("/detail/index");
       },
       () => {
         changeShowConfirm(false);
@@ -179,14 +179,14 @@ const OtherLighted = (props) => {
         changeBtnText("", "");
         let message = currentIndex === "other" ? otherMsg : msgs[currentIndex];
         Service.giveUpLightWish(props.wish.wish_id, message).then(() => {
-          goOtherPage("/mywish");
+          goOtherPage("/detail/index");
         });
       },
       () => {
         changeShowConfirm(false);
         changeBtnText("", "");
         Service.giveUpLightWish(props.wish.wish_id).then(() => {
-          goOtherPage("/mywish");
+          goOtherPage("/detail/index");
         });
       }
     );
@@ -365,7 +365,7 @@ const OtherNotLighted = (props) => {
           console.log(res)
           if (res.data.status === 0) {
             alert("点亮成功~");
-            goOtherPage("/mywish");
+            goOtherPage("/detail/index");
           } else {
             console.log("点亮失败")
             alert(res.data.msg);
@@ -405,7 +405,7 @@ const MineNotLighted = (props) => {
       () => {
         Service.deleteWish(props.wish.wish_id).then(() => {
           alert("删除成功");
-          goOtherPage("/mywish");
+          goOtherPage("/detail/index");
         });
         changeShowConfirm(false);
       },
@@ -445,7 +445,7 @@ const MineLighted = (props) => {
       () => {
         Service.deleteWish(props.wish.wish_id).then(() => {
           alert("删除成功");
-          goOtherPage("/mywish");
+          goOtherPage("/detail/index");
         });
         changeShowConfirm(false);
       },
@@ -460,7 +460,7 @@ const MineLighted = (props) => {
       () => {
         changeShowConfirm(false);
         Service.achieveWish(props.wish.wish_id).then(() => {
-          goOtherPage("/mywish");
+          goOtherPage("/detail/index");
         });
       },
       () => {

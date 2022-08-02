@@ -71,7 +71,7 @@ export default function Send(props) {
             Service.postWish(nameValue, QQ, wechat, tel, wishContent, category)
                 .then(() => {
                     alert('投递成功！')
-                    navigate('/home');
+                    navigate('/tagscreen/home');
                     // props.history.push('/home')
                 })
         }

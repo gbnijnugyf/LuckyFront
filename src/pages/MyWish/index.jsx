@@ -47,14 +47,14 @@ export const Index = (props) => {
     if (gotPost && gotLight) {
       if (wishPost.length === 0 && wishLight.length === 0) {
         console.log("empty!");
-        navigate("/mywish/empty");
+        navigate("/detail/empty");
 
       }
       // props.history.push("/mywish/empty");
       else {
         console.log("list!");//此处路由跳转后，list文件中的WishItem组件再次发出请求，并没有引用此处的通过路由传送的参数
 
-        navigate("/mywish/list", { state: {wishPost, wishLight}})//传值到List但没有引用？
+        navigate("/detail/list", { state: {wishPost, wishLight}})//传值到List但没有引用？
       } // props.history.push("/mywish/list", { wishPost, wishLight });{} 
     }
   }, [gotLight, gotPost, wishLight, wishPost]);

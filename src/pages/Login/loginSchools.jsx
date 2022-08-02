@@ -76,7 +76,7 @@ export function BindEmail(props) {
     }
     const goBind = () => {
         Service.bindEmail(email).then(() => {
-            navigate('/home');
+            navigate('/tagscreen/home');
             // props.history.push("/home")
         })
     }

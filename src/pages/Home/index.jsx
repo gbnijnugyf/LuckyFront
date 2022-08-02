@@ -25,13 +25,13 @@ export default function Home(props) {
   });
 
   const goWishes = (tag) => {
-    navigate(`/wish/${tag.enName}`, { category: tag.category });
+    navigate(`/wishpool/wish/${tag.enName}`, { category: tag.category });
 
     // props.history.push(`/wish/${tag.enName}`, { category: tag.category })
   };
 
   const goSend = () => {
-    navigate('/send');
+    navigate('/tagscreen/fillwish');
     // props.history.push('/send')
   };
 

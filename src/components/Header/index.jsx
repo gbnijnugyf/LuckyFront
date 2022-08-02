@@ -7,10 +7,11 @@ import logo from "../../static/images/logo.svg";
 import arrowimg from "../../static/images/arrow.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 const titleList = {
-  "/home": "标签页",
-  "/send": "投递我的小幸运",
-  "/detail": "愿望详情",
-  "/wish": "我的愿望池",
+  "/tagscreen/home": "标签页",
+  "/tagscreen/fillwish": "投递我的小幸运",
+  "/detail/list": "愿望详情",
+  "/detail/empty": "愿望详情",
+  "/wishpool/wish": "我的愿望池",
   "/mywish": "我的愿望池",
 };
 
@@ -24,29 +25,49 @@ function Header(props) {
     setIsShow(!isShow);
   };
   const handleBack = () => {
-    if (location.pathname.includes("mywish")) navigate(-2);
+    if (location.pathname.includes("detail")) navigate(-2);
     else navigate(-1);
   };
 
-  const getTitle = () => {
+  const getTitle = () => {    //URL改变导致获取title的函数也要改变
     let key = location.pathname;
+    let ckey = key;
     let index = key.indexOf("/", 2);
-    if (index !== -1) key = key.substr(0, index);
-    return titleList[key]; //通过路由截取数组titlelist的索引key
+    if (index === -1) {
+      return titleList[key];
+    }
+    else {
+      key = key.substr(0, index);
+      let index2 = ckey.indexOf("/", index + 1);
+      if (index2 === -1) {
+        return titleList[ckey]
+      }
+      else {
+        ckey = ckey.substr(0, index2);
+        console.log(ckey)
+        return titleList[ckey]; //通过路由截取数组titlelist的索引key
+
+      }
+    }
+
+    // if (index !== -1) key = key.substr(0, index);
+    // console.log(key);
+    // console.log(titleList[key]);
   };
 
   useEffect(() => {
     setKey(location.pathname.split("/")[1]);
+    console.log(key)
   }, [location.pathname]);
 
   useEffect(() => {
-    if (key === "wish") {
+    if (key === "/wishpool/wish") {
       let used = localStorage.getItem("wish_tip");
       if (!used) {
         setIsShow(true);
         localStorage.setItem("wish_tip", true);
       }
-    } else if (key === "home") {
+    } else if (key === "/tagscreen/home") {
       let used = localStorage.getItem("other_tip");
       if (!used) {
         setIsShow(true);
@@ -56,7 +77,7 @@ function Header(props) {
   }, [key]);
 
   const getAlert = () => {
-    if (key === "wish") {
+    if (key === "wishpool") {
       return (
         <div
           className="rule-alert-2"
@@ -141,6 +162,11 @@ function Header(props) {
   };
 
   let title = getTitle();
+
+  useEffect((title) => {
+    console.log("abc")
+    console.log(title)
+  }, [location.pathname])
 
   return (
     <div className="header">

@@ -44,9 +44,37 @@ function Router(props: any) {
       {/* {props.location.pathname.match(/login/) ? null : <Header></Header>} */}
       {location.pathname.match(/login/) ? null : <Header></Header>}
       <div className="content">
-        
 
-        <Routes>
+        <Routes>{/*小幸运2.0之路由重构*/}
+          {/* 启动页面 */}
+          <Route path="login/*" element={<Login />}>
+            <Route path="ccnu" element={<LoginCCNU />} />
+            <Route path="bindemail" element={<BindEmail />} />
+            <Route path="*" element={<LoginMain />} />
+          </Route>
+          {/* 筛选页面 */}
+          <Route path="tagscreen/*">
+            <Route path="home" element={<Home />} />
+            <Route path="fillwish" element={<Send />} />
+          </Route>
+          {/* 愿望池页面 */}
+          <Route path="wishpool/*">
+            <Route path="wish/:tag" element={<Wishes />} />
+          </Route>
+          {/* 愿望与点亮详情页面 */}
+          <Route path="detail/*">
+            <Route path="index" element={<Index/>}/>
+            <Route path="empty" element={<Empty />} />
+            <Route path="list" element={<MyWishList />}/>
+            <Route path="*" element={<Detail />} />
+          </Route>
+          <Route
+            path="*"
+            element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/tagscreen/home'} replace />}
+          />
+        </Routes>
+
+        {/* <Routes>
           <Route path="login/*" element={<Login />}>
             <Route path="ccnu" element={<LoginCCNU />} />
             <Route path="bindemail" element={<BindEmail />} />
@@ -57,14 +85,14 @@ function Router(props: any) {
           <Route path="detail/*" element={<Detail />}></Route>
           <Route path="wish/:tag" element={<Wishes />}></Route>
           <Route path="mywish/*" element={<Index />}>
-            <Route path="empty" element={<Empty/>} />
-            <Route path="list" element={<MyWishList/>} />
+            <Route path="empty" element={<Empty />} />
+            <Route path="list" element={<MyWishList />} />
           </Route>
           <Route
             path="*"
             element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/home'} replace />}
           />
-  </Routes>
+        </Routes> */}
       </div>
     </>
   );

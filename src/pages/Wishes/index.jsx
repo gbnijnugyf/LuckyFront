@@ -132,7 +132,7 @@ export default function Wishes(props) {
     }
     // 查看我的点亮
     const goMyWish = () => {
-        navigate('/mywish');
+        navigate('/detail/index');
         // props.history.push('/mywish')
     }
     const LightWish = () => {
