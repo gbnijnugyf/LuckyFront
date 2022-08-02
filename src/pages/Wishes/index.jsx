@@ -5,7 +5,7 @@ import calendar from '../../static/images/calendar.svg'
 import leaf from '../../static/images/leaf.svg'
 import Service from '../../common/service'
 import './index.scss'
-import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const WishItem = (props) => {
 
@@ -19,6 +19,7 @@ const WishItem = (props) => {
                 </div>
             </div>
             <div className="msg">
+
                 <p>{props.wish.school === "" ? "" :
                     props.wish.school === 0 ? '华小师' : '武小理'}</p>
                 <p>{props.wish.wishman_name.length > 0 ? props.wish.wishman_name.charAt(0) + "同学"
@@ -53,13 +54,14 @@ export default function Wishes(props) {
     const [option, setOption] = useState("QQ")
     const refreshWishes = () => {
         Service.getWishByCategories(category).then((res) => {
+            console.log(res.data.data)//service修改后data变成了第二层
             let wishes = []
-            if (res.data.length === 0) {
+            if (res.data.data.length === 0) {
                 setLightBtn(false)
                 let wish = { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }
                 wishes.push(wish);
             } else {
-                wishes = res.data
+                wishes = res.data.data
                 setLightBtn(true)
             }
             while (wishes.length < 3) {

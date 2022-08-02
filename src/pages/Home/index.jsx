@@ -11,17 +11,18 @@ export default function Home(props) {
   // 检查是否绑定邮箱
   // let IsEmailBind = 1;
   // useEffect(() => {
-  //   if(IsEmailBind !== 1) navigate("/login/bindemail");
+  //   if(IsEmailBind === 1) navigate("/login/bindemail");
   // })
 
   useEffect(() => {
     Service.checkUserEmail().then((res) => {
+      // console.log(res)
       if (res.status === -1) {
         navigate("/login/bindemail");
       }
       // props.history.push("/login/bindemail")
     });
-  }, [props.history]);
+  });
 
   const goWishes = (tag) => {
     navigate(`/wish/${tag.enName}`, { category: tag.category });

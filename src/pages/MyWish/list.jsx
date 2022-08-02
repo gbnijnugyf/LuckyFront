@@ -75,7 +75,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 //     let [wishPost, setWishPost] = useState([])
 
 //     // 排序愿望为需要的顺序
-//     const sortWishes = (oldwishes) => {   //此处mock用例state值有问题，暂未修改mock
+//     const sortWishes = (oldwishes) => {   
 //         let sorted = []
 //         const priority = [1, 2, 0]
 //         for (let p = 0; p < priority.length; p++)
@@ -184,8 +184,8 @@ export function MyWishList() {
 function WishItem(props) {
     const { wish } = props
     const time = wish.state === 1 ? formatTime(wish.light_at) : formatTime(wish.creat_at)
-    console.log("get wish successful!")
-    console.log(wish);
+    // console.log("get wish successful!")
+    // console.log(wish);
 
     return (
         <li className="item-wish" onClick={props.onClick}>

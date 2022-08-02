@@ -28,13 +28,17 @@ export const Index = (props) => {
 
   useEffect(() => {
     Service.getUserWishPost().then((res) => {
-      setWishPost(sortWishes(res.data));
+      console.log(res.data)
+      setWishPost(sortWishes(res.data.data.wishes));
+      // console.log(wishPost)
       setGotPost(true);
     });
   }, []);
   useEffect(() => {
     Service.getUserWishLight().then((res) => {
-      setWishLight(sortWishes(res.data));
+
+      setWishLight(sortWishes(res.data.data));
+
       setGotLight(true);
     });
   }, []);
@@ -49,8 +53,7 @@ export const Index = (props) => {
       // props.history.push("/mywish/empty");
       else {
         console.log("list!");//此处路由跳转后，list文件中的WishItem组件再次发出请求，并没有引用此处的通过路由传送的参数
-        console.log(wishLight);
-        console.log(wishPost);
+
         navigate("/mywish/list", { state: {wishPost, wishLight}})//传值到List但没有引用？
       } // props.history.push("/mywish/list", { wishPost, wishLight });{} 
     }

@@ -5,9 +5,10 @@ import Service from "../../common/service";
 import forwardimg from "../../static/images/forward.svg";
 import "./index.scss";
 import { formatTime } from "../../common/global";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const WishDetail = (props) => {
+  console.log(props)
   const [needForward, setNeedForward] = useState(true);
 
   const {
@@ -20,7 +21,7 @@ const WishDetail = (props) => {
 
   //bad use
   const getForward = () => {
-    if (isMine && wish.state === 0) {
+    if (wish.state === 0 && isMine) { //false
       return (
         <img
           src={forwardimg}
@@ -360,11 +361,14 @@ const OtherNotLighted = (props) => {
         let id = props.wish.wish_id;
         let [qq, wechat] = option === "QQ" ? [number, ""] : ["", number];
         Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
-          if (res.status === 0) {
+          console.log("已返回")
+          console.log(res)
+          if (res.data.status === 0) {
             alert("点亮成功~");
             goOtherPage("/mywish");
           } else {
-            alert(res.msg);
+            console.log("点亮失败")
+            alert(res.data.msg);
           }
         });
         changeShowConfirm(false);
@@ -497,14 +501,18 @@ const MineLighted = (props) => {
 };
 
 export default function Detail(props) {
+  // console.log(props)
+  let navigate = useNavigate();
+  let location = useLocation();
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
   const [confirmContent, setConfirmContent] = useState(""); // 设置弹窗内容
   const [btnText, setBtnText] = useState({}); // 设置按钮文本
   const [confirmAction, setConfirmAction] = useState({}); // 设置按钮触发
   const [wish, setWish] = useState({}); // 愿望内容
-  const [isMine, setIsMine] = useState(true); // 是不是自己的愿望
+  const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
 
   const goOtherPage = (path) => {
+    navigate(path)
     //  // props.history.push(path)
   };
 
@@ -531,18 +539,22 @@ export default function Detail(props) {
   };
 
   useEffect(() => {
-    let id = props.location.pathname.split("/").pop();
+    let id = location.pathname.split("/").pop();
     id = parseInt(id);
+    // console.log(id)
     Service.getWishDetail(id).then((res) => {
-      setWish(res.data);
+      setWish(res.data.data);
       Service.getUserWishPost().then((res) => {
-        // res.data.wishes.forEach((wish) => {
-        //     if (wish.wish_id === id)
-        //         setIsMine(true)
-        // })
+        console.log(res.data.data.wishes)
+        console.log(id)
+        res.data.data.wishes.forEach((wish) => {
+          if (wish.wish_id === id) {
+            setIsMine(true)
+          }
+        })
       });
     });
-  }, [props.location.pathname]);
+  }, [location.pathname]);
 
   const onChange = {
     changeShowConfirm: changeShowConfirm,
@@ -557,7 +569,7 @@ export default function Detail(props) {
         wish={wish}
         isMine={isMine}
         onChange={onChange}
-        pathname={props.location.pathname}
+        pathname={location.pathname}
       />
       <div className="other">
         {
