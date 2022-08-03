@@ -21,7 +21,7 @@ function Router(props: any) {
   const location = useLocation();
 
   useEffect(() => {
-    console.log("路径变化")
+    // console.log("路径变化")
     // console.log(history)
     let token = cookie.load("jwt_token");
     if (token) {
