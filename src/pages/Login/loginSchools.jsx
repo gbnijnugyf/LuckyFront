@@ -1,5 +1,4 @@
 import Service from '../../common/service'
-
 import './loginSchools.scss'
 import { ButtonL } from '../../components/Button'
 import { useState } from 'react'

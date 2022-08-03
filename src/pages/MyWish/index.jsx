@@ -44,7 +44,6 @@ export const Index = (props) => {
     });
   }, []);
 
-  // let arr = [gotLight, gotPost, wishLight, wishPost];
   useEffect(() => {
     if (gotPost && gotLight) {
       if (wishPost.length === 0 && wishLight.length === 0) {
@@ -54,7 +53,7 @@ export const Index = (props) => {
         navigate("/detail/list", { state: { wishPost, wishLight } })
       }
     }
-  }, [gotLight, gotPost, wishLight, wishPost]);
+  }, [gotLight, gotPost, wishLight, wishPost, navigate]);
 
   return <>
     <Outlet />

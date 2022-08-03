@@ -34,7 +34,7 @@ function Router() {
       console.log(location)
       // props.history.push("/login");
     }
-  }, [location.pathname]);
+  }, [location.pathname, navigate, location]);
 
   return (
     <>
