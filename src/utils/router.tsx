@@ -68,10 +68,10 @@ function Router(props: any) {
             <Route path="notfound" element={<Notfound />}/>
             <Route path="*" element={<Detail />} />
           </Route>
-          {/* <Route
-            path="*"
+          <Route
+            index
             element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/tagscreen/home'} replace />}
-          /> */}
+          />
           <Route
             path="*"
             element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/detail/notfound'} replace />}
