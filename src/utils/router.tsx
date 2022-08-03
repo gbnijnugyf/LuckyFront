@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Send from "../pages/Send";
 import cookie from "react-cookies";
 import Detail from "../pages/Detail";
+import {Notfound} from "../pages/Detail/notfound";
 import Wishes from "../pages/Wishes";
 import Header from "../components/Header";
 // import MyWish from "../pages/MyWish";
@@ -16,23 +17,21 @@ import { BindEmail, LoginCCNU } from "../pages/Login/loginSchools";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 function Router(props: any) {
   // 保存WHUT登录后返回的token
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
-  // if (1) {
-  //   console.log(location);
-
-  // }
 
   useEffect(() => {
+    console.log("路径变化")
+    // console.log(history)
     let token = cookie.load("jwt_token");
-    console.log(token)
     if (token) {
       localStorage.setItem("token", token);
-      navigate("/");
+      navigate("/tagscreen/home");
       // props.history.push("/");
     }
     if (!localStorage.getItem("token")) {
       navigate("/login");
+      console.log(location)
       // props.history.push("/login");
     }
   }, [location.pathname]);
@@ -63,14 +62,19 @@ function Router(props: any) {
           </Route>
           {/* 愿望与点亮详情页面 */}
           <Route path="detail/*">
-            <Route path="index" element={<Index/>}/>
+            <Route path="index" element={<Index />} />
             <Route path="empty" element={<Empty />} />
-            <Route path="list" element={<MyWishList />}/>
+            <Route path="list" element={<MyWishList />} />
+            <Route path="notfound" element={<Notfound />}/>
             <Route path="*" element={<Detail />} />
           </Route>
-          <Route
+          {/* <Route
             path="*"
             element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/tagscreen/home'} replace />}
+          /> */}
+          <Route
+            path="*"
+            element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/detail/notfound'} replace />}
           />
         </Routes>
 

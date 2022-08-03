@@ -15,7 +15,7 @@ const titleList = {
   "/mywish": "我的愿望池",
 };
 
-function Header(props) {
+function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false);
@@ -25,8 +25,12 @@ function Header(props) {
     setIsShow(!isShow);
   };
   const handleBack = () => {
-    if (location.pathname.includes("detail")) navigate(-2);
-    else navigate(-1);
+    if (location.pathname.includes("/detail/list")) {
+      navigate(-2); //'-2'是因为父级路由为判断愿望详情，会再次跳转至list或empty页面
+    }
+    else {
+      navigate(-1);
+    }
   };
 
   const getTitle = () => {    //URL改变导致获取title的函数也要改变
@@ -44,7 +48,7 @@ function Header(props) {
       }
       else {
         ckey = ckey.substr(0, index2);
-        console.log(ckey)
+        // console.log(ckey)
         return titleList[ckey]; //通过路由截取数组titlelist的索引key
 
       }
@@ -57,7 +61,7 @@ function Header(props) {
 
   useEffect(() => {
     setKey(location.pathname.split("/")[1]);
-    console.log(key)
+    // console.log(key)
   }, [location.pathname]);
 
   useEffect(() => {
@@ -164,8 +168,8 @@ function Header(props) {
   let title = getTitle();
 
   useEffect((title) => {
-    console.log("abc")
-    console.log(title)
+    // console.log("abc")
+    // console.log(title)
   }, [location.pathname])
 
   return (

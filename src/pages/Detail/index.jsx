@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ButtonS } from "../../components/Button";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import Service from "../../common/service";
@@ -8,13 +8,13 @@ import { formatTime } from "../../common/global";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const WishDetail = (props) => {
-  console.log(props)
-  const [needForward, setNeedForward] = useState(true);
+  // console.log(props)
+  // const [needForward, setNeedForward] = useState(true);
 
   const {
     changeShowConfirm,
     changeConfirmContent,
-    changeBtnText,
+    // changeBtnText,
     changeConfirmAction,
   } = props.onChange;
   const { isMine, wish } = props;
@@ -361,13 +361,13 @@ const OtherNotLighted = (props) => {
         let id = props.wish.wish_id;
         let [qq, wechat] = option === "QQ" ? [number, ""] : ["", number];
         Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
-          console.log("已返回")
-          console.log(res)
+          // console.log("已返回")
+          // console.log(res)
           if (res.data.status === 0) {
             alert("点亮成功~");
             goOtherPage("/detail/index");
           } else {
-            console.log("点亮失败")
+            // console.log("点亮失败")
             alert(res.data.msg);
           }
         });
@@ -431,7 +431,7 @@ const MineLighted = (props) => {
     goOtherPage,
     changeShowConfirm,
     changeConfirmContent,
-    changeBtnText,
+    // changeBtnText,
     changeConfirmAction,
   } = props.onChange;
   const wish = props.wish;
@@ -502,7 +502,7 @@ const MineLighted = (props) => {
 
 export default function Detail(props) {
   // console.log(props)
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   let location = useLocation();
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
   const [confirmContent, setConfirmContent] = useState(""); // 设置弹窗内容
@@ -545,8 +545,8 @@ export default function Detail(props) {
     Service.getWishDetail(id).then((res) => {
       setWish(res.data.data);
       Service.getUserWishPost().then((res) => {
-        console.log(res.data.data.wishes)
-        console.log(id)
+        // console.log(res.data.data.wishes)
+        // console.log(id)
         res.data.data.wishes.forEach((wish) => {
           if (wish.wish_id === id) {
             setIsMine(true)

@@ -4,7 +4,7 @@ import { ButtonS } from '../../components/Button'
 import './index.scss'
 
 export function Empty(props) {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const goSendWish = () => {
         navigate("tagscreen/fillwish");

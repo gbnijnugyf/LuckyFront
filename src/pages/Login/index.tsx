@@ -2,8 +2,8 @@ import "./index.scss";
 // import { LoginCCNU, BindEmail } from "./loginSchools.jsx";
 // import cookie from "react-cookies";
 // import { useEffect } from "react";
-import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import path from "path";
+import { Outlet, useNavigate } from "react-router-dom";
+// import path from "path";
 
 function Btn(props:any) {
   return (
@@ -15,7 +15,7 @@ function Btn(props:any) {
 }
 
 export function LoginMain(props:any) {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const goWHUT = () => {
     let position = window.location.href;

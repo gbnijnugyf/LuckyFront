@@ -327,7 +327,7 @@ let Service = {
     //绑定邮箱
 
     bindEmail(email) {
-        console.log("请求1")
+        //console.log("请求1")
         return myAxios(toConfig({
             url: new URL(BASEURL + '/user/email'),
             data: {
@@ -338,7 +338,7 @@ let Service = {
 
     //whut登录
     whutLogin() {
-        console.log("请求2")
+        //console.log("请求2")
 
         return myAxios(toConfig({
             url: new URL(BASEURL + '/whutlogin'),
@@ -351,7 +351,7 @@ let Service = {
 
     //ccnu登录
     ccnuLogin(idcard_number, password) {
-        console.log("请求3")
+        //console.log("请求3")
 
         return myAxios({
             url: new URL(BASEURL + '/ccnulogin'),
@@ -365,7 +365,7 @@ let Service = {
 
     //查询邮箱是否绑定
     checkUserEmail() {
-        console.log("请求4")
+        //console.log("请求4")
 
         let url_ = new URL(BASEURL + '/user/email/check')
         return myAxios(toConfig({
@@ -377,7 +377,7 @@ let Service = {
 
     //发出自己的愿望
     postWish(name, QQ, weChat, tel, wish, type) {
-        console.log("请求5")
+        //console.log("请求5")
 
         return myAxios(toConfig({
             url: new URL(BASEURL + '/wishes/add'),
@@ -396,7 +396,7 @@ let Service = {
 
     //点亮别人的愿望
     lightWishOn(id, name, tel, qq, wechat) {
-        console.log("请求6")
+        //console.log("请求6")
 
         return myAxios(toConfig({
             url: new URL(BASEURL + '/wishes/light'),
@@ -414,7 +414,7 @@ let Service = {
 
     //查看愿望详情
     getWishDetail(id) {
-        console.log("请求7")
+        //console.log("请求7")
 
         let url = new URL(BASEURL + '/wishes/details');
         url.searchParams.append("wish_id", id);
@@ -424,7 +424,7 @@ let Service = {
 
     //查找点亮人信息
     getLightManInfo(id) {
-        console.log("请求8")
+        //console.log("请求8")
 
         let url = new URL(BASEURL + '/user/info/lightman')
         url.searchParams.append("wish_id", id)
@@ -434,7 +434,7 @@ let Service = {
 
     //获取自己点亮的愿望
     getUserWishLight() {
-        console.log("请求9")
+        //console.log("请求9")
 
         let url = new URL(BASEURL + '/wishes/user/light')
         url.searchParams.append("time", new Date().getTime())
@@ -445,7 +445,7 @@ let Service = {
 
     //获取自己投递的愿望
     getUserWishPost() {
-        console.log("请求10")
+        //console.log("请求10")
 
         let url = new URL(BASEURL + '/wishes/user/post')
         url.searchParams.append("time", new Date().getTime())
@@ -454,7 +454,7 @@ let Service = {
 
     //根据分类获取愿望
     getWishByCategories(category) {
-        console.log("请求11")
+        //console.log("请求11")
 
         let url = new URL(BASEURL + '/wishes/categories')
         url.searchParams.append("categories", category)
@@ -465,14 +465,14 @@ let Service = {
 
     //删除愿望
     deleteWish(wish_id) {
-        console.log("请求12")
+        //console.log("请求12")
 
         return axios.delete(BASEURL + `/wishes?wish_id=${wish_id}`, BASEURL + `/wishes?wish_id=${wish_id}`)
     },
 
     //放弃点亮别人的愿望
     giveUpLightWish(wish_id, msg) {
-        console.log("请求13")
+        //console.log("请求13")
 
         return myAxios(toConfig({
             url: BASEURL + `/wishes/giveup`,
@@ -486,7 +486,7 @@ let Service = {
 
     //实现别人的愿望
     achieveWish(wish_id) {
-        console.log("请求14")
+        //console.log("请求14")
 
         return myAxios(toConfig({
             url: BASEURL + `/wishes/achieve`,

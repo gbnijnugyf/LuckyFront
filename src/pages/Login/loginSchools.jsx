@@ -19,7 +19,7 @@ function LoginPannel(props) {
 
 
 export function LoginCCNU(props) {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const [ccnuId, setCcnuId] = useState('')
     const [ccnuPwd, setCcnuPwd] = useState('')
 
@@ -41,7 +41,7 @@ export function LoginCCNU(props) {
                 res.status = 0; //鉴权测试
                 if (res.status === 0) {    
                     localStorage.setItem('token', res.data.token)
-                    navigate('/');
+                    navigate('/tagscreen/home');
                     // props.history.push('/')
                 }
                 else alert('用户名或密码错误');
@@ -67,7 +67,7 @@ export function LoginCCNU(props) {
 }
 
 export function BindEmail(props) {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('')
 

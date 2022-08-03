@@ -7,7 +7,7 @@ import Service from "../../common/service";
 import { useNavigate } from "react-router-dom";
 
 export default function Home(props) {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   // 检查是否绑定邮箱
   // let IsEmailBind = 1;
   // useEffect(() => {

@@ -9,7 +9,7 @@ import './index.scss'
 import { useNavigate } from 'react-router-dom'
 
 export default function Send(props) {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [showTag, setShowTag] = useState(false) //控制标签弹窗
     const [tagName, setTagName] = useState('选择标签') //控制选择标签后的显示

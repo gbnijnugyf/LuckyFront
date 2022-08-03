@@ -1,8 +1,8 @@
 import './index.scss'
-import React from 'react'
+// import React from 'react'
 import { ButtonS } from '../../components/Button'
-import { useState, useEffect } from 'react'
-import Service from '../../common/service'
+// import { useState, useEffect } from 'react'
+// import Service from '../../common/service'
 import { formatTime } from '../../common/global'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -68,7 +68,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 // export function MyWishList(props) {
 //     const wishes = useLocation();
-//     let navigate = useNavigate();
+//     const navigate = useNavigate();
 
 //     let [wishLight, setWishLight] = useState([])
 
@@ -144,10 +144,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 // }
 
-export function MyWishList() {
-    let navigate = useNavigate();
+export function MyWishList(props) {
+    
+    const navigate = useNavigate();
     let wish = useLocation();
-    console.log(wish);
+    // console.log(wish);
+    
 
     const goWishDetail = (id) => {
         navigate('/detail/' + id);

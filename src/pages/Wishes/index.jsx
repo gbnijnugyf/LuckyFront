@@ -34,7 +34,7 @@ const WishItem = (props) => {
 
 export default function Wishes(props) {
     // 拿着这个分类去发请求
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const category = useLocation();
     // const { category } = props.location.state
     const [showTip, setShowTip] = useState(true)
@@ -54,7 +54,7 @@ export default function Wishes(props) {
     const [option, setOption] = useState("QQ")
     const refreshWishes = () => {
         Service.getWishByCategories(category).then((res) => {
-            console.log(res.data.data)//service修改后data变成了第二层
+            // console.log(res.data.data)//service修改后data变成了第二层
             let wishes = []
             if (res.data.data.length === 0) {
                 setLightBtn(false)
