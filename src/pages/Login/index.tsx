@@ -5,7 +5,12 @@ import "./index.scss";
 import { Outlet, useNavigate } from "react-router-dom";
 // import path from "path";
 
-function Btn(props:any) {
+export interface BtnLogin {
+  text: string;
+  onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
+}
+
+function Btn(props: BtnLogin) {
   return (
     <div className="btn-school" onClick={props.onClick}>
       <div className="birdimg" />
@@ -14,7 +19,7 @@ function Btn(props:any) {
   );
 }
 
-export function LoginMain(props:any) {
+export function LoginMain() {
   const navigate = useNavigate();
 
   const goWHUT = () => {
@@ -46,12 +51,7 @@ export function LoginMain(props:any) {
 export default function Login() {
   return (
     <div className="login">
-      {/* <Routes>
-        <Route path="/login/ccnu" element={<LoginCCNU/>} />
-        <Route path="/login/bindemail" element={<BindEmail/>} />
-        <Route path="/login" element={<LoginMain/>} />
-      </Routes> */}
-      <Outlet/>
+      <Outlet />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // import { Empty } from "./empty.jsx";
 // import { MyWishList } from "./list";
 import Service from "../../common/service";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 // import { click } from "@testing-library/user-event/dist/click";
 
 export const Index = (props) => {

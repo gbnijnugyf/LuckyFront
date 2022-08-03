@@ -15,7 +15,7 @@ import { MyWishList } from "../pages/MyWish/list";
 import { LoginMain } from "../pages/Login/index";
 import { BindEmail, LoginCCNU } from "../pages/Login/loginSchools";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-function Router(props: any) {
+function Router() {
   // 保存WHUT登录后返回的token
   const navigate = useNavigate();
   const location = useLocation();

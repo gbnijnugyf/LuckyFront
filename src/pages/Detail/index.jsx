@@ -21,7 +21,7 @@ const WishDetail = (props) => {
 
   //bad use
   const getForward = () => {
-    if (wish.state === 0 && isMine) { //false
+    if (wish.state === 0 && isMine) {
       return (
         <img
           src={forwardimg}
