@@ -6,8 +6,10 @@ import { tags } from '../../config/Global'
 import { ButtonS } from '../../components/Button'
 import paperplane from '../../static/images/paperplane.svg'
 import './index.scss'
+import { useNavigate } from 'react-router-dom'
 
 export default function Send(props) {
+    const navigate = useNavigate();
 
     const [showTag, setShowTag] = useState(false) //控制标签弹窗
     const [tagName, setTagName] = useState('选择标签') //控制选择标签后的显示
@@ -69,7 +71,8 @@ export default function Send(props) {
             Service.postWish(nameValue, QQ, wechat, tel, wishContent, category)
                 .then(() => {
                     alert('投递成功！')
-                    props.history.push('/home')
+                    navigate('/tagscreen/home');
+                    // props.history.push('/home')
                 })
         }
     }
