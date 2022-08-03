@@ -92,7 +92,7 @@ b {
 
     .text-detail {
         position     : relative;
-        text-align   : start;
+        text-align   : flex-start;
         overflow     : hidden;
         width        : 90%;
         text-overflow: ellipsis;
