@@ -1,11 +1,21 @@
 import "./index.scss";
+<<<<<<< HEAD
 // import { LoginCCNU, BindEmail } from "./loginSchools.jsx";
 // import cookie from "react-cookies";
 // import { useEffect } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import path from "path";
+=======
+import { Outlet, useNavigate } from "react-router-dom";
+// import path from "path";
+>>>>>>> origin/dev
 
-function Btn(props:any) {
+export interface BtnProps {
+  text: string;
+  onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
+}
+
+function Btn(props: BtnProps) {
   return (
     <div className="btn-school" onClick={props.onClick}>
       <div className="birdimg" />
@@ -14,8 +24,8 @@ function Btn(props:any) {
   );
 }
 
-export function LoginMain(props:any) {
-  let navigate = useNavigate();
+export function LoginMain() {
+  const navigate = useNavigate();
 
   const goWHUT = () => {
     let position = window.location.href;
@@ -46,12 +56,7 @@ export function LoginMain(props:any) {
 export default function Login() {
   return (
     <div className="login">
-      {/* <Routes>
-        <Route path="/login/ccnu" element={<LoginCCNU/>} />
-        <Route path="/login/bindemail" element={<BindEmail/>} />
-        <Route path="/login" element={<LoginMain/>} />
-      </Routes> */}
-      <Outlet/>
+      <Outlet />
     </div>
   );
 }

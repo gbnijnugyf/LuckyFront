@@ -1,8 +1,8 @@
 import Service from '../../common/service'
-
 import './loginSchools.scss'
 import { ButtonL } from '../../components/Button'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function LoginPannel(props) {
     return (
@@ -17,7 +17,8 @@ function LoginPannel(props) {
 }
 
 
-export function LoginCCNU() {
+export function LoginCCNU(props) {
+    const navigate = useNavigate();
     const [ccnuId, setCcnuId] = useState('')
     const [ccnuPwd, setCcnuPwd] = useState('')
 
@@ -35,8 +36,11 @@ export function LoginCCNU() {
             alert("请输入密码")
         } else {
             Service.ccnuLogin(ccnuId, ccnuPwd).then(res => {
-                if (res.status === 0) {
-                    localStorage.setItem('token', res.data)
+                // console.log(res)
+                res.status = 0; //鉴权测试
+                if (res.status === 0) {    
+                    localStorage.setItem('token', res.data.token)
+                    navigate('/tagscreen/home');
                     // props.history.push('/')
                 }
                 else alert('用户名或密码错误');
@@ -62,6 +66,7 @@ export function LoginCCNU() {
 }
 
 export function BindEmail(props) {
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('')
 
@@ -70,6 +75,7 @@ export function BindEmail(props) {
     }
     const goBind = () => {
         Service.bindEmail(email).then(() => {
+            navigate('/tagscreen/home');
             // props.history.push("/home")
         })
     }

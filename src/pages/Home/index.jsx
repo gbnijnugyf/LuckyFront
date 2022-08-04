@@ -7,25 +7,31 @@ import Service from "../../common/service";
 import { useNavigate } from "react-router-dom";
 
 export default function Home(props) {
-  let navigate = useNavigate();
-
+  const navigate = useNavigate();
   // 检查是否绑定邮箱
+  // let IsEmailBind = 1;
+  // useEffect(() => {
+  //   if(IsEmailBind === 1) navigate("/login/bindemail");
+  // })
+
   useEffect(() => {
     Service.checkUserEmail().then((res) => {
+      // console.log(res)
       if (res.status === -1) {
-        navigate("/login/bindemail")
+        navigate("/login/bindemail");
       }
       // props.history.push("/login/bindemail")
     });
-  }, [props.history]);
+  });
 
   const goWishes = (tag) => {
-    navigate(`/wish/${tag.enName}`, { category: tag.category });
+    navigate(`/wishpool/wish/${tag.enName}`, { category: tag.category });
+
     // props.history.push(`/wish/${tag.enName}`, { category: tag.category })
   };
 
   const goSend = () => {
-    navigate('/send');
+    navigate('/tagscreen/fillwish');
     // props.history.push('/send')
   };
 

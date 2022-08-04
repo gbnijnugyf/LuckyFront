@@ -1,10 +1,13 @@
 
+import { useNavigate } from 'react-router-dom'
 import { ButtonS } from '../../components/Button'
 import './index.scss'
 
 export function Empty(props) {
+    const navigate = useNavigate();
 
     const goSendWish = () => {
+        navigate("tagscreen/fillwish");
         // props.history.push("/send")
     }
 
