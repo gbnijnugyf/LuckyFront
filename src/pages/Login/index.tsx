@@ -1,14 +1,6 @@
 import "./index.scss";
-<<<<<<< HEAD
-// import { LoginCCNU, BindEmail } from "./loginSchools.jsx";
-// import cookie from "react-cookies";
-// import { useEffect } from "react";
-import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import path from "path";
-=======
 import { Outlet, useNavigate } from "react-router-dom";
 // import path from "path";
->>>>>>> origin/dev
 
 export interface BtnProps {
   text: string;
