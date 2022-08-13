@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import 'whatwg-fetch';
 
 // const BASEURL = window.location.href.slice(0, window.location.href.indexOf('/', 10)) + "/api"
@@ -9,26 +9,26 @@ import 'whatwg-fetch';
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default"
 
 
-function IsToken(props) {
+function IsToken(props : _config):_config {
     const token = localStorage.getItem('token');
     // console.log("IsToken:")
     // console.log(token)
     props.data.token = token;
     return props;
 }
-async function GlobalAxiosToPost(props) {
+async function GlobalAxiosToPost(props: _config) {
     props = IsToken(props);
     const response = await axios.post(props.url, props.data);
     // console.log(props.data)
     return response;
 }
-async function GlobalAxiosToGet(props) {
+async function GlobalAxiosToGet(props: _config) {
     props = IsToken(props);
     const response = await axios.get(props.url)
     return response;
 }
 
-async function GlobalAxios(props) {
+async function GlobalAxios(props: _config) {//
     let response = null;
     if (props.method === "post")
         response = await GlobalAxiosToPost(props)
@@ -46,7 +46,8 @@ async function GlobalAxios(props) {
         // 重定向到根目录，重新登录
         let redirectpos = window.location.href
         redirectpos = redirectpos.slice(0, redirectpos.indexOf('/', 10) + 1)
-        window.location.href(redirectpos)
+        // window.location.href(redirectpos)
+        window.location.href = redirectpos
     }
     else if (response.status !== 0) {
         alert(response.data.msg)
@@ -140,20 +141,86 @@ async function GlobalAxios(config = {}) {
 
 }
 */
+// export interface _object{
+//     Object: Object,
+//     token: string  
+// }
 
-function toConfig(props) {
-    let config = {
-        url: props.url,
-        data: props.data,
-        method: props.method
+export interface _config {
+    url: string,
+    data: any,  //IsToken中需要加入token属性
+    method: string
+}
+
+export interface PostProps {
+    url: URL,
+    data: {//[key:String]?:any
+        data?: object,
+        email?: string,
+        idcard_number?: string,
+        password?: string,
+        wishMan_name?: string,
+        wishMan_QQ?: string,
+        wishMan_Wechat?: string,
+        wishMan_Tel?: string,
+        wish?: string,
+        type?: string,
+        wish_id?: string,
+        light_name?: string,
+        light_tel?: string,
+        light_qq?: string,
+        light_wechat?: string,
+        message?: string
+    },
+    method: string
+}
+
+export interface GetProps {
+    url: URL,
+    data: URL,
+    method: string
+}
+
+// type RequestProps = 
+// {
+//     postProp: PostProps,
+//     getProps?: never
+// } |
+// {
+//     postProp?:never,
+//     getProp: GetProps
+// }
+
+// export interface RequestProps {
+//     postProps?: PostProps,
+//     getProps?: GetProps
+// }
+
+
+function toConfig(props: PostProps | GetProps): _config {
+
+    if (props.url && props.data && props.method) {
+        let config: _config = {
+            url: props.url.toString(),
+            data: props.data,
+            method: props.method
+        };
+        return config;
     }
-    return config;
+    else {
+        let config: _config = {
+            url: "",
+            data: "",
+            method: ""
+        }
+        return config;
+    }
 }
 
 let Service = {
     //绑定邮箱
 
-    bindEmail(email) {
+    bindEmail(email: string) {
         //console.log("请求1")
         return GlobalAxios(toConfig({
             url: new URL(BASEURL + '/user/email'),
@@ -177,17 +244,17 @@ let Service = {
     },
 
     //ccnu登录
-    ccnuLogin(idcard_number, password) {
+    ccnuLogin(idcard_number: string, password: string) {
         //console.log("请求3")
 
-        return GlobalAxios({
+        return GlobalAxios(toConfig({
             url: new URL(BASEURL + '/ccnulogin'),
             data: {
                 idcard_number: idcard_number,
                 password: password
             },
             method: "post"
-        })
+        }))
     },
 
     //查询邮箱是否绑定
@@ -203,7 +270,7 @@ let Service = {
     },
 
     //发出自己的愿望
-    postWish(name, QQ, weChat, tel, wish, type) {
+    postWish(name: string, QQ: string, weChat: string, tel: string, wish: string, type: string) {
         //console.log("请求5")
 
         return GlobalAxios(toConfig({
@@ -215,14 +282,13 @@ let Service = {
                 wishMan_Tel: tel,
                 wish: wish,
                 type: type
-
             },
             method: "post"
         }))
     },
 
     //点亮别人的愿望
-    lightWishOn(id, name, tel, qq, wechat) {
+    lightWishOn(id: string, name: string, tel: string, qq: string, wechat: string) {
         //console.log("请求6")
 
         return GlobalAxios(toConfig({
@@ -240,22 +306,22 @@ let Service = {
     },
 
     //查看愿望详情
-    getWishDetail(id) {
+    getWishDetail(id: string) {
         //console.log("请求7")
 
         let url = new URL(BASEURL + '/wishes/details');
         url.searchParams.append("wish_id", id);
-        url.searchParams.append("time", new Date().getTime());
+        url.searchParams.append("time", (new Date().getTime()).toString());
         return GlobalAxios(toConfig({ url: url, data: url, method: "get" }));
     },
 
     //查找点亮人信息
-    getLightManInfo(id) {
+    getLightManInfo(id: string) {
         //console.log("请求8")
 
         let url = new URL(BASEURL + '/user/info/lightman')
         url.searchParams.append("wish_id", id)
-        url.searchParams.append("time", new Date().getTime())
+        url.searchParams.append("time", (new Date().getTime()).toString())
         return GlobalAxios(toConfig({ url: url, data: url, method: "get" }))
     },
 
@@ -264,7 +330,7 @@ let Service = {
         //console.log("请求9")
 
         let url = new URL(BASEURL + '/wishes/user/light')
-        url.searchParams.append("time", new Date().getTime())
+        url.searchParams.append("time", (new Date().getTime()).toString())
         // console.log(toConfig({ url: url, data: url, method: "get" }))
         return GlobalAxios(toConfig({ url: url, data: url, method: "get" }))
 
@@ -275,34 +341,37 @@ let Service = {
         //console.log("请求10")
 
         let url = new URL(BASEURL + '/wishes/user/post')
-        url.searchParams.append("time", new Date().getTime())
+        url.searchParams.append("time", (new Date().getTime()).toString())
         return GlobalAxios(toConfig({ url: url, data: url, method: "get" }))
     },
 
     //根据分类获取愿望
-    getWishByCategories(category) {
+    getWishByCategories(category: string) {
         //console.log("请求11")
 
         let url = new URL(BASEURL + '/wishes/categories')
         url.searchParams.append("categories", category)
-        url.searchParams.append("time", new Date().getTime())
+        url.searchParams.append("time", (new Date().getTime()).toString())
         // console.log(toConfig({ url: url, data: url, method: "get" }))
         return GlobalAxios(toConfig({ url: url, data: url, method: "get" }))
     },
 
     //删除愿望
-    deleteWish(wish_id) {
+    deleteWish(wish_id: string) {
         //console.log("请求12")
+        let axiosProp2: AxiosRequestConfig = {
+            url: BASEURL + `/wishes?wish_id=${wish_id}`
+        }
 
-        return axios.delete(BASEURL + `/wishes?wish_id=${wish_id}`, BASEURL + `/wishes?wish_id=${wish_id}`)
+        return axios.delete(BASEURL + `/wishes?wish_id=${wish_id}`, axiosProp2)
     },
 
     //放弃点亮别人的愿望
-    giveUpLightWish(wish_id, msg) {
+    giveUpLightWish(wish_id: string, msg: string) {
         //console.log("请求13")
 
         return GlobalAxios(toConfig({
-            url: BASEURL + `/wishes/giveup`,
+            url: new URL(BASEURL + `/wishes/giveup`),
             data: {
                 wish_id: wish_id,
                 message: msg
@@ -312,11 +381,11 @@ let Service = {
     },
 
     //实现别人的愿望
-    achieveWish(wish_id) {
+    achieveWish(wish_id: string) {
         //console.log("请求14")
 
         return GlobalAxios(toConfig({
-            url: BASEURL + `/wishes/achieve`,
+            url: new URL(BASEURL + `/wishes/achieve`),
             data: {
                 wish_id: wish_id
             }, method: "post"

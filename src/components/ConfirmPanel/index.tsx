@@ -1,6 +1,13 @@
 import "./index.scss"
 
-export default function ConfirmPanel(props) {
+export interface IConfirmPanelProps{
+    display:boolean,
+    action:string|any,//动态添加属性yes、no？？详见此文件行18、19、22
+    btnText:string|any,//
+    children:string|any
+}
+
+export default function ConfirmPanel(props:IConfirmPanelProps) {
     return (
         <div className="mask" style={{ display: props.display ? 'flex' : 'none' }}>
             <div className="infoPanel">
