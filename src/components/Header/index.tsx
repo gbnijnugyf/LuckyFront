@@ -6,7 +6,12 @@ import backbutton from "../../static/images/backbutton.svg";
 import logo from "../../static/images/logo.svg";
 import arrowimg from "../../static/images/arrow.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-const titleList = {
+
+interface ItitleList {
+  [key: string]: string
+}
+
+const titleList: ItitleList = {
   "/tagscreen/home": "标签页",
   "/tagscreen/fillwish": "投递我的小幸运",
   "/detail/list": "愿望详情",
@@ -14,6 +19,10 @@ const titleList = {
   "/wishpool/wish": "我的愿望池",
   "/mywish": "我的愿望池",
 };
+
+export interface IgetTitle {
+  (): string
+}
 
 function Header() {
   const location = useLocation();
@@ -33,7 +42,7 @@ function Header() {
     }
   };
 
-  const getTitle = () => {    //URL改变导致获取title的函数也要改变
+  const getTitle: IgetTitle = () => {    //URL改变导致获取title的函数也要改变
     let key = location.pathname;
     let ckey = key;
     let index = key.indexOf("/", 2);
@@ -48,15 +57,11 @@ function Header() {
       }
       else {
         ckey = ckey.substr(0, index2);
-        // console.log(ckey)
         return titleList[ckey]; //通过路由截取数组titlelist的索引key
 
       }
     }
 
-    // if (index !== -1) key = key.substr(0, index);
-    // console.log(key);
-    // console.log(titleList[key]);
   };
 
   useEffect(() => {
@@ -69,13 +74,13 @@ function Header() {
       let used = localStorage.getItem("wish_tip");
       if (!used) {
         setIsShow(true);
-        localStorage.setItem("wish_tip", true);
+        localStorage.setItem("wish_tip", "true"); //类型“boolean”的参数不能赋给类型“string”的参数
       }
     } else if (key === "/tagscreen/home") {
       let used = localStorage.getItem("other_tip");
       if (!used) {
         setIsShow(true);
-        localStorage.setItem("other_tip", true);
+        localStorage.setItem("other_tip", "true"); //类型“boolean”的参数不能赋给类型“string”的参数
       }
     }
   }, [key]);
@@ -167,10 +172,6 @@ function Header() {
 
   let title = getTitle();
 
-  useEffect((title) => {
-    // console.log("abc")
-    // console.log(title)
-  }, [location.pathname])
 
   return (
     <div className="header">
@@ -179,7 +180,7 @@ function Header() {
           className="back-button"  //回退按钮
           src={backbutton}
           style={{ opacity: title === "标签页" ? 0 : 1 }}
-          onClick={title === "标签页" ? null : handleBack}
+          onClick={() => { title === "标签页" ? null : handleBack }}
           alt=""
         />
         <p className="comp-header-text">{title}</p>
