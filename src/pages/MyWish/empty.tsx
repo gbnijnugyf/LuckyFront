@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ButtonS } from '../../components/Button'
 import './index.scss'
 
-export function Empty(props) {
+export function Empty() {
     const navigate = useNavigate();
 
     const goSendWish = () => {
@@ -13,7 +13,7 @@ export function Empty(props) {
 
 
     return (
-        <div className="div-leaf-empty" align="center">
+        <div className="div-leaf-empty">{/*ts重构时删除 align="center" */}
             <div className="text-empty">
                 空空如也~
                 <br />

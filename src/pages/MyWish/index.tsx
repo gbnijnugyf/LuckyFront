@@ -4,19 +4,36 @@ import { useEffect, useState } from "react";
 // import { MyWishList } from "./list";
 import Service from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
+import { AxiosResponse } from "axios";
 // import { click } from "@testing-library/user-event/dist/click";
 
-export const Index = (props) => {
+export interface IwishObject {
+  creat_at: string,
+  light_at: string,
+  light_user: number,
+  school?: number,
+  state:number,
+  type: number,
+  wish: string,
+  wish_id: number,
+  wishman_name: string,
+  wishman_qq: string
+  wishman_tel: string
+  wishman_wechat: string
+}
+
+
+export const Index = () => {
   const navigate = useNavigate();
-  const [wishPost, setWishPost] = useState([]);
-  const [wishLight, setWishLight] = useState([]);
+  const [wishPost, setWishPost] = useState(Array<IwishObject>);
+  const [wishLight, setWishLight] = useState(Array<IwishObject>);
   const [gotPost, setGotPost] = useState(false);
   const [gotLight, setGotLight] = useState(false);
   // console.log(inform)
   // inform.state.notfound = true
 
   // 排序愿望为需要的顺序
-  const sortWishes = (oldwishes) => {   //此处mock用例state值有问题，暂未修改mock
+  const sortWishes = (oldwishes:Array<IwishObject>) => {
     let sorted = []
     const priority = [1, 2, 0]
     for (let p = 0; p < priority.length; p++)
@@ -28,15 +45,14 @@ export const Index = (props) => {
   }
 
   useEffect(() => {
-    Service.getUserWishPost().then((res) => {
-      // console.log(res.data)
+    Service.getUserWishPost().then((res: AxiosResponse<any, any>) => {
       setWishPost(sortWishes(res.data.data.wishes));
       // console.log(wishPost)
       setGotPost(true);
     });
   }, []);
   useEffect(() => {
-    Service.getUserWishLight().then((res) => {
+    Service.getUserWishLight().then((res: AxiosResponse<any, any>) => {
 
       setWishLight(sortWishes(res.data.data));
 
