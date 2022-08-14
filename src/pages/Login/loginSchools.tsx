@@ -1,10 +1,17 @@
 import Service from '../../common/service'
 import './loginSchools.scss'
 import { ButtonL } from '../../components/Button'
-import { useState } from 'react'
+import { ChangeEvent, ReactNode, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function LoginPannel(props) {
+export interface ILoginPannel{
+    text:string,
+    onClick:React.MouseEventHandler<HTMLDivElement> | undefined,
+    btnText:string,
+    children:ReactNode
+}
+
+function LoginPannel(props:ILoginPannel) {
     return (
         <div className="login-pannel">
             <p className="text-login-title">{props.text}</p>
@@ -17,16 +24,16 @@ function LoginPannel(props) {
 }
 
 
-export function LoginCCNU(props) {
+export function LoginCCNU() {
     const navigate = useNavigate();
     const [ccnuId, setCcnuId] = useState('')
     const [ccnuPwd, setCcnuPwd] = useState('')
 
-    const handleCcnuId = (e) => {
+    const handleCcnuId = (e:ChangeEvent<HTMLInputElement>) => {
         setCcnuId(e.target.value)
     }
 
-    const handleCcnuPwd = (e) => {
+    const handleCcnuPwd = (e:ChangeEvent<HTMLInputElement>) => {
         setCcnuPwd(e.target.value)
     }
     const goVerify = () => {
@@ -65,12 +72,12 @@ export function LoginCCNU(props) {
     )
 }
 
-export function BindEmail(props) {
+export function BindEmail() {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('')
 
-    const handleEmail = (e) => {
+    const handleEmail = (e:ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)
     }
     const goBind = () => {
