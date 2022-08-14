@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import "./index.scss";
 
 type Choice = "yes" | "no";
@@ -6,7 +6,7 @@ export interface IConfirmPanelProps {
   display: boolean;
   action: Partial<Record<Choice, MouseEventHandler<HTMLDivElement>>>;
   btnText: Partial<Record<Choice, string>>;
-  children?: JSX.Element;
+  children?: ReactNode;
 }
 
 export default function ConfirmPanel(props: IConfirmPanelProps) {
