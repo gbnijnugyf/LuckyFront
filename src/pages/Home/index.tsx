@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Iobject } from "../../config/Global";
+import { IObject } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
 import { tags } from "../../config/Global";
 import "./index.scss";
@@ -20,7 +20,7 @@ export default function Home() {
     });
   });
 
-  const goWishes = (tag:Iobject) => {
+  const goWishes = (tag:IObject) => {
     navigate(`/wishpool/wish/${tag.enName}`, { state: { category: tag.category } });
 
     // props.history.push(`/wish/${tag.enName}`, { category: tag.category })

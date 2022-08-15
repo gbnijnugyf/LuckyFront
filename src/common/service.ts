@@ -9,26 +9,32 @@ import 'whatwg-fetch';
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default"
 
 
-function IsToken(props : _config):_config {
+function IsToken(props: IConfig): IConfig {
     const token = localStorage.getItem('token');
     // console.log("IsToken:")
     // console.log(token)
     props.data.token = token;
     return props;
 }
-async function GlobalAxiosToPost(props: _config) {
+async function GlobalAxiosToPost(props: IConfig) {
     props = IsToken(props);
     const response = await axios.post(props.url, props.data);
     // console.log(props.data)
     return response;
 }
-async function GlobalAxiosToGet(props: _config) {
+async function GlobalAxiosToGet(props: IConfig) {
     props = IsToken(props);
+    if (props.interf === "Light") {
+
+    }
+    else if (props.interf === "Post") {
+
+    }
     const response = await axios.get(props.url)
     return response;
 }
 
-async function GlobalAxios(props: _config) {//
+async function GlobalAxios(props: IConfig) {//
     let response = null;
     if (props.method === "post")
         response = await GlobalAxiosToPost(props)
@@ -53,103 +59,15 @@ async function GlobalAxios(props: _config) {//
         alert(response.data.msg)
         return response;
     }
+
     return response;
 }
 
-/*
-async function GlobalAxios(config = {}) {
-    console.log("发送请求！")
-
-    const token = localStorage.getItem('token');
-    config.data.token = token;
-
-
-    return axios(config).then(response => {
-        console.log(response)
-        if (response.statusText === 'OK') {
-            return (
-                res => {
-                    return new Promise((resolve, _) => {
-                        resolve(res);
-                    }
-                    )
-                })
-        }
-        else if (response.statusText !== 'OK') {
-            return (
-                res => {
-                    return new Promise((_, reject) => {
-                        reject(res);
-                    }
-                    )
-                })
-        }
-        else if (response.status === -2) {
-            alert(response.msg)
-            localStorage.removeItem('token')
-            // 重定向到根目录，重新登录
-            let redirectpos = window.location.href
-            redirectpos = redirectpos.slice(0, redirectpos.indexOf('/', 10) + 1)
-            window.location.href(redirectpos)
-        }
-        else {
-            if (response.status !== 0) {
-                alert(response.msg)
-            }
-            return response;
-        }
-
-    }).catch(e => {
-        alert(`服务端错误：${e.message}`);
-        throw e;
-    })
-
-
-
-    // return axios(url, data, method).then(response => {
-    //         if (response.ok) {
-    //             return response.json().then(res => {
-    //                 console.log(res)
-    //                 return res;
-    //             });
-    //         } else {
-    //             return response.json().then(res => {
-    //                 return new Promise((_, reject) => {
-    //                     reject(res);
-    //                 });
-    //             });
-    //         }
-    //     }).then(res => {
-    //         if (res.status === -2) {
-    //             alert(res.msg)
-    //             localStorage.removeItem('token')
-    //             // 重定向到根目录，重新登录
-    //             let redirectpos = window.location.href
-    //             redirectpos = redirectpos.slice(0, redirectpos.indexOf('/', 10) + 1)
-    //             window.location.href(redirectpos)
-    //         }
-    //         else {
-    //             if (res.status !== 0) {
-    //                 alert(res.msg)
-    //             }
-    //             return res;
-    //         }
-    //     }).catch(e => {
-    //         alert(`服务端错误：${e.message}`);
-    //         throw e;
-    //     })
-
-}
-*/
-// export interface _object{
-//     Object: Object,
-//     token: string  
-// }
-
-export interface _config {
+export interface IConfig {
     url: string,
     data: any,  //IsToken中需要加入token属性
-    method: string
+    method: string,
+    interf?: string
 }
 
 export interface PostProps {
@@ -172,43 +90,32 @@ export interface PostProps {
         light_wechat?: string,
         message?: string
     },
-    method: string
+    method: string,
+    interf?: string
 }
 
 export interface GetProps {
     url: URL,
     data: URL,
-    method: string
+    method: string,
+    interf?: string
 }
 
-// type RequestProps = 
-// {
-//     postProp: PostProps,
-//     getProps?: never
-// } |
-// {
-//     postProp?:never,
-//     getProp: GetProps
-// }
 
-// export interface RequestProps {
-//     postProps?: PostProps,
-//     getProps?: GetProps
-// }
-
-
-function toConfig(props: PostProps | GetProps): _config {
+function toConfig(props: PostProps | GetProps): IConfig {
 
     if (props.url && props.data && props.method) {
-        let config: _config = {
+        let config: IConfig = {
             url: props.url.toString(),
             data: props.data,
             method: props.method
         };
+        if (props.interf !== undefined)
+            config.interf = props.interf;
         return config;
     }
     else {
-        let config: _config = {
+        let config: IConfig = {
             url: "",
             data: "",
             method: ""
@@ -325,24 +232,24 @@ let Service = {
         return GlobalAxios(toConfig({ url: url, data: url, method: "get" }))
     },
 
-    //获取自己点亮的愿望
+    //获取自己点亮的愿望//后端接口重构Ligth
     getUserWishLight() {
         //console.log("请求9")
 
-        let url = new URL(BASEURL + '/wishes/user/light')
+        let url = new URL(BASEURL + '/wishes/user/light')// '/wishes/user/light' or '/desires/user/light'
         url.searchParams.append("time", (new Date().getTime()).toString())
         // console.log(toConfig({ url: url, data: url, method: "get" }))
-        return GlobalAxios(toConfig({ url: url, data: url, method: "get" }))
+        return GlobalAxios(toConfig({ url: url, data: url, method: "get", interf: "Light" }))
 
     },
 
-    //获取自己投递的愿望
+    //获取自己投递的愿望//后端接口重构Post
     getUserWishPost() {
         //console.log("请求10")
 
         let url = new URL(BASEURL + '/wishes/user/post')
         url.searchParams.append("time", (new Date().getTime()).toString())
-        return GlobalAxios(toConfig({ url: url, data: url, method: "get" }))
+        return GlobalAxios(toConfig({ url: url, data: url, method: "get", interf: "Post" }))
     },
 
     //根据分类获取愿望

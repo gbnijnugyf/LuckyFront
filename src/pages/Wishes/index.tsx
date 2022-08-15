@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 export interface IWishesObject {
     wish: string,
-    school: string,
+    school: number,
     wishman_name: string,
     wish_id?: string
 }
@@ -48,8 +48,8 @@ const WishItem = (props: IWishItemProps_) => {
             </div>
             <div className="msg">
 
-                <p>{props.wish.school === "" ? "" :
-                    props.wish.school === '0' ? '华小师' : '武小理'}</p>
+                <p>{props.wish.school.toString() === "" ? "" :
+                    props.wish.school.toString() === '0' ? '华小师' : '武小理'}</p>
                 <p>{props.wish.wishman_name.length > 0 ? props.wish.wishman_name.charAt(0) + "同学"
                     : ""}</p>
             </div>
@@ -71,15 +71,15 @@ export default function Wishes() {
         move: ""
     }
     let wishes_init: Array<IWishesObject> = [
-        { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
-        { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
-        { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }
+        { wish: "当前分类没有愿望哦~", school: -1, wishman_name: "" },
+        { wish: "当前分类没有愿望哦~", school: -1, wishman_name: "" },
+        { wish: "当前分类没有愿望哦~", school: -1, wishman_name: "" }
     ]
     interface ILocationState {
         category: number
     }
     const category = (useLocation().state as ILocationState).category as number;
-    console.log(category)
+    
     // const { category } = props.location.state
     const [showTip, setShowTip] = useState(true)
     const moveState = { img1: 0, img2: 10, img3: 20 }
@@ -100,7 +100,7 @@ export default function Wishes() {
             let wishes = []
             if (res.data.data.length === 0) {
                 setLightBtn(false)
-                let wish = { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }
+                let wish = { wish: "当前分类没有愿望哦~", school: -1, wishman_name: "" }
                 wishes.push(wish);
             } else {
                 wishes = res.data.data
@@ -181,7 +181,7 @@ export default function Wishes() {
         if (name === "") alert("还没有填写姓名哦~")
         else if (number === "") alert("还没有填写联系方式哦~")
         else {
-            if (typeof wishes[0].wish_id !== undefined) {
+            if (wishes[0].wish_id !== undefined) {
                 let id = wishes[0].wish_id as string
                 let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
                 Service.lightWishOn(id, name, tel, qq, wechat).then((res:any) => {
