@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 export interface ILoginPannel{
     text:string,
-    onClick:React.MouseEventHandler<HTMLDivElement> | undefined,
+    onClick?:React.MouseEventHandler<HTMLDivElement>,
     btnText:string,
     children:ReactNode
 }

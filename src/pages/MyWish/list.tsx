@@ -2,11 +2,11 @@ import './index.scss'
 import { ButtonS } from '../../components/Button'
 import { formatTime } from '../../common/global'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { IwishObject } from '.'
+import { IWishObject } from '.'
 
 export interface WishState{
-    wishLight:Array<IwishObject>,
-    wishPost:Array<IwishObject>
+    wishLight:Array<IWishObject>,
+    wishPost:Array<IWishObject>
 }
 
 export function MyWishList() {
@@ -52,7 +52,7 @@ export function MyWishList() {
 
 interface IWishItemProps{
     time:string,
-    wish:IwishObject,
+    wish:IWishObject,
     key:number,
     onClick:React.MouseEventHandler<HTMLLIElement> | undefined,
 

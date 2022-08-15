@@ -7,7 +7,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
 // import { click } from "@testing-library/user-event/dist/click";
 
-export interface IwishObject {
+export interface IWishObject {
   creat_at: string,
   light_at: string,
   light_user: number,
@@ -25,15 +25,15 @@ export interface IwishObject {
 
 export const Index = () => {
   const navigate = useNavigate();
-  const [wishPost, setWishPost] = useState(Array<IwishObject>);
-  const [wishLight, setWishLight] = useState(Array<IwishObject>);
+  const [wishPost, setWishPost] = useState(Array<IWishObject>);
+  const [wishLight, setWishLight] = useState(Array<IWishObject>);
   const [gotPost, setGotPost] = useState(false);
   const [gotLight, setGotLight] = useState(false);
   // console.log(inform)
   // inform.state.notfound = true
 
   // 排序愿望为需要的顺序
-  const sortWishes = (oldwishes:Array<IwishObject>) => {
+  const sortWishes = (oldwishes:Array<IWishObject>) => {
     let sorted = []
     const priority = [1, 2, 0]
     for (let p = 0; p < priority.length; p++)

@@ -3,11 +3,11 @@
 import './index.scss'
 
 export interface IBtnL{
-    onClick:React.MouseEventHandler<HTMLDivElement> | undefined,
+    onClick?:React.MouseEventHandler<HTMLDivElement>,
     children:string|any   
 }
 export interface IBtnS{
-    onClick?:React.MouseEventHandler<HTMLDivElement> | undefined,
+    onClick?:React.MouseEventHandler<HTMLDivElement>,
     style:{[key:string]:string},
     children:string|any
 }
