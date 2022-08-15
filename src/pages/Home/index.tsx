@@ -35,7 +35,6 @@ export default function Home() {
     <div className="panel-home">
       <div className="tags">
         {tags.map((tag) => {
-          console.log(tag)
           return (
             <div
               onClick={() => goWishes(tag)}
