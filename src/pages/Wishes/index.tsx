@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import ConfirmPanel from '../../components/ConfirmPanel'
 import { ButtonS } from '../../components/Button'
 import calendar from '../../static/images/calendar.svg'
@@ -7,7 +7,35 @@ import Service from '../../common/service'
 import './index.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-const WishItem = (props) => {
+export interface IWishesObject {
+    wish: string,
+    school: string,
+    wishman_name: string,
+    wish_id?: string
+}
+
+export interface IWishItemProps_ {
+    className: string,
+    wish: IWishesObject,
+    onTouchStart?: (e: any) => void,
+    onTouchMove?: (e: any) => void,
+    onTouchEnd?: () => void,
+    style: {
+        left: string,
+        transition?: string,
+        zIndex: string
+    }
+}
+
+export interface IonTouchStart_e {
+    targetTouches: number,
+}
+
+export interface IHTMLonTouchStartElemmt extends HTMLElement {
+
+}
+
+const WishItem = (props: IWishItemProps_) => {
 
     return (
         <div key={props.wish?.wishman_name} className="wish-item" style={props.style}
@@ -21,7 +49,7 @@ const WishItem = (props) => {
             <div className="msg">
 
                 <p>{props.wish.school === "" ? "" :
-                    props.wish.school === 0 ? '华小师' : '武小理'}</p>
+                    props.wish.school === '0' ? '华小师' : '武小理'}</p>
                 <p>{props.wish.wishman_name.length > 0 ? props.wish.wishman_name.charAt(0) + "同学"
                     : ""}</p>
             </div>
@@ -30,30 +58,44 @@ const WishItem = (props) => {
     )
 }
 
+export interface IstartX {
+    start: any, //touch.pageX和e.targetTouches[0]不知道是啥类型，详见130，131
+    move: string
+}
 
-
-export default function Wishes(props) {
-    // 拿着这个分类去发请求
+export default function Wishes() {
     const navigate = useNavigate();
-    const category = useLocation();
+    // 拿着这个分类去发请求
+    let start_init: IstartX = {
+        start: "",
+        move: ""
+    }
+    let wishes_init: Array<IWishesObject> = [
+        { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
+        { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
+        { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }
+    ]
+    interface ILocationState {
+        category: number
+    }
+    const category = (useLocation().state as ILocationState).category as number;
+    console.log(category)
     // const { category } = props.location.state
     const [showTip, setShowTip] = useState(true)
     const moveState = { img1: 0, img2: 10, img3: 20 }
     const [move, setMove] = useState(moveState) // 树叶动画相关状态
-    const [startX, setStartX] = useState() // 树叶动画相关状态
+    const [startX, setStartX] = useState(start_init) // 树叶动画相关状态
     const [update, setUpDate] = useState(false) // 控制动画以及愿望内容的更新
     const [display, setDisplay] = useState(false);// 弹出确认框
     const [light, setLight] = useState(false)
     const [lightBtn, setLightBtn] = useState(true) // 点亮按钮是否存在
-    const [wishes, setWishes] = useState([{ wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
-    { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
-    { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }])
+    const [wishes, setWishes] = useState(wishes_init)
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
     const [tel, setTel] = useState("")
     const [option, setOption] = useState("QQ")
     const refreshWishes = () => {
-        Service.getWishByCategories(category).then((res) => {
+        Service.getWishByCategories(category.toString()).then((res) => {
             // console.log(res.data.data)//service修改后data变成了第二层
             let wishes = []
             if (res.data.data.length === 0) {
@@ -79,26 +121,26 @@ export default function Wishes(props) {
         }, 5000)
     })
 
-    const handleName = (e) => {
+    const handleName = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value)
     }
-    const handleNumber = (e) => {
+    const handleNumber = (e: ChangeEvent<HTMLInputElement>) => {
         setNumber(e.target.value)
     }
-    const handleTel = (e) => {
+    const handleTel = (e: ChangeEvent<HTMLInputElement>) => {
         setTel(e.target.value)
     }
-    const handleOption = (e) => {
+    const handleOption = (e: ChangeEvent<HTMLSelectElement>) => {
         setOption(e.target.value)
     }
 
     // Start/Move/End 都是控制愿望刷新动画的相关函数
-    const onTouchStart = (e) => {
+    const onTouchStart = (e: any) => {  //e:ChangeEvent<HTMLDivElement>替换为any，targeTouches类型未知
         const touch = e.targetTouches[0]
         setStartX({ start: touch.pageX, move: '' })
 
     }
-    const onTouchMove = (e) => {
+    const onTouchMove = (e: any) => {//e:ChangeEvent<HTMLDivElement>替换为any，targeTouches类型未知
         const touch = e.targetTouches[0]
         const move_X = ((touch.pageX - startX.start) / 5)
         setStartX(startX)
@@ -139,18 +181,19 @@ export default function Wishes(props) {
         if (name === "") alert("还没有填写姓名哦~")
         else if (number === "") alert("还没有填写联系方式哦~")
         else {
-
-            let id = wishes[0].wish_id
-            let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
-            Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
-                if (res.status === 0) {
-                    alert("点亮成功~")
-                    refreshWishes()
-                } else {
-                    alert(res.msg)
-                }
-            })
-            handleAlert();
+            if (typeof wishes[0].wish_id !== undefined) {
+                let id = wishes[0].wish_id as string
+                let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
+                Service.lightWishOn(id, name, tel, qq, wechat).then((res:any) => {
+                    if (res.status === 0) {
+                        alert("点亮成功~")
+                        refreshWishes()
+                    } else {
+                        alert(res.msg) //类型“AxiosResponse<any, any>”上不存在属性“msg” ,res暂时定义为any
+                    }
+                })
+                handleAlert();
+            }
         }
     }
     // 处理遮罩
