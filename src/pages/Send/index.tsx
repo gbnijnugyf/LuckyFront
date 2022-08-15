@@ -7,8 +7,9 @@ import { ButtonS } from '../../components/Button'
 import paperplane from '../../static/images/paperplane.svg'
 import './index.scss'
 import { useNavigate } from 'react-router-dom'
+import { ChangeEvent } from 'react'
 
-export default function Send(props) {
+export default function Send() {
     const navigate = useNavigate();
 
     const [showTag, setShowTag] = useState(false) //控制标签弹窗
@@ -28,7 +29,7 @@ export default function Send(props) {
         setIsInk(true)
     }
     // 处理填写愿望的字数限制
-    const handleWishContent = (e) => {
+    const handleWishContent = (e:ChangeEvent<HTMLTextAreaElement>) => {
         if (document.hasFocus()) {
             setIsInk(false)
         }
@@ -39,19 +40,19 @@ export default function Send(props) {
         setWishContent(e.target.value)
     }
     // 处理 name input
-    const handleNameValue = (e) => {
+    const handleNameValue = (e:ChangeEvent<HTMLInputElement>) => {
         setNameValue(e.target.value)
     }
     // 处理 number input
-    const handleNumberValue = (e) => {
+    const handleNumberValue = (e:ChangeEvent<HTMLInputElement>) => {
         setNumberValue(e.target.value)
     }
     // 处理 tel input
-    const handleTelValue = (e) => {
+    const handleTelValue = (e:ChangeEvent<HTMLInputElement>) => {
         setTel(e.target.value)
     }
     // 处理 select options
-    const handleSelectValue = (e) => {
+    const handleSelectValue = (e:ChangeEvent<HTMLSelectElement>) => {
         setSelectValue(e.target.value)
     }
     // 处理点击发送后的提交失败/成功
@@ -68,7 +69,7 @@ export default function Send(props) {
         } else {
             let QQ = selectValue === 'QQ' ? numberValue : ""
             let wechat = selectValue === 'WeChat' ? numberValue : ""
-            Service.postWish(nameValue, QQ, wechat, tel, wishContent, category)
+            Service.postWish(nameValue, QQ, wechat, tel, wishContent, category.toString())
                 .then(() => {
                     alert('投递成功！')
                     navigate('/tagscreen/home');
@@ -77,7 +78,7 @@ export default function Send(props) {
         }
     }
     // 处理选择标签的点击事件
-    const changeTagName = (name, category) => {
+    const changeTagName = (name:string, category:number) => {
         setShowTag(false)
         setTagName(name)
         setCategory(category)
