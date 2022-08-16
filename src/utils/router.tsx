@@ -49,6 +49,8 @@ function Router() {
           <Route path="login/*" element={<Login />}>
             <Route path="ccnu" element={<LoginCCNU />} />
             <Route path="bindemail" element={<BindEmail />} />
+            <Route path="whut" element/>
+            <Route path="whutRgister" element />
             <Route path="*" element={<LoginMain />} />
           </Route>
           {/* 筛选页面 */}
