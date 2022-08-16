@@ -14,6 +14,7 @@ export interface IWishesObject {
     wish_id?: string
 }
 
+
 export interface IWishItemProps_ {
     className: string,
     wish: IWishesObject,
@@ -79,7 +80,7 @@ export default function Wishes() {
         category: number
     }
     const category = (useLocation().state as ILocationState).category as number;
-    
+
     // const { category } = props.location.state
     const [showTip, setShowTip] = useState(true)
     const moveState = { img1: 0, img2: 10, img3: 20 }
@@ -97,7 +98,7 @@ export default function Wishes() {
     const refreshWishes = () => {
         Service.getWishByCategories(category.toString()).then((res) => {
             // console.log(res.data.data)//service修改后data变成了第二层
-            let wishes = []
+            let wishes = res.data.data
             if (res.data.data.length === 0) {
                 setLightBtn(false)
                 let wish = { wish: "当前分类没有愿望哦~", school: -1, wishman_name: "" }
@@ -184,7 +185,7 @@ export default function Wishes() {
             if (wishes[0].wish_id !== undefined) {
                 let id = wishes[0].wish_id as string
                 let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
-                Service.lightWishOn(id, name, tel, qq, wechat).then((res:any) => {
+                Service.lightWishOn(id, name, tel, qq, wechat).then((res: any) => {
                     if (res.status === 0) {
                         alert("点亮成功~")
                         refreshWishes()

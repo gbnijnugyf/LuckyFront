@@ -46,7 +46,7 @@ export function LoginCCNU() {
                 // console.log(res)
                 res.status = 0; //鉴权测试
                 if (res.status === 0) {    
-                    localStorage.setItem('token', res.data.token)
+                    localStorage.setItem('token', res.data.data.token as string)
                     navigate('/tagscreen/home');
                     // props.history.push('/')
                 }

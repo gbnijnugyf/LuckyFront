@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { Url } from 'url';
 import 'whatwg-fetch';
+import { IWishObject } from '../pages/MyWish';
+import { IWishesObject } from '../pages/Wishes';
 
 // const BASEURL = window.location.href.slice(0, window.location.href.indexOf('/', 10)) + "/api"
 
@@ -163,7 +165,8 @@ let Service = {
 
         return GlobalAxios<{
             idcard_number: string,
-            password: string
+            password: string,
+            token?:string
         }>(toConfig({
             url: new URL(BASEURL + '/ccnulogin'),
             data: {
@@ -262,7 +265,7 @@ let Service = {
         let url = new URL(BASEURL + '/wishes/user/light')// '/wishes/user/light' or '/desires/user/light'
         url.searchParams.append("time", (new Date().getTime()).toString())
         // console.log(toConfig({ url: url, data: url, method: "get" }))
-        return GlobalAxios<URL>(toConfig({ url: url, data: url, method: "get", interf: "Light" }))
+        return GlobalAxios<Array<IWishObject>>(toConfig({ url: url, data: url, method: "get", interf: "Light" }))
 
     },
 
@@ -272,7 +275,7 @@ let Service = {
 
         let url = new URL(BASEURL + '/wishes/user/post')
         url.searchParams.append("time", (new Date().getTime()).toString())
-        return GlobalAxios<URL>(toConfig({ url: url, data: url, method: "get", interf: "Post" }))
+        return GlobalAxios<Array<IWishObject>>(toConfig({ url: url, data: url, method: "get", interf: "Post" }))
     },
 
     //根据分类获取愿望
@@ -283,7 +286,7 @@ let Service = {
         url.searchParams.append("categories", category)
         url.searchParams.append("time", (new Date().getTime()).toString())
         // console.log(toConfig({ url: url, data: url, method: "get" }))
-        return GlobalAxios<URL>(toConfig({ url: url, data: url, method: "get" }))
+        return GlobalAxios<Array<IWishesObject>>(toConfig({ url: url, data: url, method: "get" }))
     },
 
     //删除愿望

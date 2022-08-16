@@ -45,14 +45,14 @@ export const Index = () => {
   }
 
   useEffect(() => {
-    Service.getUserWishPost().then((res: AxiosResponse<any, any>) => {
-      setWishPost(sortWishes(res.data.data.wishes));
+    Service.getUserWishPost().then((res) => {
+      setWishPost(sortWishes(res.data.data));
       // console.log(wishPost)
       setGotPost(true);
     });
   }, []);
   useEffect(() => {
-    Service.getUserWishLight().then((res: AxiosResponse<any, any>) => {
+    Service.getUserWishLight().then((res) => {
 
       setWishLight(sortWishes(res.data.data));
 
