@@ -185,12 +185,12 @@ export default function Wishes() {
             if (wishes[0].wish_id !== undefined) {
                 let id = wishes[0].wish_id as string
                 let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
-                Service.lightWishOn(id, name, tel, qq, wechat).then((res: any) => {
+                Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
                     if (res.status === 0) {
                         alert("点亮成功~")
                         refreshWishes()
                     } else {
-                        alert(res.msg) //类型“AxiosResponse<any, any>”上不存在属性“msg” ,res暂时定义为any
+                        alert(res.data.msg) //类型“AxiosResponse<any, any>”上不存在属性“msg” ,res暂时定义为any
                     }
                 })
                 handleAlert();
