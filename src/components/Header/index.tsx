@@ -180,7 +180,7 @@ function Header() {
           className="back-button"  //回退按钮
           src={backbutton}
           style={{ opacity: title === "标签页" ? 0 : 1 }}
-          onClick={() => title === "标签页" ? null : handleBack}
+          onClick={title === "标签页" ? undefined : handleBack}
           alt=""
         />
         <p className="comp-header-text">{title}</p>
