@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 // import { MyWishList } from "./list";
 import Service from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
-import { AxiosResponse } from "axios";
 // import { click } from "@testing-library/user-event/dist/click";
 
 export interface IWishObject {

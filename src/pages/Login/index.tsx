@@ -20,13 +20,14 @@ export function LoginMain() {
   const navigate = useNavigate();
 
   const goWHUT = () => {
-    let position = window.location.href;
-    let continueurl = position.slice(0, position.indexOf("/", 10));
-    let posturl = continueurl + "/api/login/whut/callback";
-    window.location.href = `https://ias.sso.itoken.team/portal.php?posturl=${encodeURIComponent(
-      posturl
-    )}&continueurl=${encodeURIComponent(continueurl)}`;
-  };
+  //   let position = window.location.href;
+  //   let continueurl = position.slice(0, position.indexOf("/", 10));
+  //   let posturl = continueurl + "/api/login/whut/callback";
+  //   window.location.href = `https://ias.sso.itoken.team/portal.php?posturl=${encodeURIComponent(
+  //     posturl
+  //   )}&continueurl=${encodeURIComponent(continueurl)}`;
+    navigate("/login/whut")
+};
 
   const goCCNU = () => {
     navigate("/login/ccnu");

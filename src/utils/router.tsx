@@ -15,6 +15,8 @@ import { MyWishList } from "../pages/MyWish/list";
 import { LoginMain } from "../pages/Login/index";
 import { BindEmail, LoginCCNU } from "../pages/Login/loginSchools";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { LoginWhut } from "../pages/Login/WhutLogin";
+import { Register } from "../pages/Register";
 function Router() {
   // 保存WHUT登录后返回的token
   const navigate = useNavigate();
@@ -49,8 +51,8 @@ function Router() {
           <Route path="login/*" element={<Login />}>
             <Route path="ccnu" element={<LoginCCNU />} />
             <Route path="bindemail" element={<BindEmail />} />
-            <Route path="whut" element/>
-            <Route path="whutRgister" element />
+            <Route path="whut" element={<LoginWhut/>}/>
+            <Route path="whut/whutRgister" element={<Register/>}/>
             <Route path="*" element={<LoginMain />} />
           </Route>
           {/* 筛选页面 */}

@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Url } from 'url';
 import 'whatwg-fetch';
 import { IWishObject } from '../pages/MyWish';
 import { IWishesObject } from '../pages/Wishes';
@@ -169,6 +168,23 @@ let Service = {
             token?:string
         }>(toConfig({
             url: new URL(BASEURL + '/ccnulogin'),
+            data: {
+                idcard_number: idcard_number,
+                password: password
+            },
+            method: "post"
+        }))
+    },
+    //Whut登录
+    WhutLogin(idcard_number: string, password: string) {
+        //console.log("请求3")
+
+        return GlobalAxios<{
+            idcard_number: string,
+            password: string,
+            token?:string
+        }>(toConfig({
+            url: new URL(BASEURL + '/whutlogin'),//接口后端暂时未给出
             data: {
                 idcard_number: idcard_number,
                 password: password
