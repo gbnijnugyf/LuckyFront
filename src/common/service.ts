@@ -133,8 +133,28 @@ function toConfig(props: PostProps | GetProps): IConfig {
 }
 
 let Service = {
-    //绑定邮箱
+    //Whut注册
+    whutRegister(email:string, password:string){
+        return GlobalAxios<{state:number}>(toConfig({
+            url: new URL(BASEURL + '/whutregister'),//接口自拟
+            data: {
+                email: email,
+                password:password
+            }, method: "post"
+        }))
+    },
+    //Whut注册邮箱验证
+    whutRegisterCheckEmail(email:string){
+        return GlobalAxios<{ emailVV: string }>(toConfig({
+            url: new URL(BASEURL + '/whutregister/checkemail'),//接口自拟
+            data: {
+                email: email
+            }, method: "post"
+        }))
+    },
 
+
+    //绑定邮箱
     bindEmail(email: string) {
         //console.log("请求1")
         return GlobalAxios<{ email: string }>(toConfig({
