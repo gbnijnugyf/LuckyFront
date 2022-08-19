@@ -245,7 +245,7 @@ let Service = {
         let url = new URL(BASEURL + '/wishes/details');
         url.searchParams.append("wish_id", id);
         url.searchParams.append("time", (new Date().getTime()).toString());
-        return GlobalAxios<URL>(toConfig({ url: url, data: url, method: "get" }));
+        return GlobalAxios<IWishObject>(toConfig({ url: url, data: url, method: "get" }));
     },
 
     //查找点亮人信息
@@ -255,7 +255,7 @@ let Service = {
         let url = new URL(BASEURL + '/user/info/lightman')
         url.searchParams.append("wish_id", id)
         url.searchParams.append("time", (new Date().getTime()).toString())
-        return GlobalAxios<URL>(toConfig({ url: url, data: url, method: "get" }))
+        return GlobalAxios<Array<IWishObject>>(toConfig({ url: url, data: url, method: "get" }))
     },
 
     //获取自己点亮的愿望//后端接口重构Ligth
@@ -300,7 +300,7 @@ let Service = {
     },
 
     //放弃点亮别人的愿望
-    giveUpLightWish(wish_id: string, msg: string) {
+    giveUpLightWish(wish_id: string, msg?: string) {
         //console.log("请求13")
 
         return GlobalAxios<{
