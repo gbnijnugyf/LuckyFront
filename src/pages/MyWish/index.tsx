@@ -9,10 +9,10 @@ import { Outlet, useNavigate } from "react-router-dom";
 export interface IWishObject {
   creat_at: string,
   light_at: string,
-  light_user: number,
-  school?: number,
-  state:number,
-  type: number,
+  light_user: number,//to do -- 改成具体数字，问后端要接口
+  school?: number,//to do -- 改成具体数字，问后端要接口
+  state: number,//to do -- 改成具体数字，问后端要接口
+  type: number,//to do -- 改成具体数字，问后端要接口
   wish: string,
   wish_id: number,
   wishman_name: string,
@@ -32,7 +32,7 @@ export const Index = () => {
   // inform.state.notfound = true
 
   // 排序愿望为需要的顺序
-  const sortWishes = (oldwishes:Array<IWishObject>) => {
+  const sortWishes = (oldwishes: Array<IWishObject>) => {
     let sorted = []
     const priority = [1, 2, 0]
     for (let p = 0; p < priority.length; p++)

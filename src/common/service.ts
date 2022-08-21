@@ -1,5 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { url } from 'inspector';
+import axios from 'axios';
 import 'whatwg-fetch';
 import { IWishObject } from '../pages/MyWish';
 import { IWishesObject } from '../pages/Wishes';

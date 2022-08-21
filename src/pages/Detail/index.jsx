@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { ButtonS } from "../../components/Button";
-import ConfirmPanel, { IAction, IBtnText } from "../../components/ConfirmPanel";
+import ConfirmPanel from "../../components/ConfirmPanel";
 import Service from "../../common/service";
 import forwardimg from "../../static/images/forward.svg";
 import "./index.scss";
 import { formatTime } from "../../common/global";
-import { To, useLocation, useNavigate } from "react-router-dom";
-import { IWishObject } from "../MyWish";
+import { useLocation, useNavigate } from "react-router-dom";
+
+
+//to do -- TS不好改，重写嘤嘤嘤
 
 const WishDetail = (props) => {
   // console.log(props)
@@ -188,7 +190,7 @@ const OtherLighted = (props) => {
         changeBtnText("", "");
         Service.giveUpLightWish(props.wish.wish_id).then(() => {
           goOtherPage("/detail/index");
-        }); 
+        });
       }
     );
     changeConfirmContent(
@@ -253,13 +255,13 @@ const OtherLighted = (props) => {
     <>
       <div className="panel-button">
         <ButtonS
-          onClick={achieved ? undefined : pressAbandon}
+          onClick={achieved ? null : pressAbandon}
           style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
         >
           放弃实现
         </ButtonS>
         <ButtonS
-          onClick={achieved ? undefined : pressAchieve}
+          onClick={achieved ? null : pressAchieve}
           style={{
             background: achieved ? "#C0C0C0" : "#FF7A59",
             color: "#FFFFFF",
@@ -276,7 +278,7 @@ const OtherLighted = (props) => {
   );
 };
 // 别人的愿望，没人实现
-const OtherNotLighted = (props:IWishLightedProps) => {
+const OtherNotLighted = (props) => {
   const {
     goOtherPage,
     changeShowConfirm,
@@ -390,7 +392,7 @@ const OtherNotLighted = (props:IWishLightedProps) => {
   );
 };
 // 我的愿望，没人实现
-const MineNotLighted = (props:IWishLightedProps) => {
+const MineNotLighted = (props) => {
   const {
     goOtherPage,
     changeShowConfirm,
@@ -426,18 +428,8 @@ const MineNotLighted = (props:IWishLightedProps) => {
     </ButtonS>
   );
 };
-interface IWishLightedProps{
-  wish:IWishObject,
-  onChange: {
-    changeShowConfirm: (confirm: boolean) => void;
-    changeConfirmContent: (content: any) => any;
-    changeBtnText: (yes: string, no: string) => void;
-    changeConfirmAction: (yes: string, no: string) => void;
-    goOtherPage: (path: To) => void;
-  }
-}
 
-const MineLighted = (props:IWishLightedProps) => {
+const MineLighted = (props) => {
   const {
     goOtherPage,
     changeShowConfirm,
@@ -454,7 +446,7 @@ const MineLighted = (props:IWishLightedProps) => {
     );
     changeConfirmAction(
       () => {
-        Service.deleteWish(props.wish.wish_id.toString()).then(() => {
+        Service.deleteWish(props.wish.wish_id).then(() => {
           alert("删除成功");
           goOtherPage("/detail/index");
         });
@@ -488,13 +480,13 @@ const MineLighted = (props:IWishLightedProps) => {
     <>
       <div className="panel-button">
         <ButtonS
-          onClick={achieved ? undefined : pressDelete}
+          onClick={achieved ? null : pressDelete}
           style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
         >
           删除这个心愿
         </ButtonS>
         <ButtonS
-          onClick={achieved ? undefined : pressAchieve}
+          onClick={achieved ? null : pressAchieve}
           style={{
             background: achieved ? "#C0C0C0" : "#FF7A59",
             color: "#FFFFFF",
@@ -511,61 +503,38 @@ const MineLighted = (props:IWishLightedProps) => {
   );
 };
 
-// interface IConfirmContext{
-//   [key:string]:any
-// }
-
-export default function Detail() {
+export default function Detail(props) {
   // console.log(props)
   const navigate = useNavigate();
   let location = useLocation();
-
-  let confirmContent_init:any = "";
-  let yes_no_1:IBtnText = {yes:"", no:""};
-  let yes_no_2:IAction = {yes:()=>{}, no:()=>{}};
-  let wish_init:IWishObject = {
-    creat_at: "",
-    light_at: "",
-    light_user: -1,
-    school: -1,
-    state: -1,
-    type: -1,
-    wish: "",
-    wish_id: -1,
-    wishman_name: "",
-    wishman_qq: "",
-    wishman_tel: "",
-    wishman_wechat: ""
-  }
-
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
-  const [confirmContent, setConfirmContent] = useState(confirmContent_init); // 设置弹窗内容
-  const [btnText, setBtnText] = useState(yes_no_1); // 设置按钮文本
-  const [confirmAction, setConfirmAction] = useState(yes_no_2); // 设置按钮触发
-  const [wish, setWish] = useState(wish_init); // 愿望内容
+  const [confirmContent, setConfirmContent] = useState(""); // 设置弹窗内容
+  const [btnText, setBtnText] = useState({}); // 设置按钮文本
+  const [confirmAction, setConfirmAction] = useState({}); // 设置按钮触发
+  const [wish, setWish] = useState({}); // 愿望内容
   const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
 
-  const goOtherPage = (path: To) => {
+  const goOtherPage = (path) => {
     navigate(path)
     //  // props.history.push(path)
   };
 
-  const changeShowConfirm = (confirm: boolean) => {
+  const changeShowConfirm = (confirm) => {
     setShowConfirm(confirm);
   };
 
-  const changeConfirmContent = (content: string|Element) => {
+  const changeConfirmContent = (content) => {
     setConfirmContent(content);
   };
 
-  const changeBtnText = (yes: string, no: string) => {
+  const changeBtnText = (yes, no) => {
     setBtnText({
       yes: yes ? yes : btnText.yes,
       no: no ? no : btnText.no,
     });
   };
 
-  const changeConfirmAction = (yes: string, no: string) => {
+  const changeConfirmAction = (yes, no) => {
     setConfirmAction({
       yes: yes ? yes : confirmAction.yes,
       no: no ? no : confirmAction.no,
@@ -573,16 +542,16 @@ export default function Detail() {
   };
 
   useEffect(() => {
-    let id = location.pathname.split("/").pop() as string;
-    id = parseInt(id).toString();
+    let id = location.pathname.split("/").pop();
+    id = parseInt(id);
     // console.log(id)
     Service.getWishDetail(id).then((res) => {
       setWish(res.data.data);
       Service.getUserWishPost().then((res) => {
         // console.log(res.data.data.wishes)
         // console.log(id)
-        res.data.data.forEach((wish) => {
-          if (wish.wish_id.toString() === id) {
+        res.data.data.wishes.forEach((wish) => {
+          if (wish.wish_id === id) {
             setIsMine(true)
           }
         })
@@ -631,3 +600,4 @@ export default function Detail() {
     </div>
   );
 }
+
