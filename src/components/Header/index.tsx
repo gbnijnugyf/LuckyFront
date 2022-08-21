@@ -20,9 +20,6 @@ const titleList: ItitleList = {
   "/mywish": "我的愿望池",
 };
 
-export interface IgetTitle {
-  (): string
-}
 
 function Header() {
   const location = useLocation();
@@ -42,7 +39,7 @@ function Header() {
     }
   };
 
-  const getTitle: IgetTitle = () => {    //URL改变导致获取title的函数也要改变
+  const getTitle = () => {    //URL改变导致获取title的函数也要改变
     let key = location.pathname;
     let ckey = key;
     let index = key.indexOf("/", 2);

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Url } from 'url';
+import { url } from 'inspector';
 import 'whatwg-fetch';
 import { IWishObject } from '../pages/MyWish';
 import { IWishesObject } from '../pages/Wishes';
@@ -41,14 +41,21 @@ async function GlobalAxiosToGet<T>(props: IConfig) {
     const response = await axios.get<GlobalResponse<T>>(props.url)
     return response;
 }
+async function GlobalAxiosToDelete(props:IConfig) {
+    props = IsToken(props);
+    const response = await axios.delete(props.url, props.data)
+
+    return response
+}
 
 async function GlobalAxios<T>(props: IConfig) {//
     let response = null;
     if (props.method === "post")
         response = await GlobalAxiosToPost<T>(props)
-    else
+    else if(props.method === "get")
         response = await GlobalAxiosToGet<T>(props)
-
+    else
+        response = await GlobalAxiosToDelete(props)
     // const {data} = response;
 
     if (response.statusText === 'OK') {
@@ -79,6 +86,19 @@ export interface IConfig {
     interf?: string
 }
 
+interface light_information {
+    light_name?: string,
+    light_tel?: string,
+    light_qq?: string,
+    light_wechat?: string,
+}
+interface wishMan_information{
+    wishMan_name?: string,
+    wishMan_QQ?: string,
+    wishMan_Wechat?: string,
+    wishMan_Tel?: string,
+}
+
 export interface PostProps {
     url: URL,
     data: {//[key:String]?:any
@@ -86,17 +106,11 @@ export interface PostProps {
         email?: string,
         idcard_number?: string,
         password?: string,
-        wishMan_name?: string,
-        wishMan_QQ?: string,
-        wishMan_Wechat?: string,
-        wishMan_Tel?: string,
+        wishMan_inform?:wishMan_information,
         wish?: string,
         type?: string,
         wish_id?: string,
-        light_name?: string,
-        light_tel?: string,
-        light_qq?: string,
-        light_wechat?: string,
+        light_inform?:light_information,
         message?: string
     },
     method: string,
@@ -110,10 +124,25 @@ export interface GetProps {
     interf?: string
 }
 
+interface DeleteProps{
+    url:string,
+    data:undefined,
+    method:string
+}
 
-function toConfig(props: PostProps | GetProps): IConfig {
+
+function toConfig(props: PostProps | GetProps|DeleteProps): IConfig {
 
     if (props.url && props.data && props.method) {
+        if(props.method === "delete"){
+            let config:IConfig = {
+                url:props.url.toString(),
+                data:undefined,
+                method:"delete"
+            }
+
+            return config;
+        }
         let config: IConfig = {
             url: props.url.toString(),
             data: props.data,
@@ -166,7 +195,7 @@ let Service = {
         return GlobalAxios<{
             idcard_number: string,
             password: string,
-            token?:string
+            token?: string
         }>(toConfig({
             url: new URL(BASEURL + '/ccnulogin'),
             data: {
@@ -194,19 +223,19 @@ let Service = {
         //console.log("请求5")
 
         return GlobalAxios<{
-            wishMan_name: string,
-            wishMan_QQ: string,
-            wishMan_Wechat: string,
-            wishMan_Tel: string,
+            wishMan_inform:wishMan_information,
             wish: string,
             type: string
         }>(toConfig({
             url: new URL(BASEURL + '/wishes/add'),
             data: {
-                wishMan_name: name,
-                wishMan_QQ: QQ,
-                wishMan_Wechat: weChat,
-                wishMan_Tel: tel,
+                wishMan_inform:{
+                    wishMan_name: name,
+                    wishMan_QQ: QQ,
+                    wishMan_Wechat: weChat,
+                    wishMan_Tel: tel,
+                },
+                
                 wish: wish,
                 type: type
             },
@@ -220,19 +249,17 @@ let Service = {
 
         return GlobalAxios<{
             wish_id: string,
-            light_name: string,
-            light_tel: string,
-            light_qq: string,
-            light_wechat: string
+            light_inform?:light_information,
         }>(toConfig({
             url: new URL(BASEURL + '/wishes/light'),
             data: {
                 wish_id: id,
-                light_name: name,
-                light_tel: tel,
-                light_qq: qq,
-                light_wechat: wechat
-
+                light_inform:{
+                    light_name: name,
+                    light_tel: tel,
+                    light_qq: qq,
+                    light_wechat: wechat
+                }
             },
             method: "post"
         }))
@@ -292,11 +319,10 @@ let Service = {
     //删除愿望
     deleteWish(wish_id: string) {
         //console.log("请求12")
-        let axiosProp2: AxiosRequestConfig = {
-            url: BASEURL + `/wishes?wish_id=${wish_id}`
-        }
+        let url = new URL(BASEURL + `/wishes?wish_id=${wish_id}`)
 
-        return axios.delete(BASEURL + `/wishes?wish_id=${wish_id}`, axiosProp2)
+        return GlobalAxios(toConfig({url:url, data:url, method:"delete"}))
+        // return axios.delete(BASEURL + `/wishes?wish_id=${wish_id}`, axiosProp2)
     },
 
     //放弃点亮别人的愿望
@@ -304,8 +330,8 @@ let Service = {
         //console.log("请求13")
 
         return GlobalAxios<{
-            wish_id:string,
-            message:string
+            wish_id: string,
+            message: string
         }>(toConfig({
             url: new URL(BASEURL + `/wishes/giveup`),
             data: {
@@ -321,7 +347,7 @@ let Service = {
         //console.log("请求14")
 
         return GlobalAxios<{
-            wish_id:string
+            wish_id: string
         }>(toConfig({
             url: new URL(BASEURL + `/wishes/achieve`),
             data: {

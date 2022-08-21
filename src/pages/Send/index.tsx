@@ -69,7 +69,7 @@ export default function Send() {
         } else {
             let QQ = selectValue === 'QQ' ? numberValue : ""
             let wechat = selectValue === 'WeChat' ? numberValue : ""
-            Service.postWish(nameValue, QQ, wechat, tel, wishContent, category.toString())
+            Service.postWish(nameValue, QQ, wechat, tel, wishContent, category.toString())//标签分类通过category:number判断，而service接收字符串
                 .then(() => {
                     alert('投递成功！')
                     navigate('/tagscreen/home');

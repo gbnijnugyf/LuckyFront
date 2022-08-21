@@ -7,6 +7,9 @@ import Service from '../../common/service'
 import './index.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+const FALSE_0:number = 0;
+
+
 export interface IWishesObject {
     wish: string,
     school: number,
@@ -50,7 +53,7 @@ const WishItem = (props: IWishItemProps_) => {
             <div className="msg">
 
                 <p>{props.wish.school.toString() === "" ? "" :
-                    props.wish.school.toString() === '0' ? '华小师' : '武小理'}</p>
+                    props.wish.school.toString() === FALSE_0.toString() ? '华小师' : '武小理'}</p>
                 <p>{props.wish.wishman_name.length > 0 ? props.wish.wishman_name.charAt(0) + "同学"
                     : ""}</p>
             </div>
