@@ -85,13 +85,13 @@ export interface IConfig {
     interf?: string
 }
 
-interface Ilight_information {
+interface IlightInformation {
     light_name?: string,
     light_tel?: string,
     light_qq?: string,
     light_wechat?: string,
 }
-export interface IWishMan_information{
+export interface IWishManInformation{
     wishMan_name?: string,
     wishMan_QQ?: string,
     wishMan_Wechat?: string,
@@ -105,11 +105,11 @@ export interface IPostProps {
         email?: string,
         idcard_number?: string,
         password?: string,
-        wishMan_inform?:IWishMan_information,
+        wishMan_inform?:IWishManInformation,
         wish?: string,
         type?: string,
         wish_id?: string,
-        light_inform?:Ilight_information,
+        light_inform?:IlightInformation,
         message?: string
     },
     method: string,
@@ -222,7 +222,7 @@ let Service = {
         //console.log("请求5")
 
         return GlobalAxios<{
-            wishMan_inform:IWishMan_information,
+            wishMan_inform:IWishManInformation,
             wish: string,
             type: string
         }>(toConfig({
@@ -248,7 +248,7 @@ let Service = {
 
         return GlobalAxios<{
             wish_id: string,
-            light_inform?:Ilight_information,
+            light_inform?:IlightInformation,
         }>(toConfig({
             url: new URL(BASEURL + '/wishes/light'),
             data: {

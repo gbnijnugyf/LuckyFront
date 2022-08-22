@@ -42,7 +42,7 @@ function toStyle(props: IMyStyle): React.CSSProperties {
     }
 }
 
-export interface IWishItemProps_ {
+export interface IWishItemProps {
     className: string,
     wish: IWishesObject,
     onTouchStart?: (e: any) => void,
@@ -60,7 +60,7 @@ export interface IWishItemProps_ {
 
 // }
 
-const WishItem = (props: IWishItemProps_) => {
+const WishItem = (props: IWishItemProps) => {
 
 
     return (
@@ -75,7 +75,7 @@ const WishItem = (props: IWishItemProps_) => {
             <div className="msg">
 
                 <p>{props.wish.school.toString() === "" ? "" :
-                    props.wish.school.toString() === FALSE_0.toString() ? '华小师' : '武小理'}</p>
+                    props.wish.school.toString() === FALSE_0.toString() ? '华小师' : '武小理'}</p>    {/* props.wish.school可能未定义，对接口*/}
                 <p>{props.wish.wishman_name.length > 0 ? props.wish.wishman_name.charAt(0) + "同学"
                     : ""}</p>
             </div>
