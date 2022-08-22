@@ -2,7 +2,7 @@ import "./index.scss";
 import { useEffect, useState } from "react";
 // import { Empty } from "./empty.jsx";
 // import { MyWishList } from "./list";
-import Service, { wishMan_information } from "../../common/service";
+import Service, { IWishMan_information } from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
 const INITNUM: number = -9;
 
@@ -17,7 +17,7 @@ export interface IWishObject {
   type: number,//to do -- 改成具体数字，问后端要接口
   wish: string,
   wish_id: number,
-  wishman_inform: wishMan_information
+  wishman_inform: IWishMan_information
 }
 
 

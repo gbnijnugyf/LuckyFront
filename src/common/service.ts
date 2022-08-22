@@ -10,7 +10,7 @@ import { IWishesObject } from '../pages/Wishes';
 // const BASEURL = window.location.href.slice(0, window.location.href.indexOf('/', 10)) + "/api" //部署环境用
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default"
 
-interface GlobalResponse<T> {
+interface IGlobalResponse<T> {
     data: T,
     msg: string,
     status: number
@@ -25,7 +25,7 @@ function IsToken(props: IConfig): IConfig {
 }
 async function GlobalAxiosToPost<T>(props: IConfig) {
     props = IsToken(props);
-    const response = await axios.post<GlobalResponse<T>>(props.url, props.data);
+    const response = await axios.post<IGlobalResponse<T>>(props.url, props.data);
     // console.log(props.data)
     return response;
 }
@@ -37,7 +37,7 @@ async function GlobalAxiosToGet<T>(props: IConfig) {
     else if (props.interf === "Post") {
 
     }
-    const response = await axios.get<GlobalResponse<T>>(props.url)
+    const response = await axios.get<IGlobalResponse<T>>(props.url)
     return response;
 }
 async function GlobalAxiosToDelete(props:IConfig) {
@@ -85,52 +85,52 @@ export interface IConfig {
     interf?: string
 }
 
-interface light_information {
+interface Ilight_information {
     light_name?: string,
     light_tel?: string,
     light_qq?: string,
     light_wechat?: string,
 }
-export interface wishMan_information{
+export interface IWishMan_information{
     wishMan_name?: string,
     wishMan_QQ?: string,
     wishMan_Wechat?: string,
     wishMan_Tel?: string,
 }
 
-export interface PostProps {
+export interface IPostProps {
     url: URL,
     data: {//[key:String]?:any
         data?: object,
         email?: string,
         idcard_number?: string,
         password?: string,
-        wishMan_inform?:wishMan_information,
+        wishMan_inform?:IWishMan_information,
         wish?: string,
         type?: string,
         wish_id?: string,
-        light_inform?:light_information,
+        light_inform?:Ilight_information,
         message?: string
     },
     method: string,
     interf?: string
 }
 
-export interface GetProps {
+export interface IGetProps {
     url: URL,
     data: URL,
     method: string,
     interf?: string
 }
 
-interface DeleteProps{
+interface IDeleteProps{
     url:string,
     data:undefined,
     method:string
 }
 
 
-function toConfig(props: PostProps | GetProps|DeleteProps): IConfig {
+function toConfig(props: IPostProps | IGetProps|IDeleteProps): IConfig {
 
     if (props.url && props.data && props.method) {
         if(props.method === "delete"){
@@ -222,7 +222,7 @@ let Service = {
         //console.log("请求5")
 
         return GlobalAxios<{
-            wishMan_inform:wishMan_information,
+            wishMan_inform:IWishMan_information,
             wish: string,
             type: string
         }>(toConfig({
@@ -248,7 +248,7 @@ let Service = {
 
         return GlobalAxios<{
             wish_id: string,
-            light_inform?:light_information,
+            light_inform?:Ilight_information,
         }>(toConfig({
             url: new URL(BASEURL + '/wishes/light'),
             data: {

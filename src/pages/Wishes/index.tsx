@@ -18,12 +18,12 @@ export interface IWishesObject {
 }
 
 
-interface MyStyle {
+interface IMyStyle {
     left: string,
     transition?: string,
     zIndex: number
 }
-function toStyle(props: MyStyle): React.CSSProperties {
+function toStyle(props: IMyStyle): React.CSSProperties {
 
     if (props.transition !== undefined) {
         let divStyle: React.CSSProperties = {
@@ -49,12 +49,12 @@ export interface IWishItemProps_ {
     onTouchMove?: (e: any) => void,
     onTouchEnd?: () => void,
     setStyleID: number
-    mystyle: MyStyle
+    Imystyle: IMyStyle
 }
 
-export interface IonTouchStart_e {
-    targetTouches: number,
-}
+// export interface IonTouchStart_e {
+//     targetTouches: number,
+// }
 
 // export interface IHTMLonTouchStartElemmt extends HTMLElement {
 
@@ -64,7 +64,7 @@ const WishItem = (props: IWishItemProps_) => {
 
 
     return (
-        <div key={props.wish?.wishman_name} className="wish-item" style={toStyle(props.mystyle)}
+        <div key={props.wish?.wishman_name} className="wish-item" style={toStyle(props.Imystyle)}
             onTouchStart={props.onTouchStart} onTouchMove={props.onTouchMove} onTouchEnd={props.onTouchEnd} >
             <img src={leaf} className="wish-img" alt="" />
             <div className="content">
@@ -84,7 +84,7 @@ const WishItem = (props: IWishItemProps_) => {
     )
 }
 
-export interface IstartX {
+export interface IStartX {
     start: any, //touch.pageX和e.targetTouches[0]不知道是啥类型，详见130，131
     move: string
 }
@@ -92,7 +92,7 @@ export interface IstartX {
 export default function Wishes() {
     const navigate = useNavigate();
     // 拿着这个分类去发请求
-    let start_init: IstartX = {
+    let start_init: IStartX = {
         start: "",
         move: ""
     }
@@ -285,7 +285,7 @@ export default function Wishes() {
                     onTouchStart={onTouchStart}
                     onTouchMove={onTouchMove}
                     onTouchEnd={onTouchEnd}
-                    mystyle={{
+                    Imystyle={{
                         left: `${move.img1}vw`,
                         transition: update ? 'all 0.2s' : 'none',
                         zIndex: 101
@@ -293,7 +293,7 @@ export default function Wishes() {
                 <WishItem className="wish-img"
                     wish={wishes[1]}
                     setStyleID={1}
-                    mystyle={{
+                    Imystyle={{
                         left: `${move.img2}vw`,
                         transition: update ? 'all 0.2s' : 'none',
                         zIndex: 100
@@ -301,7 +301,7 @@ export default function Wishes() {
                 <WishItem className="wish-img"
                     wish={wishes[2]}
                     setStyleID={2}
-                    mystyle={{
+                    Imystyle={{
                         left: `${move.img3}vw`,
                         transition: update ? 'all 0.2s' : 'none',
                         zIndex: 99
@@ -309,7 +309,7 @@ export default function Wishes() {
                 <WishItem className="img1 wish-img"
                     wish={wishes[2]}
                     setStyleID={3}
-                    mystyle={{
+                    Imystyle={{
                         left: `20vw`,
                         zIndex: 98
                     }} />

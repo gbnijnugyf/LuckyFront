@@ -7,11 +7,11 @@ import logo from "../../static/images/logo.svg";
 import arrowimg from "../../static/images/arrow.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
-interface ItitleList {
+interface ITitleList {
   [key: string]: string
 }
 
-const titleList: ItitleList = {
+const titleList: ITitleList = {
   "/tagscreen/home": "标签页",
   "/tagscreen/fillwish": "投递我的小幸运",
   "/detail/list": "愿望详情",

@@ -4,7 +4,7 @@ import { formatTime } from '../../common/global'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { IWishObject } from '.'
 
-export interface WishState{
+export interface IWishState{
     wishLight:Array<IWishObject>,
     wishPost:Array<IWishObject>
 }
@@ -12,7 +12,7 @@ export interface WishState{
 export function MyWishList() {
     
     const navigate = useNavigate();
-    let wish_state = useLocation().state as WishState;
+    let wish_state = useLocation().state as IWishState;
     let wishPost = wish_state.wishPost;
     let wishLight = wish_state.wishPost;
     
