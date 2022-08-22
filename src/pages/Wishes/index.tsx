@@ -49,7 +49,7 @@ export interface IWishItemProps {
     onTouchMove?: (e: any) => void,
     onTouchEnd?: () => void,
     setStyleID: number
-    Imystyle: IMyStyle
+    myStyle: IMyStyle
 }
 
 // export interface IonTouchStart_e {
@@ -64,7 +64,7 @@ const WishItem = (props: IWishItemProps) => {
 
 
     return (
-        <div key={props.wish?.wishman_name} className="wish-item" style={toStyle(props.Imystyle)}
+        <div key={props.wish?.wishman_name} className="wish-item" style={toStyle(props.myStyle)}
             onTouchStart={props.onTouchStart} onTouchMove={props.onTouchMove} onTouchEnd={props.onTouchEnd} >
             <img src={leaf} className="wish-img" alt="" />
             <div className="content">
@@ -285,7 +285,7 @@ export default function Wishes() {
                     onTouchStart={onTouchStart}
                     onTouchMove={onTouchMove}
                     onTouchEnd={onTouchEnd}
-                    Imystyle={{
+                    myStyle={{
                         left: `${move.img1}vw`,
                         transition: update ? 'all 0.2s' : 'none',
                         zIndex: 101
@@ -293,7 +293,7 @@ export default function Wishes() {
                 <WishItem className="wish-img"
                     wish={wishes[1]}
                     setStyleID={1}
-                    Imystyle={{
+                    myStyle={{
                         left: `${move.img2}vw`,
                         transition: update ? 'all 0.2s' : 'none',
                         zIndex: 100
@@ -301,7 +301,7 @@ export default function Wishes() {
                 <WishItem className="wish-img"
                     wish={wishes[2]}
                     setStyleID={2}
-                    Imystyle={{
+                    myStyle={{
                         left: `${move.img3}vw`,
                         transition: update ? 'all 0.2s' : 'none',
                         zIndex: 99
@@ -309,7 +309,7 @@ export default function Wishes() {
                 <WishItem className="img1 wish-img"
                     wish={wishes[2]}
                     setStyleID={3}
-                    Imystyle={{
+                    myStyle={{
                         left: `20vw`,
                         zIndex: 98
                     }} />
