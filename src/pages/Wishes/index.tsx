@@ -8,6 +8,7 @@ import './index.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const FALSE_0: number = 0;
+const SCHOOLINIT: number = -1;
 
 
 export interface IWishesObject {
@@ -52,7 +53,7 @@ export interface IWishItemProps {
     myStyle: IMyStyle
 }
 
-// export interface IonTouchStart_e {
+// export interface IonTouchStartE {
 //     targetTouches: number,
 // }
 
@@ -92,14 +93,14 @@ export interface IStartX {
 export default function Wishes() {
     const navigate = useNavigate();
     // 拿着这个分类去发请求
-    let start_init: IStartX = {
+    let STARTINIT: IStartX = {
         start: "",
         move: ""
     }
-    let wishes_init: Array<IWishesObject> = [
-        { wish: "当前分类没有愿望哦~", school: -1, wishman_name: "" },
-        { wish: "当前分类没有愿望哦~", school: -1, wishman_name: "" },
-        { wish: "当前分类没有愿望哦~", school: -1, wishman_name: "" }
+    let WISHESINIT: Array<IWishesObject> = [
+        { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" },
+        { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" },
+        { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" }
     ]
     interface ILocationState {
         category: number
@@ -110,12 +111,12 @@ export default function Wishes() {
     const [showTip, setShowTip] = useState(true)
     const moveState = { img1: 0, img2: 10, img3: 20 }
     const [move, setMove] = useState(moveState) // 树叶动画相关状态
-    const [startX, setStartX] = useState(start_init) // 树叶动画相关状态
+    const [startX, setStartX] = useState(STARTINIT) // 树叶动画相关状态
     const [update, setUpDate] = useState(false) // 控制动画以及愿望内容的更新
     const [display, setDisplay] = useState(false);// 弹出确认框
     const [light, setLight] = useState(false)
     const [lightBtn, setLightBtn] = useState(true) // 点亮按钮是否存在
-    const [wishes, setWishes] = useState(wishes_init)
+    const [wishes, setWishes] = useState(WISHESINIT)
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
     const [tel, setTel] = useState("")
@@ -126,7 +127,7 @@ export default function Wishes() {
             let wishes = res.data.data
             if (res.data.data.length === 0) {
                 setLightBtn(false)
-                let wish = { wish: "当前分类没有愿望哦~", school: -1, wishman_name: "" }
+                let wish = { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" }
                 wishes.push(wish);
             } else {
                 wishes = res.data.data

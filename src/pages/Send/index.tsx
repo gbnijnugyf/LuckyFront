@@ -9,6 +9,8 @@ import './index.scss'
 import { useNavigate } from 'react-router-dom'
 import { ChangeEvent } from 'react'
 
+const CATEGORYINIT:number = -1
+
 export default function Send() {
     const navigate = useNavigate();
 
@@ -19,7 +21,7 @@ export default function Send() {
     const [numberValue, setNumberValue] = useState('') //控制 number input
     const [tel, setTel] = useState('') // 控制tel input
     const [selectValue, setSelectValue] = useState('QQ')// 控制select的值
-    const [category, setCategory] = useState(-1) // 控制愿望分类
+    const [category, setCategory] = useState(CATEGORYINIT) // 控制愿望分类
     const [isInk, setIsInk] = useState(true)
 
     const handleNoneInk = () => {

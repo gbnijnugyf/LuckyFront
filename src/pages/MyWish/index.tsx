@@ -2,7 +2,7 @@ import "./index.scss";
 import { useEffect, useState } from "react";
 // import { Empty } from "./empty.jsx";
 // import { MyWishList } from "./list";
-import Service, { IWishMan_information } from "../../common/service";
+import Service, { IWishManInformation } from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
 const INITNUM: number = -9;
 
@@ -17,12 +17,12 @@ export interface IWishObject {
   type: number,//to do -- 改成具体数字，问后端要接口
   wish: string,
   wish_id: number,
-  wishman_inform: IWishMan_information
+  wishman_inform: IWishManInformation
 }
 
 
 export const Index = () => {
-  let wishPost_init: Array<IWishObject> = [{
+  let WISHPOST_INIT: Array<IWishObject> = [{
     creat_at: "",
     light_at: "",
     light_user: INITNUM,//to do -- 改成具体数字，问后端要接口
@@ -42,8 +42,8 @@ export const Index = () => {
 
 
   const navigate = useNavigate();
-  const [wishPost, setWishPost] = useState(wishPost_init);
-  const [wishLight, setWishLight] = useState(wishPost_init);
+  const [wishPost, setWishPost] = useState(WISHPOST_INIT);
+  const [wishLight, setWishLight] = useState(WISHPOST_INIT);
   const [gotPost, setGotPost] = useState(false);
   const [gotLight, setGotLight] = useState(false);
   // console.log(inform)
