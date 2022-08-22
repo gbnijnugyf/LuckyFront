@@ -2,8 +2,10 @@ import "./index.scss";
 import { useEffect, useState } from "react";
 // import { Empty } from "./empty.jsx";
 // import { MyWishList } from "./list";
-import Service from "../../common/service";
+import Service, { wishMan_information } from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
+const INITNUM: number = -9;
+
 // import { click } from "@testing-library/user-event/dist/click";
 
 export interface IWishObject {
@@ -15,17 +17,33 @@ export interface IWishObject {
   type: number,//to do -- 改成具体数字，问后端要接口
   wish: string,
   wish_id: number,
-  wishman_name: string,
-  wishman_qq: string
-  wishman_tel: string
-  wishman_wechat: string
+  wishman_inform: wishMan_information
 }
 
 
 export const Index = () => {
+  let wishPost_init: Array<IWishObject> = [{
+    creat_at: "",
+    light_at: "",
+    light_user: INITNUM,//to do -- 改成具体数字，问后端要接口
+    school: INITNUM,//to do -- 改成具体数字，问后端要接口
+    state: INITNUM,//to do -- 改成具体数字，问后端要接口
+    type: INITNUM,//to do -- 改成具体数字，问后端要接口
+    wish: "",
+    wish_id: INITNUM,
+    wishman_inform: {
+      wishMan_name: "",
+      wishMan_QQ: "",
+      wishMan_Tel: "",
+      wishMan_Wechat: ""
+    }
+  }]
+
+
+
   const navigate = useNavigate();
-  const [wishPost, setWishPost] = useState(Array<IWishObject>);
-  const [wishLight, setWishLight] = useState(Array<IWishObject>);
+  const [wishPost, setWishPost] = useState(wishPost_init);
+  const [wishLight, setWishLight] = useState(wishPost_init);
   const [gotPost, setGotPost] = useState(false);
   const [gotLight, setGotLight] = useState(false);
   // console.log(inform)

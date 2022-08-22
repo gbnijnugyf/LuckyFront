@@ -91,7 +91,7 @@ interface light_information {
     light_qq?: string,
     light_wechat?: string,
 }
-interface wishMan_information{
+export interface wishMan_information{
     wishMan_name?: string,
     wishMan_QQ?: string,
     wishMan_Wechat?: string,
