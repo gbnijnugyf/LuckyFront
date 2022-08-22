@@ -24,17 +24,22 @@ interface myStyle {
     zIndex: string
 }
 function toStyle(props: myStyle): React.CSSProperties {
-    const divStyle: React.CSSProperties = {
-        left: "",
-        transition: "",
-        zIndex: ""
-    };
-    divStyle.left = props.left;
+
     if (props.transition !== undefined) {
-        divStyle.transition = props.transition;
+        let divStyle: React.CSSProperties = {
+            left: props.left,
+            transition: props.transition,
+            zIndex: props.zIndex
+        };
+        return divStyle;
     }
-    divStyle.zIndex = props.zIndex;
-    return divStyle;
+    else{
+        let divStyle: React.CSSProperties = {
+            left: props.left,
+            zIndex: props.zIndex
+        };
+        return divStyle;
+    }
 }
 
 export interface IWishItemProps_ {
