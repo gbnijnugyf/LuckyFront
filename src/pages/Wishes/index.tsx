@@ -7,7 +7,7 @@ import Service from '../../common/service'
 import './index.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-const FALSE_0:number = 0;
+const FALSE_0: number = 0;
 
 
 export interface IWishesObject {
@@ -18,13 +18,33 @@ export interface IWishesObject {
 }
 
 
+interface myStyle {
+    left: string,
+    transition?: string,
+    zIndex: string
+}
+function toStyle(props: myStyle): React.CSSProperties {
+    const divStyle: React.CSSProperties = {
+        left: "",
+        transition: "",
+        zIndex: ""
+    };
+    divStyle.left = props.left;
+    if (props.transition !== undefined) {
+        divStyle.transition = props.transition;
+    }
+    divStyle.zIndex = props.zIndex;
+    return divStyle;
+}
+
 export interface IWishItemProps_ {
     className: string,
     wish: IWishesObject,
     onTouchStart?: (e: any) => void,
     onTouchMove?: (e: any) => void,
     onTouchEnd?: () => void,
-    style: {
+    setStyleID: number
+    mystyle: {
         left: string,
         transition?: string,
         zIndex: string
@@ -35,14 +55,15 @@ export interface IonTouchStart_e {
     targetTouches: number,
 }
 
-export interface IHTMLonTouchStartElemmt extends HTMLElement {
+// export interface IHTMLonTouchStartElemmt extends HTMLElement {
 
-}
+// }
 
 const WishItem = (props: IWishItemProps_) => {
 
+
     return (
-        <div key={props.wish?.wishman_name} className="wish-item" style={props.style}
+        <div key={props.wish?.wishman_name} className="wish-item" style={toStyle(props.mystyle)}
             onTouchStart={props.onTouchStart} onTouchMove={props.onTouchMove} onTouchEnd={props.onTouchEnd} >
             <img src={leaf} className="wish-img" alt="" />
             <div className="content">
@@ -259,31 +280,35 @@ export default function Wishes() {
             <div className='wishes'>
                 <WishItem className="wish-img"
                     wish={wishes[0]}
+                    setStyleID={0}
                     onTouchStart={onTouchStart}
                     onTouchMove={onTouchMove}
                     onTouchEnd={onTouchEnd}
-                    style={{
+                    mystyle={{
                         left: `${move.img1}vw`,
                         transition: update ? 'all 0.2s' : 'none',
                         zIndex: "101"
                     }} />
                 <WishItem className="wish-img"
                     wish={wishes[1]}
-                    style={{
+                    setStyleID={1}
+                    mystyle={{
                         left: `${move.img2}vw`,
                         transition: update ? 'all 0.2s' : 'none',
                         zIndex: "100"
                     }} />
                 <WishItem className="wish-img"
                     wish={wishes[2]}
-                    style={{
+                    setStyleID={2}
+                    mystyle={{
                         left: `${move.img3}vw`,
                         transition: update ? 'all 0.2s' : 'none',
                         zIndex: "99"
                     }} />
                 <WishItem className="img1 wish-img"
                     wish={wishes[2]}
-                    style={{
+                    setStyleID={3}
+                    mystyle={{
                         left: `20vw`,
                         zIndex: "98"
                     }} />
