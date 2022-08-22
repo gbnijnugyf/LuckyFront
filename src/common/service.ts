@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import 'whatwg-fetch';
 import { IWishObject } from '../pages/MyWish';
 import { IWishesObject } from '../pages/Wishes';
@@ -40,9 +40,9 @@ async function GlobalAxiosToGet<T>(props: IConfig) {
     const response = await axios.get<IGlobalResponse<T>>(props.url)
     return response;
 }
-async function GlobalAxiosToDelete(props:IConfig) {
+async function GlobalAxiosToDelete<T>(props:IConfig) {
     props = IsToken(props);
-    const response = await axios.delete(props.url, props.data)
+    const response = await axios.delete<IGlobalResponse<T>>(props.url, props.data)
 
     return response
 }
@@ -54,7 +54,7 @@ async function GlobalAxios<T>(props: IConfig) {//
     else if(props.method === "get")
         response = await GlobalAxiosToGet<T>(props)
     else
-        response = await GlobalAxiosToDelete(props)
+        response = await GlobalAxiosToDelete<T>(props)
     // const {data} = response;
 
     if (response.statusText === 'OK') {
@@ -166,7 +166,7 @@ let Service = {
 
     bindEmail(email: string) {
         //console.log("请求1")
-        return GlobalAxios<{ email: string }>(toConfig({
+        return GlobalAxios<string>(toConfig({
             url: new URL(BASEURL + '/user/email'),
             data: {
                 email: email
@@ -175,7 +175,7 @@ let Service = {
     },
 
     //whut登录
-    whutLogin() {
+    whutLogin(): Promise<AxiosResponse<{ data: {} }>>{
         //console.log("请求2")
 
         return GlobalAxios<{ data: {} }>(toConfig({
@@ -243,7 +243,7 @@ let Service = {
     },
 
     //点亮别人的愿望
-    lightWishOn(id: string, name: string, tel: string, qq: string, wechat: string) {
+    lightWishOn(id: string, name: string, tel: string, qq: string, wechat: string):Promise<AxiosResponse<any, any>> {
         //console.log("请求6")
 
         return GlobalAxios<{
