@@ -3,7 +3,7 @@ import ConfirmPanel from '../../components/ConfirmPanel'
 import { ButtonS } from '../../components/Button'
 import calendar from '../../static/images/calendar.svg'
 import leaf from '../../static/images/leaf.svg'
-import Service from '../../common/service'
+import {Service} from '../../common/service'
 import './index.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 

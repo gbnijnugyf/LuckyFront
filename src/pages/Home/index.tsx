@@ -3,7 +3,7 @@ import { ITagsObject } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
 import { tags } from "../../config/Global";
 import "./index.scss";
-import Service from "../../common/service";
+import {Service} from "../../common/service";
 import { useNavigate } from "react-router-dom";
 
 
