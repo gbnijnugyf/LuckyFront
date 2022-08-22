@@ -11,7 +11,7 @@ import reportWebVitals from './reportWebVitals';
 //     </BrowserRouter>,
 //     document.getElementById('root')
 // );
-const container = document.getElementById('root');
+const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
 root.render(
     <BrowserRouter><App /></BrowserRouter>);
