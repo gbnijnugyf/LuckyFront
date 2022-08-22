@@ -216,7 +216,7 @@ export default function Wishes() {
                         alert("点亮成功~")
                         refreshWishes()
                     } else {
-                        alert(res.data.msg) //类型“AxiosResponse<any, any>”上不存在属性“msg” ,res暂时定义为any
+                        alert(res.data.msg)
                     }
                 })
                 handleAlert();

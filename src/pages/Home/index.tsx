@@ -21,7 +21,7 @@ export default function Home() {
   });
 
   const goWishes = (tag:ITagsObject) => {
-    navigate(`/wishpool/wish/:${tag.enName}`, { state: { category: tag.category } });
+    navigate(`/wishpool/wish/${tag.enName}`, { state: { category: tag.category } });
 
     // props.history.push(`/wish/${tag.enName}`, { category: tag.category })
   };
