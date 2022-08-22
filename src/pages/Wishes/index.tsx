@@ -18,12 +18,12 @@ export interface IWishesObject {
 }
 
 
-interface myStyle {
+interface MyStyle {
     left: string,
     transition?: string,
-    zIndex: string
+    zIndex: number
 }
-function toStyle(props: myStyle): React.CSSProperties {
+function toStyle(props: MyStyle): React.CSSProperties {
 
     if (props.transition !== undefined) {
         let divStyle: React.CSSProperties = {
@@ -49,11 +49,7 @@ export interface IWishItemProps_ {
     onTouchMove?: (e: any) => void,
     onTouchEnd?: () => void,
     setStyleID: number
-    mystyle: {
-        left: string,
-        transition?: string,
-        zIndex: string
-    }
+    mystyle: MyStyle
 }
 
 export interface IonTouchStart_e {
@@ -292,7 +288,7 @@ export default function Wishes() {
                     mystyle={{
                         left: `${move.img1}vw`,
                         transition: update ? 'all 0.2s' : 'none',
-                        zIndex: "101"
+                        zIndex: 101
                     }} />
                 <WishItem className="wish-img"
                     wish={wishes[1]}
@@ -300,7 +296,7 @@ export default function Wishes() {
                     mystyle={{
                         left: `${move.img2}vw`,
                         transition: update ? 'all 0.2s' : 'none',
-                        zIndex: "100"
+                        zIndex: 100
                     }} />
                 <WishItem className="wish-img"
                     wish={wishes[2]}
@@ -308,14 +304,14 @@ export default function Wishes() {
                     mystyle={{
                         left: `${move.img3}vw`,
                         transition: update ? 'all 0.2s' : 'none',
-                        zIndex: "99"
+                        zIndex: 99
                     }} />
                 <WishItem className="img1 wish-img"
                     wish={wishes[2]}
                     setStyleID={3}
                     mystyle={{
                         left: `20vw`,
-                        zIndex: "98"
+                        zIndex: 98
                     }} />
             </div>
             <ButtonS style={{ position: "fixed", background: "#F59D65A0", color: "#FFFFFFA0", top: "65vh", right: "-1em", zIndex: "301", display: showTip ? "absolute" : "none" }}>
