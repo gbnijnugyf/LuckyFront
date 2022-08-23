@@ -169,7 +169,7 @@ export const Service = {
     let url = new URL("/user/info/lightman");
     url.searchParams.append("wish_id", id);
     url.searchParams.append("time", new Date().getTime().toString());
-    return GlobalAxios<IWishObject>("get", url.toString());
+    return GlobalAxios<ILightInformation>("get", url.toString());
   },
 
   //获取自己点亮的愿望//后端接口重构Ligth

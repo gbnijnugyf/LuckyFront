@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { type } from "os";
 import { ButtonS } from "../../components/Button";
 const INITNUM: number = -9;
+function KILLUNDEFINED(value:string|undefined){return value?value:""} 
 
 type IOnChange = {
     changeShowConfirm: (props: boolean) => void,
@@ -21,6 +22,11 @@ interface IWishDetail {
     isMine: boolean,
     onChange: IOnChange,
     pathname: string
+}
+
+interface IPersonMsg{
+    wish:IWishObject,
+    isMine:boolean
 }
 
 export interface IBtnStateObject<T = any> {
@@ -102,6 +108,52 @@ function WishDetail(props: IWishDetail) {
     )
 }
 
+function PersonMsg(props:IPersonMsg)  {
+    const {wish, isMine} = props
+    const [name, setName] = useState("");
+    const [time, setTime] = useState("");
+    const [QQ, setQQ] = useState("");
+    const [wechat, setWechat] = useState("");
+    const [tel, setTel] = useState("");
+    useEffect(() => {
+      if (isMine) {
+        Service.getLightManInfo(wish.wish_id.toString()).then((res) => {
+            let lightman = res.data.data;
+          setName(KILLUNDEFINED(lightman.light_name));
+          setTime("于" + formatTime(wish.light_at) + "点亮");
+          setQQ(KILLUNDEFINED(lightman.light_qq));
+          setWechat(KILLUNDEFINED(lightman.light_wechat));
+          setTel(KILLUNDEFINED(lightman.light_tel));
+        });
+      } else {
+        setName(KILLUNDEFINED(wish.wishman_inform?.wishMan_name));
+        setTime("于" + formatTime(wish.creat_at) + "许愿");
+        setQQ(KILLUNDEFINED(wish.wishman_inform?.wishMan_QQ));
+        setWechat(KILLUNDEFINED(wish.wishman_inform?.wishMan_Wechat));
+        setTel(KILLUNDEFINED(wish.wishman_inform?.wishMan_Tel));
+      }
+    }, [isMine, wish]);
+  
+    return (
+      <div className="msg">
+        <div className="msg-text">
+          <p className="h">{isMine ? "点亮人" : "许愿人"}</p>
+          <p className="name">{name}</p>
+        </div>
+        <div className="msg-info">
+          <p>{time}</p>
+          <p style={{ marginTop: "0.5em", textAlign: "left" }}>联系方式 :</p>
+          <ul className="msg-number">
+            {QQ ? <li>QQ：{QQ}</li> : null}
+            {wechat ? <li>微信：{wechat}</li> : null}
+            {tel ? <li>电话：{tel}</li> : null}
+          </ul>
+        </div>
+      </div>
+    );
+};
+
+
 //Detail核心显示部分
 
 function DetailPage(props: IDetailPageProps) {
@@ -135,6 +187,7 @@ function DetailPage(props: IDetailPageProps) {
         changeShowConfirm(true);
         changeBtnText(btnText1, btnText2);
     }
+
 
 
     // 点击实现愿望
