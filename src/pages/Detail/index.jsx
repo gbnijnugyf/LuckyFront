@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ButtonS } from "../../components/Button";
 import ConfirmPanel from "../../components/ConfirmPanel";
-import Service from "../../common/service";
+import {Service} from "../../common/service";
 import forwardimg from "../../static/images/forward.svg";
 import "./index.scss";
 import { formatTime } from "../../common/global";

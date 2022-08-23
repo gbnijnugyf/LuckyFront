@@ -1,4 +1,4 @@
-import Service from '../../common/service'
+import {Service} from '../../common/service'
 import './loginSchools.scss'
 import { ButtonL } from '../../components/Button'
 import { ChangeEvent, ReactNode, useState } from 'react'

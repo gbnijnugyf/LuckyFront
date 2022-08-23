@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import Service from '../../common/service'
+import {Service} from '../../common/service'
 import ink from '../../static/images/ink.svg'
 import { tags } from '../../config/Global'
 import { ButtonS } from '../../components/Button'

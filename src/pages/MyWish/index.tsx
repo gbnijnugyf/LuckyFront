@@ -2,7 +2,7 @@ import "./index.scss";
 import { useEffect, useState } from "react";
 // import { Empty } from "./empty.jsx";
 // import { MyWishList } from "./list";
-import Service, { IWishManInformation } from "../../common/service";
+import {Service, IWishManInformation } from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
 const INITNUM: number = -9;
 
