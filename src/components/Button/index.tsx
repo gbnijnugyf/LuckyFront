@@ -2,11 +2,11 @@
 
 import './index.scss'
 
-export interface IBtnL{
+interface IBtnL{
     onClick?:React.MouseEventHandler<HTMLDivElement>,
     children:string|any   
 }
-export interface IBtnS{
+interface IBtnS{
     onClick?:React.MouseEventHandler<HTMLDivElement>,
     style:{[key:string]:string},
     children:string|any

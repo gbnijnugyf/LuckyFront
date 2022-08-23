@@ -17,7 +17,7 @@ export interface IWishObject {
   type: number,//to do -- 改成具体数字，问后端要接口
   wish: string,
   wish_id: number,
-  wishman_inform: IWishManInformation
+  wishman_inform?: IWishManInformation
 }
 
 
@@ -31,12 +31,12 @@ export const Index = () => {
     type: INITNUM,//to do -- 改成具体数字，问后端要接口
     wish: "",
     wish_id: INITNUM,
-    wishman_inform: {
-      wishMan_name: "",
-      wishMan_QQ: "",
-      wishMan_Tel: "",
-      wishMan_Wechat: ""
-    }
+    // wishman_inform: {
+    //   wishMan_name: "",
+    //   wishMan_QQ: "",
+    //   wishMan_Tel: "",
+    //   wishMan_Wechat: ""
+    // }
   }]
 
 

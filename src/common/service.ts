@@ -15,6 +15,18 @@ interface IGlobalResponse<T> {
   msg: string;
   status: number;
 }
+interface ILightInformation {
+    light_name?: string;
+    light_tel?: string;
+    light_qq?: string;
+    light_wechat?: string;
+  }
+  export interface IWishManInformation {
+    wishMan_name?: string;
+    wishMan_QQ?: string;
+    wishMan_Wechat?: string;
+    wishMan_Tel?: string;
+  }
 
 async function GlobalAxios<T = any, D = any>(
   method: "post",
@@ -64,18 +76,7 @@ async function GlobalAxios<T = any, D = any>(
   return response;
 }
 
-interface ILightInformation {
-  light_name?: string;
-  light_tel?: string;
-  light_qq?: string;
-  light_wechat?: string;
-}
-export interface IWishManInformation {
-  wishMan_name?: string;
-  wishMan_QQ?: string;
-  wishMan_Wechat?: string;
-  wishMan_Tel?: string;
-}
+
 
 export const Service = {
   //绑定邮箱
@@ -168,7 +169,7 @@ export const Service = {
     let url = new URL("/user/info/lightman");
     url.searchParams.append("wish_id", id);
     url.searchParams.append("time", new Date().getTime().toString());
-    return GlobalAxios<IWishObject[]>("get", url.toString());
+    return GlobalAxios<IWishObject>("get", url.toString());
   },
 
   //获取自己点亮的愿望//后端接口重构Ligth

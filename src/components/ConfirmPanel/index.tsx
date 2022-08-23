@@ -32,9 +32,17 @@
 
 //ts暂时没改好，测试用jsx
 //to do -- 用于detail，TS不好改，估计也得重写
+import { ReactNode } from "react"
+import { IBtnStateObject } from "../../pages/Detail/index2"
 import "./index.scss"
+interface IConfirmPanelProps{
+    display:boolean,
+    action:IBtnStateObject<() => void>,
+    btnText?:IBtnStateObject<string>,
+    children:ReactNode
+}
 
-export default function ConfirmPanel(props) {
+export default function ConfirmPanel(props:IConfirmPanelProps) {
     return (
         <div className="mask" style={{ display: props.display ? 'flex' : 'none' }}>
             <div className="infoPanel">
@@ -43,10 +51,10 @@ export default function ConfirmPanel(props) {
                 </div>
                 <div className="confirmPanel">
                     <div className="confirmFalse" onClick={props.action.no}>
-                        {props.btnText?.no ? props.btnText.no : "取消"}
+                        {props.btnText?.no !== "" ? props.btnText?.no : "取消"}
                     </div>
                     <div className="confirmTrue" onClick={props.action.yes}>
-                        {props.btnText?.yes ? props.btnText.yes : "确认"}
+                        {props.btnText?.yes !== "" ? props.btnText?.yes : "确认"}
                     </div>
                 </div>
             </div>

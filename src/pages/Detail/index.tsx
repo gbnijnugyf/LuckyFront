@@ -17,7 +17,7 @@ const WishDetail = (props) => {
   const {
     changeShowConfirm,
     changeConfirmContent,
-    // changeBtnText,
+    changeBtnText,
     changeConfirmAction,
   } = props.onChange;
   const { isMine, wish } = props;
@@ -161,6 +161,7 @@ const OtherLighted = (props) => {
     );
     changeShowConfirm(true);
   };
+  
   // 点击放弃愿望
   const pressAbandon = () => {
     changeConfirmAction(pressReallyAbandon, () => {
@@ -291,7 +292,7 @@ const OtherNotLighted = (props) => {
   let tel = "";
   const [option, setOption] = useState("QQ");
 
-  const handleName = (e) => {
+  const handleName = (e) => {  //去掉函数声明直接调用
     name = e.target.value;
   };
   const handleNumber = (e) => {
@@ -434,7 +435,7 @@ const MineLighted = (props) => {
     goOtherPage,
     changeShowConfirm,
     changeConfirmContent,
-    // changeBtnText,
+    changeBtnText,
     changeConfirmAction,
   } = props.onChange;
   const wish = props.wish;
@@ -503,6 +504,9 @@ const MineLighted = (props) => {
   );
 };
 
+
+
+
 export default function Detail(props) {
   // console.log(props)
   const navigate = useNavigate();
@@ -559,7 +563,7 @@ export default function Detail(props) {
     });
   }, [location.pathname]);
 
-  const onChange = {
+  const onChange = {  
     changeShowConfirm: changeShowConfirm,
     changeConfirmContent: changeConfirmContent,
     changeBtnText: changeBtnText,
