@@ -2,12 +2,12 @@ import "./index.scss";
 import { Outlet, useNavigate } from "react-router-dom";
 // import path from "path";
 
-export interface BtnProps {
+export interface IBtnProps {
   text: string;
   onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-function Btn(props: BtnProps) {
+function Btn(props: IBtnProps) {
   return (
     <div className="btn-school" onClick={props.onClick}>
       <div className="birdimg" />

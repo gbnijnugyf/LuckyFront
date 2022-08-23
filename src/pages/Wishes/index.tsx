@@ -1,16 +1,71 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import ConfirmPanel from '../../components/ConfirmPanel'
 import { ButtonS } from '../../components/Button'
 import calendar from '../../static/images/calendar.svg'
 import leaf from '../../static/images/leaf.svg'
-import Service from '../../common/service'
+import {Service} from '../../common/service'
 import './index.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-const WishItem = (props) => {
+const FALSE_0: number = 0;
+const SCHOOLINIT: number = -1;
+
+
+export interface IWishesObject {
+    wish: string,
+    school: number,
+    wishman_name: string,
+    wish_id?: string
+}
+
+
+interface IMyStyle {
+    left: string,
+    transition?: string,
+    zIndex: number
+}
+function toStyle(props: IMyStyle): React.CSSProperties {
+
+    if (props.transition !== undefined) {
+        let divStyle: React.CSSProperties = {
+            left: props.left,
+            transition: props.transition,
+            zIndex: props.zIndex
+        };
+        return divStyle;
+    }
+    else{
+        let divStyle: React.CSSProperties = {
+            left: props.left,
+            zIndex: props.zIndex
+        };
+        return divStyle;
+    }
+}
+
+export interface IWishItemProps {
+    className: string,
+    wish: IWishesObject,
+    onTouchStart?: (e: any) => void,
+    onTouchMove?: (e: any) => void,
+    onTouchEnd?: () => void,
+    setStyleID: number
+    myStyle: IMyStyle
+}
+
+// export interface IonTouchStartE {
+//     targetTouches: number,
+// }
+
+// export interface IHTMLonTouchStartElemmt extends HTMLElement {
+
+// }
+
+const WishItem = (props: IWishItemProps) => {
+
 
     return (
-        <div key={props.wish?.wishman_name} className="wish-item" style={props.style}
+        <div key={props.wish?.wishman_name} className="wish-item" style={toStyle(props.myStyle)}
             onTouchStart={props.onTouchStart} onTouchMove={props.onTouchMove} onTouchEnd={props.onTouchEnd} >
             <img src={leaf} className="wish-img" alt="" />
             <div className="content">
@@ -20,8 +75,8 @@ const WishItem = (props) => {
             </div>
             <div className="msg">
 
-                <p>{props.wish.school === "" ? "" :
-                    props.wish.school === 0 ? '华小师' : '武小理'}</p>
+                <p>{props.wish.school.toString() === "" ? "" :
+                    props.wish.school.toString() === FALSE_0.toString() ? '华小师' : '武小理'}</p>    {/* props.wish.school可能未定义，对接口*/}
                 <p>{props.wish.wishman_name.length > 0 ? props.wish.wishman_name.charAt(0) + "同学"
                     : ""}</p>
             </div>
@@ -30,35 +85,49 @@ const WishItem = (props) => {
     )
 }
 
+export interface IStartX {
+    start: any, //touch.pageX和e.targetTouches[0]不知道是啥类型，详见130，131
+    move: string
+}
 
-
-export default function Wishes(props) {
-    // 拿着这个分类去发请求
+export default function Wishes() {
     const navigate = useNavigate();
-    const category = useLocation();
+    // 拿着这个分类去发请求
+    let STARTINIT: IStartX = {
+        start: "",
+        move: ""
+    }
+    let WISHESINIT: Array<IWishesObject> = [
+        { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" },
+        { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" },
+        { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" }
+    ]
+    interface ILocationState {
+        category: number
+    }
+    const category = (useLocation().state as ILocationState).category as number;
+
     // const { category } = props.location.state
     const [showTip, setShowTip] = useState(true)
     const moveState = { img1: 0, img2: 10, img3: 20 }
     const [move, setMove] = useState(moveState) // 树叶动画相关状态
-    const [startX, setStartX] = useState() // 树叶动画相关状态
+    const [startX, setStartX] = useState(STARTINIT) // 树叶动画相关状态
     const [update, setUpDate] = useState(false) // 控制动画以及愿望内容的更新
     const [display, setDisplay] = useState(false);// 弹出确认框
     const [light, setLight] = useState(false)
     const [lightBtn, setLightBtn] = useState(true) // 点亮按钮是否存在
-    const [wishes, setWishes] = useState([{ wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
-    { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" },
-    { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }])
+    const [wishes, setWishes] = useState(WISHESINIT)
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
     const [tel, setTel] = useState("")
     const [option, setOption] = useState("QQ")
     const refreshWishes = () => {
-        Service.getWishByCategories(category).then((res) => {
+        Service.getWishByCategories(category.toString()).then((res) => {
             // console.log(res.data.data)//service修改后data变成了第二层
-            let wishes = []
+            let wishes = res.data.data
             if (res.data.data.length === 0) {
                 setLightBtn(false)
-                let wish = { wish: "当前分类没有愿望哦~", school: "", wishman_name: "" }
+                let wish = { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" }
                 wishes.push(wish);
             } else {
                 wishes = res.data.data
@@ -79,26 +148,26 @@ export default function Wishes(props) {
         }, 5000)
     })
 
-    const handleName = (e) => {
+    const handleName = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value)
     }
-    const handleNumber = (e) => {
+    const handleNumber = (e: ChangeEvent<HTMLInputElement>) => {
         setNumber(e.target.value)
     }
-    const handleTel = (e) => {
+    const handleTel = (e: ChangeEvent<HTMLInputElement>) => {
         setTel(e.target.value)
     }
-    const handleOption = (e) => {
+    const handleOption = (e: ChangeEvent<HTMLSelectElement>) => {
         setOption(e.target.value)
     }
 
     // Start/Move/End 都是控制愿望刷新动画的相关函数
-    const onTouchStart = (e) => {
+    const onTouchStart = (e: any) => {  //e:ChangeEvent<HTMLDivElement>替换为any，targeTouches类型未知
         const touch = e.targetTouches[0]
         setStartX({ start: touch.pageX, move: '' })
 
     }
-    const onTouchMove = (e) => {
+    const onTouchMove = (e: any) => {//e:ChangeEvent<HTMLDivElement>替换为any，targeTouches类型未知
         const touch = e.targetTouches[0]
         const move_X = ((touch.pageX - startX.start) / 5)
         setStartX(startX)
@@ -139,18 +208,19 @@ export default function Wishes(props) {
         if (name === "") alert("还没有填写姓名哦~")
         else if (number === "") alert("还没有填写联系方式哦~")
         else {
-
-            let id = wishes[0].wish_id
-            let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
-            Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
-                if (res.status === 0) {
-                    alert("点亮成功~")
-                    refreshWishes()
-                } else {
-                    alert(res.msg)
-                }
-            })
-            handleAlert();
+            if (wishes[0].wish_id !== undefined) {
+                let id = wishes[0].wish_id as string
+                let [qq, wechat] = option === 'QQ' ? [number, ""] : ["", number]
+                Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
+                    if (res.status === 0) {
+                        alert("点亮成功~")
+                        refreshWishes()
+                    } else {
+                        alert(res.data.msg)
+                    }
+                })
+                handleAlert();
+            }
         }
     }
     // 处理遮罩
@@ -212,33 +282,37 @@ export default function Wishes(props) {
             <div className='wishes'>
                 <WishItem className="wish-img"
                     wish={wishes[0]}
+                    setStyleID={0}
                     onTouchStart={onTouchStart}
                     onTouchMove={onTouchMove}
                     onTouchEnd={onTouchEnd}
-                    style={{
+                    myStyle={{
                         left: `${move.img1}vw`,
                         transition: update ? 'all 0.2s' : 'none',
-                        zIndex: "101"
+                        zIndex: 101
                     }} />
                 <WishItem className="wish-img"
                     wish={wishes[1]}
-                    style={{
+                    setStyleID={1}
+                    myStyle={{
                         left: `${move.img2}vw`,
                         transition: update ? 'all 0.2s' : 'none',
-                        zIndex: "100"
+                        zIndex: 100
                     }} />
                 <WishItem className="wish-img"
                     wish={wishes[2]}
-                    style={{
+                    setStyleID={2}
+                    myStyle={{
                         left: `${move.img3}vw`,
                         transition: update ? 'all 0.2s' : 'none',
-                        zIndex: "99"
+                        zIndex: 99
                     }} />
                 <WishItem className="img1 wish-img"
                     wish={wishes[2]}
-                    style={{
+                    setStyleID={3}
+                    myStyle={{
                         left: `20vw`,
-                        zIndex: "98"
+                        zIndex: 98
                     }} />
             </div>
             <ButtonS style={{ position: "fixed", background: "#F59D65A0", color: "#FFFFFFA0", top: "65vh", right: "-1em", zIndex: "301", display: showTip ? "absolute" : "none" }}>

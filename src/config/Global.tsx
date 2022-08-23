@@ -1,4 +1,10 @@
-export const tags = [
+export interface ITagsObject{
+    name:string,
+    enName:string,
+    category:number
+}
+
+export const tags:Array<ITagsObject> = [
     { name: '影音', enName: 'video', category: 1 },
     { name: '游戏', enName: 'game', category: 2 },
     { name: '美食', enName: 'food', category: 3 },

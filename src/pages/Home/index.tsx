@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
-
+import { ITagsObject } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
 import { tags } from "../../config/Global";
 import "./index.scss";
-import Service from "../../common/service";
+import {Service} from "../../common/service";
 import { useNavigate } from "react-router-dom";
 
-export default function Home(props) {
+
+export default function Home() {
   const navigate = useNavigate();
-  // 检查是否绑定邮箱
-  // let IsEmailBind = 1;
-  // useEffect(() => {
-  //   if(IsEmailBind === 1) navigate("/login/bindemail");
-  // })
 
   useEffect(() => {
     Service.checkUserEmail().then((res) => {
@@ -24,8 +20,8 @@ export default function Home(props) {
     });
   });
 
-  const goWishes = (tag) => {
-    navigate(`/wishpool/wish/${tag.enName}`, { category: tag.category });
+  const goWishes = (tag:ITagsObject) => {
+    navigate(`/wishpool/wish/${tag.enName}`, { state: { category: tag.category } });
 
     // props.history.push(`/wish/${tag.enName}`, { category: tag.category })
   };
@@ -51,7 +47,7 @@ export default function Home(props) {
         })}
       </div>
       <ButtonS
-        onClick={() => goSend(tags)}
+        onClick={() => goSend()}//此处goSend函数参数删去tags，因为不知道有啥用（也不需要参数）。。
         style={{ background: "#FFFFFF", color: "#F25125", marginTop: "10%" }}
       >
         投递我的小幸运

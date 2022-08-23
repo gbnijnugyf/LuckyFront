@@ -2,8 +2,17 @@
 
 import './index.scss'
 
+export interface IBtnL{
+    onClick?:React.MouseEventHandler<HTMLDivElement>,
+    children:string|any   
+}
+export interface IBtnS{
+    onClick?:React.MouseEventHandler<HTMLDivElement>,
+    style:{[key:string]:string},
+    children:string|any
+}
 
-export function ButtonL(props) {
+export function ButtonL(props:IBtnL) {
 
     return (
         <div className="button-large" onClick={props.onClick}>
@@ -12,7 +21,7 @@ export function ButtonL(props) {
     )
 }
 
-export function ButtonS(props) {
+export function ButtonS(props:IBtnS) {
 
     return (
         <div className="button-small" onClick={props.onClick} style={props.style}>

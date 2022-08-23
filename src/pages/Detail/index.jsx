@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { ButtonS } from "../../components/Button";
 import ConfirmPanel from "../../components/ConfirmPanel";
-import Service from "../../common/service";
+import {Service} from "../../common/service";
 import forwardimg from "../../static/images/forward.svg";
 import "./index.scss";
 import { formatTime } from "../../common/global";
 import { useLocation, useNavigate } from "react-router-dom";
+
+
+//to do -- TS不好改，重写嘤嘤嘤
 
 const WishDetail = (props) => {
   // console.log(props)
@@ -597,3 +600,4 @@ export default function Detail(props) {
     </div>
   );
 }
+
