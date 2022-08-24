@@ -7,8 +7,9 @@ import ConfirmPanel from "../../components/ConfirmPanel";
 import { useNavigate } from "react-router-dom";
 import { type } from "os";
 import { ButtonS } from "../../components/Button";
+import { template } from "@babel/core";
 const INITNUM: number = -9;
-function KILLUNDEFINED(value:string|undefined){return value?value:""} 
+function KILLUNDEFINED(value: string | undefined) { return value ? value : "" }
 
 type IOnChange = {
     changeShowConfirm: (props: boolean) => void,
@@ -24,9 +25,9 @@ interface IWishDetail {
     pathname: string
 }
 
-interface IPersonMsg{
-    wish:IWishObject,
-    isMine:boolean
+interface IPersonMsg {
+    wish: IWishObject,
+    isMine: boolean
 }
 
 export interface IBtnStateObject<T = any> {
@@ -41,7 +42,8 @@ interface IDetailChange {
 
 interface IDetailPageProps {
     wish: IWishObject,
-    DetailChange: IDetailChange
+    DetailChange: IDetailChange,
+    chooseReturn:number
 }
 
 
@@ -108,48 +110,50 @@ function WishDetail(props: IWishDetail) {
     )
 }
 
-function PersonMsg(props:IPersonMsg)  {
-    const {wish, isMine} = props
+
+
+function PersonMsg(props: IPersonMsg) {
+    const { wish, isMine } = props
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
     const [QQ, setQQ] = useState("");
     const [wechat, setWechat] = useState("");
     const [tel, setTel] = useState("");
     useEffect(() => {
-      if (isMine) {
-        Service.getLightManInfo(wish.wish_id.toString()).then((res) => {
-            let lightman = res.data.data;
-          setName(KILLUNDEFINED(lightman.light_name));
-          setTime("于" + formatTime(wish.light_at) + "点亮");
-          setQQ(KILLUNDEFINED(lightman.light_qq));
-          setWechat(KILLUNDEFINED(lightman.light_wechat));
-          setTel(KILLUNDEFINED(lightman.light_tel));
-        });
-      } else {
-        setName(KILLUNDEFINED(wish.wishman_inform?.wishMan_name));
-        setTime("于" + formatTime(wish.creat_at) + "许愿");
-        setQQ(KILLUNDEFINED(wish.wishman_inform?.wishMan_QQ));
-        setWechat(KILLUNDEFINED(wish.wishman_inform?.wishMan_Wechat));
-        setTel(KILLUNDEFINED(wish.wishman_inform?.wishMan_Tel));
-      }
+        if (isMine) {
+            Service.getLightManInfo(wish.wish_id.toString()).then((res) => {
+                let lightman = res.data.data;
+                setName(KILLUNDEFINED(lightman.light_name));
+                setTime("于" + formatTime(wish.light_at) + "点亮");
+                setQQ(KILLUNDEFINED(lightman.light_qq));
+                setWechat(KILLUNDEFINED(lightman.light_wechat));
+                setTel(KILLUNDEFINED(lightman.light_tel));
+            });
+        } else {
+            setName(KILLUNDEFINED(wish.wishman_inform?.wishMan_name));
+            setTime("于" + formatTime(wish.creat_at) + "许愿");
+            setQQ(KILLUNDEFINED(wish.wishman_inform?.wishMan_QQ));
+            setWechat(KILLUNDEFINED(wish.wishman_inform?.wishMan_Wechat));
+            setTel(KILLUNDEFINED(wish.wishman_inform?.wishMan_Tel));
+        }
     }, [isMine, wish]);
-  
+
     return (
-      <div className="msg">
-        <div className="msg-text">
-          <p className="h">{isMine ? "点亮人" : "许愿人"}</p>
-          <p className="name">{name}</p>
+        <div className="msg">
+            <div className="msg-text">
+                <p className="h">{isMine ? "点亮人" : "许愿人"}</p>
+                <p className="name">{name}</p>
+            </div>
+            <div className="msg-info">
+                <p>{time}</p>
+                <p style={{ marginTop: "0.5em", textAlign: "left" }}>联系方式 :</p>
+                <ul className="msg-number">
+                    {QQ ? <li>QQ：{QQ}</li> : null}
+                    {wechat ? <li>微信：{wechat}</li> : null}
+                    {tel ? <li>电话：{tel}</li> : null}
+                </ul>
+            </div>
         </div>
-        <div className="msg-info">
-          <p>{time}</p>
-          <p style={{ marginTop: "0.5em", textAlign: "left" }}>联系方式 :</p>
-          <ul className="msg-number">
-            {QQ ? <li>QQ：{QQ}</li> : null}
-            {wechat ? <li>微信：{wechat}</li> : null}
-            {tel ? <li>电话：{tel}</li> : null}
-          </ul>
-        </div>
-      </div>
     );
 };
 
@@ -165,14 +169,61 @@ function DetailPage(props: IDetailPageProps) {
     } = props.DetailChange.onChange;
     const goOtherPage = props.DetailChange.goOtherPage;
     const achieved = props.wish.state === 2;
-    let currentIndex = "wuchu";
-    let otherMsg = "";
+    const [currentIndex, setCurrentIndex] = useState("wuchu");
+    // let currentIndex = "wuchu";
+    // let otherMsg = "";
 
-    const msgs = [
-        "刚刚误触了点亮按钮，不好意思啦~",
-        "最近有点忙，短时间没有精力实现愿望了，抱歉",
-        ""//占位
-    ];
+    type IMsgs = {
+        [key: string]: string
+    }
+    const msgs: IMsgs = {
+        wuchu: "刚刚误触了点亮按钮，不好意思啦~",
+        mang: "最近有点忙，短时间没有精力实现愿望了，抱歉",
+        other: ""//占位
+    };
+
+    //select元素抽象
+    interface IHandleSelectProps {
+        allOption: string[],
+        onChangeAction: [option: string, setOption: React.Dispatch<React.SetStateAction<string>>],
+        selectSttyle?: React.CSSProperties
+    }
+    function handleSelect(props: IHandleSelectProps) {
+        return (
+            <select
+                onChange={(e) => { props.onChangeAction[1](e.target.value); }}
+                style={{ color: "rgb(239, 96, 63)" }}
+            >
+                <>
+                    {props.allOption.map((option) => {
+                        <option value={option}>{option}</option>
+                    })}
+                </>
+            </select>
+        )
+    }
+    //input元素抽象
+    interface IHandleInputProps {
+        type: string,
+        onChangeAction: [inputState: string, setInputState: React.Dispatch<React.SetStateAction<string>>]
+        // onChange: (props: any) => void,
+        name?: string,
+        classname?: string,
+        style?: React.CSSProperties,
+        value?: string,
+        placeholder?: string,
+        defaultChecked?: boolean,
+        defaultValue?: string
+    }
+    function handleInput(props: IHandleInputProps) {
+        return (
+            <input
+                type={props.type}
+                onChange={(e) => { props.onChangeAction[1](e.target.value); }}
+            >
+            </input>
+        )
+    }
 
     //弹窗抽象
     function handlePopWindows(
@@ -190,7 +241,7 @@ function DetailPage(props: IDetailPageProps) {
 
 
 
-    // 点击实现愿望
+    // 别人的愿望，我已经点亮/实现 ———— 点击实现愿望
     const pressAchieve = handlePopWindows(() => {
         changeShowConfirm(false);
         Service.achieveWish(props.wish.wish_id.toString());
@@ -203,7 +254,7 @@ function DetailPage(props: IDetailPageProps) {
     </>)
 
 
-    // 点击确定放弃
+    // 别人的愿望，我已经点亮/实现 ———— 点击确定放弃
     const pressReallyAbandon = () => {
 
         function ReasonInput(
@@ -224,20 +275,13 @@ function DetailPage(props: IDetailPageProps) {
                             name={name}
                             value={value}
                             defaultChecked={defaultChecked ? defaultChecked : false}
-                            onChange={(e) => { currentIndex = e.target.value; }}
+                            onChange={(e) => { setCurrentIndex(e.target.value) }}
                         />
                     </div>
                     {value !== "ohter" ? <p>{reason}</p> :
                         <div>
                             <p>留言给对方：</p>
-                            <input
-                                type="text"
-                                placeholder="输入其他原因"
-                                className="reason"
-                                onChange={(e) => {
-                                    otherMsg = e.target.value;
-                                }}
-                                defaultValue={otherMsg} />
+                            {handleInput({type:"text", onChangeAction:[currentIndex, setCurrentIndex], placeholder:"输入其他原因", classname:"reason", defaultValue:currentIndex})}
                         </div>}
                 </div>
             )
@@ -247,7 +291,7 @@ function DetailPage(props: IDetailPageProps) {
             () => {
                 changeShowConfirm(false);
                 changeBtnText("", "");
-                let message = currentIndex === "other" ? otherMsg : msgs[0];
+                let message = currentIndex === "other" ? msgs["other"] : msgs["wuchu"];
                 Service.giveUpLightWish(props.wish.wish_id.toString(), message).then(() => {
                     goOtherPage("/detail/index");
                 });
@@ -259,9 +303,9 @@ function DetailPage(props: IDetailPageProps) {
                         <br />
                         建议给对方留言说明原因哦：
                     </p>
-                    {ReasonInput("radio", "msg", "wuchu", msgs[0], true)}
-                    {ReasonInput("radio", "msg", "mang", msgs[1])}
-                    {ReasonInput("radio", "msg", "other", msgs[2])}
+                    {ReasonInput("radio", "msg", "wuchu", msgs["wuchu"], true)}
+                    {ReasonInput("radio", "msg", "mang", msgs["mang"])}
+                    {ReasonInput("radio", "msg", "other", msgs["other"])}
 
                 </form>
             </>,
@@ -277,35 +321,98 @@ function DetailPage(props: IDetailPageProps) {
 
     };
 
-    // 点击放弃愿望
+    // 别人的愿望，我已经点亮/实现 ———— 点击放弃愿望
     const pressAbandon = handlePopWindows(pressReallyAbandon, <p>确认放弃这个愿望吗？</p>)
-    
-    return (
-        <>
-            <div className="panel-button">
+
+    // 别人的愿望，没人实现 ———— 点击确定点亮
+    const pressReallyLight = () => {
+        const [name, setName] = useState("");
+        const [option, setOption] = useState("QQ");
+        const [number, setNumber] = useState("");
+        const [tel, setTel] = useState("");
+        handlePopWindows(
+            () => {
+                let id = props.wish.wish_id;
+                let [qq, wechat] = option === "QQ" ? [number, ""] : ["", number];
+                Service.lightWishOn(id.toString(), name, tel, qq, wechat).then((res) => {
+                    if (res.data.status === 0) {
+                        alert("点亮成功~");
+                        goOtherPage("/detail/index");
+                    } else {
+                        alert(res.data.msg);
+                    }
+                });
+                changeShowConfirm(false);
+            },
+            <div className="input-msg">
+                <p className="info">填写联系方式，方便他来联系你哦～</p>
+                <div className="form">
+                    <div className="name">
+                        投递人 :
+                        {handleInput({ type: "text", onChangeAction: [name, setName], classname: "name", placeholder: "必填内容哦～", defaultValue: name })}
+                    </div>
+                    <div className="number">
+                        联系方式 :
+                        {handleSelect({ allOption: ["QQ", "WeChat"], onChangeAction: [option, setOption] })}
+                        {handleInput({ type: "text", onChangeAction: [number, setNumber], placeholder: "必填内容哦～", defaultValue: number, style: { marginLeft: ".3em", width: "30%" } })}
+                    </div>
+                    <div className="tel">
+                        或 Tel :
+                        {handleInput({ type: "text", onChangeAction: [tel, setTel], placeholder: "选填内容哦～", defaultValue: tel })}
+                    </div>
+                </div>
+            </div>,
+            () => { changeShowConfirm(false); },
+            "发送"
+        )
+    }
+
+    // 别人的愿望，没人实现 ———— 点击点亮
+    const pressLight = handlePopWindows(
+        pressReallyLight,
+        <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>
+    )
+
+    switch (props.chooseReturn) {
+        case 1: {
+            return (
+                <>
+                    <div className="panel-button">
+                        <ButtonS
+                            onClick={achieved ? undefined : () => pressAbandon}
+                            style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
+                        >
+                            放弃实现
+                        </ButtonS>
+                        <ButtonS
+                            onClick={achieved ? undefined : () => pressAchieve}
+                            style={{
+                                background: achieved ? "#C0C0C0" : "#FF7A59",
+                                color: "#FFFFFF",
+                                width: "6em",
+                                marginLeft: "2em",
+                            }}
+                        >
+                            {achieved ? "已经实现" : "确认实现"}
+                        </ButtonS>
+                    </div>
+                    <hr />
+                    <PersonMsg wish={props.wish} isMine={false} />
+                </>
+            );
+        };
+        case 2: {
+            return (
                 <ButtonS
-                    onClick={achieved ? undefined : ()=>pressAbandon}
+                    onClick={()=>pressLight}
                     style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
                 >
-                    放弃实现
+                    点亮这个心愿
                 </ButtonS>
-                <ButtonS
-                    onClick={achieved ? undefined : ()=>pressAchieve}
-                    style={{
-                        background: achieved ? "#C0C0C0" : "#FF7A59",
-                        color: "#FFFFFF",
-                        width: "6em",
-                        marginLeft: "2em",
-                    }}
-                >
-                    {achieved ? "已经实现" : "确认实现"}
-                </ButtonS>
-            </div>
-            <hr />
-            <PersonMsg wish={props.wish} isMine={false} />
-        </>
-    );
-
+            );
+        }
+        default: break;
+    }
 }
 
 

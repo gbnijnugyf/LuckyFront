@@ -161,7 +161,7 @@ const OtherLighted = (props) => {
     );
     changeShowConfirm(true);
   };
-  
+
   // 点击放弃愿望
   const pressAbandon = () => {
     changeConfirmAction(pressReallyAbandon, () => {
@@ -201,18 +201,20 @@ const OtherLighted = (props) => {
           <br />
           建议给对方留言说明原因哦：
         </p>
+
         <div className="options">
           <div>
             <input
               type="radio"
               name="msg"
-              value="wuchu"
+              value="wuchu" 
               defaultChecked={true}
               onChange={handleRadioChange}
             />
           </div>
           <p>刚刚误触了点亮按钮，不好意思啦~</p>
         </div>
+        
         <div className="options">
           <div>
             {" "}
@@ -287,6 +289,11 @@ const OtherNotLighted = (props) => {
     changeBtnText,
     changeConfirmAction,
   } = props.onChange;
+  // const [name, setName] = useState("");
+  // const [QQ, setQQ] = useState("");
+  // const [wechat, setWechat] = useState("");
+  // const [tel, setTel] = useState("");
+
   let name = "";
   let number = "";
   let tel = "";
