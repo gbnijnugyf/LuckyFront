@@ -436,6 +436,31 @@ function DetailPage(props: IDetailPageProps) {
     }
 }
 
+interface IChooseDetailPage {
+    wish:IWishObject,
+    isMine:boolean,
+    onChange: IOnChange,
+    goOtherPage: (path: string) => void;
+}
+function chooseDetailPage(props:IChooseDetailPage){
+    if(!props.isMine){
+        switch(props.wish.state){
+            case 0:break;
+            case 1:break;
+            case 2:break;
+            default:alert("Unknown Error!!!");
+        }
+    }
+    else{
+        switch(props.wish.state){
+            case 0:break;
+            case 1:break;
+            case 2:break;
+            default:alert("Unknown Error!!!");
+        }
+    }
+}
+
 
 
 export default function Detail() {
@@ -526,8 +551,10 @@ export default function Detail() {
                 onChange={onChange}
                 pathname={location.pathname}
             />
-            {/*<div className="other">
-                {
+            <div className="other">
+
+
+                {/*{
                     [
                         [
                             <OtherNotLighted wish={wish} onChange={onChange} />, // 别人的愿望，我未点亮
@@ -539,9 +566,9 @@ export default function Detail() {
                             <MineLighted wish={wish} onChange={onChange} />, // 我的愿望，有人点亮
                             <MineLighted wish={wish} onChange={onChange} />, // 我的愿望，已经实现
                         ],
-                    ][isMine ? 1 : 0][wish.state]
-                }
-            </div>*/}
+                    ][isMine ? 1 : 0][wish.state]  //0,1,2
+                }*/}
+            </div>
             <ConfirmPanel
                 display={showConfirm}
                 action={confirmAction}

@@ -120,7 +120,7 @@ const PersonMsg = (props) => {
   );
 };
 
-// 别人的愿望，我已经点亮/实现 refacted
+// 别人的愿望，我已经点亮/实现 refacted -- 1
 const OtherLighted = (props) => {
   const {
     goOtherPage,
@@ -285,7 +285,7 @@ const OtherLighted = (props) => {
     </>
   );
 };
-// 别人的愿望，没人实现 refacted
+// 别人的愿望，没人实现 refacted -- 2
 const OtherNotLighted = (props) => {
   const {
     goOtherPage,
@@ -404,7 +404,7 @@ const OtherNotLighted = (props) => {
     </ButtonS>
   );
 };
-// 我的愿望，没人实现
+// 我的愿望，没人实现 refacted -- 3
 const MineNotLighted = (props) => {
   const {
     goOtherPage,
@@ -441,7 +441,7 @@ const MineNotLighted = (props) => {
     </ButtonS>
   );
 };
-
+// 我的愿望，有人点亮 refacted -- 4
 const MineLighted = (props) => {
   const {
     goOtherPage,
