@@ -373,8 +373,20 @@ function DetailPage(props: IDetailPageProps) {
         <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>
     )
 
+    // 我的愿望，没人实现 ————点击删除
+    const pressDelete = handlePopWindows(
+        () => {
+            Service.deleteWish(props.wish.wish_id.toString()).then(() => {
+              alert("删除成功");
+              goOtherPage("/detail/index");
+            });
+            changeShowConfirm(false);
+          },
+          <p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>
+    )
+
     switch (props.chooseReturn) {
-        case 1: {
+        case 1: {// 别人的愿望，我已经点亮/实现
             return (
                 <>
                     <div className="panel-button">
@@ -401,7 +413,7 @@ function DetailPage(props: IDetailPageProps) {
                 </>
             );
         };
-        case 2: {
+        case 2: {// 别人的愿望，没人实现
             return (
                 <ButtonS
                     onClick={()=>pressLight}
@@ -410,6 +422,16 @@ function DetailPage(props: IDetailPageProps) {
                     点亮这个心愿
                 </ButtonS>
             );
+        }
+        case 3:{// 我的愿望，没人实现
+            return (
+                <ButtonS
+                  onClick={()=>pressDelete}
+                  style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
+                >
+                  删除这个心愿
+                </ButtonS>
+              );
         }
         default: break;
     }
