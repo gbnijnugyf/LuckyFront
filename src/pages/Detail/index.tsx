@@ -6,6 +6,7 @@ import forwardimg from "../../static/images/forward.svg";
 import "./index.scss";
 import { formatTime } from "../../common/global";
 import { useLocation, useNavigate } from "react-router-dom";
+import { type } from "@testing-library/user-event/dist/type";
 
 
 //to do -- TS不好改，重写嘤嘤嘤
@@ -119,7 +120,7 @@ const PersonMsg = (props) => {
   );
 };
 
-// 别人的愿望，我已经点亮/实现
+// 别人的愿望，我已经点亮/实现 refacted
 const OtherLighted = (props) => {
   const {
     goOtherPage,
@@ -132,8 +133,12 @@ const OtherLighted = (props) => {
   let currentIndex = "wuchu";
   let otherMsg = "";
 
-  const msgs = {
-    wuchu: "刚刚误触了点亮按钮，不好意思啦~",
+
+  type IMsgs = {
+    [key:string]:string
+  }
+  const msgs:IMsgs = {
+    wuchu:  "刚刚误触了点亮按钮，不好意思啦~",
     mang: "最近有点忙，短时间没有精力实现愿望了，抱歉",
   };
 
@@ -280,7 +285,7 @@ const OtherLighted = (props) => {
     </>
   );
 };
-// 别人的愿望，没人实现
+// 别人的愿望，没人实现 refacted
 const OtherNotLighted = (props) => {
   const {
     goOtherPage,
