@@ -43,7 +43,8 @@ interface IDetailChange {
 interface IDetailPageProps {
     wish: IWishObject,
     DetailChange: IDetailChange,
-    chooseReturn:number
+    chooseReturn: number,
+    isMine:boolean
 }
 
 
@@ -231,7 +232,7 @@ function DetailPage(props: IDetailPageProps) {
         Content: ReactElement,
         noHandle: () => void = () => { changeShowConfirm(false); },
         btnText1: string = "",
-        btnText2: string = ""
+        btnText2: string = "",
     ) {
         changeConfirmAction(yesHandle, noHandle);
         changeConfirmContent(Content);
@@ -242,20 +243,22 @@ function DetailPage(props: IDetailPageProps) {
 
 
     // 别人的愿望，我已经点亮/实现 ———— 点击实现愿望
-    const pressAchieve = handlePopWindows(() => {
-        changeShowConfirm(false);
-        Service.achieveWish(props.wish.wish_id.toString());
-        goOtherPage("/detail/index");
-    }, <>
-        <p style={{ alignSelf: "flex-start" }}>确认已经实现这个愿望了嘛？</p>
-        <p style={{ alignSelf: "flex-start", textAlign: "start" }}>
-            若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望
-        </p>
-    </>)
-
+    // 我的愿望，有人点亮 ———— 点击实现
+    function pressAchieve() {
+        handlePopWindows(() => {
+            changeShowConfirm(false);
+            Service.achieveWish(props.wish.wish_id.toString());
+            goOtherPage("/detail/index");
+        }, <>
+            <p style={{ alignSelf: "flex-start" }}>确认已经实现这个愿望了吗？</p>
+            {props.isMine ? null:<p style={{ alignSelf: "flex-start", textAlign: "start"}}>
+                若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望
+            </p>}
+        </>)
+    }
 
     // 别人的愿望，我已经点亮/实现 ———— 点击确定放弃
-    const pressReallyAbandon = () => {
+    function pressReallyAbandon() {
 
         function ReasonInput(
             type: string,
@@ -281,7 +284,7 @@ function DetailPage(props: IDetailPageProps) {
                     {value !== "ohter" ? <p>{reason}</p> :
                         <div>
                             <p>留言给对方：</p>
-                            {handleInput({type:"text", onChangeAction:[currentIndex, setCurrentIndex], placeholder:"输入其他原因", classname:"reason", defaultValue:currentIndex})}
+                            {handleInput({ type: "text", onChangeAction: [currentIndex, setCurrentIndex], placeholder: "输入其他原因", classname: "reason", defaultValue: currentIndex })}
                         </div>}
                 </div>
             )
@@ -322,10 +325,9 @@ function DetailPage(props: IDetailPageProps) {
     };
 
     // 别人的愿望，我已经点亮/实现 ———— 点击放弃愿望
-    const pressAbandon = handlePopWindows(pressReallyAbandon, <p>确认放弃这个愿望吗？</p>)
-
+    function pressAbandon() { handlePopWindows(pressReallyAbandon, <p>确认放弃这个愿望吗？</p>) }
     // 别人的愿望，没人实现 ———— 点击确定点亮
-    const pressReallyLight = () => {
+    function pressReallyLight() {
         const [name, setName] = useState("");
         const [option, setOption] = useState("QQ");
         const [number, setNumber] = useState("");
@@ -368,36 +370,43 @@ function DetailPage(props: IDetailPageProps) {
     }
 
     // 别人的愿望，没人实现 ———— 点击点亮
-    const pressLight = handlePopWindows(
-        pressReallyLight,
-        <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>
-    )
+    function pressLight() {
+        handlePopWindows(
+            pressReallyLight,
+            <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>
+        )
+    }
 
-    // 我的愿望，没人实现 ————点击删除
-    const pressDelete = handlePopWindows(
-        () => {
-            Service.deleteWish(props.wish.wish_id.toString()).then(() => {
-              alert("删除成功");
-              goOtherPage("/detail/index");
-            });
-            changeShowConfirm(false);
-          },
-          <p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>
-    )
+    // 我的愿望，没人实现 ———— 点击删除
+    // 我的愿望，有人点亮 ———— 点击删除
+    function pressDelete() {
+        handlePopWindows(
+            () => {
+                Service.deleteWish(props.wish.wish_id.toString()).then(() => {
+                    alert("删除成功");
+                    goOtherPage("/detail/index");
+                });
+                changeShowConfirm(false);
+            },
+            <p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>
+        )
+    }
+
+
 
     switch (props.chooseReturn) {
-        case 1: {// 别人的愿望，我已经点亮/实现
+        case 1: {// 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
             return (
                 <>
                     <div className="panel-button">
                         <ButtonS
-                            onClick={achieved ? undefined : () => pressAbandon}
+                            onClick={achieved ? undefined : (props.isMine?pressDelete:pressAbandon)}
                             style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
                         >
-                            放弃实现
+                            {props.isMine?"删除这个心愿":"放弃实现"}
                         </ButtonS>
                         <ButtonS
-                            onClick={achieved ? undefined : () => pressAchieve}
+                            onClick={achieved ? undefined : pressAchieve}
                             style={{
                                 background: achieved ? "#C0C0C0" : "#FF7A59",
                                 color: "#FFFFFF",
@@ -409,29 +418,19 @@ function DetailPage(props: IDetailPageProps) {
                         </ButtonS>
                     </div>
                     <hr />
-                    <PersonMsg wish={props.wish} isMine={false} />
+                    <PersonMsg wish={props.wish} isMine={props.isMine} />
                 </>
             );
         };
-        case 2: {// 别人的愿望，没人实现
+        case 2: {// 别人的愿望，没人实现// 我的愿望，没人实现
             return (
                 <ButtonS
-                    onClick={()=>pressLight}
+                    onClick={pressLight}
                     style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
                 >
-                    点亮这个心愿
+                    {props.isMine?"删除":"点亮"}这个心愿
                 </ButtonS>
             );
-        }
-        case 3:{// 我的愿望，没人实现
-            return (
-                <ButtonS
-                  onClick={()=>pressDelete}
-                  style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
-                >
-                  删除这个心愿
-                </ButtonS>
-              );
         }
         default: break;
     }
