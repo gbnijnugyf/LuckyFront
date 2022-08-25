@@ -4,10 +4,8 @@ import { Service } from "../../common/service";
 import { IWishObject } from "../MyWish";
 import { formatTime } from "../../common/global";
 import ConfirmPanel from "../../components/ConfirmPanel";
-import { useNavigate } from "react-router-dom";
-import { type } from "os";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ButtonS } from "../../components/Button";
-import { template } from "@babel/core";
 const INITNUM: number = -9;
 function KILLUNDEFINED(value: string | undefined) { return value ? value : "" }
 
@@ -50,12 +48,10 @@ interface IDetailPageProps {
 
 
 function WishDetail(props: IWishDetail) {
-    const {
-        changeShowConfirm,
-        changeConfirmContent,
-        changeBtnText,
-        changeConfirmAction,
-    } = props.onChange;
+    const
+        changeShowConfirm = props.onChange.changeShowConfirm,
+        changeConfirmContent = props.onChange.changeConfirmContent,
+        changeConfirmAction = props.onChange.changeConfirmAction
     const { isMine, wish } = props;
 
 
@@ -197,7 +193,7 @@ function DetailPage(props: IDetailPageProps) {
                 style={{ color: "rgb(239, 96, 63)" }}
             >
                 <>
-                    {props.allOption.map((option) => {
+                    {props.allOption.forEach((option) => {
                         <option value={option}>{option}</option>
                     })}
                 </>
@@ -241,7 +237,7 @@ function DetailPage(props: IDetailPageProps) {
         changeBtnText(btnText1, btnText2);
     }
     // 别人的愿望，没人实现 ———— 点击确定点亮
-    function pressReallyLight() {
+    function PressReallyLight() {
         const [name, setName] = useState("");
         const [option, setOption] = useState("QQ");
         const [number, setNumber] = useState("");
@@ -372,7 +368,7 @@ function DetailPage(props: IDetailPageProps) {
     // 别人的愿望，没人实现 ———— 点击点亮
     function pressLight() {
         handlePopWindows(
-            pressReallyLight,
+            PressReallyLight,
             <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>
         )
     }
@@ -392,47 +388,46 @@ function DetailPage(props: IDetailPageProps) {
         )
     }
 
-    switch (props.chooseReturn) {
-        case 0: {// 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
-            return (
-                <>
-                    <div className="panel-button">
-                        <ButtonS
-                            onClick={achieved ? undefined : (props.isMine ? pressDelete : pressAbandon)}
-                            style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
-                        >
-                            {props.isMine ? "删除这个心愿" : "放弃实现"}
-                        </ButtonS>
-                        <ButtonS
-                            onClick={achieved ? undefined : pressAchieve}
-                            style={{
-                                background: achieved ? "#C0C0C0" : "#FF7A59",
-                                color: "#FFFFFF",
-                                width: "6em",
-                                marginLeft: "2em",
-                            }}
-                        >
-                            {achieved ? "已经实现" : "确认实现"}
-                        </ButtonS>
-                    </div>
-                    <hr />
-                    <PersonMsg wish={props.wish} isMine={props.isMine} />
-                </>
-            );
-        };
-        default: {// 别人的愿望，没人实现// 我的愿望，没人实现
-            return (
-                <ButtonS
-                    onClick={pressLight}
-                    style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
-                >
-                    {props.isMine ? "删除" : "点亮"}这个心愿
-                </ButtonS>
-            );
-        }
+    if (props.chooseReturn === 0) {// 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
+        return (
+            <>
+                <div className="panel-button">
+                    <ButtonS
+                        onClick={achieved ? undefined : (props.isMine ? pressDelete : pressAbandon)}
+                        style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
+                    >
+                        {props.isMine ? "删除这个心愿" : "放弃实现"}
+                    </ButtonS>
+                    <ButtonS
+                        onClick={achieved ? undefined : pressAchieve}
+                        style={{
+                            background: achieved ? "#C0C0C0" : "#FF7A59",
+                            color: "#FFFFFF",
+                            width: "6em",
+                            marginLeft: "2em",
+                        }}
+                    >
+                        {achieved ? "已经实现" : "确认实现"}
+                    </ButtonS>
+                </div>
+                <hr />
+                <PersonMsg wish={props.wish} isMine={props.isMine} />
+            </>
+        );
     }
-
+    else {// 别人的愿望，没人实现// 我的愿望，没人实现
+        return (
+            <ButtonS
+                onClick={pressLight}
+                style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
+            >
+                {props.isMine ? "删除" : "点亮"}这个心愿
+            </ButtonS>
+        );
+    }
 }
+
+
 // 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
 const RETURNCHOOSE_0: number = 0;
 // 别人的愿望，没人实现// 我的愿望，没人实现
@@ -458,6 +453,7 @@ function chooseDetailPage(props: IChooseDetailPage) {
 
 
 export default function Detail() {
+    const location = useLocation();
     const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
     const ACTION_INIT: IBtnStateObject<() => void> = { yes: () => { }, no: () => { } };
     const CONTENT_INIT: ReactElement = <></>;
@@ -545,7 +541,7 @@ export default function Detail() {
                 pathname={location.pathname}
             />
             <div className="other">
-                {chooseDetailPage({ wish: wish, isMine: isMine, DetailChange:DetailChange})}
+                {chooseDetailPage({ wish: wish, isMine: isMine, DetailChange: DetailChange })}
 
                 {/*{
                     [
