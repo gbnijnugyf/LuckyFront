@@ -7,7 +7,6 @@ import ConfirmPanel from "../../components/ConfirmPanel";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ButtonS } from "../../components/Button";
 const INITNUM: number = -9;
-function KILLUNDEFINED(value: string | undefined) { return value ? value : "" }
 
 type IOnChange = {
     changeShowConfirm: (props: boolean) => void,
@@ -120,18 +119,18 @@ function PersonMsg(props: IPersonMsg) {
         if (isMine) {
             Service.getLightManInfo(wish.wish_id.toString()).then((res) => {
                 let lightman = res.data.data;
-                setName(KILLUNDEFINED(lightman.light_name));
+                setName(lightman.light_name||"");
                 setTime("于" + formatTime(wish.light_at) + "点亮");
-                setQQ(KILLUNDEFINED(lightman.light_qq));
-                setWechat(KILLUNDEFINED(lightman.light_wechat));
-                setTel(KILLUNDEFINED(lightman.light_tel));
+                setQQ(lightman.light_qq||"");
+                setWechat(lightman.light_wechat||"");
+                setTel(lightman.light_tel||"");
             });
         } else {
-            setName(KILLUNDEFINED(wish.wishman_inform?.wishMan_name));
+            setName(wish.wishman_inform?.wishMan_name||"");
             setTime("于" + formatTime(wish.creat_at) + "许愿");
-            setQQ(KILLUNDEFINED(wish.wishman_inform?.wishMan_QQ));
-            setWechat(KILLUNDEFINED(wish.wishman_inform?.wishMan_Wechat));
-            setTel(KILLUNDEFINED(wish.wishman_inform?.wishMan_Tel));
+            setQQ(wish.wishman_inform?.wishMan_QQ||"");
+            setWechat(wish.wishman_inform?.wishMan_Wechat||"");
+            setTel(wish.wishman_inform?.wishMan_Tel||"");
         }
     }, [isMine, wish]);
 
@@ -193,7 +192,7 @@ function DetailPage(props: IDetailPageProps) {
                 style={{ color: "rgb(239, 96, 63)" }}
             >
                 <>
-                    {props.allOption.forEach((option) => {
+                    {props.allOption.filter((option) => {
                         <option value={option}>{option}</option>
                     })}
                 </>
@@ -238,7 +237,7 @@ function DetailPage(props: IDetailPageProps) {
     }
     // 别人的愿望，没人实现 ———— 点击确定点亮
     function PressReallyLight() {
-        const [name, setName] = useState("");
+        const [name, setName] = useState("");//have BUG
         const [option, setOption] = useState("QQ");
         const [number, setNumber] = useState("");
         const [tel, setTel] = useState("");
@@ -279,7 +278,7 @@ function DetailPage(props: IDetailPageProps) {
         )
     }
     // 别人的愿望，我已经点亮/实现 ———— 点击确定放弃
-    function pressReallyAbandon() {
+    function PressReallyAbandon() {
 
         function ReasonInput(
             type: string,
@@ -348,7 +347,7 @@ function DetailPage(props: IDetailPageProps) {
 
     // 别人的愿望，我已经点亮/实现 ———— 点击实现愿望
     // 我的愿望，有人点亮 ———— 点击实现
-    function pressAchieve() {
+    function PressAchieve() {
         handlePopWindows(() => {
             changeShowConfirm(false);
             Service.achieveWish(props.wish.wish_id.toString());
@@ -362,11 +361,11 @@ function DetailPage(props: IDetailPageProps) {
     }
 
     // 别人的愿望，我已经点亮/实现 ———— 点击放弃愿望
-    function pressAbandon() { handlePopWindows(pressReallyAbandon, <p>确认放弃这个愿望吗？</p>) }
+    function PressAbandon() { handlePopWindows(PressReallyAbandon, <p>确认放弃这个愿望吗？</p>) }
 
 
     // 别人的愿望，没人实现 ———— 点击点亮
-    function pressLight() {
+    function PressLight() {
         handlePopWindows(
             PressReallyLight,
             <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>
@@ -375,7 +374,7 @@ function DetailPage(props: IDetailPageProps) {
 
     // 我的愿望，没人实现 ———— 点击删除
     // 我的愿望，有人点亮 ———— 点击删除
-    function pressDelete() {
+    function PressDelete() {
         handlePopWindows(
             () => {
                 Service.deleteWish(props.wish.wish_id.toString()).then(() => {
@@ -393,13 +392,13 @@ function DetailPage(props: IDetailPageProps) {
             <>
                 <div className="panel-button">
                     <ButtonS
-                        onClick={achieved ? undefined : (props.isMine ? pressDelete : pressAbandon)}
+                        onClick={achieved ? undefined : (props.isMine ? PressDelete : PressAbandon)}
                         style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
                     >
                         {props.isMine ? "删除这个心愿" : "放弃实现"}
                     </ButtonS>
                     <ButtonS
-                        onClick={achieved ? undefined : pressAchieve}
+                        onClick={achieved ? undefined : PressAchieve}
                         style={{
                             background: achieved ? "#C0C0C0" : "#FF7A59",
                             color: "#FFFFFF",
@@ -418,7 +417,7 @@ function DetailPage(props: IDetailPageProps) {
     else {// 别人的愿望，没人实现// 我的愿望，没人实现
         return (
             <ButtonS
-                onClick={pressLight}
+                onClick={PressLight}
                 style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
             >
                 {props.isMine ? "删除" : "点亮"}这个心愿
@@ -437,15 +436,15 @@ interface IChooseDetailPage {
     isMine: boolean,
     DetailChange: IDetailChange
 }
-function chooseDetailPage(props: IChooseDetailPage) {
+function ChooseDetailPage(props: IChooseDetailPage) {
     switch (props.wish.state) {
         case 0:
             return (DetailPage({ wish: props.wish, DetailChange: props.DetailChange, chooseReturn: RETURNCHOOSE_1, isMine: props.isMine }));
         case 1:
             return (DetailPage({ wish: props.wish, DetailChange: props.DetailChange, chooseReturn: RETURNCHOOSE_0, isMine: props.isMine }));
-        case 2:
+        default:
             return (DetailPage({ wish: props.wish, DetailChange: props.DetailChange, chooseReturn: RETURNCHOOSE_0, isMine: props.isMine }));
-        default: alert("Unknown Error!!!");
+        // default: alert("Unknown Error!!!");
     }
 
 }
@@ -482,9 +481,7 @@ export default function Detail() {
     const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
     const navigate = useNavigate();
 
-    const goOtherPage = (path: string) => {
-        navigate(path)
-    };
+    const goOtherPage = navigate;
 
     //change model
     const onChange: IOnChange = {
@@ -541,8 +538,8 @@ export default function Detail() {
                 pathname={location.pathname}
             />
             <div className="other">
-                {chooseDetailPage({ wish: wish, isMine: isMine, DetailChange: DetailChange })}
-
+                {/* {ChooseDetailPage({ wish: wish, isMine: isMine, DetailChange: DetailChange })} */}
+                <ChooseDetailPage wish={wish} isMine={isMine} DetailChange={DetailChange}/>
                 {/*{
                     [
                         [

@@ -158,7 +158,7 @@ export const Service = {
 
   //查看愿望详情
   getWishDetail(id: string) {
-    let url = new URL("/wishes/details");
+    let url = new URL(BASEURL+"/wishes/details");
     url.searchParams.append("wish_id", id);
     url.searchParams.append("time", new Date().getTime().toString());
     return GlobalAxios<IWishObject>("get", url.toString());
@@ -166,7 +166,7 @@ export const Service = {
 
   //查找点亮人信息
   getLightManInfo(id: string) {
-    let url = new URL("/user/info/lightman");
+    let url = new URL(BASEURL+"/user/info/lightman");
     url.searchParams.append("wish_id", id);
     url.searchParams.append("time", new Date().getTime().toString());
     return GlobalAxios<ILightInformation>("get", url.toString());
@@ -174,21 +174,21 @@ export const Service = {
 
   //获取自己点亮的愿望//后端接口重构Ligth
   getUserWishLight() {
-    let url = new URL("/wishes/user/light"); // '/wishes/user/light' or '/desires/user/light'
+    let url = new URL(BASEURL+"/wishes/user/light"); // '/wishes/user/light' or '/desires/user/light'
     url.searchParams.append("time", new Date().getTime().toString());
     return GlobalAxios<IWishObject[]>("get", url.toString());
   },
 
   //获取自己投递的愿望//后端接口重构Post
   getUserWishPost() {
-    let url = new URL("/wishes/user/post");
+    let url = new URL(BASEURL+"/wishes/user/post");
     url.searchParams.append("time", new Date().getTime().toString());
     return GlobalAxios<IWishObject[]>("get", url.toString());
   },
 
   //根据分类获取愿望
   getWishByCategories(category: string) {
-    let url = new URL("/wishes/categories");
+    let url = new URL(BASEURL+"/wishes/categories");
     url.searchParams.append("categories", category);
     url.searchParams.append("time", new Date().getTime().toString());
     // console.log(toConfig({ url: url, data: url, method: "get" }))
@@ -197,7 +197,7 @@ export const Service = {
 
   //删除愿望
   deleteWish(wish_id: string) {
-    let url = new URL(`/wishes?wish_id=${wish_id}`);
+    let url = new URL(BASEURL+`/wishes?wish_id=${wish_id}`);
     return GlobalAxios("delete", url.toString());
   },
 
