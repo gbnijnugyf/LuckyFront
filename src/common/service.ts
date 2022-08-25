@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { parse, URLSearchParams } from "url";
+import { parse } from "url";
 import "whatwg-fetch";
 import { IWishObject } from "../pages/MyWish";
 import { IWishesObject } from "../pages/Wishes";
