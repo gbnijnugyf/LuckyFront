@@ -8,7 +8,7 @@ import arrowimg from "../../static/images/arrow.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface ITitleList {
-  [key: string]: string
+  [key: string]: string;
 }
 
 const titleList: ITitleList = {
@@ -19,7 +19,6 @@ const titleList: ITitleList = {
   "/wishpool/wish": "我的愿望池",
   "/mywish": "我的愿望池",
 };
-
 
 function Header() {
   const location = useLocation();
@@ -33,32 +32,28 @@ function Header() {
   const handleBack = () => {
     if (location.pathname.includes("/detail/list")) {
       navigate(-2); //'-2'是因为父级路由为判断愿望详情，会再次跳转至list或empty页面
-    }
-    else {
+    } else {
       navigate(-1);
     }
   };
 
-  const getTitle = () => {    //URL改变导致获取title的函数也要改变
+  const getTitle = () => {
+    //URL改变导致获取title的函数也要改变
     let key = location.pathname;
     let ckey = key;
     let index = key.indexOf("/", 2);
     if (index === -1) {
       return titleList[key];
-    }
-    else {
+    } else {
       key = key.substr(0, index);
       let index2 = ckey.indexOf("/", index + 1);
       if (index2 === -1) {
-        return titleList[ckey]
-      }
-      else {
+        return titleList[ckey];
+      } else {
         ckey = ckey.substr(0, index2);
         return titleList[ckey]; //通过路由截取数组titlelist的索引key
-
       }
     }
-
   };
 
   useEffect(() => {
@@ -169,12 +164,11 @@ function Header() {
 
   let title = getTitle();
 
-
   return (
     <div className="header">
       <div className="comp-header">
         <img
-          className="back-button"  //回退按钮
+          className="back-button" //回退按钮
           src={backbutton}
           style={{ opacity: title === "标签页" ? 0 : 1 }}
           onClick={title === "标签页" ? undefined : handleBack}

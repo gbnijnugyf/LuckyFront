@@ -1,4 +1,3 @@
-
 import { ReactElement, useEffect, useState } from "react";
 import { Service } from "../../common/service";
 import { IWishObject } from "../MyWish";
@@ -8,13 +7,10 @@ import DetailPage, { IDetailChange, IOnChange } from "./DetailPage";
 import WishDetail from "./WishDetail";
 const INITNUM: number = -9;
 
-
-
 export interface IBtnStateObject<T = any> {
   yes: T;
   no: T;
 }
-
 
 const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
 const ACTION_INIT: IBtnStateObject<() => void> = {
@@ -38,7 +34,6 @@ const WISH_INIT: IWishObject = {
     wishMan_Tel: "",
   },
 };
-
 
 // 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
 const RETURNCHOOSE_0: number = 0;
@@ -79,7 +74,6 @@ function chooseDetailPage(props: IChooseDetailPage) {
 }
 
 export default function Detail() {
-
   const location = useLocation();
 
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态

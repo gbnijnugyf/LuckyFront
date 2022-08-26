@@ -1,294 +1,282 @@
 @import "../../config/globalCssVar.scss";
 
-
 .Detail {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - $HeaderHeight);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
-    position       : relative;
-    width          : 100%;
-    height         : calc(100vh - $HeaderHeight);
-    display        : flex;
-    flex-direction : column;
-    align-items    : center;
-    justify-content: space-between;
+  .content {
+    position: relative;
+    height: 40%;
+    margin-top: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 0 !important;
+    width: 85%;
+    background: url("../../static/images/panel_upper.svg");
+    background-repeat: no-repeat;
+    background-position: top;
+    padding: 29% 9% 0% 9%;
 
-
-    .content {
-
-        position           : relative;
-        height             : 40%;
-        margin-top         : 25%;
-        display            : flex;
-        flex-direction     : column;
-        align-items        : center;
-        flex-grow          : 0 !important;
-        width              : 85%;
-        background         : url('../../static/images/panel_upper.svg');
-        background-repeat  : no-repeat;
-        background-position: top;
-        padding            : 29% 9% 0% 9%;
-
-        .forward {
-            position    : absolute;
-            width       : 1.5rem;
-            align-self  : flex-end;
-            margin-right: 1.5rem;
-            margin-top  : 0.5rem;
-        }
-
-        .text {
-
-            overflow  : scroll;
-            width     : 80%;
-            min-height: 9em;
-            max-height: 10em;
-            margin-top: 1.8em;
-
-            .text-content {
-                min-height: 9em;
-                background-image: linear-gradient(to right, rgb(241, 197, 126) 10px, transparent 10px),
-                    linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
-                    linear-gradient(rgb(241, 197, 126) 30px, black 30px, black 31px, white 31px);
-
-                word-break     : break-all;
-                border         : 0px;
-                background-size: 100% 100%, 100% 100%, 100% 31px;
-                line-height    : 31px;
-                font-family    : TsangerShuYuanTW02;
-                color          : white;
-                padding        : 8px;
-                font-size      : medium;
-
-            }
-        }
-
-        .wishInfo {
-            align-self  : flex-end;
-            margin-right: 2em;
-            margin-top  : 0.5em;
-
-            p {
-                font-family: TsangerShuYuanTW02;
-                font-size  : large;
-            }
-        }
+    .forward {
+      position: absolute;
+      width: 1.5rem;
+      align-self: flex-end;
+      margin-right: 1.5rem;
+      margin-top: 0.5rem;
     }
 
+    .text {
+      overflow: scroll;
+      width: 80%;
+      min-height: 9em;
+      max-height: 10em;
+      margin-top: 1.8em;
 
-    .other {
-        flex-grow      : 1;
-        display        : flex;
-        flex-direction : column;
-        align-items    : center;
-        justify-content: space-around;
-        width          : 100%;
-    }
+      .text-content {
+        min-height: 9em;
+        background-image: linear-gradient(
+            to right,
+            rgb(241, 197, 126) 10px,
+            transparent 10px
+          ),
+          linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
+          linear-gradient(
+            rgb(241, 197, 126) 30px,
+            black 30px,
+            black 31px,
+            white 31px
+          );
 
-
-
-    // 愿望主界面
-    .wish {
-
-        position         : relative;
-        margin           : 0 5%;
-        width            : 76%;
-        background-image : url('../../static/images/panel_upper.svg');
-        background-repeat: no-repeat;
-        background-size  : cover;
-        padding          : 40% 7% 2% 7%;
-        font-size        : medium;
-
-        p {
-            font-family: TsangerShuYuanTW02;
-            color      : white;
-        }
-
-        .p-content {
-
-            position  : relative;
-            width     : 100%;
-            margin-top: 3%;
-
-            p {
-                text-align: left;
-            }
-
-            hr {
-                margin          : auto;
-                width           : 100%;
-                background-color: black;
-            }
-        }
-
-        .p-name {
-            margin-top: 10%;
-            text-align: right;
-        }
-
-        .p-time {
-            text-align : right;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-    }
-
-
-    // 按钮
-    .panel-button {
-        display: flex;
-    }
-
-
-    hr {
-        width           : 90%;
-        background-color: #707070;
-    }
-
-
-    // 许愿人信息
-    .msg {
-        position         : relative;
-        width            : 80%;
-        background-image : url('../../static/images/panel_lower.svg');
-        background-repeat: no-repeat;
-        background-size  : cover;
-        display          : flex;
-        justify-content  : space-between;
-        margin-left      : 0.5em;
-        padding          : 1em;
-
-        p {
-            font-family: TsangerShuYuanTW02;
-        }
-
-        .msg-text {
-            font-size  : large;
-            margin-left: 0.5em;
-
-            .h {
-                color     : #FF7A59;
-                margin-top: 0.5em;
-                text-align: left;
-            }
-
-            .name {
-                color     : #fff;
-                margin-top: 0.5em;
-                font-size : larger;
-                width     : 4em;
-                text-align: right;
-            }
-        }
-
-        .msg-info {
-            margin-right   : 1em;
-            justify-content: space-evenly;
-            color          : white;
-            align-items    : flex-end;
-
-            p {
-                font-size : small;
-                text-align: right;
-            }
-
-            ul {
-                margin-top: 0.5em;
-            }
-
-            li {
-                list-style   : none;
-                // margin-top: 1em;
-                font-size    : small;
-                text-align   : right;
-            }
-
-        }
-    }
-
-    // 取消心愿时的表
-    .msg-borad {
-        position      : relative;
-        display       : flex;
-        flex-direction: column;
-        align-items   : center;
-        align-content : space-around;
-
-        p {
-            display: contents;
-        }
-
-        .options {
-            display: flex;
-
-            input {
-                margin-right: 0.5em;
-            }
-
-            p {
-                margin-left: 0.5em;
-                text-align : left;
-            }
-
-            .reason {
-                height       : 2em;
-                border       : none;
-                border-radius: 1em;
-                width        : max-content;
-                padding-left : 1em;
-            }
-        }
-
-    }
-
-
-    .input-msg {
-        width: 77%;
+        word-break: break-all;
+        border: 0px;
+        background-size: 100% 100%, 100% 100%, 100% 31px;
+        line-height: 31px;
+        font-family: TsangerShuYuanTW02;
         color: white;
-
-        p {
-            display: inline-block;
-        }
-
-        .name {
-            margin-top: 0.5em;
-
-            input {
-                width        : 60%;
-                height       : 2em;
-                margin-left  : 1em;
-                border       : none;
-                border-radius: 0.5em;
-                padding-left : 0.5em;
-                font-family  : TsangerShuYuanTW02;
-            }
-        }
-
-
-        select {
-            background-color: white;
-            margin-left     : 0.5em;
-            border          : none;
-            border-radius   : 0.5em;
-            height          : 2em;
-            color           : #FF7A59;
-        }
-
-        input {
-            margin-top   : 0.5em;
-            height       : 2em;
-            margin-left  : 3vw;
-            border       : none;
-            border-radius: 0.5em;
-            padding-left : 0.5em;
-            font-family  : TsangerShuYuanTW02;
-        }
-
-
+        padding: 8px;
+        font-size: medium;
+      }
     }
 
+    .wishInfo {
+      align-self: flex-end;
+      margin-right: 2em;
+      margin-top: 0.5em;
 
+      p {
+        font-family: TsangerShuYuanTW02;
+        font-size: large;
+      }
+    }
+  }
+
+  .other {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  // 愿望主界面
+  .wish {
+    position: relative;
+    margin: 0 5%;
+    width: 76%;
+    background-image: url("../../static/images/panel_upper.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 40% 7% 2% 7%;
+    font-size: medium;
+
+    p {
+      font-family: TsangerShuYuanTW02;
+      color: white;
+    }
+
+    .p-content {
+      position: relative;
+      width: 100%;
+      margin-top: 3%;
+
+      p {
+        text-align: left;
+      }
+
+      hr {
+        margin: auto;
+        width: 100%;
+        background-color: black;
+      }
+    }
+
+    .p-name {
+      margin-top: 10%;
+      text-align: right;
+    }
+
+    .p-time {
+      text-align: right;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+    }
+  }
+
+  // 按钮
+  .panel-button {
+    display: flex;
+  }
+
+  hr {
+    width: 90%;
+    background-color: #707070;
+  }
+
+  // 许愿人信息
+  .msg {
+    position: relative;
+    width: 80%;
+    background-image: url("../../static/images/panel_lower.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 0.5em;
+    padding: 1em;
+
+    p {
+      font-family: TsangerShuYuanTW02;
+    }
+
+    .msg-text {
+      font-size: large;
+      margin-left: 0.5em;
+
+      .h {
+        color: #ff7a59;
+        margin-top: 0.5em;
+        text-align: left;
+      }
+
+      .name {
+        color: #fff;
+        margin-top: 0.5em;
+        font-size: larger;
+        width: 4em;
+        text-align: right;
+      }
+    }
+
+    .msg-info {
+      margin-right: 1em;
+      justify-content: space-evenly;
+      color: white;
+      align-items: flex-end;
+
+      p {
+        font-size: small;
+        text-align: right;
+      }
+
+      ul {
+        margin-top: 0.5em;
+      }
+
+      li {
+        list-style: none;
+        // margin-top: 1em;
+        font-size: small;
+        text-align: right;
+      }
+    }
+  }
+
+  // 取消心愿时的表
+  .msg-borad {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-around;
+
+    p {
+      display: contents;
+    }
+
+    .options {
+      display: flex;
+
+      input {
+        margin-right: 0.5em;
+      }
+
+      p {
+        margin-left: 0.5em;
+        text-align: left;
+      }
+
+      .reason {
+        height: 2em;
+        border: none;
+        border-radius: 1em;
+        width: max-content;
+        padding-left: 1em;
+      }
+    }
+  }
+
+  .input-msg {
+    width: 77%;
+    color: white;
+
+    p {
+      display: inline-block;
+    }
+
+    .name {
+      margin-top: 0.5em;
+
+      input {
+        width: 60%;
+        height: 2em;
+        margin-left: 1em;
+        border: none;
+        border-radius: 0.5em;
+        padding-left: 0.5em;
+        font-family: TsangerShuYuanTW02;
+      }
+    }
+
+    select {
+      background-color: white;
+      margin-left: 0.5em;
+      border: none;
+      border-radius: 0.5em;
+      height: 2em;
+      color: #ff7a59;
+    }
+
+    input {
+      margin-top: 0.5em;
+      height: 2em;
+      margin-left: 3vw;
+      border: none;
+      border-radius: 0.5em;
+      padding-left: 0.5em;
+      font-family: TsangerShuYuanTW02;
+    }
+  }
 }
 
-.notfound{
-    // position: relative;
-    margin: 50%;
-    font-size: xx-large;
+.notfound {
+  // position: relative;
+  margin: 50%;
+  font-size: xx-large;
 }

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { ButtonS } from "../../components/Button";
 import ConfirmPanel from "../../components/ConfirmPanel";
-import {Service} from "../../common/service";
+import { Service } from "../../common/service";
 import forwardimg from "../../static/images/forward.svg";
 import "./index.scss";
 import { formatTime } from "../../common/global";
 import { useLocation, useNavigate } from "react-router-dom";
 import { type } from "@testing-library/user-event/dist/type";
-
 
 //to do -- TS不好改，重写嘤嘤嘤
 
@@ -133,12 +132,11 @@ const OtherLighted = (props) => {
   let currentIndex = "wuchu";
   let otherMsg = "";
 
-
   type IMsgs = {
-    [key:string]:string
-  }
-  const msgs:IMsgs = {
-    wuchu:  "刚刚误触了点亮按钮，不好意思啦~",
+    [key: string]: string;
+  };
+  const msgs: IMsgs = {
+    wuchu: "刚刚误触了点亮按钮，不好意思啦~",
     mang: "最近有点忙，短时间没有精力实现愿望了，抱歉",
   };
 
@@ -212,14 +210,14 @@ const OtherLighted = (props) => {
             <input
               type="radio"
               name="msg"
-              value="wuchu" 
+              value="wuchu"
               defaultChecked={true}
               onChange={handleRadioChange}
             />
           </div>
           <p>刚刚误触了点亮按钮，不好意思啦~</p>
         </div>
-        
+
         <div className="options">
           <div>
             {" "}
@@ -304,7 +302,8 @@ const OtherNotLighted = (props) => {
   let tel = "";
   const [option, setOption] = useState("QQ");
 
-  const handleName = (e) => {  //去掉函数声明直接调用
+  const handleName = (e) => {
+    //去掉函数声明直接调用
     name = e.target.value;
   };
   const handleNumber = (e) => {
@@ -516,9 +515,6 @@ const MineLighted = (props) => {
   );
 };
 
-
-
-
 export default function Detail(props) {
   // console.log(props)
   const navigate = useNavigate();
@@ -531,7 +527,7 @@ export default function Detail(props) {
   const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
 
   const goOtherPage = (path) => {
-    navigate(path)
+    navigate(path);
     //  // props.history.push(path)
   };
 
@@ -568,14 +564,14 @@ export default function Detail(props) {
         // console.log(id)
         res.data.data.wishes.forEach((wish) => {
           if (wish.wish_id === id) {
-            setIsMine(true)
+            setIsMine(true);
           }
-        })
+        });
       });
     });
   }, [location.pathname]);
 
-  const onChange = {  
+  const onChange = {
     changeShowConfirm: changeShowConfirm,
     changeConfirmContent: changeConfirmContent,
     changeBtnText: changeBtnText,
@@ -616,4 +612,3 @@ export default function Detail(props) {
     </div>
   );
 }
-
