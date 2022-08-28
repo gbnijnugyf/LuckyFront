@@ -7,30 +7,27 @@ import DetailPage, { IDetailChange, IOnChange } from "./DetailPage";
 import WishDetail from "./WishDetail";
 const INITNUM: number = -9;
 
-export interface IBtnStateObject<T = any> {
+export interface IBtnStateObject<T = string> {
   yes: T;
   no: T;
 }
-export interface IBtnActionObject {
-  action:(response:boolean)=>void
-}
+export type IBtnActionObject = (response: boolean) => void;
 
 const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
 // const ACTION_INIT: IBtnStateObject<() => void> = {
 //   yes: () => {},
 //   no: () => {},
 // };
-const ACTION_INIT: IBtnActionObject = {
-  action:(response:boolean)=>{response?undefined:undefined}
-};
+const ACTION_INIT: IBtnActionObject = () => {};
+
 const CONTENT_INIT: ReactElement = <></>;
 const WISH_INIT: IWishObject = {
   creat_at: "",
   light_at: "",
-  light_user: INITNUM, //to do -- 改成具体数字，问后端要接口
-  school: INITNUM, //to do -- 改成具体数字，问后端要接口
-  state: INITNUM, //to do -- 改成具体数字，问后端要接口
-  type: INITNUM, //to do -- 改成具体数字，问后端要接口
+  light_user: INITNUM, //TODO -- 改成具体数字，问后端要接口
+  school: INITNUM, //TODO -- 改成具体数字，问后端要接口
+  state: INITNUM, //TODO -- 改成具体数字，问后端要接口
+  type: INITNUM, //TODO -- 改成具体数字，问后端要接口
   wish: "",
   wish_id: INITNUM,
   wishman_inform: {
@@ -41,51 +38,14 @@ const WISH_INIT: IWishObject = {
   },
 };
 
-// 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
-const RETURNCHOOSE_0: number = 0;
-// 别人的愿望，没人实现// 我的愿望，没人实现
-const RETURNCHOOSE_1: number = 1;
-interface IChooseDetailPage {
-  wish: IWishObject;
-  isMine: boolean;
-  DetailChange: IDetailChange;
-}
-
-function chooseDetailPage(props: IChooseDetailPage) {
-  switch (props.wish.state) {
-    case 0:
-      return DetailPage({
-        wish: props.wish,
-        DetailChange: props.DetailChange,
-        chooseReturn: RETURNCHOOSE_1,
-        isMine: props.isMine,
-      });
-    case 1:
-      return DetailPage({
-        wish: props.wish,
-        DetailChange: props.DetailChange,
-        chooseReturn: RETURNCHOOSE_0,
-        isMine: props.isMine,
-      });
-    case 2:
-      return DetailPage({
-        wish: props.wish,
-        DetailChange: props.DetailChange,
-        chooseReturn: RETURNCHOOSE_0,
-        isMine: props.isMine,
-      });
-    default:
-      alert("Unknown Error!!!");
-  }
-}
-
 export default function Detail() {
   const location = useLocation();
 
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
-  const [confirmContent, setConfirmContent] = useState(CONTENT_INIT); // 设置弹窗内容
+  const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
   const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
-  const [confirmAction, setConfirmAction] = useState(ACTION_INIT); // 设置按钮触发
+  const [confirmAction, setConfirmAction] =
+    useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
   const [wish, setWish] = useState(WISH_INIT); // 愿望内容
   const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
   const navigate = useNavigate();
@@ -120,14 +80,9 @@ export default function Detail() {
     //     no: action2,
     //   });
     // },
-    changeConfirmAction(
-      action1: () => void,
-      action2: () => void
-    ) {
-      setConfirmAction({
-        action:(response:boolean)=>{
-          response?action1:action2;
-        }
+    changeConfirmAction(action1: () => void, action2: () => void) {
+      setConfirmAction((response: boolean) => {
+        response ? action1 : action2;
       });
     },
   };
@@ -161,11 +116,7 @@ export default function Detail() {
         pathname={location.pathname}
       />
       <div className="other">
-        {chooseDetailPage({
-          wish: wish,
-          isMine: isMine,
-          DetailChange: DetailChange,
-        })}
+        <DetailPage wish={wish} isMine={isMine} DetailChange={DetailChange} />
       </div>
       <ConfirmPanel
         display={showConfirm}

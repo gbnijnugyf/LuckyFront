@@ -1,15 +1,17 @@
 // import React from 'react'
 
+import { ReactNode } from "react";
+import { JsxElement } from "typescript";
 import "./index.scss";
 
 interface IBtnL {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
-  children: string | any;
+  children: ReactNode;
 }
 interface IBtnS {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   style: { [key: string]: string };
-  children: string | any;
+  children: ReactNode;
 }
 
 export function ButtonL(props: IBtnL) {

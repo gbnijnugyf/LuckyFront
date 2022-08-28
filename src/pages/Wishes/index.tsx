@@ -248,7 +248,8 @@ export default function Wishes() {
     <div className="wishpage">
       <ConfirmPanel
         display={display}
-        action={{ yes: light ? LightWish : handleLight, no: handleAlert }}
+        action={(response:boolean)=>response?(light ? LightWish : handleLight):handleAlert}
+        // action={{ yes: light ? LightWish : handleLight, no: handleAlert }}
       >
         {light ? (
           <div className="input-msg">

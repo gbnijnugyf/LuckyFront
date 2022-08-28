@@ -19,7 +19,7 @@ export interface IDetailChange {
 interface IDetailPageProps {
   wish: IWishObject;
   DetailChange: IDetailChange;
-  chooseReturn: number;
+  // chooseReturn: number;
   isMine: boolean;
 }
 
@@ -305,7 +305,7 @@ export default function DetailPage(props: IDetailPageProps) {
     }, <p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>);
   }
 
-  if (props.chooseReturn === 0) {
+  if (props.wish.state === (1||2)) {
     // 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
     return (
       <>
@@ -334,15 +334,21 @@ export default function DetailPage(props: IDetailPageProps) {
         <PersonMsg wish={props.wish} isMine={props.isMine} />
       </>
     );
-  } else {
+  } else if(props.wish.state === 0){
     // 别人的愿望，没人实现// 我的愿望，没人实现
     return (
       <ButtonS
         onClick={pressLight}
         style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
       >
-        {props.isMine ? "删除" : "点亮"}这个心愿
+        -{props.isMine ? "删除" : "点亮"}这个心愿
       </ButtonS>
     );
+  }else{
+    return(
+      <>
+      {alert("props.wish.state Error!!!")}
+      </>
+    )
   }
 }
