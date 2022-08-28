@@ -11,11 +11,17 @@ export interface IBtnStateObject<T = any> {
   yes: T;
   no: T;
 }
+export interface IBtnActionObject {
+  action:(response:boolean)=>void
+}
 
 const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
-const ACTION_INIT: IBtnStateObject<() => void> = {
-  yes: () => {},
-  no: () => {},
+// const ACTION_INIT: IBtnStateObject<() => void> = {
+//   yes: () => {},
+//   no: () => {},
+// };
+const ACTION_INIT: IBtnActionObject = {
+  action:(response:boolean)=>{response?undefined:undefined}
 };
 const CONTENT_INIT: ReactElement = <></>;
 const WISH_INIT: IWishObject = {
@@ -105,13 +111,23 @@ export default function Detail() {
       });
     },
 
+    // changeConfirmAction(
+    //   action1: () => void = confirmAction.yes,
+    //   action2: () => void = confirmAction.no
+    // ) {
+    //   setConfirmAction({
+    //     yes: action1,
+    //     no: action2,
+    //   });
+    // },
     changeConfirmAction(
-      action1: () => void = confirmAction.yes,
-      action2: () => void = confirmAction.no
+      action1: () => void,
+      action2: () => void
     ) {
       setConfirmAction({
-        yes: action1,
-        no: action2,
+        action:(response:boolean)=>{
+          response?action1:action2;
+        }
       });
     },
   };

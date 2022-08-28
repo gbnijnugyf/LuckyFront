@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
-import { IBtnStateObject } from "../../pages/Detail";
+import { IBtnActionObject, IBtnStateObject } from "../../pages/Detail";
 import "./index.scss";
 interface IConfirmPanelProps {
   display: boolean;
-  action: IBtnStateObject<() => void>;
+  action: IBtnActionObject;
+  // action: IBtnStateObject<() => void>;
   btnText?: IBtnStateObject<string>;
   children: ReactNode;
 }
@@ -14,10 +15,10 @@ export default function ConfirmPanel(props: IConfirmPanelProps) {
       <div className="infoPanel">
         <div className="textPanel">{props.children}</div>
         <div className="confirmPanel">
-          <div className="confirmFalse" onClick={props.action.no}>
+          <div className="confirmFalse" onClick={()=>props.action.action(false)}>
             {props.btnText?.no !== "" ? props.btnText?.no : "取消"}
           </div>
-          <div className="confirmTrue" onClick={props.action.yes}>
+          <div className="confirmTrue" onClick={()=>props.action.action(true)}>
             {props.btnText?.yes !== "" ? props.btnText?.yes : "确认"}
           </div>
         </div>
