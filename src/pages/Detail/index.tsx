@@ -81,7 +81,9 @@ export default function Detail() {
     // },
     changeConfirmAction(action1: () => void, action2: () => void) {
       setConfirmAction((response: boolean) => {
-        response ? action1 : action2;
+        if(response) action1;
+        else action2
+        // response ? action1 : action2; Expected an assignment or function call and instead saw an expression
       });
     },
   };
