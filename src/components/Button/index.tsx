@@ -1,7 +1,4 @@
-// import React from 'react'
-
 import { ReactNode } from "react";
-import { JsxElement } from "typescript";
 import "./index.scss";
 
 interface IBtnL {

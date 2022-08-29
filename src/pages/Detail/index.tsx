@@ -3,7 +3,7 @@ import { Service } from "../../common/service";
 import { IWishObject } from "../MyWish";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import { useLocation, useNavigate } from "react-router-dom";
-import DetailPage, { IDetailChange, IOnChange } from "./DetailPage";
+import DetailPage, { IOnChange } from "./DetailPage";
 import WishDetail from "./WishDetail";
 const INITNUM: number = -9;
 
