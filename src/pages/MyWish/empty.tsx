@@ -7,7 +7,6 @@ export function Empty() {
 
   const goSendWish = () => {
     navigate("tagscreen/fillwish");
-    // props.history.push("/send")
   };
 
   return (

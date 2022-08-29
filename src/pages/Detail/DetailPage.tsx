@@ -19,7 +19,6 @@ export interface IDetailChange {
 interface IDetailPageProps {
   wish: IWishObject;
   detailChange: IDetailChange;
-  // chooseReturn: number;
   isMine: boolean;
 }
 
@@ -35,8 +34,6 @@ export default function DetailPage(props: IDetailPageProps) {
   const goOtherPage = props.detailChange.goOtherPage;
   const achieved = props.wish.state === 2;
   const [currentIndex, setCurrentIndex] = useState("wuchu");
-  // let currentIndex = "wuchu";
-  // let otherMsg = "";
 
   type IMsgs = {
     [key: string]: string;
@@ -79,7 +76,6 @@ export default function DetailPage(props: IDetailPageProps) {
       inputState: string,
       setInputState: React.Dispatch<React.SetStateAction<string>>
     ];
-    // onChange: (props: any) => void,
     name?: string;
     classname?: string;
     style?: React.CSSProperties;

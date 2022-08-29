@@ -22,23 +22,19 @@ import {
   useNavigate,
 } from "react-router-dom";
 function Router() {
-  // 保存WHUT登录后返回的token
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     // console.log("路径变化")
-    // console.log(history)
     let token = cookie.load("jwt_token");
     if (token) {
       localStorage.setItem("token", token);
       navigate("/tagscreen/home");
-      // props.history.push("/");
     }
     if (!localStorage.getItem("token")) {
       navigate("/login");
       console.log(location);
-      // props.history.push("/login");
     }
   }, [location.pathname, navigate, location]);
 
@@ -46,7 +42,6 @@ function Router() {
     <>
       {/* todo fixthis */}
 
-      {/* {props.location.pathname.match(/login/) ? null : <Header></Header>} */}
       {location.pathname.match(/login/) ? null : <Header></Header>}
       <div className="content">
         <Routes>

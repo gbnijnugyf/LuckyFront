@@ -11,11 +11,9 @@ export default function Home() {
 
   useEffect(() => {
     Service.checkUserEmail().then((res) => {
-      // console.log(res)
       if (res.status === -1) {
         navigate("/login/bindemail");
       }
-      // props.history.push("/login/bindemail")
     });
   });
 
@@ -24,12 +22,10 @@ export default function Home() {
       state: { category: tag.category },
     });
 
-    // props.history.push(`/wish/${tag.enName}`, { category: tag.category })
   };
 
   const goSend = () => {
     navigate("/tagscreen/fillwish");
-    // props.history.push('/send')
   };
 
   return (

@@ -76,8 +76,6 @@ function WishItem(props: IWishItemProps) {
   const { wish } = props;
   const time =
     wish.state === 1 ? formatTime(wish.light_at) : formatTime(wish.creat_at);
-  // console.log("get wish successful!")
-  // console.log(wish);
 
   return (
     <li className="item-wish" onClick={props.onClick}>

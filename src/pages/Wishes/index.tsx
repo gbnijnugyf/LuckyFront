@@ -49,13 +49,6 @@ export interface IWishItemProps {
   myStyle: IMyStyle;
 }
 
-// export interface IonTouchStartE {
-//     targetTouches: number,
-// }
-
-// export interface IHTMLonTouchStartElemmt extends HTMLElement {
-
-// }
 
 const WishItem = (props: IWishItemProps) => {
   return (
@@ -112,7 +105,6 @@ export default function Wishes() {
   }
   const category = (useLocation().state as ILocationState).category as number;
 
-  // const { category } = props.location.state
   const [showTip, setShowTip] = useState(true);
   const moveState = { img1: 0, img2: 10, img3: 20 };
   const [move, setMove] = useState(moveState); // 树叶动画相关状态
@@ -202,9 +194,6 @@ export default function Wishes() {
       setWishes(newWishSource);
       // 刷新动画
       setMove(moveState);
-      // if (wishes.length <= 2) {
-      //     setRely(!rely) // 原本的意思就是愿望刷新就剩2个改变依赖调用hooks再发送一次请求刷新愿望列表
-      // }
     }, 200);
   };
   // 查看我的点亮
@@ -249,7 +238,6 @@ export default function Wishes() {
       <ConfirmPanel
         display={display}
         action={(response:boolean)=>response?(light ? lightWish : handleLight):handleAlert}
-        // action={{ yes: light ? LightWish : handleLight, no: handleAlert }}
       >
         {light ? (
           <div className="input-msg">

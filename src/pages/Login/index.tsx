@@ -1,6 +1,5 @@
 import "./index.scss";
 import { Outlet, useNavigate } from "react-router-dom";
-// import path from "path";
 
 export interface IBtnProps {
   text: string;
@@ -30,7 +29,6 @@ export function LoginMain() {
 
   const goCCNU = () => {
     navigate("/login/ccnu");
-    // props.history.push("/login/ccnu");
   };
 
   return (

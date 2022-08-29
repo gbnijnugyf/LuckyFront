@@ -14,10 +14,6 @@ export interface IBtnStateObject<T = string> {
 export type IBtnActionObject = (response: boolean) => void;
 
 const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
-// const ACTION_INIT: IBtnStateObject<() => void> = {
-//   yes: () => {},
-//   no: () => {},
-// };
 const ACTION_INIT: IBtnActionObject = () => {};
 
 const WISH_INIT: IWishObject = {
@@ -70,20 +66,9 @@ export default function Detail() {
       });
     },
 
-    // changeConfirmAction(
-    //   action1: () => void = confirmAction.yes,
-    //   action2: () => void = confirmAction.no
-    // ) {
-    //   setConfirmAction({
-    //     yes: action1,
-    //     no: action2,
-    //   });
-    // },
     changeConfirmAction(action1: () => void, action2: () => void) {
       setConfirmAction((response: boolean) => {
-        // if(response) action1;
-        // else action2
-        return response ? action1 : action2; //Expected an assignment or function call and instead saw an expression
+        return response ? action1 : action2;
       });
     },
   };

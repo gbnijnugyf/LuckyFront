@@ -58,7 +58,6 @@ function Header() {
 
   useEffect(() => {
     setKey(location.pathname.split("/")[1]);
-    // console.log(key)
   }, [location.pathname]);
 
   useEffect(() => {

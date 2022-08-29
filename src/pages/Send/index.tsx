@@ -82,7 +82,6 @@ export default function Send() {
         .then(() => {
           alert("投递成功！");
           navigate("/tagscreen/home");
-          // props.history.push('/home')
         });
     }
   };
