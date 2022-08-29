@@ -1,31 +1,28 @@
-// import React from 'react'
+import { ReactNode } from "react";
+import "./index.scss";
 
-import './index.scss'
-
-export interface IBtnL{
-    onClick?:React.MouseEventHandler<HTMLDivElement>,
-    children:string|any   
+interface IBtnL {
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  children: ReactNode;
 }
-export interface IBtnS{
-    onClick?:React.MouseEventHandler<HTMLDivElement>,
-    style:{[key:string]:string},
-    children:string|any
-}
-
-export function ButtonL(props:IBtnL) {
-
-    return (
-        <div className="button-large" onClick={props.onClick}>
-            {props.children}
-        </div>
-    )
+interface IBtnS {
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  style: { [key: string]: string };
+  children: ReactNode;
 }
 
-export function ButtonS(props:IBtnS) {
+export function ButtonL(props: IBtnL) {
+  return (
+    <div className="button-large" onClick={props.onClick}>
+      {props.children}
+    </div>
+  );
+}
 
-    return (
-        <div className="button-small" onClick={props.onClick} style={props.style}>
-            {props.children}
-        </div>
-    )
+export function ButtonS(props: IBtnS) {
+  return (
+    <div className="button-small" onClick={props.onClick} style={props.style}>
+      {props.children}
+    </div>
+  );
 }

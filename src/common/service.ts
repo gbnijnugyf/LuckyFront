@@ -1,19 +1,28 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { parse } from "url";
 import "whatwg-fetch";
 import { IWishObject } from "../pages/MyWish";
 import { IWishesObject } from "../pages/Wishes";
+import { appendParams2Path } from "./global";
 
-// const BASEURL = window.location.href.slice(0, window.location.href.indexOf('/', 10)) + "/api"
-
-// function GlobalAxios(url, data = {}, method = String) {
-
-// const BASEURL = window.location.href.slice(0, window.location.href.indexOf('/', 10)) + "/api" //部署环境用
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default";
 
 interface IGlobalResponse<T> {
   data: T;
   msg: string;
   status: number;
+}
+interface ILightInformation {
+  light_name?: string;
+  light_tel?: string;
+  light_qq?: string;
+  light_wechat?: string;
+}
+export interface IWishManInformation {
+  wishMan_name?: string;
+  wishMan_QQ?: string;
+  wishMan_Wechat?: string;
+  wishMan_Tel?: string;
 }
 async function GlobalAxios<T = any, D = any>(
   method: "post",
@@ -32,10 +41,17 @@ async function GlobalAxios<T = any, D = any>(
   let config: AxiosRequestConfig<D> = {};
   config.baseURL = BASEURL;
   config.headers = { token: localStorage.getItem("token") || "" };
+
+  const parsedURL = parse(url);
+  const params = new URLSearchParams(parsedURL.query || "");
+  url = parsedURL.pathname || "";
+  config.params = params;
+
   let response;
   if (method === "post") {
     response = await axios[method]<IGlobalResponse<T>>(url, data, config);
   } else {
+    params.set("time", new Date().getTime().toString());
     response = await axios[method]<IGlobalResponse<T>>(url, config);
   }
 
@@ -57,19 +73,6 @@ async function GlobalAxios<T = any, D = any>(
   }
 
   return response;
-}
-
-interface ILightInformation {
-  light_name?: string;
-  light_tel?: string;
-  light_qq?: string;
-  light_wechat?: string;
-}
-export interface IWishManInformation {
-  wishMan_name?: string;
-  wishMan_QQ?: string;
-  wishMan_Wechat?: string;
-  wishMan_Tel?: string;
 }
 
 export const Service = {
@@ -152,47 +155,47 @@ export const Service = {
 
   //查看愿望详情
   getWishDetail(id: string) {
-    let url = new URL("/wishes/details");
-    url.searchParams.append("wish_id", id);
-    url.searchParams.append("time", new Date().getTime().toString());
-    return GlobalAxios<IWishObject>("get", url.toString());
+    return GlobalAxios<IWishObject>(
+      "get",
+      appendParams2Path("/wishes/details", {
+        wish_id: id,
+        time: new Date().getTime().toString(),
+      })
+    );
   },
 
   //查找点亮人信息
   getLightManInfo(id: string) {
-    let url = new URL("/user/info/lightman");
-    url.searchParams.append("wish_id", id);
-    url.searchParams.append("time", new Date().getTime().toString());
-    return GlobalAxios<IWishObject[]>("get", url.toString());
+    return GlobalAxios<{ id: number; wish_id: number } & ILightInformation>(
+      "get",
+      appendParams2Path("/user/info/lightman", {
+        wish_id: id,
+        time: new Date().getTime().toString(),
+      })
+    );
   },
 
   //获取自己点亮的愿望//后端接口重构Ligth
   getUserWishLight() {
-    let url = new URL("/wishes/user/light"); // '/wishes/user/light' or '/desires/user/light'
-    url.searchParams.append("time", new Date().getTime().toString());
-    return GlobalAxios<IWishObject[]>("get", url.toString());
+    return GlobalAxios<IWishObject[]>("get", "/wishes/user/light");
   },
 
   //获取自己投递的愿望//后端接口重构Post
   getUserWishPost() {
-    let url = new URL("/wishes/user/post");
-    url.searchParams.append("time", new Date().getTime().toString());
-    return GlobalAxios<IWishObject[]>("get", url.toString());
+    return GlobalAxios<IWishObject[]>("get", "/wishes/user/post");
   },
 
   //根据分类获取愿望
-  getWishByCategories(category: string) {
-    let url = new URL("/wishes/categories");
-    url.searchParams.append("categories", category);
-    url.searchParams.append("time", new Date().getTime().toString());
-    // console.log(toConfig({ url: url, data: url, method: "get" }))
-    return GlobalAxios<IWishesObject[]>("get", url.toString());
+  getWishByCategories(categories: string) {
+    return GlobalAxios<IWishesObject[]>(
+      "get",
+      appendParams2Path("/wishes/categories", { categories })
+    );
   },
 
   //删除愿望
   deleteWish(wish_id: string) {
-    let url = new URL(`/wishes?wish_id=${wish_id}`);
-    return GlobalAxios("delete", url.toString());
+    return GlobalAxios("delete", appendParams2Path("/wishes", { wish_id }));
   },
 
   //放弃点亮别人的愿望

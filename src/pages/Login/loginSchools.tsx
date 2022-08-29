@@ -40,12 +40,10 @@ export function LoginCCNU() {
       alert("请输入密码");
     } else {
       Service.ccnuLogin(ccnuId, ccnuPwd).then((res) => {
-        // console.log(res)
         res.status = 0; //鉴权测试
         if (res.status === 0) {
           localStorage.setItem("token", res.data.data.token as string);
           navigate("/tagscreen/home");
-          // props.history.push('/')
         } else alert("用户名或密码错误");
       });
     }
@@ -83,7 +81,6 @@ export function BindEmail() {
   const goBind = () => {
     Service.bindEmail(email).then(() => {
       navigate("/tagscreen/home");
-      // props.history.push("/home")
     });
   };
 

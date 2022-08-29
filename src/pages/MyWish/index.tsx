@@ -1,12 +1,9 @@
 import "./index.scss";
 import { useEffect, useState } from "react";
-// import { Empty } from "./empty.jsx";
-// import { MyWishList } from "./list";
 import { Service, IWishManInformation } from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
 const INITNUM: number = -9;
 
-// import { click } from "@testing-library/user-event/dist/click";
 
 export interface IWishObject {
   creat_at: string;
@@ -17,7 +14,7 @@ export interface IWishObject {
   type: number; //to do -- 改成具体数字，问后端要接口
   wish: string;
   wish_id: number;
-  wishman_inform: IWishManInformation;
+  wishman_inform?: IWishManInformation;
 }
 
 export const Index = () => {
@@ -31,12 +28,6 @@ export const Index = () => {
       type: INITNUM, //to do -- 改成具体数字，问后端要接口
       wish: "",
       wish_id: INITNUM,
-      wishman_inform: {
-        wishMan_name: "",
-        wishMan_QQ: "",
-        wishMan_Tel: "",
-        wishMan_Wechat: "",
-      },
     },
   ];
 
@@ -45,8 +36,6 @@ export const Index = () => {
   const [wishLight, setWishLight] = useState(WISHPOST_INIT);
   const [gotPost, setGotPost] = useState(false);
   const [gotLight, setGotLight] = useState(false);
-  // console.log(inform)
-  // inform.state.notfound = true
 
   // 排序愿望为需要的顺序
   const sortWishes = (oldwishes: Array<IWishObject>) => {
@@ -62,7 +51,6 @@ export const Index = () => {
   useEffect(() => {
     Service.getUserWishPost().then((res) => {
       setWishPost(sortWishes(res.data.data));
-      // console.log(wishPost)
       setGotPost(true);
     });
   }, []);
@@ -90,12 +78,3 @@ export const Index = () => {
     </>
   );
 };
-
-// export default function MyWish() {
-//   return (
-//     <div>
-//       <Outlet />
-//       {/* <Link to="/mywish/index" /> */}
-//     </div>
-//   );
-// }
