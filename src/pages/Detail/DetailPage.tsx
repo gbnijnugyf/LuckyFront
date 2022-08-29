@@ -18,7 +18,7 @@ export interface IDetailChange {
 
 interface IDetailPageProps {
   wish: IWishObject;
-  DetailChange: IDetailChange;
+  detailChange: IDetailChange;
   // chooseReturn: number;
   isMine: boolean;
 }
@@ -31,8 +31,8 @@ export default function DetailPage(props: IDetailPageProps) {
     changeConfirmContent,
     changeBtnText,
     changeConfirmAction,
-  } = props.DetailChange.onChange;
-  const goOtherPage = props.DetailChange.goOtherPage;
+  } = props.detailChange.onChange;
+  const goOtherPage = props.detailChange.goOtherPage;
   const achieved = props.wish.state === 2;
   const [currentIndex, setCurrentIndex] = useState("wuchu");
   // let currentIndex = "wuchu";
@@ -305,7 +305,7 @@ export default function DetailPage(props: IDetailPageProps) {
     }, <p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>);
   }
 
-  if (props.wish.state === (1||2)) {
+  if (props.wish.state === 1 || props.wish.state === 2) {
     // 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
     return (
       <>

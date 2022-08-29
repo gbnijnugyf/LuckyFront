@@ -20,7 +20,6 @@ const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
 // };
 const ACTION_INIT: IBtnActionObject = () => {};
 
-const CONTENT_INIT: ReactElement = <></>;
 const WISH_INIT: IWishObject = {
   creat_at: "",
   light_at: "",
@@ -116,7 +115,7 @@ export default function Detail() {
         pathname={location.pathname}
       />
       <div className="other">
-        <DetailPage wish={wish} isMine={isMine} DetailChange={DetailChange} />
+        <DetailPage wish={wish} isMine={isMine} detailChange={DetailChange} />
       </div>
       <ConfirmPanel
         display={showConfirm}

@@ -212,7 +212,7 @@ export default function Wishes() {
     navigate("/detail/index");
     // props.history.push('/mywish')
   };
-  const LightWish = () => {
+  const lightWish = () => {
     if (name === "") alert("还没有填写姓名哦~");
     else if (number === "") alert("还没有填写联系方式哦~");
     else {
@@ -248,7 +248,7 @@ export default function Wishes() {
     <div className="wishpage">
       <ConfirmPanel
         display={display}
-        action={(response:boolean)=>response?(light ? LightWish : handleLight):handleAlert}
+        action={(response:boolean)=>response?(light ? lightWish : handleLight):handleAlert}
         // action={{ yes: light ? LightWish : handleLight, no: handleAlert }}
       >
         {light ? (
