@@ -12,12 +12,34 @@ interface IGlobalResponse<T> {
   msg: string;
   status: number;
 }
+
+//对应后端新接口
+export interface IUserInfo {
+  email: string;
+  wechat: string;
+  tel: string;
+  name: string;
+  qq: string;
+}
 interface ILightInformation {
   light_name?: string;
   light_tel?: string;
   light_qq?: string;
   light_wechat?: string;
 }
+export interface IWishInfo{
+  desire_id:string,
+  desire:string,
+  light_at:string,
+  create_at:string,
+  finish_at:string,
+  state:0|1|2|3,//0未点亮、1已点亮、2已实现、3已删除
+  type:1|2|3|4|5|6|7|8|9,
+  school:1|2,//1武理、2华师
+  light_id:number,
+  user_id:number
+}
+
 export interface IWishManInformation {
   wishMan_name?: string;
   wishMan_QQ?: string;
@@ -86,9 +108,31 @@ export const Service = {
     });
   },
 
+  //whut邮箱验证
+  whutCheckEmail(email: string) {
+    return GlobalAxios<{ emailVV: string }>(
+      "post",
+      "/whutregister/checkemail",
+      {
+        data: {
+          email: email,
+        },
+      }
+    );
+  },
+
+  //whut注册
+  whutRegister() {
+    return GlobalAxios<{ state: number }>("post", "/whutregister", {
+      data: {
+        //post数据待定
+      },
+    });
+  },
+
   //whut登录
   whutLogin() {
-    return GlobalAxios<null>("post", "/whutlogin", null);
+    return GlobalAxios<null>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
   },
 
   //ccnu登录
@@ -163,6 +207,49 @@ export const Service = {
       })
     );
   },
+  //（new）投递愿望
+  postWish_2(
+    name: string,
+    qq: string,
+    weChat: string,
+    tel: string,
+    desire: string,
+    type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
+    school: 1 | 2
+  ) {
+    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/add", {
+      name: name,
+      qq: qq,
+      weChat: weChat,
+      tel: tel,
+      desire: desire,
+      type: type,
+      school: school,
+    });
+  },
+  //（new）用户点亮/实现愿望
+  light_or_realizeWish_2(id:string){
+    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/light",{id:id})
+  },
+  //（new）用户取消点亮愿望
+  cancelLightWish(id:string, message:string){
+    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/giveup",{id:id, message:message})
+  },
+  //（new）查找用户的信息
+  getManInfo(id: string) {
+    return GlobalAxios<IUserInfo>(
+      "get",
+      appendParams2Path("/user/info", { id: id })
+    );
+  },
+  //（new）获取用户点亮/投递的愿望信息
+  getWishInfo(){
+    return GlobalAxios<IWishInfo>("get","/desires/user/light")
+  },
+  //
+  //
+  //
+  //
 
   //查找点亮人信息
   getLightManInfo(id: string) {
