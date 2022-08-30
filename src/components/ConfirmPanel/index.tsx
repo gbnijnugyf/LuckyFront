@@ -4,7 +4,6 @@ import "./index.scss";
 interface IConfirmPanelProps {
   display: boolean;
   action: IBtnActionObject;
-  // action: IBtnStateObject<() => void>;
   btnText?: IBtnStateObject<string>;
   children: ReactNode;
 }
