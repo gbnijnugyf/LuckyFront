@@ -154,7 +154,7 @@ export const Service = {
     });
   },
   //（new）用户点亮愿望
-  lightWish_2(id: string) {
+  lightWish(id: string) {
     return GlobalAxios<IGlobalResponse<string>>("post", "/desires/light", {
       id: id,
     });
@@ -166,7 +166,7 @@ export const Service = {
     });
   },
   //（new）用户取消点亮愿望
-  cancelLightWish(id: string, message: string) {
+  giveUpLightWish(id: string, message: string = "") {
     return GlobalAxios<IGlobalResponse<string>>("post", "/desires/giveup", {
       id: id,
       message: message,
@@ -205,7 +205,7 @@ export const Service = {
     );
   },
 
-  
+
   //绑定邮箱
   bindEmail(email: string) {
     return GlobalAxios<IGlobalResponse<string>>("post", "/user/email", {
@@ -312,15 +312,15 @@ export const Service = {
     return GlobalAxios("delete", appendParams2Path("/wishes", { wish_id }));
   },
   //放弃点亮别人的愿望
-  giveUpLightWish(wish_id: string, msg?: string) {
-    return GlobalAxios<{
-      wish_id: string;
-      message: string;
-    }>("post", "/wishes/giveup", {
-      wish_id: wish_id,
-      message: msg,
-    });
-  },
+  // giveUpLightWish(wish_id: string, msg?: string) {
+  //   return GlobalAxios<{
+  //     wish_id: string;
+  //     message: string;
+  //   }>("post", "/wishes/giveup", {
+  //     wish_id: wish_id,
+  //     message: msg,
+  //   });
+  // },
   //实现别人的愿望
   achieveWish(wish_id: string) {
     return GlobalAxios<{
