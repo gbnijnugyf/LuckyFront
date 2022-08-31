@@ -174,7 +174,7 @@ export const Service = {
   },
   //用户删除愿望
   deleteWish_2(desire_id: string) {
-    return GlobalAxios("delete", appendParams2Path("/wishes", { desire_id }));
+    return GlobalAxios<IGlobalResponse<string>>("delete", appendParams2Path("/wishes", { desire_id }));
   },
 
 
