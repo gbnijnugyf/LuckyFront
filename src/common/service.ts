@@ -80,7 +80,7 @@ export const Service = {
   //绑定邮箱
 
   bindEmail(email: string) {
-    return GlobalAxios<IGlobalResponse<string>>("post", "/user/email", {
+    return GlobalAxios<string>("post", "/user/email", {
       data: {
         email: email,
       },
@@ -88,8 +88,13 @@ export const Service = {
   },
 
   //whut登录
-  whutLogin() {
-    return GlobalAxios<null>("post", "/whutlogin", null);
+  whutLogin(whutId:string, whutPwd:string) {
+    return GlobalAxios<string>("post", "/whutlogin", {
+      data:{
+        email:whutId,
+        password:whutPwd
+      }
+    });
   },
 
   //ccnu登录

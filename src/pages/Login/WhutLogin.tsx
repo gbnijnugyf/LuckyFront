@@ -1,4 +1,4 @@
-import Service from '../../common/service'
+import {Service} from '../../common/service'
 import './WhutLogin.scss'
 import { ButtonL } from '../../components/Button'
 import { ChangeEvent, ReactNode, useState } from 'react'
@@ -26,8 +26,8 @@ function LoginPannel(props:ILoginPannel) {
 
 export function LoginWhut() {
     const navigate = useNavigate();
-    const [WhutId, setWhutId] = useState('')
-    const [WhutPwd, setWhutPwd] = useState('')
+    const [whutId, setWhutId] = useState('')
+    const [whutPwd, setWhutPwd] = useState('')
 
     const handleWhutId = (e:ChangeEvent<HTMLInputElement>) => {
         setWhutId(e.target.value)
@@ -37,16 +37,16 @@ export function LoginWhut() {
         setWhutPwd(e.target.value)
     }
     const goVerify = () => {
-        if (WhutId === "") {
+        if (whutId === "") {
             alert("请输入邮箱")
-        } else if (WhutPwd === "") {
+        } else if (whutPwd === "") {
             alert("请输入密码")
         } else {
-            Service.WhutLogin(WhutId, WhutPwd).then(res => {
+            Service.whutLogin(whutId, whutPwd).then(res => {
                 // console.log(res)
                 res.status = 0; //鉴权测试
                 if (res.status === 0) {    
-                    localStorage.setItem('token', res.data.data.token as string)
+                    localStorage.setItem('token', res.data.data)
                     navigate('/tagscreen/home');
                     // props.history.push('/')
                 }
@@ -60,11 +60,11 @@ export function LoginWhut() {
                 <ul>
                     <li>
                         <label>邮箱：</label>
-                        <input value={WhutId} onChange={handleWhutId}></input>
+                        <input value={whutId} onChange={handleWhutId}></input>
                     </li>
                     <li>
                         <label>密码：</label>
-                        <input type="password" value={WhutPwd} onChange={handleWhutPwd}></input>
+                        <input type="password" value={whutPwd} onChange={handleWhutPwd}></input>
                     </li>
                 </ul>
             </div>
