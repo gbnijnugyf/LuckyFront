@@ -124,7 +124,7 @@ export const Service = {
   },
   //whut登录
   whutLogin() {
-    return GlobalAxios<IGlobalResponse<string>>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
+    return GlobalAxios<string>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
   },
   //（new）获取用户的信息
   getManInfo(id: string) {
@@ -143,7 +143,7 @@ export const Service = {
     type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
     school: 1 | 2
   ) {
-    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/add", {
+    return GlobalAxios<string>("post", "/desires/add", {
       name: name,
       qq: qq,
       weChat: weChat,
@@ -155,19 +155,19 @@ export const Service = {
   },
   //（new）用户点亮愿望
   lightWish(id: string) {
-    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/light", {
+    return GlobalAxios<string>("post", "/desires/light", {
       id: id,
     });
   },
   //（new）用户实现愿望
   achieveWish_2(id: string) {
-    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/achieve", {
+    return GlobalAxios<string>("post", "/desires/achieve", {
       id: id,
     });
   },
   //（new）用户取消点亮愿望
   giveUpLightWish(id: string, message: string = "") {
-    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/giveup", {
+    return GlobalAxios<string>("post", "/desires/giveup", {
       id: id,
       message: message,
     });
@@ -199,7 +199,7 @@ export const Service = {
   },
   //用户删除愿望
   deleteWish_2(desire_id: string) {
-    return GlobalAxios<IGlobalResponse<string>>(
+    return GlobalAxios<string>(
       "delete",
       appendParams2Path("/wishes", { desire_id })
     );
@@ -208,7 +208,7 @@ export const Service = {
 
   //绑定邮箱
   bindEmail(email: string) {
-    return GlobalAxios<IGlobalResponse<string>>("post", "/user/email", {
+    return GlobalAxios<string>("post", "/user/email", {
       data: {
         email: email,
       },
