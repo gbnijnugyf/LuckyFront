@@ -262,7 +262,7 @@ export default function DetailPage(props: IDetailPageProps) {
     handlePopWindows(
       () => {
         changeShowConfirm(false);
-        Service.achieveWish(props.wish.wish_id.toString());
+        Service.achieveWish_2(props.wish.wish_id.toString());
         goOtherPage("/detail/index");
       },
       <>
@@ -293,7 +293,7 @@ export default function DetailPage(props: IDetailPageProps) {
   // 我的愿望，有人点亮 ———— 点击删除
   function pressDelete() {
     handlePopWindows(() => {
-      Service.deleteWish(props.wish.wish_id.toString()).then(() => {
+      Service.deleteWish_2(props.wish.wish_id.toString()).then(() => {
         alert("删除成功");
         goOtherPage("/detail/index");
       });
