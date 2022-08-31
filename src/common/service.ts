@@ -21,23 +21,27 @@ export interface IUserInfo {
   name: string;
   qq: string;
 }
+export interface IWishInfo {
+  desire_id: string;
+  desire: string;
+  light_at: string;
+  create_at: string;
+  finish_at: string;
+  state: 0 | 1 | 2 | 3; //0未点亮、1已点亮、2已实现、3已删除
+  type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  school: 1 | 2; //1武理、2华师
+  light_id: number;
+  user_id: number;
+}
+export interface IWishDetail {
+  wishInfo: IWishInfo; //愿望信息
+  user: IUserInfo; //许愿人信息
+}
 interface ILightInformation {
   light_name?: string;
   light_tel?: string;
   light_qq?: string;
   light_wechat?: string;
-}
-export interface IWishInfo{
-  desire_id:string,
-  desire:string,
-  light_at:string,
-  create_at:string,
-  finish_at:string,
-  state:0|1|2|3,//0未点亮、1已点亮、2已实现、3已删除
-  type:1|2|3|4|5|6|7|8|9,
-  school:1|2,//1武理、2华师
-  light_id:number,
-  user_id:number
 }
 
 export interface IWishManInformation {
@@ -98,8 +102,84 @@ async function GlobalAxios<T = any, D = any>(
 }
 
 export const Service = {
-  //绑定邮箱
+  //（new）投递愿望
+  postWish_2(
+    name: string,
+    qq: string,
+    weChat: string,
+    tel: string,
+    desire: string,
+    type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
+    school: 1 | 2
+  ) {
+    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/add", {
+      name: name,
+      qq: qq,
+      weChat: weChat,
+      tel: tel,
+      desire: desire,
+      type: type,
+      school: school,
+    });
+  },
+  //（new）用户点亮/实现愿望
+  lightWish_2(id: string) {
+    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/light", {
+      id: id,
+    });
+  },
+  achieveWish_2(id: string) {
+    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/achieve", {
+      id: id,
+    });
+  },
+  //（new）用户取消点亮愿望
+  cancelLightWish(id: string, message: string) {
+    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/giveup", {
+      id: id,
+      message: message,
+    });
+  },
+  //（new）查找用户的信息
+  getManInfo(id: string) {
+    return GlobalAxios<IUserInfo>(
+      "get",
+      appendParams2Path("/user/info", { id: id })
+    );
+  },
+  //（new）获取用户点亮的愿望信息
+  get_lightedWishInfo() {
+    return GlobalAxios<IWishInfo>("get", "/desires/user/light");
+  },
+  //（new）获取用户投递的愿望信息
+  get_postedWishInfo() {
+    return GlobalAxios<IWishInfo>("get", "/desires/user/post");
+  },
+  //（new）通过类型获取愿望
+  getWishByCategories_2(categories: string) {
+    return GlobalAxios<IWishInfo[]>(
+      "get",
+      appendParams2Path("/wishes/categories", { categories })
+    );
+  },
+  //（new）获取愿望具体信息
+  getWishDetail_2(id: string) {
+    return GlobalAxios<IWishDetail>(
+      "get",
+      appendParams2Path("/wishes/details", {
+        desire_id: id,
+        time: new Date().getTime().toString(),
+      })
+    );
+  },
+  //用户删除愿望
+  deleteWish_2(desire_id: string) {
+    return GlobalAxios("delete", appendParams2Path("/wishes", { desire_id }));
+  },
 
+
+
+  //绑定邮箱
   bindEmail(email: string) {
     return GlobalAxios<IGlobalResponse<string>>("post", "/user/email", {
       data: {
@@ -107,7 +187,6 @@ export const Service = {
       },
     });
   },
-
   //whut邮箱验证
   whutCheckEmail(email: string) {
     return GlobalAxios<{ emailVV: string }>(
@@ -120,7 +199,6 @@ export const Service = {
       }
     );
   },
-
   //whut注册
   whutRegister() {
     return GlobalAxios<{ state: number }>("post", "/whutregister", {
@@ -129,12 +207,10 @@ export const Service = {
       },
     });
   },
-
   //whut登录
   whutLogin() {
     return GlobalAxios<null>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
   },
-
   //ccnu登录
   ccnuLogin(idcard_number: string, password: string) {
     return GlobalAxios<{
@@ -146,12 +222,10 @@ export const Service = {
       password: password,
     });
   },
-
   //查询邮箱是否绑定
   checkUserEmail() {
     return GlobalAxios<null>("post", "/user/email/check", null);
   },
-
   //发出自己的愿望
   postWish(
     name: string,
@@ -174,7 +248,6 @@ export const Service = {
       },
     });
   },
-
   //点亮别人的愿望
   lightWishOn(
     id: string,
@@ -196,7 +269,6 @@ export const Service = {
       },
     });
   },
-
   //查看愿望详情
   getWishDetail(id: string) {
     return GlobalAxios<IWishObject>(
@@ -207,50 +279,6 @@ export const Service = {
       })
     );
   },
-  //（new）投递愿望
-  postWish_2(
-    name: string,
-    qq: string,
-    weChat: string,
-    tel: string,
-    desire: string,
-    type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
-    school: 1 | 2
-  ) {
-    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/add", {
-      name: name,
-      qq: qq,
-      weChat: weChat,
-      tel: tel,
-      desire: desire,
-      type: type,
-      school: school,
-    });
-  },
-  //（new）用户点亮/实现愿望
-  light_or_realizeWish_2(id:string){
-    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/light",{id:id})
-  },
-  //（new）用户取消点亮愿望
-  cancelLightWish(id:string, message:string){
-    return GlobalAxios<IGlobalResponse<string>>("post", "/desires/giveup",{id:id, message:message})
-  },
-  //（new）查找用户的信息
-  getManInfo(id: string) {
-    return GlobalAxios<IUserInfo>(
-      "get",
-      appendParams2Path("/user/info", { id: id })
-    );
-  },
-  //（new）获取用户点亮/投递的愿望信息
-  getWishInfo(){
-    return GlobalAxios<IWishInfo>("get","/desires/user/light")
-  },
-  //
-  //
-  //
-  //
-
   //查找点亮人信息
   getLightManInfo(id: string) {
     return GlobalAxios<{ id: number; wish_id: number } & ILightInformation>(
@@ -261,17 +289,14 @@ export const Service = {
       })
     );
   },
-
   //获取自己点亮的愿望//后端接口重构Ligth
   getUserWishLight() {
     return GlobalAxios<IWishObject[]>("get", "/wishes/user/light");
   },
-
   //获取自己投递的愿望//后端接口重构Post
   getUserWishPost() {
     return GlobalAxios<IWishObject[]>("get", "/wishes/user/post");
   },
-
   //根据分类获取愿望
   getWishByCategories(categories: string) {
     return GlobalAxios<IWishesObject[]>(
@@ -279,12 +304,10 @@ export const Service = {
       appendParams2Path("/wishes/categories", { categories })
     );
   },
-
   //删除愿望
   deleteWish(wish_id: string) {
     return GlobalAxios("delete", appendParams2Path("/wishes", { wish_id }));
   },
-
   //放弃点亮别人的愿望
   giveUpLightWish(wish_id: string, msg?: string) {
     return GlobalAxios<{
@@ -295,7 +318,6 @@ export const Service = {
       message: msg,
     });
   },
-
   //实现别人的愿望
   achieveWish(wish_id: string) {
     return GlobalAxios<{
