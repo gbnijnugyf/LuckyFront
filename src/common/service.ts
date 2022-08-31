@@ -102,7 +102,38 @@ async function GlobalAxios<T = any, D = any>(
 }
 
 export const Service = {
-  //（new）投递愿望
+  //whut邮箱验证
+  whutCheckEmail(email: string) {
+    return GlobalAxios<{ emailVV: string }>(
+      "post",
+      "/whutregister/checkemail",
+      {
+        data: {
+          email: email,
+        },
+      }
+    );
+  },
+  //whut注册
+  whutRegister() {
+    return GlobalAxios<{ state: number }>("post", "/whutregister", {
+      data: {
+        //post数据待定
+      },
+    });
+  },
+  //whut登录
+  whutLogin() {
+    return GlobalAxios<IGlobalResponse<string>>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
+  },
+  //（new）获取用户的信息
+  getManInfo(id: string) {
+    return GlobalAxios<IUserInfo>(
+      "get",
+      appendParams2Path("/user/info", { id: id })
+    );
+  },
+  //（new）用户投递愿望
   postWish_2(
     name: string,
     qq: string,
@@ -122,12 +153,13 @@ export const Service = {
       school: school,
     });
   },
-  //（new）用户点亮/实现愿望
+  //（new）用户点亮愿望
   lightWish_2(id: string) {
     return GlobalAxios<IGlobalResponse<string>>("post", "/desires/light", {
       id: id,
     });
   },
+  //（new）用户实现愿望
   achieveWish_2(id: string) {
     return GlobalAxios<IGlobalResponse<string>>("post", "/desires/achieve", {
       id: id,
@@ -139,13 +171,6 @@ export const Service = {
       id: id,
       message: message,
     });
-  },
-  //（new）查找用户的信息
-  getManInfo(id: string) {
-    return GlobalAxios<IUserInfo>(
-      "get",
-      appendParams2Path("/user/info", { id: id })
-    );
   },
   //（new）获取用户点亮的愿望信息
   get_lightedWishInfo() {
@@ -174,11 +199,13 @@ export const Service = {
   },
   //用户删除愿望
   deleteWish_2(desire_id: string) {
-    return GlobalAxios<IGlobalResponse<string>>("delete", appendParams2Path("/wishes", { desire_id }));
+    return GlobalAxios<IGlobalResponse<string>>(
+      "delete",
+      appendParams2Path("/wishes", { desire_id })
+    );
   },
 
-
-
+  
   //绑定邮箱
   bindEmail(email: string) {
     return GlobalAxios<IGlobalResponse<string>>("post", "/user/email", {
@@ -186,30 +213,6 @@ export const Service = {
         email: email,
       },
     });
-  },
-  //whut邮箱验证
-  whutCheckEmail(email: string) {
-    return GlobalAxios<{ emailVV: string }>(
-      "post",
-      "/whutregister/checkemail",
-      {
-        data: {
-          email: email,
-        },
-      }
-    );
-  },
-  //whut注册
-  whutRegister() {
-    return GlobalAxios<{ state: number }>("post", "/whutregister", {
-      data: {
-        //post数据待定
-      },
-    });
-  },
-  //whut登录
-  whutLogin() {
-    return GlobalAxios<null>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
   },
   //ccnu登录
   ccnuLogin(idcard_number: string, password: string) {
