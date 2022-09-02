@@ -27,11 +27,15 @@ export interface IWishInfo {
   light_at: string;
   create_at: string;
   finish_at: string;
-  state: 0 | 1 | 2 | 3; //0未点亮、1已点亮、2已实现、3已删除
-  type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-  school: 1 | 2; //1武理、2华师
+  state: -1 | 0 | 1 | 2 | 3; //-1初始化、0未点亮、1已点亮、2已实现、3已删除
+  type: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9; //0初始化
+  school: 0 | 1 | 2; //0错误or初始化、1武理、2华师
   light_id: number;
   user_id: number;
+}
+export interface IWishInfo_withName{
+  wish:IWishInfo,
+  wishMan:string
 }
 export interface IWishDetail {
   wishInfo: IWishInfo; //愿望信息
@@ -182,9 +186,9 @@ export const Service = {
   },
   //（new）通过类型获取愿望
   getWishByCategories_2(categories: string) {
-    return GlobalAxios<IWishInfo[]>(
+    return GlobalAxios<IWishInfo_withName[]>(
       "get",
-      appendParams2Path("/wishes/categories", { categories })
+      appendParams2Path("/wishestest/categories", { categories })
     );
   },
   //（new）获取愿望具体信息
@@ -204,7 +208,6 @@ export const Service = {
       appendParams2Path("/wishes", { desire_id })
     );
   },
-
 
   //绑定邮箱
   bindEmail(email: string) {
