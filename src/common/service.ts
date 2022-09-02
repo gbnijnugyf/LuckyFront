@@ -35,7 +35,7 @@ export interface IWishInfo {
 }
 export interface IWishInfo_withName{
   wish:IWishInfo,
-  wishMan:string
+  wishManName:string
 }
 export interface IWishDetail {
   wishInfo: IWishInfo; //愿望信息

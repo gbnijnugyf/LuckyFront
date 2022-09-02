@@ -6,7 +6,6 @@ import leaf from "../../static/images/leaf.svg";
 import { IWishInfo_withName, Service } from "../../common/service";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import { tags } from "../../config/Global";
 
 const FALSE_0: number = 0;
 // const SCHOOLINIT: 0 | 1 | 2 = 0;
@@ -48,15 +47,12 @@ export interface IWishItemProps {
   onTouchEnd?: () => void;
   setStyleID: number;
   myStyle: IMyStyle;
-  wishtype: string;
 }
 
 const WishItem = (props: IWishItemProps) => {
-  // console.log(props.wishtype);
-  // console.log(props.wish.wish.desire)
   return (
     <div
-      key={props.wish?.wishMan}
+      key={props.wish?.wishManName}
       className="wish-item"
       style={toStyle(props.myStyle)}
       onTouchStart={props.onTouchStart}
@@ -77,8 +73,8 @@ const WishItem = (props: IWishItemProps) => {
         </p>{" "}
         {/* props.wish.school可能未定义，对接口*/}
         <p>
-          {props.wish.wishMan.length > 0
-            ? props.wish.wishMan.charAt(0) + "同学"
+          {props.wish.wishManName.length > 0
+            ? props.wish.wishManName.charAt(0) + "同学"
             : ""}
         </p>
       </div>
@@ -93,7 +89,6 @@ export interface IStartX {
 
 export default function Wishes() {
   const navigate = useNavigate();
-  const location = useLocation();
   // 拿着这个分类去发请求
   let STARTINIT: IStartX = {
     start: "",
@@ -116,17 +111,11 @@ export default function Wishes() {
       light_id: -1,
       user_id: -1,
     },
-    wishMan: "",
+    wishManName: "",
   };
   let WISHES_INIT: IWishInfo_withName[] = [WISH_INIT, WISH_INIT, WISH_INIT];
-  // const category = (useLocation().state as ILocationState<string>).category;
-  const state = useLocation().pathname.slice(15); //切割url获得愿望分类
-  const [category, setCategory] = useState<number>(0);
-  // useEffect(() => {
-  //   tags.forEach((tag) => {
-  //     if (tag.enName === state) setCategory(tag.category);
-  //   });
-  // },[1]);
+  const category = (useLocation().state as ILocationState<string>).category;
+
   const [showTip, setShowTip] = useState(true);
   const moveState = { img1: 0, img2: 10, img3: 20 };
   const [move, setMove] = useState(moveState); // 树叶动画相关状态
@@ -141,15 +130,11 @@ export default function Wishes() {
   const [tel, setTel] = useState("");
   const [option, setOption] = useState("QQ");
 
-  const [testFlag, setTestFlag] = useState("1");
   const refreshWishes = () => {
     Service.getWishByCategories_2(category.toString()).then((res) => {
       let wishes = res.data.data;
-      console.log("0");
-      // console.log(res.data.data);
-      // console.log(wishes[0])
+
       if (res.data.data.length === 0) {
-        console.log(res.data.data.length);
         setLightBtn(false);
         let wish: IWishInfo_withName = {
           wish: {
@@ -164,31 +149,22 @@ export default function Wishes() {
             light_id: -1,
             user_id: -1,
           },
-          wishMan: "",
+          wishManName: "",
         };
         wishes.push(wish);
       } else {
-        console.log("1");
         wishes = res.data.data;
         setLightBtn(true);
-        while (wishes.length < 3) {
-          wishes = wishes.concat(wishes);
-        }
-        setWishes(wishes);
-        console.log("2");
-
       }
-
-      console.log(wishes);
-      setTestFlag("2");
+      while (wishes.length < 3) {
+        wishes = wishes.concat(wishes);
+      }
+      setWishes(wishes);
     });
-    setTimeout(()=>{console.log(wishes)},10000)//延时打印外部常量wishes，发现177行set赋值失败
+    // setTimeout(()=>{console.log(wishes)},10000)//延时打印外部常量wishes，发现177行set赋值失败
   };
   // 获取愿望
-  useEffect(refreshWishes, [category, lightBtn, wishes]);
-  useEffect(() => {
-    if (testFlag === "2") console.log(wishes[0].wish.desire + "123");
-  }, [wishes, testFlag]);
+  useEffect(refreshWishes, [category, lightBtn]);
 
   // console.log(wishes[0].wish+"123")
 
@@ -372,7 +348,6 @@ export default function Wishes() {
             transition: update ? "all 0.2s" : "none",
             zIndex: 101,
           }}
-          wishtype={state}
         />
         <WishItem
           className="wish-img"
@@ -383,7 +358,6 @@ export default function Wishes() {
             transition: update ? "all 0.2s" : "none",
             zIndex: 100,
           }}
-          wishtype={state}
         />
         <WishItem
           className="wish-img"
@@ -394,7 +368,6 @@ export default function Wishes() {
             transition: update ? "all 0.2s" : "none",
             zIndex: 99,
           }}
-          wishtype={state}
         />
         <WishItem
           className="img1 wish-img"
@@ -404,7 +377,6 @@ export default function Wishes() {
             left: `20vw`,
             zIndex: 98,
           }}
-          wishtype={state}
         />
       </div>
       <ButtonS
