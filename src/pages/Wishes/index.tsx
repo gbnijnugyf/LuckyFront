@@ -228,6 +228,8 @@ export default function Wishes() {
     // props.history.push('/mywish')
   };
   const lightWish = () => {
+    
+
     if (name === "") alert("还没有填写姓名哦~");
     else if (number === "") alert("还没有填写联系方式哦~");
     else {
@@ -259,13 +261,36 @@ export default function Wishes() {
   const showConfirm = () => {
     setDisplay(true);
   };
+  const getUserPre = ()=>{
+    //先获取用户已存在信息
+    Service.getManInfo("-1").then((res) => {
+      let manInfo = res.data.data;
+      if (manInfo.name !== "") {
+        setName(manInfo.name);
+      }
+      if (manInfo.qq !== "") {
+        //默认QQ为联系方式
+        setNumber(manInfo.qq);
+      } else if (manInfo.qq === "" && manInfo.wechat !== "") {
+        //QQ为空，微信为联系方式
+        setNumber(manInfo.wechat);
+      } else if (manInfo.wechat === "" && manInfo.ps !== "") {
+        //微信为空，自己备注联系方式
+        setNumber(manInfo.ps);
+      }
+      if(manInfo.tel !== ""){
+        setTel(manInfo.tel);
+      }
+    });
+  }
 
   return (
     <div className="wishpage">
       <ConfirmPanel
         display={display}
+        userInfoPreview={getUserPre}
         action={(response: boolean) =>
-          response ? (light ? lightWish : handleLight) : handleAlert
+          response ? (light ? lightWish() : handleLight()) : handleAlert()
         }
       >
         {light ? (
@@ -290,13 +315,14 @@ export default function Wishes() {
                 >
                   <option value="QQ">QQ</option>
                   <option value="WeChat">微信</option>
+                  <option value="psSelf">备注</option>
                 </select>
                 <input
                   type="text"
-                  placeholder="必填内容哦～"
+                  placeholder="必填内容"
                   onChange={handleNumber}
                   value={number}
-                  style={{ marginLeft: ".3em", width: "30%" }}
+                  style={{ marginLeft: ".3em", width: "32%" }}
                 />
               </div>
               <div className="tel">

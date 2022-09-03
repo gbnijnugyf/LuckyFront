@@ -20,6 +20,7 @@ export interface IUserInfo {
   tel: string;
   name: string;
   qq: string;
+  ps:string
 }
 export interface IWishInfo {
   desire_id: string;
