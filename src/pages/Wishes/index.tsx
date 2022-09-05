@@ -52,7 +52,7 @@ export interface IWishItemProps {
 const WishItem = (props: IWishItemProps) => {
   return (
     <div
-      key={props.wish?.wishManName}
+      key={props.wish?.name}
       className="wish-item"
       style={toStyle(props.myStyle)}
       onTouchStart={props.onTouchStart}
@@ -61,20 +61,20 @@ const WishItem = (props: IWishItemProps) => {
     >
       <img src={leaf} className="wish-img" alt="" />
       <div className="content">
-        <div className="content-word">{props.wish.wish.desire}</div>
+        <div className="content-word">{props.wish.view_desire.desire}</div>
       </div>
       <div className="msg">
         <p>
-          {props.wish.wish.school.toString() === ""
+          {props.wish.view_desire.school.toString() === ""
             ? ""
-            : props.wish.wish.school.toString() === FALSE_0.toString()
+            : props.wish.view_desire.school.toString() === FALSE_0.toString()
             ? "华小师"
             : "武小理"}
         </p>{" "}
         {/* props.wish.school可能未定义，对接口*/}
         <p>
-          {props.wish.wishManName.length > 0
-            ? props.wish.wishManName.charAt(0) + "同学"
+          {props.wish.name.length > 0
+            ? props.wish.name.charAt(0) + "同学"
             : ""}
         </p>
       </div>
@@ -99,19 +99,19 @@ export default function Wishes() {
     category: T;
   }
   let WISH_INIT: IWishInfo_withName = {
-    wish: {
+    view_desire: {
       desire_id: "",
       desire: "",
-      light_at: "",
-      create_at: "",
-      finish_at: "",
+      lighted_at: "",
+      created_at: "",
+      finished_at: "",
       state: -1,
       type: 0,
       school: 0,
       light_id: -1,
       user_id: -1,
     },
-    wishManName: "",
+    name: "",
   };
   let WISHES_INIT: IWishInfo_withName[] = [WISH_INIT, WISH_INIT, WISH_INIT];
   const category = (useLocation().state as ILocationState<string>).category;
@@ -133,23 +133,24 @@ export default function Wishes() {
   const refreshWishes = () => {
     Service.getWishByCategories_2(category.toString()).then((res) => {
       let wishes = res.data.data;
-
+      console.log(category,"123")
+      
       if (res.data.data.length === 0) {
         setLightBtn(false);
         let wish: IWishInfo_withName = {
-          wish: {
+          view_desire: {
             desire_id: "",
             desire: "",
-            light_at: "",
-            create_at: "",
-            finish_at: "",
+            lighted_at: "",
+            created_at: "",
+            finished_at: "",
             state: -1,
             type: 0,
             school: 0,
             light_id: -1,
             user_id: -1,
           },
-          wishManName: "",
+          name: "",
         };
         wishes.push(wish);
       } else {
@@ -234,8 +235,8 @@ export default function Wishes() {
     else if (number === "") alert("还没有填写联系方式哦~");
     else {
       if (!wishes) return;
-      if (wishes[0].wish.desire_id !== undefined) {
-        let id = wishes[0].wish.desire_id;
+      if (wishes[0].view_desire.desire_id !== undefined) {
+        let id = wishes[0].view_desire.desire_id;
         let [qq, wechat] = option === "QQ" ? [number, ""] : ["", number];
         Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
           if (res.status === 0) {
@@ -274,9 +275,6 @@ export default function Wishes() {
       } else if (manInfo.qq === "" && manInfo.wechat !== "") {
         //QQ为空，微信为联系方式
         setNumber(manInfo.wechat);
-      } else if (manInfo.wechat === "" && manInfo.ps !== "") {
-        //微信为空，自己备注联系方式
-        setNumber(manInfo.ps);
       }
       if(manInfo.tel !== ""){
         setTel(manInfo.tel);

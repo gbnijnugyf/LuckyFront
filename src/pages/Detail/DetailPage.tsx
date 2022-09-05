@@ -1,7 +1,7 @@
 import { ReactElement, useState } from "react";
-import { Service } from "../../common/service";
+import { IWishInfo, Service } from "../../common/service";
 import { ButtonS } from "../../components/Button";
-import { IWishObject } from "../MyWish";
+// import { IWishObject } from "../MyWish";
 import PersonMsg from "./PersonMsg";
 
 export interface IOnChange {
@@ -17,7 +17,7 @@ export interface IDetailChange {
 }
 
 interface IDetailPageProps {
-  wish: IWishObject;
+  wish: IWishInfo;
   detailChange: IDetailChange;
   isMine: boolean;
 }
@@ -120,7 +120,7 @@ export default function DetailPage(props: IDetailPageProps) {
     const [tel, setTel] = useState("");
     handlePopWindows(
       () => {
-        let id = props.wish.wish_id;
+        let id = props.wish.desire_id;
         let [qq, wechat] = option === "QQ" ? [number, ""] : ["", number];
         Service.lightWishOn(id.toString(), name, tel, qq, wechat).then(
           (res) => {
@@ -226,7 +226,7 @@ export default function DetailPage(props: IDetailPageProps) {
         changeShowConfirm(false);
         changeBtnText("", "");
         let message = currentIndex === "other" ? msgs["other"] : msgs["wuchu"];
-        Service.giveUpLightWish(props.wish.wish_id.toString(), message).then(
+        Service.giveUpLightWish(props.wish.desire_id.toString(), message).then(
           () => {
             goOtherPage("/detail/index");
           }
@@ -247,7 +247,7 @@ export default function DetailPage(props: IDetailPageProps) {
       () => {
         changeShowConfirm(false);
         changeBtnText("", "");
-        Service.giveUpLightWish(props.wish.wish_id.toString()).then(() => {
+        Service.giveUpLightWish(props.wish.desire_id.toString()).then(() => {
           goOtherPage("/detail/index");
         });
       },
@@ -262,7 +262,7 @@ export default function DetailPage(props: IDetailPageProps) {
     handlePopWindows(
       () => {
         changeShowConfirm(false);
-        Service.achieveWish_2(props.wish.wish_id.toString());
+        Service.achieveWish_2(props.wish.desire_id.toString());
         goOtherPage("/detail/index");
       },
       <>
@@ -293,7 +293,7 @@ export default function DetailPage(props: IDetailPageProps) {
   // 我的愿望，有人点亮 ———— 点击删除
   function pressDelete() {
     handlePopWindows(() => {
-      Service.deleteWish_2(props.wish.wish_id.toString()).then(() => {
+      Service.deleteWish_2(props.wish.desire_id.toString()).then(() => {
         alert("删除成功");
         goOtherPage("/detail/index");
       });
@@ -327,7 +327,7 @@ export default function DetailPage(props: IDetailPageProps) {
           </ButtonS>
         </div>
         <hr />
-        <PersonMsg wish={props.wish} isMine={props.isMine} />
+        <PersonMsg wish={props.wish} isMine={props.isMine} />{/*一直刷新 */}
       </>
     );
   } else if(props.wish.state === 0){

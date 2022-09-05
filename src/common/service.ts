@@ -1,11 +1,36 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { parse } from "url";
 import "whatwg-fetch";
-import { IWishObject } from "../pages/MyWish";
+// import { IWishObject } from "../pages/MyWish";
 import { IWishesObject } from "../pages/Wishes";
 import { appendParams2Path } from "./global";
 
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default";
+
+export enum Type {
+  null = 0,
+  影音,
+  游戏,
+  美食,
+  学习,
+  运动,
+  交友,
+  打卡,
+  动漫,
+  其他,
+}
+export enum State{
+  初始化 = -1,
+  未点亮,
+  已点亮,
+  已实现,
+  已删除
+}
+export enum School{
+  初始化 = 0,
+  武理,
+  华师
+}
 
 interface IGlobalResponse<T> {
   data: T;
@@ -20,27 +45,27 @@ export interface IUserInfo {
   tel: string;
   name: string;
   qq: string;
-  ps:string
+  school: number;
 }
 export interface IWishInfo {
   desire_id: string;
   desire: string;
-  light_at: string;
-  create_at: string;
-  finish_at: string;
-  state: -1 | 0 | 1 | 2 | 3; //-1初始化、0未点亮、1已点亮、2已实现、3已删除
-  type: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9; //0初始化
-  school: 0 | 1 | 2; //0错误or初始化、1武理、2华师
+  lighted_at: string;
+  created_at: string;
+  finished_at: string;
+  state: State; //-1初始化、0未点亮、1已点亮、2已实现、3已删除
+  type: Type; //0初始化
+  school: School; //0错误or初始化、1武理、2华师
   light_id: number;
   user_id: number;
 }
-export interface IWishInfo_withName{
-  wish:IWishInfo,
-  wishManName:string
+export interface IWishInfo_withName {
+  view_desire: IWishInfo;
+  name: string;
 }
 export interface IWishDetail {
-  wishInfo: IWishInfo; //愿望信息
-  user: IUserInfo; //许愿人信息
+  view_desire: IWishInfo; //愿望信息
+  view_user: IUserInfo; //许愿人信息
 }
 interface ILightInformation {
   light_name?: string;
@@ -145,17 +170,21 @@ export const Service = {
     weChat: string,
     tel: string,
     desire: string,
-    type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
-    school: 1 | 2
+    type: Type,
+    school: School
   ) {
     return GlobalAxios<string>("post", "/desires/add", {
-      name: name,
-      qq: qq,
-      weChat: weChat,
-      tel: tel,
-      desire: desire,
-      type: type,
-      school: school,
+      view_desire: {
+        desire: desire,
+        type: type,
+        school: school,
+      },
+      view_user: {
+        name: name,
+        qq: qq,
+        weChat: weChat,
+        tel: tel,
+      },
     });
   },
   //（new）用户点亮愿望
@@ -179,11 +208,11 @@ export const Service = {
   },
   //（new）获取用户点亮的愿望信息
   get_lightedWishInfo() {
-    return GlobalAxios<IWishInfo>("get", "/desires/user/light");
+    return GlobalAxios<IWishInfo[]>("get", "/desires/user/light");
   },
   //（new）获取用户投递的愿望信息
   get_postedWishInfo() {
-    return GlobalAxios<IWishInfo>("get", "/desires/user/post");
+    return GlobalAxios<IWishInfo[]>("get", "/desires/user/post");
   },
   //（new）通过类型获取愿望
   getWishByCategories_2(categories: string) {
@@ -196,7 +225,7 @@ export const Service = {
   getWishDetail_2(id: string) {
     return GlobalAxios<IWishDetail>(
       "get",
-      appendParams2Path("/wishes/details", {
+      appendParams2Path("/desires/details", {
         desire_id: id,
         time: new Date().getTime().toString(),
       })
@@ -277,15 +306,15 @@ export const Service = {
     });
   },
   //查看愿望详情
-  getWishDetail(id: string) {
-    return GlobalAxios<IWishObject>(
-      "get",
-      appendParams2Path("/wishes/details", {
-        wish_id: id,
-        time: new Date().getTime().toString(),
-      })
-    );
-  },
+  // getWishDetail(id: string) {
+  //   return GlobalAxios<IWishObject>(
+  //     "get",
+  //     appendParams2Path("/wishes/details", {
+  //       wish_id: id,
+  //       time: new Date().getTime().toString(),
+  //     })
+  //   );
+  // },
   //查找点亮人信息
   getLightManInfo(id: string) {
     return GlobalAxios<{ id: number; wish_id: number } & ILightInformation>(
@@ -296,14 +325,14 @@ export const Service = {
       })
     );
   },
-  //获取自己点亮的愿望//后端接口重构Ligth
-  getUserWishLight() {
-    return GlobalAxios<IWishObject[]>("get", "/wishes/user/light");
-  },
-  //获取自己投递的愿望//后端接口重构Post
-  getUserWishPost() {
-    return GlobalAxios<IWishObject[]>("get", "/wishes/user/post");
-  },
+  // //获取自己点亮的愿望//后端接口重构Ligth
+  // getUserWishLight() {
+  //   return GlobalAxios<IWishObject[]>("get", "/wishes/user/light");
+  // },
+  // //获取自己投递的愿望//后端接口重构Post
+  // getUserWishPost() {
+  //   return GlobalAxios<IWishObject[]>("get", "/wishes/user/post");
+  // },
   //根据分类获取愿望
   getWishByCategories(categories: string) {
     return GlobalAxios<IWishesObject[]>(

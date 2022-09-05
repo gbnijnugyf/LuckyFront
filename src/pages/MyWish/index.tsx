@@ -1,33 +1,35 @@
 import "./index.scss";
 import { useEffect, useState } from "react";
-import { Service, IWishManInformation } from "../../common/service";
+import { Service, IWishInfo } from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
-const INITNUM: number = -9;
+const INITNUM: number = -2;
 
 
-export interface IWishObject {
-  creat_at: string;
-  light_at: string;
-  light_user: number; //to do -- 改成具体数字，问后端要接口
-  school?: number; //to do -- 改成具体数字，问后端要接口
-  state: number; //to do -- 改成具体数字，问后端要接口
-  type: number; //to do -- 改成具体数字，问后端要接口
-  wish: string;
-  wish_id: number;
-  wishman_inform?: IWishManInformation;
-}
+// export interface IWishObject {
+//   creat_at: string;
+//   light_at: string;
+//   light_user: number; //to do -- 改成具体数字，问后端要接口
+//   school?: number; //to do -- 改成具体数字，问后端要接口
+//   state: number; //to do -- 改成具体数字，问后端要接口
+//   type: number; //to do -- 改成具体数字，问后端要接口
+//   wish: string;
+//   wish_id: number;
+//   wishman_inform?: IWishManInformation;
+// }
 
 export const Index = () => {
-  let WISHPOST_INIT: Array<IWishObject> = [
+  let WISHPOST_INIT: Array<IWishInfo> = [
     {
-      creat_at: "",
-      light_at: "",
-      light_user: INITNUM, //to do -- 改成具体数字，问后端要接口
-      school: INITNUM, //to do -- 改成具体数字，问后端要接口
-      state: INITNUM, //to do -- 改成具体数字，问后端要接口
-      type: INITNUM, //to do -- 改成具体数字，问后端要接口
-      wish: "",
-      wish_id: INITNUM,
+      created_at: "",
+      lighted_at: "",
+      finished_at:"",
+      school: 0,
+      state: -1,
+      type: 0,
+      desire: "",
+      desire_id: "",
+      light_id:INITNUM,//TODO 初始化number待定
+      user_id:INITNUM,
     },
   ];
 
@@ -38,7 +40,7 @@ export const Index = () => {
   const [gotLight, setGotLight] = useState(false);
 
   // 排序愿望为需要的顺序
-  const sortWishes = (oldwishes: Array<IWishObject>) => {
+  const sortWishes = (oldwishes: Array<IWishInfo>) => {
     let sorted = [];
     const priority = [1, 2, 0];
     for (let p = 0; p < priority.length; p++)
@@ -49,18 +51,19 @@ export const Index = () => {
   };
 
   useEffect(() => {
-    Service.getUserWishPost().then((res) => {
+    Service.get_postedWishInfo().then((res) => {
       setWishPost(sortWishes(res.data.data));
+      console.log(wishPost)
       setGotPost(true);
     });
-  }, []);
+  }, [wishPost]);
   useEffect(() => {
-    Service.getUserWishLight().then((res) => {
+    Service.get_lightedWishInfo().then((res) => {
       setWishLight(sortWishes(res.data.data));
-
+      console.log(wishLight)
       setGotLight(true);
     });
-  }, []);
+  }, [wishLight]);
 
   useEffect(() => {
     if (gotPost && gotLight) {
