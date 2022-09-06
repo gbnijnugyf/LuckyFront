@@ -39,8 +39,10 @@ export default function Detail() {
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
   const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
   const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
-  const [confirmAction, setConfirmAction] =
-    useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
+  // const [actionState, setActionState] = useState<boolean>(); //设置按钮触发状态
+  let confirmAction = ACTION_INIT;
+  // const [confirmAction, setConfirmAction] =
+  //   useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
   const [wish, setWish] = useState(WISH_INIT); // 愿望内容
   const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
   const navigate = useNavigate();
@@ -67,9 +69,9 @@ export default function Detail() {
     },
 
     changeConfirmAction(action1: () => void, action2: () => void) {
-      setConfirmAction((response: boolean) => {
+      confirmAction = (response: boolean) => {
         return response ? action1 : action2;
-      });
+      };
     },
   };
   const DetailChange = {
