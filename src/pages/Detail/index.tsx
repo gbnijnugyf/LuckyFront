@@ -78,7 +78,6 @@ export default function Detail() {
     if (!id) return;
     Service.getWishDetail_2(id).then((res) => {
       setWish(res.data.data.view_desire);
-      console.log("1");
       Service.get_postedWishInfo().then((res) => {
         res.data.data.forEach((wish) => {
           if (!id) return;

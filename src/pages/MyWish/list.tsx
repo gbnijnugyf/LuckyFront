@@ -13,7 +13,6 @@ export interface IWishState {
 export function MyWishList() {
   const navigate = useNavigate();
   let wish_state = useLocation().state as IWishState;
-  console.log(wish_state)
   let wishPost = wish_state.wishPost;
   let wishLight = wish_state.wishLight;
 

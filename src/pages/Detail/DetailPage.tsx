@@ -303,6 +303,11 @@ export default function DetailPage(props: IDetailPageProps) {
 
   if (props.wish.state === 1 || props.wish.state === 2) {
     // 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
+    let divDisplay: string = "";
+    if ((!props.isMine && achieved )?true:false) {
+      divDisplay = "none";
+    }
+
     return (
       <>
         <div className="panel-button">
@@ -310,7 +315,12 @@ export default function DetailPage(props: IDetailPageProps) {
             onClick={
               achieved ? undefined : props.isMine ? pressDelete : pressAbandon
             }
-            style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
+            style={{
+              background: "#FFFFFF",
+              color: "#F25125",
+              width: "6em",
+              display: divDisplay,
+            }}
           >
             {props.isMine ? "删除这个心愿" : "放弃实现"}
           </ButtonS>
@@ -327,10 +337,11 @@ export default function DetailPage(props: IDetailPageProps) {
           </ButtonS>
         </div>
         <hr />
-        <PersonMsg wish={props.wish} isMine={props.isMine} />{/*一直刷新 */}
+        <PersonMsg wish={props.wish} isMine={props.isMine} />
+        {/*一直刷新 */}
       </>
     );
-  } else if(props.wish.state === 0){
+  } else if (props.wish.state === 0) {
     // 别人的愿望，没人实现// 我的愿望，没人实现
     return (
       <ButtonS
@@ -340,11 +351,7 @@ export default function DetailPage(props: IDetailPageProps) {
         -{props.isMine ? "删除" : "点亮"}这个心愿
       </ButtonS>
     );
-  }else{
-    return(
-      <>
-      {alert("props.wish.state Error!!!")}
-      </>
-    )
+  } else {
+    return <>{alert("props.wish.state Error!!!")}</>;
   }
 }
