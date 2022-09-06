@@ -14,7 +14,7 @@ export interface IBtnStateObject<T = string> {
 export type IBtnActionObject = (response: boolean) => void;
 
 const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
-const ACTION_INIT: IBtnActionObject = () => {};
+const ACTION_INIT: IBtnActionObject = () => {console.log("123")};
 
 const WISH_INIT: IWishInfo = {
   desire_id: "",
@@ -35,10 +35,10 @@ export default function Detail() {
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
   const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
   const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
-  // const [actionState, setActionState] = useState<boolean>(); //设置按钮触发状态
-  let confirmAction = ACTION_INIT;
-  // const [confirmAction, setConfirmAction] =
-  //   useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
+  // // const [actionState, setActionState] = useState<boolean>(); //设置按钮触发状态
+  // let confirmAction = ACTION_INIT;
+  const [confirmAction, setConfirmAction] =
+    useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
   const [wish, setWish] = useState(WISH_INIT); // 愿望内容
   const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
   const navigate = useNavigate();
@@ -65,9 +65,9 @@ export default function Detail() {
     },
 
     changeConfirmAction(action1: () => void, action2: () => void) {
-      confirmAction = (response: boolean) => {
+      setConfirmAction((response: boolean) => {
         return response ? action1 : action2;
-      };
+      })
     },
   };
   const DetailChange = {
@@ -80,7 +80,6 @@ export default function Detail() {
     if (!id) return;
     Service.getWishDetail_2(id).then((res) => {
       setWish(res.data.data.view_desire);
-      console.log("1");
       Service.get_postedWishInfo().then((res) => {
         res.data.data.forEach((wish) => {
           if (!id) return;

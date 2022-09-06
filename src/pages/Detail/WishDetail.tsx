@@ -23,9 +23,9 @@ export default function WishDetail(props: IWishDetail) {
   }, [props.wish])
   
 
-  const changeShowConfirm = props.onChange.changeShowConfirm,
-    changeConfirmContent = props.onChange.changeConfirmContent,
-    changeConfirmAction = props.onChange.changeConfirmAction;
+  const changeShowConfirm = props.onChange.changeShowConfirm;
+  const changeConfirmContent = props.onChange.changeConfirmContent;
+  const changeConfirmAction = props.onChange.changeConfirmAction;
   const wish = props.wish;
   const isMine = props.isMine;
 

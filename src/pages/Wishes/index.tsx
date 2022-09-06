@@ -133,7 +133,6 @@ export default function Wishes() {
   const refreshWishes = () => {
     Service.getWishByCategories_2(category.toString()).then((res) => {
       let wishes = res.data.data;
-      console.log(category,"123")
       
       if (res.data.data.length === 0) {
         setLightBtn(false);

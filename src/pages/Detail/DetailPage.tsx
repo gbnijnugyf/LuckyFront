@@ -25,12 +25,10 @@ interface IDetailPageProps {
 //Detail核心显示部分
 
 export default function DetailPage(props: IDetailPageProps) {
-  const {
-    changeShowConfirm,
-    changeConfirmContent,
-    changeBtnText,
-    changeConfirmAction,
-  } = props.detailChange.onChange;
+  const changeShowConfirm = props.detailChange.onChange.changeShowConfirm;
+  const changeConfirmContent = props.detailChange.onChange.changeConfirmContent;
+  const changeBtnText = props.detailChange.onChange.changeBtnText;
+  const changeConfirmAction = props.detailChange.onChange.changeConfirmAction;
   const goOtherPage = props.detailChange.goOtherPage;
   const achieved = props.wish.state === 2;
   const [currentIndex, setCurrentIndex] = useState("wuchu");
@@ -102,16 +100,19 @@ export default function DetailPage(props: IDetailPageProps) {
     },
     Content: ReactElement,
     noHandle: () => void = () => {
+      // console.log("试图关闭弹窗")
       changeShowConfirm(false);
     },
     btnText1: string = "",
     btnText2: string = ""
   ) {
+    // console.log("弹窗已开启")
     changeConfirmAction(yesHandle, noHandle);
     changeConfirmContent(Content);
     changeShowConfirm(true);
     changeBtnText(btnText1, btnText2);
   }
+
   // 别人的愿望，没人实现 ———— 点击确定点亮
   function PressReallyLight() {
     const [name, setName] = useState("");
@@ -260,11 +261,13 @@ export default function DetailPage(props: IDetailPageProps) {
   // 我的愿望，有人点亮 ———— 点击实现
   function pressAchieve() {
     handlePopWindows(
+      //yesHandle
       () => {
         changeShowConfirm(false);
-        Service.achieveWish_2(props.wish.desire_id.toString());
+        Service.achieveWish_2(props.wish.desire_id);
         goOtherPage("/detail/index");
       },
+      // Content
       <>
         <p style={{ alignSelf: "flex-start" }}>确认已经实现这个愿望了吗？</p>
         {props.isMine ? null : (
@@ -301,8 +304,16 @@ export default function DetailPage(props: IDetailPageProps) {
     }, <p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>);
   }
 
+  // console.log("wish.state:" + props.wish.state);
+  // console.log("achieved:" + achieved, "isMine:" + props.isMine);
   if (props.wish.state === 1 || props.wish.state === 2) {
     // 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
+    let divDisplay: string = "";
+    if (!(props.isMine ? true : achieved ? false : true)) {
+      //隐藏该按钮
+      divDisplay = "none";
+    }
+
     return (
       <>
         <div className="panel-button">
@@ -310,7 +321,12 @@ export default function DetailPage(props: IDetailPageProps) {
             onClick={
               achieved ? undefined : props.isMine ? pressDelete : pressAbandon
             }
-            style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
+            style={{
+              background: "#FFFFFF",
+              color: "#F25125",
+              width: "6em",
+              display: divDisplay,
+            }}
           >
             {props.isMine ? "删除这个心愿" : "放弃实现"}
           </ButtonS>
@@ -327,10 +343,10 @@ export default function DetailPage(props: IDetailPageProps) {
           </ButtonS>
         </div>
         <hr />
-        <PersonMsg wish={props.wish} isMine={props.isMine} />{/*一直刷新 */}
+        <PersonMsg wish={props.wish} isMine={props.isMine} />
       </>
     );
-  } else if(props.wish.state === 0){
+  } else if (props.wish.state === 0) {
     // 别人的愿望，没人实现// 我的愿望，没人实现
     return (
       <ButtonS
@@ -340,11 +356,7 @@ export default function DetailPage(props: IDetailPageProps) {
         -{props.isMine ? "删除" : "点亮"}这个心愿
       </ButtonS>
     );
-  }else{
-    return(
-      <>
-      {alert("props.wish.state Error!!!")}
-      </>
-    )
+  } else {
+    return <>{alert("props.wish.state Error!!!")}</>;
   }
 }
