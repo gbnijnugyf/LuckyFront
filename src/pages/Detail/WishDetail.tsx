@@ -1,20 +1,33 @@
-import { IWishObject } from "../MyWish";
+// import { IWishObject } from "../MyWish";
 import { IOnChange } from "./DetailPage";
 import forwardimg from "../../static/images/forward.svg";
 import { formatTime } from "../../common/global";
+import { IUserInfo, IWishInfo } from "../../common/service";
+import { Service } from "../../common/service";
+import { useEffect, useState } from "react";
 
 interface IWishDetail {
-  wish: IWishObject;
+  wish: IWishInfo;
   isMine: boolean;
   onChange: IOnChange;
   pathname: string;
 }
 
 export default function WishDetail(props: IWishDetail) {
+  const [manInfo, setManInfo] = useState<IUserInfo>();
+
+  useEffect(()=>{
+    Service.getManInfo(props.wish.user_id.toString()).then((res) => {
+      setManInfo(res.data.data);
+    });
+  }, [props.wish])
+  
+
   const changeShowConfirm = props.onChange.changeShowConfirm,
     changeConfirmContent = props.onChange.changeConfirmContent,
     changeConfirmAction = props.onChange.changeConfirmAction;
-  const { isMine, wish } = props;
+  const wish = props.wish;
+  const isMine = props.isMine;
 
   const getForward = () => {
     if (wish.state === 0 && isMine) {
@@ -58,11 +71,11 @@ export default function WishDetail(props: IWishDetail) {
     <div className="content">
       {getForward()}
       <div className="text">
-        <div className="text-content">{props.wish.wish}</div>
+        <div className="text-content">{props.wish.desire}</div>
       </div>
       <div className="wishInfo">
-        <p>来自 {props.wish.wishman_inform?.wishMan_name}</p>
-        <p>{formatTime(props.wish.creat_at)}</p>
+        <p>来自 {manInfo?.name}</p>
+        <p>{formatTime(props.wish.created_at)}</p>
       </div>
     </div>
   );

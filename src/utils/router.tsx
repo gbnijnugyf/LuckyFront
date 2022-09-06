@@ -67,7 +67,7 @@ function Router() {
             <Route path="empty" element={<Empty />} />
             <Route path="list" element={<MyWishList />} />
             <Route path="notfound" element={<Notfound />} />
-            <Route path="*" element={<Detail />} />
+            <Route path="*" element={<Detail/>} />
           </Route>
           <Route
             index
