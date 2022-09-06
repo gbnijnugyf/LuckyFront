@@ -100,7 +100,6 @@ export default function Detail() {
         pathname={location.pathname}
       />
       <div className="other">
-      {/*有bug，异步执行————wish一直刷新导致personMsg出错*/}
         <DetailPage wish={wish} isMine={isMine} detailChange={DetailChange} />
       </div>
       <ConfirmPanel
