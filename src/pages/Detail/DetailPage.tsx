@@ -1,36 +1,30 @@
 import { ReactElement, useState } from "react";
 import { IWishInfo, Service } from "../../common/service";
 import { ButtonS } from "../../components/Button";
-// import { IWishObject } from "../MyWish";
 import PersonMsg from "./PersonMsg";
 
-export interface IOnChange {
+interface IDetailPageProps {
+  wish: IWishInfo;
   changeShowConfirm: (props: boolean) => void;
   changeConfirmContent: (props: ReactElement) => void;
   changeBtnText: (props1: string, props2: string) => void;
   changeConfirmAction: (props1: () => void, props2: () => void) => void;
-}
-
-export interface IDetailChange {
-  onChange: IOnChange;
   goOtherPage: (props: string) => void;
-}
-
-interface IDetailPageProps {
-  wish: IWishInfo;
-  detailChange: IDetailChange;
   isMine: boolean;
 }
 
 //Detail核心显示部分
-
 export default function DetailPage(props: IDetailPageProps) {
-  const changeShowConfirm = props.detailChange.onChange.changeShowConfirm;
-  const changeConfirmContent = props.detailChange.onChange.changeConfirmContent;
-  const changeBtnText = props.detailChange.onChange.changeBtnText;
-  const changeConfirmAction = props.detailChange.onChange.changeConfirmAction;
-  const goOtherPage = props.detailChange.goOtherPage;
-  const achieved = props.wish.state === 2;
+  const {
+    changeBtnText,
+    changeConfirmAction,
+    changeConfirmContent,
+    changeShowConfirm,
+    goOtherPage,
+    wish,
+  } = props;
+
+  const achieved = wish.state === 2;
   const [currentIndex, setCurrentIndex] = useState("wuchu");
 
   type IMsgs = {

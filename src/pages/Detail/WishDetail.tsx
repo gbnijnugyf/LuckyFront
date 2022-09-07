@@ -1,27 +1,30 @@
 // import { IWishObject } from "../MyWish";
-import { IOnChange } from "./DetailPage";
 import forwardimg from "../../static/images/forward.svg";
 import { formatTime } from "../../common/global";
 import { IUserInfo, IWishInfo } from "../../common/service";
 import { Service } from "../../common/service";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 interface IWishDetail {
   wish: IWishInfo;
   isMine: boolean;
-  onChange: IOnChange;
+  onChange: {
+    changeShowConfirm: (props: boolean) => void;
+    changeConfirmContent: (props: ReactElement) => void;
+    changeBtnText: (props1: string, props2: string) => void;
+    changeConfirmAction: (props1: () => void, props2: () => void) => void;
+  };
   pathname: string;
 }
 
 export default function WishDetail(props: IWishDetail) {
   const [manInfo, setManInfo] = useState<IUserInfo>();
 
-  useEffect(()=>{
+  useEffect(() => {
     Service.getManInfo(props.wish.user_id.toString()).then((res) => {
       setManInfo(res.data.data);
     });
-  }, [props.wish])
-  
+  }, [props.wish]);
 
   const changeShowConfirm = props.onChange.changeShowConfirm;
   const changeConfirmContent = props.onChange.changeConfirmContent;

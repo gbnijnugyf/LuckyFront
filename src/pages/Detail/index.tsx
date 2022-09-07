@@ -116,15 +116,11 @@ export default function Detail() {
         <DetailPage
           wish={wish}
           isMine={isMine}
-          detailChange={{
-            onChange: {
-              changeShowConfirm,
-              changeConfirmContent,
-              changeBtnText,
-              changeConfirmAction,
-            },
-            goOtherPage,
-          }}
+          changeShowConfirm={changeShowConfirm}
+          changeConfirmContent={changeConfirmContent}
+          changeBtnText={changeBtnText}
+          changeConfirmAction={changeConfirmAction}
+          goOtherPage={goOtherPage}
         />
       </div>
       <ConfirmPanel
