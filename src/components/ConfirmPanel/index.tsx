@@ -20,7 +20,7 @@ export default function ConfirmPanel(props: IConfirmPanelProps) {
       <div className="infoPanel">
         <div className="textPanel">{props.children}</div>
         <div className="confirmPanel">
-          <div className="confirmFalse" onClick={()=>{console.log("dianjiquxiao:"+props.action);props.action(false)}}>
+          <div className="confirmFalse" onClick={()=>{console.log("dianjiquxiao:"+props.action(false));props.action(false)}}>
             {props.btnText?.no ? props.btnText?.no : "取消"}
           </div>
           <div className="confirmTrue" onClick={()=>{console.log("dianjiqueren");props.action(true)}}>

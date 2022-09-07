@@ -3,7 +3,7 @@ import { IWishInfo, Service } from "../../common/service";
 // import { IWishObject } from "../MyWish";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import { useLocation, useNavigate } from "react-router-dom";
-import DetailPage, { IOnChange } from "./DetailPage";
+import DetailPage from "./DetailPage";
 import WishDetail from "./WishDetail";
 const INITNUM: number = -9;
 
@@ -14,7 +14,9 @@ export interface IBtnStateObject<T = string> {
 export type IBtnActionObject = (response: boolean) => void;
 
 const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
-const ACTION_INIT: IBtnActionObject = () => {console.log("123")};
+const ACTION_INIT: IBtnActionObject = () => {
+  console.log("123");
+};
 
 const WISH_INIT: IWishInfo = {
   desire_id: "",
@@ -36,9 +38,9 @@ export default function Detail() {
   const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
   const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
   // // const [actionState, setActionState] = useState<boolean>(); //设置按钮触发状态
-  // let confirmAction = ACTION_INIT;
-  const [confirmAction, setConfirmAction] =
-    useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
+  let confirmAction = ACTION_INIT;
+  // const [confirmAction, setConfirmAction] =
+  //   useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
   const [wish, setWish] = useState(WISH_INIT); // 愿望内容
   const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
   const navigate = useNavigate();
@@ -48,32 +50,38 @@ export default function Detail() {
   };
 
   //change model
-  const onChange: IOnChange = {
-    changeShowConfirm(confirm: boolean) {
-      setShowConfirm(confirm);
-    },
 
-    changeConfirmContent(content: ReactElement) {
-      setConfirmContent(content);
-    },
+  function changeShowConfirm(confirm: boolean) {
+    setShowConfirm(confirm);
+  }
 
-    changeBtnText(btn1: string = btnText.yes, btn2: string = btnText.no) {
-      setBtnText({
-        yes: btn1,
-        no: btn2,
-      });
-    },
+  function changeConfirmContent(content: ReactElement) {
+    setConfirmContent(content);
+  }
 
-    changeConfirmAction(action1: () => void, action2: () => void) {
-      setConfirmAction((response: boolean) => {
-        return response ? action1 : action2;
-      })
-    },
-  };
-  const DetailChange = {
-    onChange,
-    goOtherPage,
-  };
+  function changeBtnText(
+    btn1: string = btnText.yes,
+    btn2: string = btnText.no
+  ) {
+    setBtnText({
+      yes: btn1,
+      no: btn2,
+    });
+  }
+
+  function changeConfirmAction(action1: () => void, action2: () => void) {
+    confirmAction = (response: boolean) => {
+      return response ? action1 : action2;
+    };
+  }
+
+  // const DetailChange = {
+  //   changeShowConfirm,
+  //   changeConfirmContent,
+  //   changeBtnText,
+  //   changeConfirmAction,
+  //   goOtherPage,
+  // };
 
   useEffect(() => {
     let id = location.pathname.split("/").pop();
@@ -96,11 +104,22 @@ export default function Detail() {
       <WishDetail
         wish={wish}
         isMine={isMine}
-        onChange={onChange}
+        onChange={{
+          changeShowConfirm,
+          changeConfirmContent,
+          changeBtnText,
+          changeConfirmAction,
+        }}
         pathname={location.pathname}
       />
       <div className="other">
-        <DetailPage wish={wish} isMine={isMine} detailChange={DetailChange} />
+        <DetailPage wish={wish} isMine={isMine} detailChange={{
+          onChange:{changeShowConfirm,
+            changeConfirmContent,
+            changeBtnText,
+            changeConfirmAction,},
+            goOtherPage,
+        }} />
       </div>
       <ConfirmPanel
         display={showConfirm}
