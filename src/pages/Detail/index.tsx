@@ -11,10 +11,9 @@ export interface IBtnStateObject<T = string> {
   yes: T;
   no: T;
 }
-export type IBtnActionObject = (response: boolean) => void;
 
 const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
-const ACTION_INIT: IBtnActionObject = () => {
+const ACTION_INIT = () => {
   console.log("123");
 };
 
@@ -38,9 +37,8 @@ export default function Detail() {
   const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
   const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
   // // const [actionState, setActionState] = useState<boolean>(); //设置按钮触发状态
-  let confirmAction = ACTION_INIT;
+  let confirmAction: (response: boolean) => void = ACTION_INIT;
   // const [confirmAction, setConfirmAction] =
-  //   useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
   const [wish, setWish] = useState(WISH_INIT); // 愿望内容
   const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
   const navigate = useNavigate();
@@ -125,7 +123,7 @@ export default function Detail() {
       </div>
       <ConfirmPanel
         display={showConfirm}
-        action={confirmAction}
+        onChoose={confirmAction}
         btnText={btnText}
       >
         {confirmContent}

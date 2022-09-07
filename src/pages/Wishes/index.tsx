@@ -285,8 +285,8 @@ export default function Wishes() {
     <div className="wishpage">
       <ConfirmPanel
         display={display}
-        userInfoPreview={getUserPre}
-        action={(response: boolean) =>
+        onShow={getUserPre}
+        onChoose={(response: boolean) =>
           response ? (light ? lightWish() : handleLight()) : handleAlert()
         }
       >

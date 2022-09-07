@@ -23,7 +23,6 @@ export default function DetailPage(props: IDetailPageProps) {
     goOtherPage,
     wish,
   } = props;
-
   const achieved = wish.state === 2;
   const [currentIndex, setCurrentIndex] = useState("wuchu");
 
