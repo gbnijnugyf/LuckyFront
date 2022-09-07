@@ -1,18 +1,11 @@
 import { ReactElement, useEffect, useState } from "react";
 import { IWishInfo, Service } from "../../common/service";
-// import { IWishObject } from "../MyWish";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import { useLocation, useNavigate } from "react-router-dom";
 import DetailPage from "./DetailPage";
 import WishDetail from "./WishDetail";
 const INITNUM: number = -9;
 
-export interface IBtnStateObject<T = string> {
-  yes: T;
-  no: T;
-}
-
-const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
 const ACTION_INIT = () => {
   console.log("123");
 };
@@ -35,10 +28,10 @@ export default function Detail() {
 
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
   const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
-  const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
-  // // const [actionState, setActionState] = useState<boolean>(); //设置按钮触发状态
+  const [btnTextYes, setBtnTextYes] = useState<string>();
+  const [btnTextNo, setBtnTextNo] = useState<string>(); // 设置按钮文本
+
   let confirmAction: (response: boolean) => void = ACTION_INIT;
-  // const [confirmAction, setConfirmAction] =
   const [wish, setWish] = useState(WISH_INIT); // 愿望内容
   const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
   const navigate = useNavigate();
@@ -57,14 +50,9 @@ export default function Detail() {
     setConfirmContent(content);
   }
 
-  function changeBtnText(
-    btn1: string = btnText.yes,
-    btn2: string = btnText.no
-  ) {
-    setBtnText({
-      yes: btn1,
-      no: btn2,
-    });
+  function changeBtnText(textYes: string, textNo: string) {
+    if (textYes) setBtnTextYes(textYes);
+    if (textNo) setBtnTextNo(textNo);
   }
 
   function changeConfirmAction(action1: () => void, action2: () => void) {
@@ -72,14 +60,6 @@ export default function Detail() {
       return response ? action1 : action2;
     };
   }
-
-  // const DetailChange = {
-  //   changeShowConfirm,
-  //   changeConfirmContent,
-  //   changeBtnText,
-  //   changeConfirmAction,
-  //   goOtherPage,
-  // };
 
   useEffect(() => {
     let id = location.pathname.split("/").pop();
@@ -124,7 +104,8 @@ export default function Detail() {
       <ConfirmPanel
         display={showConfirm}
         onChoose={confirmAction}
-        btnText={btnText}
+        btnTextYes={btnTextYes}
+        btnTextNo={btnTextNo}
       >
         {confirmContent}
       </ConfirmPanel>

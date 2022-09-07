@@ -1,19 +1,26 @@
 import { useEffect } from "react";
 import { ReactNode } from "react";
-import { IBtnStateObject } from "../../pages/Detail";
 import "./index.scss";
 
 interface IConfirmPanelProps {
   display: boolean;
   onChoose: (response: boolean) => void;
-  btnText?: IBtnStateObject<string>;
+  btnTextYes?: string;
+  btnTextNo?: string;
   children: ReactNode;
   // 当 display 由 false 变 true 时触发
   onShow?: () => void;
 }
 
 export default function ConfirmPanel(props: IConfirmPanelProps) {
-  const { display, onChoose, btnText, children, onShow = () => {} } = props;
+  const {
+    display,
+    onChoose,
+    btnTextYes = "确认",
+    btnTextNo = "取消",
+    children,
+    onShow = () => {},
+  } = props;
   // TODO: 需要测试
   useEffect(() => {
     if (display) onShow();
@@ -29,7 +36,7 @@ export default function ConfirmPanel(props: IConfirmPanelProps) {
               onChoose(false);
             }}
           >
-            {btnText?.no || "取消"}
+            {btnTextNo}
           </div>
           <div
             className="confirmTrue"
@@ -37,7 +44,7 @@ export default function ConfirmPanel(props: IConfirmPanelProps) {
               onChoose(true);
             }}
           >
-            {btnText?.yes || "确认"}
+            {btnTextYes}
           </div>
         </div>
       </div>
