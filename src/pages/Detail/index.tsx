@@ -113,13 +113,19 @@ export default function Detail() {
         pathname={location.pathname}
       />
       <div className="other">
-        <DetailPage wish={wish} isMine={isMine} detailChange={{
-          onChange:{changeShowConfirm,
-            changeConfirmContent,
-            changeBtnText,
-            changeConfirmAction,},
+        <DetailPage
+          wish={wish}
+          isMine={isMine}
+          detailChange={{
+            onChange: {
+              changeShowConfirm,
+              changeConfirmContent,
+              changeBtnText,
+              changeConfirmAction,
+            },
             goOtherPage,
-        }} />
+          }}
+        />
       </div>
       <ConfirmPanel
         display={showConfirm}
