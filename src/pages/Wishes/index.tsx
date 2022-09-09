@@ -52,7 +52,7 @@ export interface IWishItemProps {
 const WishItem = (props: IWishItemProps) => {
   return (
     <div
-      key={props.wish?.name}
+      key={props.wish?.view_user.name}
       className="wish-item"
       style={toStyle(props.myStyle)}
       onTouchStart={props.onTouchStart}
@@ -65,17 +65,15 @@ const WishItem = (props: IWishItemProps) => {
       </div>
       <div className="msg">
         <p>
-          {props.wish.view_desire.school.toString() === ""
+          {props.wish.view_user.school.toString() === ""
             ? ""
-            : props.wish.view_desire.school.toString() === FALSE_0.toString()
+            : props.wish.view_user.school.toString() === FALSE_0.toString()
             ? "华小师"
             : "武小理"}
         </p>{" "}
         {/* props.wish.school可能未定义，对接口*/}
         <p>
-          {props.wish.name.length > 0
-            ? props.wish.name.charAt(0) + "同学"
-            : ""}
+          {props.wish.view_user.name.length > 0 ? props.wish.view_user.name.charAt(0) + "同学" : ""}
         </p>
       </div>
     </div>
@@ -107,11 +105,13 @@ export default function Wishes() {
       finished_at: "",
       state: -1,
       type: 0,
-      school: 0,
       light_id: -1,
       user_id: -1,
     },
-    name: "",
+    view_user:{
+      school: 0,
+      name: "",
+    }
   };
   let WISHES_INIT: IWishInfo_withName[] = [WISH_INIT, WISH_INIT, WISH_INIT];
   const category = (useLocation().state as ILocationState<string>).category;
@@ -133,7 +133,7 @@ export default function Wishes() {
   const refreshWishes = () => {
     Service.getWishByCategories_2(category.toString()).then((res) => {
       let wishes = res.data.data;
-      
+
       if (res.data.data.length === 0) {
         setLightBtn(false);
         let wish: IWishInfo_withName = {
@@ -145,11 +145,14 @@ export default function Wishes() {
             finished_at: "",
             state: -1,
             type: 0,
-            school: 0,
             light_id: -1,
             user_id: -1,
           },
-          name: "",
+          view_user:{
+            name: "",
+            school: 0,
+          }
+
         };
         wishes.push(wish);
       } else {
@@ -228,10 +231,8 @@ export default function Wishes() {
     // props.history.push('/mywish')
   };
   const lightWish = () => {
-    
-
     if (name === "") alert("还没有填写姓名哦~");
-    else if (number === "") alert("还没有填写联系方式哦~");
+    else if (number === "") alert("还没有填写联系方式哦~"); 
     else {
       if (!wishes) return;
       if (wishes[0].view_desire.desire_id !== undefined) {
@@ -242,7 +243,7 @@ export default function Wishes() {
             alert("点亮成功~");
             refreshWishes();
           } else {
-            alert(res.data.msg);
+            alert(res.data.msg);//返回失败信息
           }
         });
         handleAlert();
@@ -261,7 +262,7 @@ export default function Wishes() {
   const showConfirm = () => {
     setDisplay(true);
   };
-  const getUserPre = ()=>{
+  const getUserPre = () => {
     //先获取用户已存在信息
     Service.getManInfo("-1").then((res) => {
       let manInfo = res.data.data;
@@ -271,24 +272,27 @@ export default function Wishes() {
       if (manInfo.qq !== "") {
         //默认QQ为联系方式
         setNumber(manInfo.qq);
+        setOption("QQ")
       } else if (manInfo.qq === "" && manInfo.wechat !== "") {
         //QQ为空，微信为联系方式
         setNumber(manInfo.wechat);
+        setOption("微信")
       }
-      if(manInfo.tel !== ""){
+      if (manInfo.tel !== "") {
         setTel(manInfo.tel);
       }
     });
-  }
+  };
 
   return (
     <div className="wishpage">
       <ConfirmPanel
         display={display}
-        userInfoPreview={getUserPre}
-        action={(response: boolean) =>
-          response ? (light ? lightWish() : handleLight()) : handleAlert()
-        }
+        onChangeOther={getUserPre}
+        action={{
+          yes: () => (light ? lightWish() : handleLight()),
+          no: () => {handleAlert();console.log(light)},
+        }}
       >
         {light ? (
           <div className="input-msg">
@@ -300,7 +304,7 @@ export default function Wishes() {
                   type="text"
                   placeholder="必填内容哦～"
                   onChange={handleName}
-                  value={name}
+                  defaultValue={name}
                   style={{ marginLeft: "2em" }}
                 />
               </div>
@@ -312,13 +316,12 @@ export default function Wishes() {
                 >
                   <option value="QQ">QQ</option>
                   <option value="WeChat">微信</option>
-                  <option value="psSelf">备注</option>
                 </select>
                 <input
                   type="text"
                   placeholder="必填内容"
                   onChange={handleNumber}
-                  value={number}
+                  defaultValue={number}
                   style={{ marginLeft: ".3em", width: "32%" }}
                 />
               </div>
@@ -328,7 +331,7 @@ export default function Wishes() {
                   type="text"
                   placeholder="选填内容哦～"
                   onChange={handleTel}
-                  value={tel}
+                  defaultValue={tel}
                   style={{ marginLeft: "2.3em" }}
                 />
               </div>

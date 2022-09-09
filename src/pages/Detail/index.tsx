@@ -11,11 +11,13 @@ export interface IBtnStateObject<T = string> {
   yes: T;
   no: T;
 }
-export type IBtnActionObject = (response: boolean) => void;
+export type IBtnActionObject = { yes: () => void; no: () => void };
+// export type IBtnActionObject = (response: boolean) => void;
 
 const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
-const ACTION_INIT: IBtnActionObject = () => {
-  console.log("123");
+const ACTION_INIT: IBtnActionObject = {
+  yes: () => console.log("yes"),
+  no: () => console.log("no"),
 };
 
 const WISH_INIT: IWishInfo = {
@@ -26,7 +28,6 @@ const WISH_INIT: IWishInfo = {
   finished_at: "",
   state: 0,
   type: 0,
-  school: 0,
   light_id: INITNUM,
   user_id: INITNUM,
 };
@@ -34,11 +35,10 @@ const WISH_INIT: IWishInfo = {
 export default function Detail() {
   const location = useLocation();
 
-  const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
-  const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
-  const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
+  // const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
+  // const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
+  // const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
   // // const [actionState, setActionState] = useState<boolean>(); //设置按钮触发状态
-  let confirmAction = ACTION_INIT;
   // const [confirmAction, setConfirmAction] =
   //   useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
   const [wish, setWish] = useState(WISH_INIT); // 愿望内容
@@ -51,29 +51,31 @@ export default function Detail() {
 
   //change model
 
-  function changeShowConfirm(confirm: boolean) {
-    setShowConfirm(confirm);
-  }
+  // function changeShowConfirm(confirm: boolean) {
+  //   setShowConfirm(confirm);
+  // }
 
-  function changeConfirmContent(content: ReactElement) {
-    setConfirmContent(content);
-  }
+  // function changeConfirmContent(content: ReactElement) {
+  //   setConfirmContent(content);
+  // }
 
-  function changeBtnText(
-    btn1: string = btnText.yes,
-    btn2: string = btnText.no
-  ) {
-    setBtnText({
-      yes: btn1,
-      no: btn2,
-    });
-  }
+  // function changeBtnText(
+  //   btn1: string = btnText.yes,
+  //   btn2: string = btnText.no
+  // ) {
+  //   setBtnText({
+  //     yes: btn1,
+  //     no: btn2,
+  //   });
+  // }
 
-  function changeConfirmAction(action1: () => void, action2: () => void) {
-    confirmAction = (response: boolean) => {
-      return response ? action1 : action2;
-    };
-  }
+  // function changeConfirmAction(action1: () => void, action2: () => void) {
+  //   console.log("into change")
+  //   confirmAction = {
+  //     yes: action1 ,
+  //     no: action2
+  //   };
+  // }
 
   // const DetailChange = {
   //   changeShowConfirm,
@@ -101,39 +103,17 @@ export default function Detail() {
 
   return (
     <div className="Detail">
-      <WishDetail
-        wish={wish}
-        isMine={isMine}
-        onChange={{
-          changeShowConfirm,
-          changeConfirmContent,
-          changeBtnText,
-          changeConfirmAction,
-        }}
-        pathname={location.pathname}
-      />
+      <WishDetail wish={wish} isMine={isMine} pathname={location.pathname} />
       <div className="other">
-        <DetailPage
-          wish={wish}
-          isMine={isMine}
-          detailChange={{
-            onChange: {
-              changeShowConfirm,
-              changeConfirmContent,
-              changeBtnText,
-              changeConfirmAction,
-            },
-            goOtherPage,
-          }}
-        />
+        <DetailPage wish={wish} isMine={isMine} detailChange={goOtherPage} />
       </div>
-      <ConfirmPanel
+      {/* <ConfirmPanel
         display={showConfirm}
         action={confirmAction}
         btnText={btnText}
       >
         {confirmContent}
-      </ConfirmPanel>
+      </ConfirmPanel> */}
     </div>
   );
 }
