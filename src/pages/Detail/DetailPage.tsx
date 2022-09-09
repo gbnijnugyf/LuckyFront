@@ -122,7 +122,7 @@ export default function DetailPage(props: IDetailPageProps) {
       () => {
         let id = props.wish.desire_id;
         let [qq, wechat] = option === "QQ" ? [number, ""] : ["", number];
-        Service.lightWishOn(id.toString(), name, tel, qq, wechat).then(
+        Service.lightWish(id, name, tel, qq, wechat).then(
           (res) => {
             if (res.data.status === 0) {
               alert("点亮成功~");
@@ -262,7 +262,7 @@ export default function DetailPage(props: IDetailPageProps) {
     handlePopWindows(
       () => {
         changeShowConfirm(false);
-        Service.achieveWish_2(props.wish.desire_id.toString());
+        Service.achieveWish(props.wish.desire_id.toString());
         goOtherPage("/detail/index");
       },
       <>
@@ -293,7 +293,7 @@ export default function DetailPage(props: IDetailPageProps) {
   // 我的愿望，有人点亮 ———— 点击删除
   function pressDelete() {
     handlePopWindows(() => {
-      Service.deleteWish_2(props.wish.desire_id.toString()).then(() => {
+      Service.deleteWish(props.wish.desire_id.toString()).then(() => {
         alert("删除成功");
         goOtherPage("/detail/index");
       });

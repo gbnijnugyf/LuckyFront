@@ -19,17 +19,17 @@ export enum Type {
   动漫,
   其他,
 }
-export enum State{
+export enum State {
   初始化 = -1,
   未点亮,
   已点亮,
   已实现,
-  已删除
+  已删除,
 }
-export enum School{
+export enum School {
   初始化 = 0,
   武理,
-  华师
+  华师,
 }
 
 interface IGlobalResponse<T> {
@@ -188,13 +188,23 @@ export const Service = {
     });
   },
   //（new）用户点亮愿望
-  lightWish(id: string) {
+  lightWish(
+    desire_id: string,
+    name: string,
+    tel: string,
+    qq: string,
+    wechat: string
+  ) {
     return GlobalAxios<string>("post", "/desires/light", {
-      id: id,
+      id: desire_id,
+      name: name,
+      tel: tel,
+      qq: qq,
+      wechat: wechat
     });
   },
   //（new）用户实现愿望
-  achieveWish_2(id: string) {
+  achieveWish(id: string) {
     return GlobalAxios<string>("post", "/desires/achieve", {
       id: id,
     });
@@ -211,18 +221,18 @@ export const Service = {
     return GlobalAxios<IWishInfo[]>("get", "/desires/user/light");
   },
   //（new）获取用户投递的愿望信息
-  get_postedWishInfo() {
+  getPostedWishInfo() {
     return GlobalAxios<IWishInfo[]>("get", "/desires/user/post");
   },
   //（new）通过类型获取愿望
-  getWishByCategories_2(categories: string) {
+  getWishByCategories(categories: string) {
     return GlobalAxios<IWishInfo_withName[]>(
       "get",
       appendParams2Path("/wishestest/categories", { categories })
     );
   },
   //（new）获取愿望具体信息
-  getWishDetail_2(id: string) {
+  getWishDetail(id: string) {
     return GlobalAxios<IWishDetail>(
       "get",
       appendParams2Path("/desires/details", {
@@ -232,7 +242,7 @@ export const Service = {
     );
   },
   //用户删除愿望
-  deleteWish_2(desire_id: string) {
+  deleteWish(desire_id: string) {
     return GlobalAxios<string>(
       "delete",
       appendParams2Path("/wishes", { desire_id })
@@ -316,15 +326,15 @@ export const Service = {
   //   );
   // },
   //查找点亮人信息
-  getLightManInfo(id: string) {
-    return GlobalAxios<{ id: number; wish_id: number } & ILightInformation>(
-      "get",
-      appendParams2Path("/user/info/lightman", {
-        wish_id: id,
-        time: new Date().getTime().toString(),
-      })
-    );
-  },
+  // getLightManInfo(id: string) {
+  //   return GlobalAxios<{ id: number; wish_id: number } & ILightInformation>(
+  //     "get",
+  //     appendParams2Path("/user/info/lightman", {
+  //       wish_id: id,
+  //       time: new Date().getTime().toString(),
+  //     })
+  //   );
+  // },
   // //获取自己点亮的愿望//后端接口重构Ligth
   // getUserWishLight() {
   //   return GlobalAxios<IWishObject[]>("get", "/wishes/user/light");
@@ -334,16 +344,16 @@ export const Service = {
   //   return GlobalAxios<IWishObject[]>("get", "/wishes/user/post");
   // },
   //根据分类获取愿望
-  getWishByCategories(categories: string) {
-    return GlobalAxios<IWishesObject[]>(
-      "get",
-      appendParams2Path("/wishes/categories", { categories })
-    );
-  },
+  // getWishByCategories(categories: string) {
+  //   return GlobalAxios<IWishesObject[]>(
+  //     "get",
+  //     appendParams2Path("/wishes/categories", { categories })
+  //   );
+  // },
   //删除愿望
-  deleteWish(wish_id: string) {
-    return GlobalAxios("delete", appendParams2Path("/wishes", { wish_id }));
-  },
+  // deleteWish(wish_id: string) {
+  //   return GlobalAxios("delete", appendParams2Path("/wishes", { wish_id }));
+  // },
   //放弃点亮别人的愿望
   // giveUpLightWish(wish_id: string, msg?: string) {
   //   return GlobalAxios<{
@@ -355,11 +365,11 @@ export const Service = {
   //   });
   // },
   //实现别人的愿望
-  achieveWish(wish_id: string) {
-    return GlobalAxios<{
-      wish_id: string;
-    }>("post", "/wishes/achieve", {
-      wish_id: wish_id,
-    });
-  },
+  // achieveWish(wish_id: string) {
+  //   return GlobalAxios<{
+  //     wish_id: string;
+  //   }>("post", "/wishes/achieve", {
+  //     wish_id: wish_id,
+  //   });
+  // },
 };

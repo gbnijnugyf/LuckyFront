@@ -131,7 +131,7 @@ export default function Wishes() {
   const [option, setOption] = useState("QQ");
 
   const refreshWishes = () => {
-    Service.getWishByCategories_2(category.toString()).then((res) => {
+    Service.getWishByCategories(category.toString()).then((res) => {
       let wishes = res.data.data;
       console.log(category,"123")
       

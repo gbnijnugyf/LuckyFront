@@ -51,7 +51,7 @@ export const Index = () => {
   };
 
   useEffect(() => {
-    Service.get_postedWishInfo().then((res) => {
+    Service.getPostedWishInfo().then((res) => {
       setWishPost(sortWishes(res.data.data));
       setGotPost(true);
     });

@@ -76,9 +76,9 @@ export default function Detail() {
   useEffect(() => {
     let id = location.pathname.split("/").pop();
     if (!id) return;
-    Service.getWishDetail_2(id).then((res) => {
+    Service.getWishDetail(id).then((res) => {
       setWish(res.data.data.view_desire);
-      Service.get_postedWishInfo().then((res) => {
+      Service.getPostedWishInfo().then((res) => {
         res.data.data.forEach((wish) => {
           if (!id) return;
           if (wish.desire_id === id) {
