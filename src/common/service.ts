@@ -55,13 +55,15 @@ export interface IWishInfo {
   finished_at: string;
   state: State; //-1初始化、0未点亮、1已点亮、2已实现、3已删除
   type: Type; //0初始化
-  school: School; //0错误or初始化、1武理、2华师
   light_id: number;
   user_id: number;
 }
 export interface IWishInfo_withName {
   view_desire: IWishInfo;
-  name: string;
+  view_user:{
+    name:string,
+    school:School//0错误or初始化、1武理、2华师
+  }
 }
 export interface IWishDetail {
   view_desire: IWishInfo; //愿望信息
@@ -228,7 +230,7 @@ export const Service = {
   getWishByCategories(categories: string) {
     return GlobalAxios<IWishInfo_withName[]>(
       "get",
-      appendParams2Path("/wishestest/categories", { categories })
+      appendParams2Path("/desires/categories", { categories })
     );
   },
   //（new）获取愿望具体信息
@@ -305,7 +307,7 @@ export const Service = {
     return GlobalAxios<{
       wish_id: string;
       light_inform?: ILightInformation;
-    }>("post", "/wishes/light", {
+    }>("post", "/desires/light", {
       wish_id: id,
       light_inform: {
         light_name: name,

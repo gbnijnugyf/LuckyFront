@@ -23,7 +23,6 @@ export const Index = () => {
       created_at: "",
       lighted_at: "",
       finished_at:"",
-      school: 0,
       state: -1,
       type: 0,
       desire: "",
