@@ -68,12 +68,12 @@ export interface IWishDetail {
   view_desire: IWishInfo; //愿望信息
   view_user: IUserInfo; //许愿人信息
 }
-interface ILightInformation {
-  light_name?: string;
-  light_tel?: string;
-  light_qq?: string;
-  light_wechat?: string;
-}
+// interface ILightInformation {
+//   light_name?: string;
+//   light_tel?: string;
+//   light_qq?: string;
+//   light_wechat?: string;
+// }
 
 export interface IWishManInformation {
   wishMan_name?: string;
