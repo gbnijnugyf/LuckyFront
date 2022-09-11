@@ -1,5 +1,5 @@
 // import { IWishObject } from "../MyWish";
-import { ACTION_INIT, BTNTEXT_INIT } from "./DetailPage";
+import { ACTION_INIT } from "./DetailPage";
 import forwardimg from "../../static/images/forward.svg";
 import { formatTime } from "../../common/global";
 import { IUserInfo, IWishInfo } from "../../common/service";

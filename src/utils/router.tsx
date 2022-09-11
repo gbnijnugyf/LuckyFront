@@ -97,25 +97,6 @@ function Router() {
           />
         </Routes>
 
-        {/* <Routes>
-          <Route path="login/*" element={<Login />}>
-            <Route path="ccnu" element={<LoginCCNU />} />
-            <Route path="bindemail" element={<BindEmail />} />
-            <Route path="*" element={<LoginMain />} />
-          </Route>
-          <Route path="home" element={<Home />}></Route>
-          <Route path="send" element={<Send />}></Route>
-          <Route path="detail/*" element={<Detail />}></Route>
-          <Route path="wish/:tag" element={<Wishes />}></Route>
-          <Route path="mywish/*" element={<Index />}>
-            <Route path="empty" element={<Empty />} />
-            <Route path="list" element={<MyWishList />} />
-          </Route>
-          <Route
-            path="*"
-            element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/home'} replace />}
-          />
-        </Routes> */}
       </div>
     </>
   );
