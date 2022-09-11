@@ -56,7 +56,7 @@ export const Index = () => {
     });
   }, [wishPost]);
   useEffect(() => {
-    Service.get_lightedWishInfo().then((res) => {
+    Service.getLightedWishInfo().then((res) => {
       setWishLight(sortWishes(res.data.data));
       setGotLight(true);
     });

@@ -1,7 +1,6 @@
-import { ReactElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IWishInfo, Service } from "../../common/service";
 // import { IWishObject } from "../MyWish";
-import ConfirmPanel from "../../components/ConfirmPanel";
 import { useLocation, useNavigate } from "react-router-dom";
 import DetailPage from "./DetailPage";
 import WishDetail from "./WishDetail";
@@ -14,11 +13,11 @@ export interface IBtnStateObject<T = string> {
 export type IBtnActionObject = { yes: () => void; no: () => void };
 // export type IBtnActionObject = (response: boolean) => void;
 
-const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
-const ACTION_INIT: IBtnActionObject = {
-  yes: () => console.log("yes"),
-  no: () => console.log("no"),
-};
+// const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
+// const ACTION_INIT: IBtnActionObject = {
+//   yes: () => console.log("yes"),
+//   no: () => console.log("no"),
+// };
 
 const WISH_INIT: IWishInfo = {
   desire_id: "",

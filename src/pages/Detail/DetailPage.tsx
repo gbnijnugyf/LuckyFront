@@ -217,8 +217,8 @@ export default function DetailPage(props: IDetailPageProps) {
         let [qq, wechat] =
           Info.option === "QQ" ? [Info.number, ""] : ["", Info.number];
 
-        Service.lightWishOn(
-          id.toString(),
+        Service.lightWish(
+          id,
           Info.name,
           Info.tel,
           qq,
@@ -327,7 +327,7 @@ export default function DetailPage(props: IDetailPageProps) {
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
         let message = currentIndex === "other" ? msgs["other"] : msgs["wuchu"];
-        Service.giveUpLightWish(props.wish.desire_id.toString(), message).then(
+        Service.giveUpLightWish(props.wish.desire_id, message).then(
           () => {
             goOtherPage("/detail/index");
           }
@@ -349,7 +349,7 @@ export default function DetailPage(props: IDetailPageProps) {
         console.log("试图关闭弹窗2");
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
-        Service.giveUpLightWish(props.wish.desire_id.toString()).then(() => {
+        Service.giveUpLightWish(props.wish.desire_id).then(() => {
           goOtherPage("/detail/index");
         });
       },
@@ -397,7 +397,7 @@ export default function DetailPage(props: IDetailPageProps) {
   // 我的愿望，有人点亮 ———— 点击删除
   function pressDelete() {
     handlePopWindows(() => {
-      Service.deleteWish(props.wish.desire_id.toString()).then(() => {
+      Service.deleteWish(props.wish.desire_id).then(() => {
         alert("删除成功");
         goOtherPage("/detail/index");
       });

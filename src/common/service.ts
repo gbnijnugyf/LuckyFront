@@ -2,7 +2,6 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { parse } from "url";
 import "whatwg-fetch";
 // import { IWishObject } from "../pages/MyWish";
-import { IWishesObject } from "../pages/Wishes";
 import { appendParams2Path } from "./global";
 
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default";
@@ -158,15 +157,15 @@ export const Service = {
   whutLogin() {
     return GlobalAxios<string>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
   },
-  //（new）获取用户的信息
+  //（new）获取用户的信息111
   getManInfo(id: string) {
     return GlobalAxios<IUserInfo>(
       "get",
       appendParams2Path("/user/info", { id: id })
     );
   },
-  //（new）用户投递愿望
-  postWish_2(
+  //（new）用户投递愿望111
+  postWish(
     name: string,
     qq: string,
     weChat: string,
@@ -189,7 +188,7 @@ export const Service = {
       },
     });
   },
-  //（new）用户点亮愿望
+  //（new）用户点亮愿望111
   lightWish(
     desire_id: string,
     name: string,
@@ -205,35 +204,35 @@ export const Service = {
       wechat: wechat
     });
   },
-  //（new）用户实现愿望
+  //（new）用户实现愿望111
   achieveWish(id: string) {
     return GlobalAxios<string>("post", "/desires/achieve", {
       id: id,
     });
   },
-  //（new）用户取消点亮愿望
+  //（new）用户取消点亮愿望111
   giveUpLightWish(id: string, message: string = "") {
     return GlobalAxios<string>("post", "/desires/giveup", {
       id: id,
       message: message,
     });
   },
-  //（new）获取用户点亮的愿望信息
-  get_lightedWishInfo() {
+  //（new）获取用户点亮的愿望信息111
+  getLightedWishInfo() {
     return GlobalAxios<IWishInfo[]>("get", "/desires/user/light");
   },
-  //（new）获取用户投递的愿望信息
+  //（new）获取用户投递的愿望信息111
   getPostedWishInfo() {
     return GlobalAxios<IWishInfo[]>("get", "/desires/user/post");
   },
-  //（new）通过类型获取愿望
+  //（new）通过类型获取愿望111
   getWishByCategories(categories: string) {
     return GlobalAxios<IWishInfo_withName[]>(
       "get",
       appendParams2Path("/desires/categories", { categories })
     );
   },
-  //（new）获取愿望具体信息
+  //（new）获取愿望具体信息111
   getWishDetail(id: string) {
     return GlobalAxios<IWishDetail>(
       "get",
@@ -243,15 +242,15 @@ export const Service = {
       })
     );
   },
-  //用户删除愿望
+  //用户删除愿望111
   deleteWish(desire_id: string) {
     return GlobalAxios<string>(
       "delete",
-      appendParams2Path("/wishes", { desire_id })
+      appendParams2Path("/desires/delete", { desire_id })
     );
   },
 
-  //绑定邮箱
+  //绑定邮箱(主要用于华师邮箱绑定，后端未给接口)
   bindEmail(email: string) {
     return GlobalAxios<string>("post", "/user/email", {
       data: {
@@ -259,7 +258,7 @@ export const Service = {
       },
     });
   },
-  //ccnu登录
+  //ccnu登录(后端未给接口)
   ccnuLogin(idcard_number: string, password: string) {
     return GlobalAxios<{
       idcard_number: string;
@@ -270,53 +269,55 @@ export const Service = {
       password: password,
     });
   },
-  //查询邮箱是否绑定
+  //查询邮箱是否绑定111
   checkUserEmail() {
     return GlobalAxios<null>("post", "/user/email/check", null);
   },
+
+
   //发出自己的愿望
-  postWish(
-    name: string,
-    QQ: string,
-    weChat: string,
-    tel: string,
-    wish: string,
-    type: string
-  ) {
-    return GlobalAxios<{
-      wishMan_inform: IWishManInformation;
-      wish: string;
-      type: string;
-    }>("post", "/wished/add", {
-      wishMan_inform: {
-        wishMan_name: name,
-        wishMan_QQ: QQ,
-        wishMan_Wechat: weChat,
-        wishMan_Tel: tel,
-      },
-    });
-  },
+  // postWish(
+  //   name: string,
+  //   QQ: string,
+  //   weChat: string,
+  //   tel: string,
+  //   wish: string,
+  //   type: string
+  // ) {
+  //   return GlobalAxios<{
+  //     wishMan_inform: IWishManInformation;
+  //     wish: string;
+  //     type: string;
+  //   }>("post", "/wished/add", {
+  //     wishMan_inform: {
+  //       wishMan_name: name,
+  //       wishMan_QQ: QQ,
+  //       wishMan_Wechat: weChat,
+  //       wishMan_Tel: tel,
+  //     },
+  //   });
+  // },
   //点亮别人的愿望
-  lightWishOn(
-    id: string,
-    name: string,
-    tel: string,
-    qq: string,
-    wechat: string
-  ) {
-    return GlobalAxios<{
-      wish_id: string;
-      light_inform?: ILightInformation;
-    }>("post", "/desires/light", {
-      wish_id: id,
-      light_inform: {
-        light_name: name,
-        light_tel: tel,
-        light_qq: qq,
-        light_wechat: wechat,
-      },
-    });
-  },
+  // lightWishOn(
+  //   id: string,
+  //   name: string,
+  //   tel: string,
+  //   qq: string,
+  //   wechat: string
+  // ) {
+  //   return GlobalAxios<{
+  //     wish_id: string;
+  //     light_inform?: ILightInformation;
+  //   }>("post", "/desires/light", {
+  //     wish_id: id,
+  //     light_inform: {
+  //       light_name: name,
+  //       light_tel: tel,
+  //       light_qq: qq,
+  //       light_wechat: wechat,
+  //     },
+  //   });
+  // },
   //查看愿望详情
   // getWishDetail(id: string) {
   //   return GlobalAxios<IWishObject>(
