@@ -96,10 +96,10 @@ export function Register() {
   const [btnText, setBtnText] = useState("获取验证码");
   const navigate = useNavigate();
   // const [WhutEVV, setWhutEVV] = useState('')
-  const [WhutEmail, setWhutEmail] = useState("");
-  const [WhutCheckEmail, setWhutCheckEmail] = useState("");
-  const [WhutPwd, setWhutPwd] = useState("");
-  const [WhutIsPwd, setWhutIsPwd] = useState("");
+  const [whutEmail, setWhutEmail] = useState("");
+  const [whutCheckEmail, setWhutCheckEmail] = useState("");
+  const [whutPwd, setWhutPwd] = useState("");
+  const [whutIsPwd, setWhutIsPwd] = useState("");
 
   const handleWhutId = (e: ChangeEvent<HTMLInputElement>) => {
     setWhutEmail(e.target.value);
@@ -149,20 +149,22 @@ export function Register() {
     // setWhutCheckEmail(WhutEVV)
   };
 
-  function goVerify(WhutEVV: string) {
-    if (WhutEmail === "") {
+  function goVerify(whutEVV: string) {
+    if (whutEmail === "") {
       alert("请输入邮箱");
-    } else if (WhutCheckEmail === "") {
+    } else if (whutCheckEmail === "") {
       alert("请输入验证码");
-    } else if (WhutPwd === "") {
+    } else if (whutPwd === "") {
       alert("请设置密码");
-    } else if (WhutIsPwd === "") {
+    } else if (whutPwd.length < 6) {
+      alert("密码应为6~12位");
+    } else if (whutIsPwd === "") {
       alert("请确认密码");
-    } else if (WhutPwd !== WhutIsPwd) {
+    } else if (whutPwd !== whutIsPwd) {
       alert("两次密码输入不一致");
     } else {
-      if (WhutCheckEmail === WhutEVV) {
-        Service.whutRegister(WhutEmail, WhutPwd).then((res) => {
+      if (whutCheckEmail === whutEVV) {
+        Service.whutRegister(whutEmail, whutPwd).then((res) => {
           const resData = res.data;
           if (resData.data.state === 1) {
             alert("注册成功");
@@ -193,7 +195,7 @@ export function Register() {
             <label>邮箱：</label>
             <input
               className="email"
-              value={WhutEmail}
+              value={whutEmail}
               onChange={handleWhutId}
             ></input>
           </li>
@@ -201,11 +203,11 @@ export function Register() {
             <label>验证码：</label>
             <input
               className="checkemail"
-              value={WhutCheckEmail}
+              value={whutCheckEmail}
               onChange={handleWhutCheckEmail}
             ></input>
             {/* <button className="checkbtn">获取验证码</button> */}
-            <button id={btnId} onClick={() => goGetEVV(WhutEmail)}>
+            <button id={btnId} onClick={() => goGetEVV(whutEmail)}>
               {btnText}
             </button>
           </li>
@@ -215,15 +217,17 @@ export function Register() {
               minLength={6}
               maxLength={12}
               type="password"
-              value={WhutPwd}
+              value={whutPwd}
               onChange={handleWhutPwd}
             ></input>
           </li>
           <li>
             <label>确认密码：</label>
             <input
+              minLength={6}
+              maxLength={12}
               type="password"
-              value={WhutIsPwd}
+              value={whutIsPwd}
               onChange={handleWhutIsPwd}
             ></input>
           </li>
