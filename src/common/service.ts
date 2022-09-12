@@ -134,12 +134,6 @@ async function GlobalAxios<T = any, D = any>(
 
 
 export const Service = {
-<<<<<<< HEAD
-  //绑定邮箱
-
-  bindEmail(email: string) {
-    return GlobalAxios<string>("post", "/user/email", {
-=======
   //whut邮箱验证
   whutCheckEmail(email: string) {
     return GlobalAxios<{ emailVV: string }>(
@@ -155,22 +149,12 @@ export const Service = {
   //whut注册
   whutRegister() {
     return GlobalAxios<{ state: number }>("post", "/whutregister", {
->>>>>>> 2dba0756043ac65c18c979e75b54e4ddfad5ad96
       data: {
         //post数据待定
       },
     });
   },
   //whut登录
-<<<<<<< HEAD
-  whutLogin(whutId:string, whutPwd:string) {
-    return GlobalAxios<string>("post", "/whutlogin", {
-      data:{
-        email:whutId,
-        password:whutPwd
-      }
-    });
-=======
   whutLogin() {
     return GlobalAxios<string>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
   },
@@ -255,7 +239,6 @@ export const Service = {
       "delete",
       appendParams2Path("/wishes", { desire_id })
     );
->>>>>>> 2dba0756043ac65c18c979e75b54e4ddfad5ad96
   },
 
   //绑定邮箱
