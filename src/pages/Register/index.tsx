@@ -4,9 +4,7 @@ import { Service } from "../../common/service";
 import { ButtonL } from "../../components/Button";
 import {
   ChangeEvent,
-  MouseEventHandler,
   ReactNode,
-  useEffect,
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
@@ -30,68 +28,8 @@ function RegisterPannel(props: IRegisterPannel) {
   );
 }
 
-interface ICheckbtnHandleProps {
-  state: number;
-  HtmlElement: HTMLButtonElement;
-}
-interface ICheckbtnProps {
-  text: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  state: number;
-  classname: string;
-  // HtmlElement:HTMLButtonElement
-}
-
-function CheckbtnHandle() {
-  let H = document.getElementById("checkbtn");
-  let time = 60;
-  let retry = setInterval(() => {
-    // H?.setAttribute("disabled", "true")
-    if (H?.id !== undefined) {
-      H.id = "checked";
-    }
-    if (H?.innerHTML !== undefined) {
-      H.innerHTML = "（" + --time + "s后重新获取）";
-    }
-  }, 1000);
-  setTimeout(() => {
-    if (H?.innerHTML !== undefined) {
-      H.innerHTML = "重新获取";
-      if (H?.id !== undefined) {
-        H.id = "checkbtn";
-      }
-      clearInterval(retry);
-    }
-  }, 60000);
-
-  return;
-}
-
-// function CheckbtnHandle(props:ICheckbtnHandleProps){
-
-//     if(props.state === 1){        //中断计时
-//         props.HtmlElement.setAttribute("disabled", "false");
-//         props.HtmlElement.value = "重新获取验证码"
-//     }
-//     else{
-//         let time = 60;
-//         let retry = setInterval(
-//             ()=>{
-//                 props.HtmlElement.setAttribute("disabled", "true");
-//                 props.HtmlElement.className = "checked";
-//             },
-//             1000
-//         )
-//         setTimeout(() => {
-//             props.HtmlElement.value = "("+(--time)+"后重新获取）";
-//             clearInterval(retry);
-//         }, 60000);
-//     }
-//     return undefined;
-// }
 
 export function Register() {
-  const [btnState, setBtnState] = useState(1);
   const [btnId, setBtnId] = useState("checkbtn");
   const [btnText, setBtnText] = useState("获取验证码");
   const navigate = useNavigate();
