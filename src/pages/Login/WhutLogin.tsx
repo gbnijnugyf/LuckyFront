@@ -2,7 +2,7 @@ import {Service} from '../../common/service'
 import './WhutLogin.scss'
 import { ButtonL } from '../../components/Button'
 import { ChangeEvent, ReactNode, useState } from 'react'
-import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export interface ILoginPannel{
     text:string,
@@ -68,7 +68,7 @@ export function LoginWhut() {
                     </li>
                 </ul>
             </div>
-            <GoRegister text='' goRegister='快速注册一个吧！' navigate_={navigate}>
+            <GoRegister text='' goRegister='快速注册一个吧！'>
             请使用掌上吾理账号登录，<br/>还没有？
             </GoRegister>
         </LoginPannel>
@@ -80,14 +80,14 @@ interface IGoRegisterProps{
     text: string,
     goRegister: string,
     children:ReactNode,
-    navigate_:NavigateFunction
 }
 
 export function GoRegister(props:IGoRegisterProps){
+    const navigate = useNavigate();
 
     return (
         <p>
-        ( {props.children}<a onClick={()=>{props.navigate_("/whutRegister")}}>{props.goRegister}</a>)
+        {props.children}<span onClick={()=>navigate('whutRegister')}>{props.goRegister}</span>
         </p>
     )
 }

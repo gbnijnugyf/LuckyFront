@@ -120,7 +120,7 @@ export function Register() {
 
   return (
     <RegisterPannel
-      text="掌上吾理账号注册"
+      text="掌理账号注册"
       onClick={() => {
         console.log(WhutEVV);
         goVerify(WhutEVV);
