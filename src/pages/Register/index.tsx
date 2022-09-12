@@ -1,6 +1,6 @@
 import "./index.scss"
 
-import Service from '../../common/service'
+import {Service} from '../../common/service'
 import { ButtonL } from '../../components/Button'
 import { ChangeEvent, MouseEventHandler, ReactNode, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -121,7 +121,7 @@ export function Register() {
             alert('请输入邮箱')
             return
         }
-        Service.whutRegisterCheckEmail(email).then(res => {
+        Service.whutCheckEmail(email).then(res => {
             const resData = res.data;
             if (resData.status === 1) {//返回验证码成功
                 console.log(resData)
@@ -223,7 +223,7 @@ export function Register() {
                     </li>
                     <li>
                         <label>密码：</label>
-                        <input type="password" value={WhutPwd} onChange={handleWhutPwd}></input>
+                        <input minLength={6} maxLength={12} type="password" value={WhutPwd} onChange={handleWhutPwd}></input>
                     </li>
                     <li>
                         <label>确认密码：</label>

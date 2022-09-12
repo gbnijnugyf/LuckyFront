@@ -84,9 +84,6 @@ interface IGoRegisterProps{
 }
 
 export function GoRegister(props:IGoRegisterProps){
-    // const navigate = useNavigate();
-    // console.log(navigate)
-
 
     return (
         <p>
@@ -94,31 +91,3 @@ export function GoRegister(props:IGoRegisterProps){
         </p>
     )
 }
-// export function BindEmail() {
-//     const navigate = useNavigate();
-
-//     const [email, setEmail] = useState('')
-
-//     const handleEmail = (e:ChangeEvent<HTMLInputElement>) => {
-//         setEmail(e.target.value)
-//     }
-//     const goBind = () => {
-//         Service.bindEmail(email).then(() => {
-//             navigate('/tagscreen/home');
-//             // props.history.push("/home")
-//         })
-//     }
-
-//     return (
-//         <LoginPannel text="邮箱绑定" onClick={goBind} btnText="完成">
-//             <div className="panel-login">
-//                 <p className="tip-email">填写邮箱地址，可以及时<br />
-//                     查收愿望状态哦~</p>
-//                 <li>
-//                     <label className="label-email">邮箱：</label>
-//                     <input className="input-email" onChange={handleEmail} value={email} ></input>
-//                 </li>
-//             </div>
-//         </LoginPannel>
-//     )
-// }

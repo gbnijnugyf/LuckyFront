@@ -18,17 +18,17 @@ export enum Type {
   动漫,
   其他,
 }
-export enum State{
+export enum State {
   初始化 = -1,
   未点亮,
   已点亮,
   已实现,
-  已删除
+  已删除,
 }
-export enum School{
+export enum School {
   初始化 = 0,
   武理,
-  华师
+  华师,
 }
 
 interface IGlobalResponse<T> {
@@ -59,10 +59,10 @@ export interface IWishInfo {
 }
 export interface IWishInfo_withName {
   view_desire: IWishInfo;
-  view_user:{
-    name:string,
-    school:School//0错误or初始化、1武理、2华师
-  }
+  view_user: {
+    name: string;
+    school: School; //0错误or初始化、1武理、2华师
+  };
 }
 export interface IWishDetail {
   view_desire: IWishInfo; //愿望信息
@@ -132,7 +132,6 @@ async function GlobalAxios<T = any, D = any>(
   return response;
 }
 
-
 export const Service = {
   //whut邮箱验证
   whutCheckEmail(email: string) {
@@ -147,16 +146,22 @@ export const Service = {
     );
   },
   //whut注册
-  whutRegister() {
+  whutRegister(email: string, pwd: string) {
     return GlobalAxios<{ state: number }>("post", "/whutregister", {
       data: {
-        //post数据待定
+        Email: email,
+        password: pwd,
       },
     });
   },
   //whut登录
-  whutLogin() {
-    return GlobalAxios<string>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
+  whutLogin(email: string, pwd: string) {
+    return GlobalAxios<string>("post", "/whutlogin", {
+      data: {
+        Email: email,
+        password: pwd,
+      },
+    });
   },
   //（new）获取用户的信息
   getManInfo(id: string) {
