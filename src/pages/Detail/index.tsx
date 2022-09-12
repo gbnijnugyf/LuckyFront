@@ -10,10 +10,6 @@ export interface IBtnStateObject<T = string> {
   no: T;
 }
 
-
-const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
-
-
 const WISH_INIT: IWishInfo = {
   desire_id: "",
   desire: "",

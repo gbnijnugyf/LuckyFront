@@ -169,10 +169,6 @@ export default function DetailPage(props: IDetailPageProps) {
     setBtnText({ yes: btnText1, no: btnText2 });
   }
 
-  interface ISetInfo {
-    value: string;
-    newValue?: string;
-  }
   // 别人的愿望，没人实现 ———— 点击确定点亮
   async function PressReallyLight() {
     let Info = {
