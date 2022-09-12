@@ -59,7 +59,7 @@ export default function WishDetail(props: IWishDetail) {
     );
     function setConfirmChoose(yesHandle: () => void, noHandle: () => void) {
       setConfirmAction((res: boolean) => {
-        res ? yesHandle : noHandle;
+        res ? yesHandle() : noHandle();
       });
     }
     setConfirmChoose(

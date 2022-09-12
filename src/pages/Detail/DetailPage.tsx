@@ -143,7 +143,7 @@ export default function DetailPage(props: IDetailPageProps) {
 
   function setConfirmChoose(yesHandle: () => void, noHandle: () => void) {
     setConfirmAction((res: boolean) => {
-      res ? yesHandle : noHandle;
+      res ? yesHandle() : noHandle();
     });
   }
 
