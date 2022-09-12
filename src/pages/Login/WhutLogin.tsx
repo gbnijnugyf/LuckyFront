@@ -87,7 +87,7 @@ export function GoRegister(props:IGoRegisterProps){
 
     return (
         <p>
-        ( {props.children}<a onClick={()=>{props.navigate_("whutRgister")}}>{props.goRegister}</a>)
+        ( {props.children}<a onClick={()=>{props.navigate_("/whutRgister")}}>{props.goRegister}</a>)
         </p>
     )
 }
