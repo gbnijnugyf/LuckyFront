@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Service } from "../../common/service";
+import { School, Service, Type } from "../../common/service";
 import ink from "../../static/images/ink.svg";
 import { tags } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
@@ -9,7 +9,7 @@ import "./index.scss";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
 
-const CATEGORYINIT: number = -1;
+const CATEGORYINIT = Type.null;
 
 export default function Send() {
   const navigate = useNavigate();
@@ -18,6 +18,7 @@ export default function Send() {
   const [tagName, setTagName] = useState("选择标签"); //控制选择标签后的显示
   const [wishContent, setWishContent] = useState(""); //控制 textarea
   const [nameValue, setNameValue] = useState(""); //控制 name input
+  const [school, setSchool] = useState<School>(School.初始化);
   const [numberValue, setNumberValue] = useState(""); //控制 number input
   const [tel, setTel] = useState(""); // 控制tel input
   const [selectValue, setSelectValue] = useState("QQ"); // 控制select的值
@@ -62,7 +63,7 @@ export default function Send() {
     // 判断必填项
     if (wishContent === "") {
       alert("你还没有填写内容哦~");
-    } else if (category === -1) {
+    } else if (category === Type.null) {
       alert("你还没有选择标签分类哦~");
     } else if (nameValue === "") {
       alert("你的小幸运还没有署名哦～");
@@ -71,13 +72,17 @@ export default function Send() {
     } else {
       let QQ = selectValue === "QQ" ? numberValue : "";
       let wechat = selectValue === "WeChat" ? numberValue : "";
-      Service.postWish(
+      Service.getManInfo("-1").then((res)=>{
+        setSchool(res.data.data.school)
+      })
+      Service.postWish_2(
         nameValue,
         QQ,
         wechat,
         tel,
         wishContent,
-        category.toString()
+        category,
+        school
       ) //标签分类通过category:number判断，而service接收字符串
         .then(() => {
           alert("投递成功！");
