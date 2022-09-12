@@ -235,11 +235,4 @@ export function Register() {
     )
 }
 
-// export function Register(){
-//     return (
-//         <>
-//         fdsa
-//         </>
-//     )
-// }
 
