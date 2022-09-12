@@ -1,30 +1,50 @@
+import { useEffect } from "react";
 import { ReactNode } from "react";
-import { IBtnActionObject, IBtnStateObject } from "../../pages/Detail";
 import "./index.scss";
 
 interface IConfirmPanelProps {
   display: boolean;
-  // action: IAction;
-  action: IBtnActionObject;
-  btnText?: IBtnStateObject<string>;
+  onChoose: (response: boolean) => void;
+  btnTextYes?: string;
+  btnTextNo?: string;
   children: ReactNode;
-  onChangeOther?:()=>void//其他渲染
+  // 当 display 由 false 变 true 时触发
+  onShow?: () => void;
 }
 
 export default function ConfirmPanel(props: IConfirmPanelProps) {
-  setTimeout(()=>props.display && props.onChangeOther ?props.onChangeOther():null)//其他渲染
-  
-  
+  const {
+    display,
+    onChoose,
+    btnTextYes = "确认",
+    btnTextNo = "取消",
+    children,
+    onShow = () => {},
+  } = props;
+  // TODO: 需要测试
+  useEffect(() => {
+    if (display) onShow();
+  }, [display, onShow]);
   return (
-    <div className="mask" style={{ display: props.display ? "flex" : "none" }}>
+    <div className="mask" style={{ display: display ? "flex" : "none" }}>
       <div className="infoPanel">
-        <div className="textPanel">{props.children}</div>
+        <div className="textPanel">{children}</div>
         <div className="confirmPanel">
-          <div className="confirmFalse" onClick={()=>{props.action.no()}}>
-            {props.btnText?.no ? props.btnText?.no : "取消"}
+          <div
+            className="confirmFalse"
+            onClick={() => {
+              onChoose(false);
+            }}
+          >
+            {btnTextNo}
           </div>
-          <div className="confirmTrue" onClick={()=>{props.action.yes()}}>
-            {props.btnText?.yes ? props.btnText?.yes : "确认"}
+          <div
+            className="confirmTrue"
+            onClick={() => {
+              onChoose(true);
+            }}
+          >
+            {btnTextYes}
           </div>
         </div>
       </div>

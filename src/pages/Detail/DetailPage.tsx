@@ -1,28 +1,10 @@
 import { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IBtnActionObject, IBtnStateObject } from ".";
+import { IBtnStateObject } from ".";
 import { IWishInfo, Service } from "../../common/service";
 import { ButtonS } from "../../components/Button";
 import ConfirmPanel from "../../components/ConfirmPanel";
-// import { IWishObject } from "../MyWish";
 import PersonMsg from "./PersonMsg";
-
-// export interface IOnChange {
-//   changeShowConfirm: (props: boolean) => void;
-//   changeConfirmContent: (props: ReactElement) => void;
-//   changeBtnText: (props1: string, props2: string) => void;
-//   changeConfirmAction: (props1: () => void, props2: () => void) => void;
-// }
-
-// export interface IDetailChange {
-//   onChange: {
-//     changeShowConfirm: (props: boolean) => void;
-//     changeConfirmContent: (props: ReactElement) => void;
-//     changeBtnText: (props1: string, props2: string) => void;
-//     changeConfirmAction: (props1: () => void, props2: () => void) => void;
-//   };
-//   goOtherPage: (props: string) => void;
-// }
 
 interface IDetailPageProps {
   wish: IWishInfo;
@@ -30,10 +12,16 @@ interface IDetailPageProps {
   isMine: boolean;
 }
 export const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
-export const ACTION_INIT: IBtnActionObject = {
-  yes: () => console.log("yes"),
-  no: () => console.log("no"),
-};
+
+//ConfirmPane两种传参形式
+// export type IBtnActionObject = { yes: () => void; no: () => void };
+export type IBtnActionObject = (response: boolean) => void;
+//ConfirmPane两种传参形式
+// export const ACTION_INIT: IBtnActionObject = {
+//   yes: () => console.log("yes"),
+//   no: () => console.log("no"),
+// };
+export const ACTION_INIT: IBtnActionObject = () => {};
 //Detail核心显示部分
 
 export default function DetailPage(props: IDetailPageProps) {
@@ -41,8 +29,7 @@ export default function DetailPage(props: IDetailPageProps) {
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
   const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
   const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
-  // // const [actionState, setActionState] = useState<boolean>(); //设置按钮触发状态
-  // let confirmAction = ACTION_INIT;
+
   const [confirmAction, setConfirmAction] =
     useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
   const achieved = props.wish.state === 2;
@@ -106,8 +93,8 @@ export default function DetailPage(props: IDetailPageProps) {
         onChange={(e) => {
           props.onChangeState = e.target.value;
         }}
-        onClick={()=>props.value = undefined}
-        defaultValue={props.value ? props.value : undefined}  
+        onClick={() => (props.value = undefined)}
+        defaultValue={props.value ? props.value : undefined}
       ></input>
     );
   }
@@ -119,7 +106,7 @@ export default function DetailPage(props: IDetailPageProps) {
       wechat: string;
     };
     tel: string;
-    option?: string
+    option?: string;
   }
   //用户填写前获取用户信息
   const getUserPre = async () => {
@@ -154,6 +141,12 @@ export default function DetailPage(props: IDetailPageProps) {
     return resAll;
   };
 
+  function setConfirmChoose(yesHandle: () => void, noHandle: () => void) {
+    setConfirmAction((res: boolean) => {
+      res ? yesHandle : noHandle;
+    });
+  }
+
   //弹窗抽象
   function handlePopWindows(
     yesHandle: () => void = () => {
@@ -171,7 +164,7 @@ export default function DetailPage(props: IDetailPageProps) {
   ) {
     // console.log("弹窗已开启")
     setShowConfirm(true);
-    setConfirmAction({ yes: yesHandle, no: noHandle });
+    setConfirmChoose(yesHandle, noHandle);
     setConfirmContent(Content);
     setBtnText({ yes: btnText1, no: btnText2 });
   }
@@ -405,8 +398,6 @@ export default function DetailPage(props: IDetailPageProps) {
     }, <p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>);
   }
 
-  // console.log("wish.state:" + props.wish.state);
-  // console.log("achieved:" + achieved, "isMine:" + props.isMine);
   if (props.wish.state === 1 || props.wish.state === 2) {
     // 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
     let divDisplay: string = "";
@@ -419,8 +410,9 @@ export default function DetailPage(props: IDetailPageProps) {
       <>
         <ConfirmPanel
           display={showConfirm}
-          action={confirmAction}
-          btnText={btnText}
+          onChoose={confirmAction}
+          btnTextYes={btnText.yes}
+          btnTextNo={btnText.no}
         >
           {confirmContent}
         </ConfirmPanel>
@@ -460,8 +452,9 @@ export default function DetailPage(props: IDetailPageProps) {
       <>
         <ConfirmPanel
           display={showConfirm}
-          action={confirmAction}
-          btnText={btnText}
+          onChoose={confirmAction}
+          btnTextYes={btnText.yes}
+          btnTextNo={btnText.no}
         >
           {confirmContent}
         </ConfirmPanel>

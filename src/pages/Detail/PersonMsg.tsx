@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { formatTime } from "../../common/global";
 import { IWishInfo, Service } from "../../common/service";
-// import { IWishObject } from "../MyWish";
 
 interface IPersonMsg {
   wish: IWishInfo;

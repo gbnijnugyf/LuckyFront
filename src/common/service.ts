@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { parse } from "url";
 import "whatwg-fetch";
-// import { IWishObject } from "../pages/MyWish";
 import { IWishesObject } from "../pages/Wishes";
 import { appendParams2Path } from "./global";
 
