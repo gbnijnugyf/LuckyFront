@@ -40,57 +40,62 @@ export default function DetailPage(props: IDetailPageProps) {
     other: "", //占位
   };
 
-  //select元素抽象
-  interface IHandleSelectProps {
-    allOption: string[];
-    onChangeState: string;
-    // onChangeAction: (props: ISetInfo)=>void;
-    selectSttyle?: React.CSSProperties;
-  }
-  function handleSelect(props: IHandleSelectProps) {
-    return (
-      <select
-        onChange={(e) => {
-          // props.onChangeAction({value:props.onChangeState,newValue:e.target.value})
-          console.log(e.target); // props.onChangeState = (e.target.value);
-        }}
-        style={{ color: "rgb(239, 96, 63)" }}
-      >
-        <>
-          <option value={props.allOption[0]}>{props.allOption[0]}</option>
-          <option value={props.allOption[1]}>{props.allOption[1]}</option>
-          {/* {props.allOption.forEach((option) => {
-            <option value={option}>{option}</option>
-          })} */}
-        </>
-      </select>
-    );
-  }
-  //input元素抽象
-  interface IHandleInputProps {
-    type: string;
-    onChangeState: string;
+  // //select元素抽象
+  // interface IHandleSelectProps {
+  //   allOption: string[];
+  //   onChangeState: string;
+  //   // onChangeAction: (props: ISetInfo)=>void;
+  //   selectSttyle?: React.CSSProperties;
+  // }
+  // function handleSelect(props: IHandleSelectProps) {
+  //   return (
+  //     <select
+  //       onChange={(e) => {
+  //         // props.onChangeAction({value:props.onChangeState,newValue:e.target.value})
+  //         console.log(e.target); // props.onChangeState = (e.target.value);
+  //       }}
+  //       style={{ color: "rgb(239, 96, 63)" }}
+  //     >
+  //       <>
+  //         {/* <option value={props.allOption[0]}>{props.allOption[0]}</option>
+  //         <option value={props.allOption[1]}>{props.allOption[1]}</option> */}
+  //         {props.allOption.forEach((option) => {
+  //           return <option value={option}>{option}</option>;
+  //         })}
+  //       </>
+  //     </select>
+  //   );
+  // }
+  // //input元素抽象
+  // interface IHandleInputProps {
+  //   type: string;
+  //   onChangeState: string;
 
-    name?: string;
-    classname?: string;
-    style?: React.CSSProperties;
-    value?: string;
-    placeholder?: string;
-    defaultChecked?: boolean;
-    defaultValue?: string;
-  }
-  function handleInput(props: IHandleInputProps) {
-    return (
-      <input
-        type={props.type}
-        onChange={(e) => {
-          props.onChangeState = e.target.value;
-        }}
-        onClick={()=>props.value = undefined}
-        defaultValue={props.value ? props.value : undefined}  
-      ></input>
-    );
-  }
+  //   name?: string;
+  //   classname?: string;
+  //   style?: React.CSSProperties;
+  //   value?: string;
+  //   placeholder?: string;
+  //   defaultChecked?: boolean;
+  //   defaultValue?: string;
+  // }
+  // function handleInput(props: IHandleInputProps) {
+  //   function handleChange(e: string) {
+  //     props.onChangeState = e;
+  //   }
+
+  //   return (
+  //     <input
+  //       type={props.type}
+  //       onChange={(e) => {
+  //         // props.onChangeState = e.target.value;
+  //         handleChange(e.target.value);
+  //       }}
+  //       // onClick={()=>props.value = ""}
+  //       defaultValue={props.value || ""}
+  //     ></input>
+  //   );
+  // }
 
   interface IGetUserPre {
     name: string;
@@ -181,29 +186,13 @@ export default function DetailPage(props: IDetailPageProps) {
       Info.name = a.name;
       Info.tel = a.tel;
     }
-
-    // const setInfo = (props: ISetInfo) =>{
-    //   if (!props.newValue) return;
-    //   props.value = props.newValue;
-    // }
-    //Invalid Hook
-    // const [name, setName] = useState("");
-    // const [option, setOption] = useState("QQ");
-    // const [number, setNumber] = useState("");
-    // const [tel, setTel] = useState("");
     handlePopWindows(
       () => {
         let id = props.wish.desire_id;
         let [qq, wechat] =
           Info.option === "QQ" ? [Info.number, ""] : ["", Info.number];
 
-        Service.lightWish(
-          id,
-          Info.name,
-          Info.tel,
-          qq,
-          wechat
-        ).then((res) => {
+        Service.lightWish(id, Info.name, Info.tel, qq, wechat).then((res) => {
           if (res.data.status === 0) {
             alert("点亮成功~");
             goOtherPage("/detail/index");
@@ -218,36 +207,61 @@ export default function DetailPage(props: IDetailPageProps) {
         <div className="form">
           <div className="name">
             投递人 :
-            {handleInput({
+            <input
+              type="text"
+              placeholder="必填内容"
+              onChange={(e) => (Info.name = e.target.value)}
+              defaultValue={Info.name}
+              style={{ marginLeft: ".3em", width: "60%" }}
+            />
+            {/* {handleInput({
               type: "text",
               onChangeState: Info.name,
               classname: "name",
               placeholder: "必填内容哦～",
               value: Info.name,
-            })}
+            })} */}
           </div>
           <div className="number">
             联系方式 :
-            {handleSelect({
+            <select style={{ color: "rgb(239, 96, 63)" }}>
+              <option value="QQ">QQ</option>
+              <option value="WeChat">微信</option>
+            </select>
+            {/* {handleSelect({
               allOption: ["QQ", "微信"],
               onChangeState: Info.option,
-            })}
-            {handleInput({
+            })} */}
+            <input
+              type="text"
+              placeholder="必填内容"
+              onChange={(e) => (Info.number = e.target.value)}
+              defaultValue={Info.number}
+              style={{ marginLeft: ".3em", width: "90%" }}
+            />
+            {/* {handleInput({
               type: "text",
               onChangeState: Info.number,
               placeholder: "必填内容哦～",
               value: Info.number,
               style: { marginLeft: ".3em", width: "30%" },
-            })}
+            })} */}
           </div>
           <div className="tel">
             或 Tel :
-            {handleInput({
+            {/* {handleInput({
               type: "text",
               onChangeState: Info.tel,
               placeholder: "选填内容哦～",
               value: Info.tel,
-            })}
+            })} */}
+            <input
+              type="text"
+              placeholder="必填内容"
+              onChange={(e) => (Info.tel = e.target.value)}
+              defaultValue={Info.tel}
+              style={{ marginLeft: ".3em", width: "90%" }}
+            />
           </div>
         </div>
       </div>,
@@ -289,13 +303,19 @@ export default function DetailPage(props: IDetailPageProps) {
           ) : (
             <div>
               <p>留言给对方：</p>
-              {handleInput({
+              <input
+                type="text"
+                onChange={(e) => (msgs[currentIndex] = e.target.value)}
+                defaultValue={msgs["other"]}
+                style={{ marginLeft: ".3em", width: "32%" }}
+              />
+              {/* {handleInput({
                 type: "text",
                 onChangeState: currentIndex,
                 placeholder: "输入其他原因",
                 classname: "reason",
                 defaultValue: currentIndex,
-              })}
+              })} */}
             </div>
           )}
         </div>
@@ -307,11 +327,9 @@ export default function DetailPage(props: IDetailPageProps) {
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
         let message = currentIndex === "other" ? msgs["other"] : msgs["wuchu"];
-        Service.giveUpLightWish(props.wish.desire_id, message).then(
-          () => {
-            goOtherPage("/detail/index");
-          }
-        );
+        Service.giveUpLightWish(props.wish.desire_id, message).then(() => {
+          goOtherPage("/detail/index");
+        });
       },
       <>
         <form className="msg-borad">
