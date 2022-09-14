@@ -146,10 +146,11 @@ export const Service = {
     );
   },
   //whut注册
-  whutRegister() {
+  whutRegister(email: string, pwd: string) {
     return GlobalAxios<{ state: number }>("post", "/whutregister", {
       data: {
-        //post数据待定
+        Email: email,
+        password: pwd,
       },
     });
   },

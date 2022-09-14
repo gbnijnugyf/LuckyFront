@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ReactNode } from "react";
 import { IBtnActionObject, IBtnStateObject } from "../../pages/Detail";
 import "./index.scss";

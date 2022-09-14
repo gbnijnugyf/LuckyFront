@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { formatTime } from "../../common/global";
 import { IWishInfo, Service } from "../../common/service";
+<<<<<<< HEAD
 // import { IWishObject } from "../MyWish";
+=======
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
 
 interface IPersonMsg {
   wish: IWishInfo;
@@ -18,6 +21,7 @@ export default function PersonMsg(props: IPersonMsg) {
 
   useEffect(() => {
     if (isMine) {
+<<<<<<< HEAD
       Service.getManInfo(wish.desire_id.toString()).then((res) => {
         let lightManInfo = res.data.data;
         setName(lightManInfo.name || "");
@@ -25,6 +29,15 @@ export default function PersonMsg(props: IPersonMsg) {
         setQQ(lightManInfo.qq || "");
         setWechat(lightManInfo.wechat || "");
         setTel(lightManInfo.tel || "");
+=======
+      Service.getLightManInfo(wish.desire_id.toString()).then((res) => {
+        let lightManInfo = res.data.data;
+        setName(lightManInfo.light_name || "");
+        setTime("于" + formatTime(wish.lighted_at) + "点亮");
+        setQQ(lightManInfo.light_qq || "");
+        setWechat(lightManInfo.light_wechat || "");
+        setTel(lightManInfo.light_tel || "");
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
       });
     } else {
       Service.getManInfo(wish.light_id.toString()).then((res) => {

@@ -1,5 +1,6 @@
 import { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import { IBtnActionObject, IBtnStateObject } from ".";
 import { IWishInfo, Service } from "../../common/service";
 import { ButtonS } from "../../components/Button";
@@ -24,16 +25,37 @@ import PersonMsg from "./PersonMsg";
 //   goOtherPage: (props: string) => void;
 // }
 
+=======
+import { IBtnStateObject } from ".";
+import { IWishInfo, Service } from "../../common/service";
+import { ButtonS } from "../../components/Button";
+import ConfirmPanel from "../../components/ConfirmPanel";
+import PersonMsg from "./PersonMsg";
+
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
 interface IDetailPageProps {
   wish: IWishInfo;
   detailChange: (props: string) => void;
   isMine: boolean;
 }
 export const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
+<<<<<<< HEAD
 export const ACTION_INIT: IBtnActionObject = {
   yes: () => console.log("yes"),
   no: () => console.log("no"),
 };
+=======
+
+//ConfirmPane两种传参形式
+// export type IBtnActionObject = { yes: () => void; no: () => void };
+export type IBtnActionObject = (response: boolean) => void;
+//ConfirmPane两种传参形式
+// export const ACTION_INIT: IBtnActionObject = {
+//   yes: () => console.log("yes"),
+//   no: () => console.log("no"),
+// };
+export const ACTION_INIT: IBtnActionObject = () => {};
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
 //Detail核心显示部分
 
 export default function DetailPage(props: IDetailPageProps) {
@@ -41,8 +63,12 @@ export default function DetailPage(props: IDetailPageProps) {
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
   const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
   const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
+<<<<<<< HEAD
   // // const [actionState, setActionState] = useState<boolean>(); //设置按钮触发状态
   // let confirmAction = ACTION_INIT;
+=======
+
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
   const [confirmAction, setConfirmAction] =
     useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
   const achieved = props.wish.state === 2;
@@ -106,8 +132,13 @@ export default function DetailPage(props: IDetailPageProps) {
         onChange={(e) => {
           props.onChangeState = e.target.value;
         }}
+<<<<<<< HEAD
         onClick={()=>props.value = undefined}
         defaultValue={props.value ? props.value : undefined}  
+=======
+        onClick={() => (props.value = undefined)}
+        defaultValue={props.value ? props.value : undefined}
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
       ></input>
     );
   }
@@ -119,7 +150,11 @@ export default function DetailPage(props: IDetailPageProps) {
       wechat: string;
     };
     tel: string;
+<<<<<<< HEAD
     option?: string
+=======
+    option?: string;
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
   }
   //用户填写前获取用户信息
   const getUserPre = async () => {
@@ -154,6 +189,15 @@ export default function DetailPage(props: IDetailPageProps) {
     return resAll;
   };
 
+<<<<<<< HEAD
+=======
+  function setConfirmChoose(yesHandle: () => void, noHandle: () => void) {
+    setConfirmAction((res: boolean) => {
+      res ? yesHandle() : noHandle();
+    });
+  }
+
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
   //弹窗抽象
   function handlePopWindows(
     yesHandle: () => void = () => {
@@ -171,15 +215,22 @@ export default function DetailPage(props: IDetailPageProps) {
   ) {
     // console.log("弹窗已开启")
     setShowConfirm(true);
+<<<<<<< HEAD
     setConfirmAction({ yes: yesHandle, no: noHandle });
+=======
+    setConfirmChoose(yesHandle, noHandle);
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
     setConfirmContent(Content);
     setBtnText({ yes: btnText1, no: btnText2 });
   }
 
+<<<<<<< HEAD
   // interface ISetInfo {
   //   value: string;
   //   newValue?: string;
   // }
+=======
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
   // 别人的愿望，没人实现 ———— 点击确定点亮
   async function PressReallyLight() {
     let Info = {
@@ -217,8 +268,13 @@ export default function DetailPage(props: IDetailPageProps) {
         let [qq, wechat] =
           Info.option === "QQ" ? [Info.number, ""] : ["", Info.number];
 
+<<<<<<< HEAD
         Service.lightWish(
           id,
+=======
+        Service.lightWishOn(
+          id.toString(),
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
           Info.name,
           Info.tel,
           qq,
@@ -327,7 +383,11 @@ export default function DetailPage(props: IDetailPageProps) {
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
         let message = currentIndex === "other" ? msgs["other"] : msgs["wuchu"];
+<<<<<<< HEAD
         Service.giveUpLightWish(props.wish.desire_id, message).then(
+=======
+        Service.giveUpLightWish(props.wish.desire_id.toString(), message).then(
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
           () => {
             goOtherPage("/detail/index");
           }
@@ -349,7 +409,11 @@ export default function DetailPage(props: IDetailPageProps) {
         console.log("试图关闭弹窗2");
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
+<<<<<<< HEAD
         Service.giveUpLightWish(props.wish.desire_id).then(() => {
+=======
+        Service.giveUpLightWish(props.wish.desire_id.toString()).then(() => {
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
           goOtherPage("/detail/index");
         });
       },
@@ -365,7 +429,11 @@ export default function DetailPage(props: IDetailPageProps) {
       //yesHandle
       () => {
         setShowConfirm(false);
+<<<<<<< HEAD
         Service.achieveWish(props.wish.desire_id);
+=======
+        Service.achieveWish_2(props.wish.desire_id);
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
         goOtherPage("/detail/index");
       },
       // Content
@@ -397,7 +465,11 @@ export default function DetailPage(props: IDetailPageProps) {
   // 我的愿望，有人点亮 ———— 点击删除
   function pressDelete() {
     handlePopWindows(() => {
+<<<<<<< HEAD
       Service.deleteWish(props.wish.desire_id).then(() => {
+=======
+      Service.deleteWish_2(props.wish.desire_id.toString()).then(() => {
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
         alert("删除成功");
         goOtherPage("/detail/index");
       });
@@ -419,8 +491,14 @@ export default function DetailPage(props: IDetailPageProps) {
       <>
         <ConfirmPanel
           display={showConfirm}
+<<<<<<< HEAD
           action={confirmAction}
           btnText={btnText}
+=======
+          onChoose={confirmAction}
+          btnTextYes={btnText.yes}
+          btnTextNo={btnText.no}
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
         >
           {confirmContent}
         </ConfirmPanel>
@@ -460,8 +538,14 @@ export default function DetailPage(props: IDetailPageProps) {
       <>
         <ConfirmPanel
           display={showConfirm}
+<<<<<<< HEAD
           action={confirmAction}
           btnText={btnText}
+=======
+          onChoose={confirmAction}
+          btnTextYes={btnText.yes}
+          btnTextNo={btnText.no}
+>>>>>>> e2e34745c5c0b2f1096b6c7ee6c1a69360ad81b3
         >
           {confirmContent}
         </ConfirmPanel>
