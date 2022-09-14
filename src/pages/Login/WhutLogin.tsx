@@ -42,7 +42,7 @@ export function LoginWhut() {
         } else if (whutPwd === "") {
             alert("请输入密码")
         } else {
-            Service.whutLogin(whutId, whutPwd).then(res => {
+            Service.whutLogin().then(res => {
                 // console.log(res)
                 res.status = 0; //鉴权测试
                 if (res.status === 0) {    

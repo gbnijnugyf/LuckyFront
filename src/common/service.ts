@@ -52,8 +52,8 @@ export interface IWishInfo {
   lighted_at: string;
   created_at: string;
   finished_at: string;
-  state: State; //-1初始化、0未点亮、1已点亮、2已实现、3已删除
-  type: Type; //0初始化
+  state: State; //-1未定义、0未点亮、1已点亮、2已实现、3已删除
+  type: Type; //0未定义
   light_id: number;
   user_id: number;
 }
@@ -68,12 +68,7 @@ export interface IWishDetail {
   view_desire: IWishInfo; //愿望信息
   view_user: IUserInfo; //许愿人信息
 }
-// interface ILightInformation {
-//   light_name?: string;
-//   light_tel?: string;
-//   light_qq?: string;
-//   light_wechat?: string;
-// }
+
 
 export interface IWishManInformation {
   wishMan_name?: string;
@@ -274,106 +269,4 @@ export const Service = {
   checkUserEmail() {
     return GlobalAxios<null>("post", "/user/email/check", null);
   },
-
-
-  //发出自己的愿望
-  // postWish(
-  //   name: string,
-  //   QQ: string,
-  //   weChat: string,
-  //   tel: string,
-  //   wish: string,
-  //   type: string
-  // ) {
-  //   return GlobalAxios<{
-  //     wishMan_inform: IWishManInformation;
-  //     wish: string;
-  //     type: string;
-  //   }>("post", "/wished/add", {
-  //     wishMan_inform: {
-  //       wishMan_name: name,
-  //       wishMan_QQ: QQ,
-  //       wishMan_Wechat: weChat,
-  //       wishMan_Tel: tel,
-  //     },
-  //   });
-  // },
-  //点亮别人的愿望
-  // lightWishOn(
-  //   id: string,
-  //   name: string,
-  //   tel: string,
-  //   qq: string,
-  //   wechat: string
-  // ) {
-  //   return GlobalAxios<{
-  //     wish_id: string;
-  //     light_inform?: ILightInformation;
-  //   }>("post", "/desires/light", {
-  //     wish_id: id,
-  //     light_inform: {
-  //       light_name: name,
-  //       light_tel: tel,
-  //       light_qq: qq,
-  //       light_wechat: wechat,
-  //     },
-  //   });
-  // },
-  //查看愿望详情
-  // getWishDetail(id: string) {
-  //   return GlobalAxios<IWishObject>(
-  //     "get",
-  //     appendParams2Path("/wishes/details", {
-  //       wish_id: id,
-  //       time: new Date().getTime().toString(),
-  //     })
-  //   );
-  // },
-  //查找点亮人信息
-  // getLightManInfo(id: string) {
-  //   return GlobalAxios<{ id: number; wish_id: number } & ILightInformation>(
-  //     "get",
-  //     appendParams2Path("/user/info/lightman", {
-  //       wish_id: id,
-  //       time: new Date().getTime().toString(),
-  //     })
-  //   );
-  // },
-  // //获取自己点亮的愿望//后端接口重构Ligth
-  // getUserWishLight() {
-  //   return GlobalAxios<IWishObject[]>("get", "/wishes/user/light");
-  // },
-  // //获取自己投递的愿望//后端接口重构Post
-  // getUserWishPost() {
-  //   return GlobalAxios<IWishObject[]>("get", "/wishes/user/post");
-  // },
-  //根据分类获取愿望
-  // getWishByCategories(categories: string) {
-  //   return GlobalAxios<IWishesObject[]>(
-  //     "get",
-  //     appendParams2Path("/wishes/categories", { categories })
-  //   );
-  // },
-  //删除愿望
-  // deleteWish(wish_id: string) {
-  //   return GlobalAxios("delete", appendParams2Path("/wishes", { wish_id }));
-  // },
-  //放弃点亮别人的愿望
-  // giveUpLightWish(wish_id: string, msg?: string) {
-  //   return GlobalAxios<{
-  //     wish_id: string;
-  //     message: string;
-  //   }>("post", "/wishes/giveup", {
-  //     wish_id: wish_id,
-  //     message: msg,
-  //   });
-  // },
-  //实现别人的愿望
-  // achieveWish(wish_id: string) {
-  //   return GlobalAxios<{
-  //     wish_id: string;
-  //   }>("post", "/wishes/achieve", {
-  //     wish_id: wish_id,
-  //   });
-  // },
 };
