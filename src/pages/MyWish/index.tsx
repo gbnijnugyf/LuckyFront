@@ -4,19 +4,6 @@ import { Service, IWishInfo } from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
 const INITNUM: number = -2;
 
-
-// export interface IWishObject {
-//   creat_at: string;
-//   light_at: string;
-//   light_user: number; //to do -- 改成具体数字，问后端要接口
-//   school?: number; //to do -- 改成具体数字，问后端要接口
-//   state: number; //to do -- 改成具体数字，问后端要接口
-//   type: number; //to do -- 改成具体数字，问后端要接口
-//   wish: string;
-//   wish_id: number;
-//   wishman_inform?: IWishManInformation;
-// }
-
 export const Index = () => {
   let WISHPOST_INIT: Array<IWishInfo> = [
     {
