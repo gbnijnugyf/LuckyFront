@@ -29,7 +29,6 @@ export default function DetailPage(props: IDetailPageProps) {
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
   const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
   const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
-
   const [confirmAction, setConfirmAction] =
     useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
   const achieved = props.wish.state === 2;
@@ -206,8 +205,8 @@ export default function DetailPage(props: IDetailPageProps) {
         let [qq, wechat] =
           Info.option === "QQ" ? [Info.number, ""] : ["", Info.number];
 
-        Service.lightWishOn(
-          id.toString(),
+        Service.lightWish(
+          id,
           Info.name,
           Info.tel,
           qq,
@@ -316,7 +315,7 @@ export default function DetailPage(props: IDetailPageProps) {
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
         let message = currentIndex === "other" ? msgs["other"] : msgs["wuchu"];
-        Service.giveUpLightWish(props.wish.desire_id.toString(), message).then(
+        Service.giveUpLightWish(props.wish.desire_id, message).then(
           () => {
             goOtherPage("/detail/index");
           }
@@ -338,7 +337,7 @@ export default function DetailPage(props: IDetailPageProps) {
         console.log("试图关闭弹窗2");
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
-        Service.giveUpLightWish(props.wish.desire_id.toString()).then(() => {
+        Service.giveUpLightWish(props.wish.desire_id).then(() => {
           goOtherPage("/detail/index");
         });
       },
@@ -354,7 +353,7 @@ export default function DetailPage(props: IDetailPageProps) {
       //yesHandle
       () => {
         setShowConfirm(false);
-        Service.achieveWish_2(props.wish.desire_id);
+        Service.achieveWish(props.wish.desire_id);
         goOtherPage("/detail/index");
       },
       // Content
@@ -386,7 +385,7 @@ export default function DetailPage(props: IDetailPageProps) {
   // 我的愿望，有人点亮 ———— 点击删除
   function pressDelete() {
     handlePopWindows(() => {
-      Service.deleteWish_2(props.wish.desire_id.toString()).then(() => {
+      Service.deleteWish(props.wish.desire_id).then(() => {
         alert("删除成功");
         goOtherPage("/detail/index");
       });

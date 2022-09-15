@@ -37,13 +37,13 @@ export const Index = () => {
   };
 
   useEffect(() => {
-    Service.get_postedWishInfo().then((res) => {
+    Service.getPostedWishInfo().then((res) => {
       setWishPost(sortWishes(res.data.data));
       setGotPost(true);
     });
   }, [wishPost]);
   useEffect(() => {
-    Service.get_lightedWishInfo().then((res) => {
+    Service.getLightedWishInfo().then((res) => {
       setWishLight(sortWishes(res.data.data));
       setGotLight(true);
     });

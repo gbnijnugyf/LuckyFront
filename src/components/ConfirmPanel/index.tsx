@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { ReactNode } from "react";
 import "./index.scss";
 
+
 interface IConfirmPanelProps {
   display: boolean;
   onChoose: (response: boolean) => void;

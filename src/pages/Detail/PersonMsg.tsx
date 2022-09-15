@@ -17,13 +17,13 @@ export default function PersonMsg(props: IPersonMsg) {
 
   useEffect(() => {
     if (isMine) {
-      Service.getLightManInfo(wish.desire_id.toString()).then((res) => {
+      Service.getManInfo(wish.desire_id.toString()).then((res) => {
         let lightManInfo = res.data.data;
-        setName(lightManInfo.light_name || "");
+        setName(lightManInfo.name || "");
         setTime("于" + formatTime(wish.lighted_at) + "点亮");
-        setQQ(lightManInfo.light_qq || "");
-        setWechat(lightManInfo.light_wechat || "");
-        setTel(lightManInfo.light_tel || "");
+        setQQ(lightManInfo.qq || "");
+        setWechat(lightManInfo.wechat || "");
+        setTel(lightManInfo.tel || "");
       });
     } else {
       Service.getManInfo(wish.light_id.toString()).then((res) => {

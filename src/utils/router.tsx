@@ -14,13 +14,11 @@ import { Empty } from "../pages/MyWish/empty";
 import { MyWishList } from "../pages/MyWish/list";
 import { LoginMain } from "../pages/Login/index";
 import { BindEmail, LoginCCNU } from "../pages/Login/loginSchools";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { LoginWhut } from "../pages/Login/WhutLogin";
+import { Register } from "../pages/Register";
+
 function Router() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,6 +48,8 @@ function Router() {
           <Route path="login/*" element={<Login />}>
             <Route path="ccnu" element={<LoginCCNU />} />
             <Route path="bindemail" element={<BindEmail />} />
+            <Route path="whut" element={<LoginWhut/>}/>
+            <Route path="whut/whutRegister" element={<Register/>}/>
             <Route path="*" element={<LoginMain />} />
           </Route>
           {/* 筛选页面 */}

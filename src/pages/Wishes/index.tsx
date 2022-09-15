@@ -131,7 +131,7 @@ export default function Wishes() {
   const [option, setOption] = useState("QQ");
 
   const refreshWishes = () => {
-    Service.getWishByCategories_2(category.toString()).then((res) => {
+    Service.getWishByCategories(category).then((res) => {
       let wishes = res.data.data;
 
       if (res.data.data.length === 0) {
@@ -238,7 +238,7 @@ export default function Wishes() {
       if (wishes[0].view_desire.desire_id !== undefined) {
         let id = wishes[0].view_desire.desire_id;
         let [qq, wechat] = option === "QQ" ? [number, ""] : ["", number];
-        Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
+        Service.lightWish(id, name, tel, qq, wechat).then((res) => {
           if (res.status === 0) {
             alert("点亮成功~");
             refreshWishes();

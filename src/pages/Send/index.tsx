@@ -75,7 +75,7 @@ export default function Send() {
       Service.getManInfo("-1").then((res)=>{
         setSchool(res.data.data.school)
       })
-      Service.postWish_2(
+      Service.postWish(
         nameValue,
         QQ,
         wechat,
