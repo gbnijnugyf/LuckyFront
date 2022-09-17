@@ -73,7 +73,9 @@ const WishItem = (props: IWishItemProps) => {
         </p>{" "}
         {/* props.wish.school可能未定义，对接口*/}
         <p>
-          {props.wish.view_user.name.length > 0 ? props.wish.view_user.name.charAt(0) + "同学" : ""}
+          {props.wish.view_user.name.length > 0
+            ? props.wish.view_user.name.charAt(0) + "同学"
+            : ""}
         </p>
       </div>
     </div>
@@ -108,10 +110,10 @@ export default function Wishes() {
       light_id: -1,
       user_id: -1,
     },
-    view_user:{
+    view_user: {
       school: 0,
       name: "",
-    }
+    },
   };
   let WISHES_INIT: IWishInfo_withName[] = [WISH_INIT, WISH_INIT, WISH_INIT];
   const category = (useLocation().state as ILocationState<string>).category;
@@ -148,11 +150,10 @@ export default function Wishes() {
             light_id: -1,
             user_id: -1,
           },
-          view_user:{
+          view_user: {
             name: "",
             school: 0,
-          }
-
+          },
         };
         wishes.push(wish);
       } else {
@@ -232,7 +233,7 @@ export default function Wishes() {
   };
   const lightWish = () => {
     if (name === "") alert("还没有填写姓名哦~");
-    else if (number === "") alert("还没有填写联系方式哦~"); 
+    else if (number === "") alert("还没有填写联系方式哦~");
     else {
       if (!wishes) return;
       if (wishes[0].view_desire.desire_id !== undefined) {
@@ -243,7 +244,7 @@ export default function Wishes() {
             alert("点亮成功~");
             refreshWishes();
           } else {
-            alert(res.data.msg);//返回失败信息
+            alert(res.data.msg); //返回失败信息
           }
         });
         handleAlert();
@@ -272,11 +273,11 @@ export default function Wishes() {
       if (manInfo.qq !== "") {
         //默认QQ为联系方式
         setNumber(manInfo.qq);
-        setOption("QQ")
+        setOption("QQ");
       } else if (manInfo.qq === "" && manInfo.wechat !== "") {
         //QQ为空，微信为联系方式
         setNumber(manInfo.wechat);
-        setOption("微信")
+        setOption("微信");
       }
       if (manInfo.tel !== "") {
         setTel(manInfo.tel);
@@ -289,9 +290,9 @@ export default function Wishes() {
       <ConfirmPanel
         display={display}
         onShow={getUserPre}
-        onChoose={(response: boolean) =>
-          response ? (light ? lightWish() : handleLight()) : handleAlert()
-        }
+        onChoose={(res) => {
+          res ? (light ? lightWish() : handleLight()) : handleAlert();
+        }}
       >
         {light ? (
           <div className="input-msg">

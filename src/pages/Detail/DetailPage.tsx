@@ -13,24 +13,17 @@ interface IDetailPageProps {
 }
 export const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
 
-//ConfirmPane两种传参形式
-// export type IBtnActionObject = { yes: () => void; no: () => void };
-export type IBtnActionObject = (response: boolean) => void;
-//ConfirmPane两种传参形式
-// export const ACTION_INIT: IBtnActionObject = {
-//   yes: () => console.log("yes"),
-//   no: () => console.log("no"),
-// };
-export const ACTION_INIT: IBtnActionObject = () => {};
+export const ACTION_INIT = () => {};
 //Detail核心显示部分
 
 export default function DetailPage(props: IDetailPageProps) {
   const navigate = useNavigate();
   const [showConfirm, setShowConfirm] = useState(false); // 设置遮罩状态
   const [confirmContent, setConfirmContent] = useState<ReactElement>(); // 设置弹窗内容
-  const [btnText, setBtnText] = useState(BTNTEXT_INIT); // 设置按钮文本
-  const [confirmAction, setConfirmAction] =
-    useState<IBtnActionObject>(ACTION_INIT); // 设置按钮触发
+  const [btnText, setBtnText] = useState(BTNTEXT_INIT);
+  const [confirmAction, setConfirmAction] = useState<(res: boolean) => void>(
+    () => ACTION_INIT
+  );
   const achieved = props.wish.state === 2;
   // const [currentIndex, setCurrentIndex] = useState("wuchu");
   let currentIndex = "wuchu";
@@ -45,63 +38,6 @@ export default function DetailPage(props: IDetailPageProps) {
     mang: "最近有点忙，短时间没有精力实现愿望了，抱歉",
     other: "", //占位
   };
-
-  // //select元素抽象
-  // interface IHandleSelectProps {
-  //   allOption: string[];
-  //   onChangeState: string;
-  //   // onChangeAction: (props: ISetInfo)=>void;
-  //   selectSttyle?: React.CSSProperties;
-  // }
-  // function handleSelect(props: IHandleSelectProps) {
-  //   return (
-  //     <select
-  //       onChange={(e) => {
-  //         // props.onChangeAction({value:props.onChangeState,newValue:e.target.value})
-  //         console.log(e.target); // props.onChangeState = (e.target.value);
-  //       }}
-  //       style={{ color: "rgb(239, 96, 63)" }}
-  //     >
-  //       <>
-  //         {/* <option value={props.allOption[0]}>{props.allOption[0]}</option>
-  //         <option value={props.allOption[1]}>{props.allOption[1]}</option> */}
-  //         {props.allOption.forEach((option) => {
-  //           return <option value={option}>{option}</option>;
-  //         })}
-  //       </>
-  //     </select>
-  //   );
-  // }
-  // //input元素抽象
-  // interface IHandleInputProps {
-  //   type: string;
-  //   onChangeState: string;
-
-  //   name?: string;
-  //   classname?: string;
-  //   style?: React.CSSProperties;
-  //   value?: string;
-  //   placeholder?: string;
-  //   defaultChecked?: boolean;
-  //   defaultValue?: string;
-  // }
-  // function handleInput(props: IHandleInputProps) {
-  //   function handleChange(e: string) {
-  //     props.onChangeState = e;
-  //   }
-
-  //   return (
-  //     <input
-  //       type={props.type}
-  //       onChange={(e) => {
-  //         // props.onChangeState = e.target.value;
-  //         handleChange(e.target.value);
-  //       }}
-  //       // onClick={()=>props.value = ""}
-  //       defaultValue={props.value || ""}
-  //     ></input>
-  //   );
-  // }
 
   interface IGetUserPre {
     name: string;
@@ -145,12 +81,6 @@ export default function DetailPage(props: IDetailPageProps) {
     return resAll;
   };
 
-  function setConfirmChoose(yesHandle: () => void, noHandle: () => void) {
-    setConfirmAction((res: boolean) => {
-      res ? yesHandle() : noHandle();
-    });
-  }
-
   //弹窗抽象
   function handlePopWindows(
     yesHandle: () => void = () => {
@@ -162,13 +92,15 @@ export default function DetailPage(props: IDetailPageProps) {
       console.log("试图关闭弹窗");
       setShowConfirm(false);
     },
+    // TODO: 参数配置问题
     btnText1: string = "",
     btnText2: string = ""
-    // onChangeOther?:()=>void
   ) {
-    // console.log("弹窗已开启")
     setShowConfirm(true);
-    setConfirmChoose(yesHandle, noHandle);
+    setConfirmAction(() => (res: boolean) => {
+      if (res) yesHandle();
+      else noHandle();
+    });
     setConfirmContent(Content);
     setBtnText({ yes: btnText1, no: btnText2 });
   }
@@ -182,18 +114,16 @@ export default function DetailPage(props: IDetailPageProps) {
       tel: "",
     };
     //此处调用获取用户信息方法
-    {
-      const a = await getUserPre();
-      if (a.number.qq !== "") {
-        Info.option = "QQ";
-        Info.number = a.number.qq;
-      } else {
-        Info.option = "微信";
-        Info.number = a.number.wechat;
-      }
-      Info.name = a.name;
-      Info.tel = a.tel;
+    const a = await getUserPre();
+    if (a.number.qq !== "") {
+      Info.option = "QQ";
+      Info.number = a.number.qq;
+    } else {
+      Info.option = "微信";
+      Info.number = a.number.wechat;
     }
+    Info.name = a.name;
+    Info.tel = a.tel;
     handlePopWindows(
       () => {
         let id = props.wish.desire_id;
@@ -222,13 +152,6 @@ export default function DetailPage(props: IDetailPageProps) {
               defaultValue={Info.name}
               style={{ marginLeft: ".3em", width: "60%" }}
             />
-            {/* {handleInput({
-              type: "text",
-              onChangeState: Info.name,
-              classname: "name",
-              placeholder: "必填内容哦～",
-              value: Info.name,
-            })} */}
           </div>
           <div className="number">
             联系方式 :
@@ -236,10 +159,6 @@ export default function DetailPage(props: IDetailPageProps) {
               <option value="QQ">QQ</option>
               <option value="WeChat">微信</option>
             </select>
-            {/* {handleSelect({
-              allOption: ["QQ", "微信"],
-              onChangeState: Info.option,
-            })} */}
             <input
               type="text"
               placeholder="必填内容"
@@ -247,22 +166,9 @@ export default function DetailPage(props: IDetailPageProps) {
               defaultValue={Info.number}
               style={{ marginLeft: ".3em", width: "90%" }}
             />
-            {/* {handleInput({
-              type: "text",
-              onChangeState: Info.number,
-              placeholder: "必填内容哦～",
-              value: Info.number,
-              style: { marginLeft: ".3em", width: "30%" },
-            })} */}
           </div>
           <div className="tel">
             或 Tel :
-            {/* {handleInput({
-              type: "text",
-              onChangeState: Info.tel,
-              placeholder: "选填内容哦～",
-              value: Info.tel,
-            })} */}
             <input
               type="text"
               placeholder="必填内容"
@@ -317,13 +223,6 @@ export default function DetailPage(props: IDetailPageProps) {
                 defaultValue={msgs["other"]}
                 style={{ marginLeft: ".3em", width: "32%" }}
               />
-              {/* {handleInput({
-                type: "text",
-                onChangeState: currentIndex,
-                placeholder: "输入其他原因",
-                classname: "reason",
-                defaultValue: currentIndex,
-              })} */}
             </div>
           )}
         </div>
