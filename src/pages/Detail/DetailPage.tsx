@@ -81,27 +81,34 @@ export default function DetailPage(props: IDetailPageProps) {
     return resAll;
   };
 
-  //弹窗抽象
-  function handlePopWindows(
-    yesHandle: () => void = () => {
-      console.log("试图跳转");
-      goOtherPage("/detail/index");
-    },
-    Content: ReactElement = <>获取文本失败</>,
-    noHandle: () => void = () => {
-      console.log("试图关闭弹窗");
-      setShowConfirm(false);
-    },
-    // TODO: 参数配置问题
-    btnText1: string = "",
-    btnText2: string = ""
-  ) {
+  //弹窗抽象, 调用弹出弹窗
+  function handlePopWindows(props: {
+    yesHandle?: () => void;
+    noHandle?: () => void;
+    content?: ReactElement;
+    btnText1?: string;
+    btnText2?: string;
+  }) {
+    const {
+      yesHandle = () => {
+        console.log("试图跳转");
+        goOtherPage("/detail/index");
+      },
+      noHandle = () => {
+        console.log("试图关闭弹窗");
+        setShowConfirm(false);
+      },
+      content = <>获取文本失败</>,
+      btnText1 = "",
+      btnText2 = "",
+    } = props;
+
     setShowConfirm(true);
     setConfirmAction(() => (res: boolean) => {
       if (res) yesHandle();
       else noHandle();
     });
-    setConfirmContent(Content);
+    setConfirmContent(content);
     setBtnText({ yes: btnText1, no: btnText2 });
   }
 
@@ -124,8 +131,8 @@ export default function DetailPage(props: IDetailPageProps) {
     }
     Info.name = a.name;
     Info.tel = a.tel;
-    handlePopWindows(
-      () => {
+    handlePopWindows({
+      yesHandle: () => {
         let id = props.wish.desire_id;
         let [qq, wechat] =
           Info.option === "QQ" ? [Info.number, ""] : ["", Info.number];
@@ -140,52 +147,54 @@ export default function DetailPage(props: IDetailPageProps) {
         });
         setShowConfirm(false);
       },
-      <div className="input-msg">
-        <p className="info">填写联系方式，方便他来联系你哦～</p>
-        <div className="form">
-          <div className="name">
-            投递人 :
-            <input
-              type="text"
-              placeholder="必填内容"
-              onChange={(e) => (Info.name = e.target.value)}
-              defaultValue={Info.name}
-              style={{ marginLeft: ".3em", width: "60%" }}
-            />
-          </div>
-          <div className="number">
-            联系方式 :
-            <select style={{ color: "rgb(239, 96, 63)" }}>
-              <option value="QQ">QQ</option>
-              <option value="WeChat">微信</option>
-            </select>
-            <input
-              type="text"
-              placeholder="必填内容"
-              onChange={(e) => (Info.number = e.target.value)}
-              defaultValue={Info.number}
-              style={{ marginLeft: ".3em", width: "90%" }}
-            />
-          </div>
-          <div className="tel">
-            或 Tel :
-            <input
-              type="text"
-              placeholder="必填内容"
-              onChange={(e) => (Info.tel = e.target.value)}
-              defaultValue={Info.tel}
-              style={{ marginLeft: ".3em", width: "90%" }}
-            />
+      content: (
+        <div className="input-msg">
+          <p className="info">填写联系方式，方便他来联系你哦～</p>
+          <div className="form">
+            <div className="name">
+              投递人 :
+              <input
+                type="text"
+                placeholder="必填内容"
+                onChange={(e) => (Info.name = e.target.value)}
+                defaultValue={Info.name}
+                style={{ marginLeft: ".3em", width: "60%" }}
+              />
+            </div>
+            <div className="number">
+              联系方式 :
+              <select style={{ color: "rgb(239, 96, 63)" }}>
+                <option value="QQ">QQ</option>
+                <option value="WeChat">微信</option>
+              </select>
+              <input
+                type="text"
+                placeholder="必填内容"
+                onChange={(e) => (Info.number = e.target.value)}
+                defaultValue={Info.number}
+                style={{ marginLeft: ".3em", width: "90%" }}
+              />
+            </div>
+            <div className="tel">
+              或 Tel :
+              <input
+                type="text"
+                placeholder="必填内容"
+                onChange={(e) => (Info.tel = e.target.value)}
+                defaultValue={Info.tel}
+                style={{ marginLeft: ".3em", width: "90%" }}
+              />
+            </div>
           </div>
         </div>
-      </div>,
-      () => {
+      ),
+      noHandle: () => {
         console.log("试图关闭弹窗1");
         setShowConfirm(false);
       },
-      "发送",
-      "取消"
-    );
+      btnText1: "发送",
+      btnText2: "取消",
+    });
   }
   // 别人的愿望，我已经点亮/实现 ———— 点击确定放弃
   function pressReallyAbandon() {
@@ -229,8 +238,8 @@ export default function DetailPage(props: IDetailPageProps) {
       );
     }
 
-    handlePopWindows(
-      () => {
+    handlePopWindows({
+      yesHandle: () => {
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
         let message = currentIndex === "other" ? msgs["other"] : msgs["wuchu"];
@@ -238,19 +247,21 @@ export default function DetailPage(props: IDetailPageProps) {
           goOtherPage("/detail/index");
         });
       },
-      <>
-        <form className="msg-borad">
-          <p>
-            你想要放弃这个愿望，
-            <br />
-            建议给对方留言说明原因哦：
-          </p>
-          {ReasonInput("radio", "msg", "wuchu", msgs["wuchu"], true)}
-          {ReasonInput("radio", "msg", "mang", msgs["mang"])}
-          {ReasonInput("radio", "msg", "other", msgs["other"])}
-        </form>
-      </>,
-      () => {
+      content: (
+        <>
+          <form className="msg-borad">
+            <p>
+              你想要放弃这个愿望，
+              <br />
+              建议给对方留言说明原因哦：
+            </p>
+            {ReasonInput("radio", "msg", "wuchu", msgs["wuchu"], true)}
+            {ReasonInput("radio", "msg", "mang", msgs["mang"])}
+            {ReasonInput("radio", "msg", "other", msgs["other"])}
+          </form>
+        </>
+      ),
+      noHandle: () => {
         console.log("试图关闭弹窗2");
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
@@ -258,56 +269,62 @@ export default function DetailPage(props: IDetailPageProps) {
           goOtherPage("/detail/index");
         });
       },
-      "发送",
-      "不留言"
-    );
+      btnText1: "发送",
+      btnText2: "不留言",
+    });
   }
 
   // 别人的愿望，我已经点亮/实现 ———— 点击实现愿望
   // 我的愿望，有人点亮 ———— 点击实现
   function pressAchieve() {
-    handlePopWindows(
-      //yesHandle
-      () => {
+    handlePopWindows({
+      yesHandle: () => {
         setShowConfirm(false);
         Service.achieveWish(props.wish.desire_id);
         goOtherPage("/detail/index");
       },
-      // Content
-      <>
-        <p style={{ alignSelf: "flex-start" }}>确认已经实现这个愿望了吗？</p>
-        {props.isMine ? null : (
-          <p style={{ alignSelf: "flex-start", textAlign: "start" }}>
-            若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望
-          </p>
-        )}
-      </>
-    );
+      content: (
+        <>
+          <p style={{ alignSelf: "flex-start" }}>确认已经实现这个愿望了吗？</p>
+          {props.isMine ? null : (
+            <p style={{ alignSelf: "flex-start", textAlign: "start" }}>
+              若确认，我们将发邮件提醒TA来确认你已经实现了TA的愿望
+            </p>
+          )}
+        </>
+      ),
+    });
   }
 
   // 别人的愿望，我已经点亮/实现 ———— 点击放弃愿望
   function pressAbandon() {
-    handlePopWindows(pressReallyAbandon, <p>确认放弃这个愿望吗？</p>);
+    handlePopWindows({
+      yesHandle: pressReallyAbandon,
+      content: <p>确认放弃这个愿望吗？</p>,
+    });
   }
 
   // 别人的愿望，没人实现 ———— 点击点亮
   function pressLight() {
-    handlePopWindows(
-      PressReallyLight,
-      <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>
-    );
+    handlePopWindows({
+      yesHandle: PressReallyLight,
+      content: <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>,
+    });
   }
 
   // 我的愿望，没人实现 ———— 点击删除
   // 我的愿望，有人点亮 ———— 点击删除
   function pressDelete() {
-    handlePopWindows(() => {
-      Service.deleteWish(props.wish.desire_id).then(() => {
-        alert("删除成功");
-        goOtherPage("/detail/index");
-      });
-      setShowConfirm(false);
-    }, <p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>);
+    handlePopWindows({
+      yesHandle: () => {
+        Service.deleteWish(props.wish.desire_id).then(() => {
+          alert("删除成功");
+          goOtherPage("/detail/index");
+        });
+        setShowConfirm(false);
+      },
+      content: <p style={{ fontSize: "medium" }}>确认删除这个愿望吗？</p>,
+    });
   }
 
   if (props.wish.state === 1 || props.wish.state === 2) {
