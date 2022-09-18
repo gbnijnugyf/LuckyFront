@@ -56,7 +56,7 @@ export interface IWishInfo {
   light_id: number;
   user_id: number;
 }
-export interface IWishInfo_withName {
+export interface IWishInfoName {
   view_desire: IWishInfo;
   view_user:{
     name:string,
@@ -222,7 +222,7 @@ export const Service = {
   },
   //（new）通过类型获取愿望111
   getWishByCategories(categories: string) {
-    return GlobalAxios<IWishInfo_withName[]>(
+    return GlobalAxios<IWishInfoName[]>(
       "get",
       appendParams2Path("/desires/categories", { categories })
     );

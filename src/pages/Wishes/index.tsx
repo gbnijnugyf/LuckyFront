@@ -3,7 +3,7 @@ import ConfirmPanel from "../../components/ConfirmPanel";
 import { ButtonS } from "../../components/Button";
 import calendar from "../../static/images/calendar.svg";
 import leaf from "../../static/images/leaf.svg";
-import { IWishInfo_withName, Service } from "../../common/service";
+import { IWishInfoName, Service } from "../../common/service";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -41,7 +41,7 @@ function toStyle(props: IMyStyle): React.CSSProperties {
 
 export interface IWishItemProps {
   className: string;
-  wish: IWishInfo_withName;
+  wish: IWishInfoName;
   onTouchStart?: (e: any) => void;
   onTouchMove?: (e: any) => void;
   onTouchEnd?: () => void;
@@ -98,7 +98,7 @@ export default function Wishes() {
   interface ILocationState<T> {
     category: T;
   }
-  let WISH_INIT: IWishInfo_withName = {
+  let WISH_INIT: IWishInfoName = {
     view_desire: {
       desire_id: "",
       desire: "",
@@ -115,7 +115,7 @@ export default function Wishes() {
       name: "",
     },
   };
-  let WISHES_INIT: IWishInfo_withName[] = [WISH_INIT, WISH_INIT, WISH_INIT];
+  let WISHES_INIT: IWishInfoName[] = [WISH_INIT, WISH_INIT, WISH_INIT];
   const category = (useLocation().state as ILocationState<string>).category;
 
   const [showTip, setShowTip] = useState(true);
@@ -126,7 +126,7 @@ export default function Wishes() {
   const [display, setDisplay] = useState(false); // 弹出确认框
   const [light, setLight] = useState(false);
   const [lightBtn, setLightBtn] = useState(true); // 点亮按钮是否存在
-  const [wishes, setWishes] = useState<Array<IWishInfo_withName>>(WISHES_INIT);
+  const [wishes, setWishes] = useState<Array<IWishInfoName>>(WISHES_INIT);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [tel, setTel] = useState("");
@@ -138,7 +138,7 @@ export default function Wishes() {
 
       if (res.data.data.length === 0) {
         setLightBtn(false);
-        let wish: IWishInfo_withName = {
+        let wish: IWishInfoName = {
           view_desire: {
             desire_id: "",
             desire: "",
