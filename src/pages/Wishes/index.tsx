@@ -68,8 +68,8 @@ const WishItem = (props: IWishItemProps) => {
           {props.wish.view_user.school.toString() === ""
             ? ""
             : props.wish.view_user.school.toString() === FALSE_0.toString()
-            ? "华小师"
-            : "武小理"}
+              ? "华小师"
+              : "武小理"}
         </p>{" "}
         {/* props.wish.school可能未定义，对接口*/}
         <p>
@@ -132,7 +132,7 @@ export default function Wishes() {
   const [number, setNumber] = useState("");
   const [tel, setTel] = useState("");
   const [option, setOption] = useState("QQ");
-
+  const [geted, setGeted] = useState<boolean>(true)
   const refreshWishes = () => {
     Service.getWishByCategories(category).then((res) => {
       let wishes = res.data.data;
@@ -232,6 +232,7 @@ export default function Wishes() {
   const lightWish = () => {
     if (name === "") alert("还没有填写姓名哦~");
     else if (number === "") alert("还没有填写联系方式哦~");
+    else if (tel === "") alert("还没有填写手机号哦~");
     else {
       if (!wishes) return;
       if (wishes[0].view_desire.desire_id !== undefined) {
@@ -261,33 +262,63 @@ export default function Wishes() {
   const showConfirm = () => {
     setDisplay(true);
   };
-  const getUserPre = () => {
-    //先获取用户已存在信息
-    Service.getManInfo("-1").then((res) => {
-      let manInfo = res.data.data;
-      if (manInfo.name !== "") {
-        setName(manInfo.name);
-      }
-      if (manInfo.qq !== "") {
-        //默认QQ为联系方式
-        setNumber(manInfo.qq);
-        setOption("QQ");
-      } else if (manInfo.qq === "" && manInfo.wechat !== "") {
-        //QQ为空，微信为联系方式
-        setNumber(manInfo.wechat);
-        setOption("微信");
-      }
-      if (manInfo.tel !== "") {
-        setTel(manInfo.tel);
-      }
-    });
-  };
+
+
+  const getUserPreBag = function (props: boolean) {
+    if (props) {
+      return function () {
+        //先获取用户已存在信息
+        Service.getManInfo("-1").then((res) => {
+          let manInfo = res.data.data;
+          if (manInfo.name !== "") {
+            setName(manInfo.name);
+          }
+          if (manInfo.qq !== "") {
+            //默认QQ为联系方式
+            setNumber(manInfo.qq);
+            setOption("QQ");
+          } else if (manInfo.qq === "" && manInfo.wechat !== "") {
+            //QQ为空，微信为联系方式
+            setNumber(manInfo.wechat);
+            setOption("微信");
+          }
+          if (manInfo.tel !== "") {
+            setTel(manInfo.tel);
+          }
+        });
+        setGeted(false)
+      };
+    } else return;
+  }
+
+  // const getUserPre = () => {
+  //   //先获取用户已存在信息
+  //   Service.getManInfo("-1").then((res) => {
+  //     let manInfo = res.data.data;
+  //     if (manInfo.name !== "") {
+  //       setName(manInfo.name);
+  //     }
+  //     if (manInfo.qq !== "") {
+  //       //默认QQ为联系方式
+  //       setNumber(manInfo.qq);
+  //       setOption("QQ");
+  //     } else if (manInfo.qq === "" && manInfo.wechat !== "") {
+  //       //QQ为空，微信为联系方式
+  //       setNumber(manInfo.wechat);
+  //       setOption("微信");
+  //     }
+  //     if (manInfo.tel !== "") {
+  //       setTel(manInfo.tel);
+  //     }
+  //   });
+  // };
+
 
   return (
     <div className="wishpage">
       <ConfirmPanel
         display={display}
-        onShow={getUserPre}
+        onShow={getUserPreBag(geted)}
         onChoose={(res) => {
           res ? (light ? lightWish() : handleLight()) : handleAlert();
         }}
@@ -327,7 +358,7 @@ export default function Wishes() {
                 或 Tel :
                 <input
                   type="text"
-                  placeholder="选填内容哦～"
+                  placeholder="必填内容"
                   onChange={handleTel}
                   defaultValue={tel}
                   style={{ marginLeft: "2.3em" }}

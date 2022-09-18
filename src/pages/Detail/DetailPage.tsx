@@ -13,7 +13,7 @@ interface IDetailPageProps {
 }
 export const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
 
-export const ACTION_INIT = () => {};
+export const ACTION_INIT = () => { };
 //Detail核心显示部分
 
 export default function DetailPage(props: IDetailPageProps) {
@@ -120,6 +120,7 @@ export default function DetailPage(props: IDetailPageProps) {
     };
     //此处调用获取用户信息方法
     const a = await getUserPre();
+
     if (a.number.qq !== "") {
       Info.option = "QQ";
       Info.number = a.number.qq;
@@ -134,16 +135,21 @@ export default function DetailPage(props: IDetailPageProps) {
         let id = props.wish.desire_id;
         let [qq, wechat] =
           Info.option === "QQ" ? [Info.number, ""] : ["", Info.number];
-
-        Service.lightWish(id, Info.name, Info.tel, qq, wechat).then((res) => {
-          if (res.data.status === 0) {
-            alert("点亮成功~");
-            goOtherPage("/detail/index");
-          } else {
-            alert(res.data.msg);
-          }
-        });
-        setShowConfirm(false);
+        //TODO
+        if (Info.name === "") alert("还没有填写姓名哦~");
+        else if (Info.number === "") alert("还没有填写联系方式哦~");
+        else if (Info.tel === "") alert("还没有填写手机号码哦~");
+        else {
+          Service.lightWish(id, Info.name, Info.tel, qq, wechat).then((res) => {
+            if (res.data.status === 0) {
+              alert("点亮成功~");
+              goOtherPage("/detail/index");
+            } else {
+              alert(res.data.msg);
+            }
+          });
+          setShowConfirm(false);
+        }
       },
       content: (
         <div className="input-msg">
@@ -154,7 +160,7 @@ export default function DetailPage(props: IDetailPageProps) {
               <input
                 type="text"
                 placeholder="必填内容"
-                onChange={(e) => (Info.name = e.target.value)}
+                onChange={(e) => { Info.name = e.target.value; console.log(Info.name) }}
                 defaultValue={Info.name}
                 style={{ marginLeft: ".3em", width: "60%" }}
               />
@@ -305,8 +311,8 @@ export default function DetailPage(props: IDetailPageProps) {
     handlePopWindows({
       yesHandle: pressReallyLight,
       content: <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>,
-      btnText1:"确认",
-      btnText2:"取消"
+      btnText1: "确认",
+      btnText2: "取消"
     });
   }
 
