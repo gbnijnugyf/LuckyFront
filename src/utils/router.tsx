@@ -22,7 +22,6 @@ function Router() {
   const location = useLocation();
 
   useEffect(() => {
-    // console.log("路径变化")
     let token = cookie.load("jwt_token");
     if (token) {
       localStorage.setItem("token", token);
@@ -30,7 +29,6 @@ function Router() {
     }
     if (!localStorage.getItem("token")) {
       navigate("/login");
-      console.log(location);
     }
   }, [location.pathname, navigate, location]);
 

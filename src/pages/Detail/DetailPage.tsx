@@ -160,7 +160,7 @@ export default function DetailPage(props: IDetailPageProps) {
               <input
                 type="text"
                 placeholder="必填内容"
-                onChange={(e) => { Info.name = e.target.value; console.log(Info.name) }}
+                onChange={(e) => { Info.name = e.target.value;}}
                 defaultValue={Info.name}
                 style={{ marginLeft: ".3em", width: "60%" }}
               />

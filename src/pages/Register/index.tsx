@@ -74,9 +74,7 @@ export function Register() {
             clearInterval(retry);
           }, 60000);
         }
-        console.log(resData.data);
         WhutEVV = resData.data.emailVV;
-        console.log(WhutEVV);
       } else {
         alert("请输入正确邮箱");
         return undefined;
@@ -109,7 +107,6 @@ export function Register() {
           }
         });
       } else {
-        console.log(WhutEVV);
         alert("验证码错误"); //此处改为弹窗提醒，并刷新“获取验证码按钮”
       }
     }
@@ -119,7 +116,6 @@ export function Register() {
     <RegisterPannel
       text="掌理账号注册"
       onClick={() => {
-        console.log(WhutEVV);
         goVerify(WhutEVV);
       }}
       btnText="确定"
