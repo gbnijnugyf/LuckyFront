@@ -43,12 +43,10 @@ export function LoginWhut() {
             alert("请输入密码")
         } else {
             Service.whutLogin().then(res => {
-                // console.log(res)
                 res.status = 0; //鉴权测试
                 if (res.status === 0) {    
                     localStorage.setItem('token', res.data.data)
                     navigate('/tagscreen/home');
-                    // props.history.push('/')
                 }
                 else alert('邮箱或密码错误');
             })

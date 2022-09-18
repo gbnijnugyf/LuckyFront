@@ -27,7 +27,6 @@ export default function PersonMsg(props: IPersonMsg) {
       });
     } else {
       Service.getManInfo(wish.light_id.toString()).then((res) => {
-        // setWishManInfo(res.data.data);
         let wishManInfo = res.data.data;
         setName(wishManInfo?.name || "");
         setTime("于" + formatTime(wish.created_at) + "许愿");

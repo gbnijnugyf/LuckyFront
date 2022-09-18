@@ -5,7 +5,7 @@ import { appendParams2Path } from "./global";
 
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default";
 
-export enum Type {
+export enum wishType {
   null = 0,
   影音,
   游戏,
@@ -52,7 +52,7 @@ export interface IWishInfo {
   created_at: string;
   finished_at: string;
   state: State; //-1未定义、0未点亮、1已点亮、2已实现、3已删除
-  type: Type; //0未定义
+  type: wishType; //0未定义
   light_id: number;
   user_id: number;
 }
@@ -166,7 +166,7 @@ export const Service = {
     weChat: string,
     tel: string,
     desire: string,
-    type: Type,
+    type: wishType,
     school: School
   ) {
     return GlobalAxios<string>("post", "/desires/add", {

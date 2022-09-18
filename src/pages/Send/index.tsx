@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { School, Service, Type } from "../../common/service";
+import { School, Service, wishType } from "../../common/service";
 import ink from "../../static/images/ink.svg";
 import { tags } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
@@ -9,7 +9,7 @@ import "./index.scss";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
 
-const CATEGORYINIT = Type.null;
+const CATEGORYINIT = wishType.null;
 
 export default function Send() {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ export default function Send() {
     // 判断必填项
     if (wishContent === "") {
       alert("你还没有填写内容哦~");
-    } else if (category === Type.null) {
+    } else if (category === wishType.null) {
       alert("你还没有选择标签分类哦~");
     } else if (nameValue === "") {
       alert("你的小幸运还没有署名哦～");

@@ -33,7 +33,6 @@ export function Register() {
   const [btnId, setBtnId] = useState("checkbtn");
   const [btnText, setBtnText] = useState("获取验证码");
   const navigate = useNavigate();
-  // const [WhutEVV, setWhutEVV] = useState('')
   const [whutEmail, setWhutEmail] = useState("");
   const [whutCheckEmail, setWhutCheckEmail] = useState("");
   const [whutPwd, setWhutPwd] = useState("");
