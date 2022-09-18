@@ -112,7 +112,8 @@ export default function DetailPage(props: IDetailPageProps) {
 
   // 别人的愿望，没人实现 ———— 点击确定点亮
   async function pressReallyLight() {
-    let Info = {
+    
+    let userInfo = {
       name: "",
       option: "",
       number: "",
@@ -122,25 +123,25 @@ export default function DetailPage(props: IDetailPageProps) {
     const a = await getUserPre();
 
     if (a.number.qq !== "") {
-      Info.option = "QQ";
-      Info.number = a.number.qq;
+      userInfo.option = "QQ";
+      userInfo.number = a.number.qq;
     } else {
-      Info.option = "微信";
-      Info.number = a.number.wechat;
+      userInfo.option = "微信";
+      userInfo.number = a.number.wechat;
     }
-    Info.name = a.name;
-    Info.tel = a.tel;
+    userInfo.name = a.name;
+    userInfo.tel = a.tel;
     handlePopWindows({
       yesHandle: () => {
-        let id = props.wish.desire_id;
-        let [qq, wechat] =
-          Info.option === "QQ" ? [Info.number, ""] : ["", Info.number];
-        //TODO
-        if (Info.name === "") alert("还没有填写姓名哦~");
-        else if (Info.number === "") alert("还没有填写联系方式哦~");
-        else if (Info.tel === "") alert("还没有填写手机号码哦~");
+        const id = props.wish.desire_id;
+        const [qq, wechat] =
+          userInfo.option === "QQ" ? [userInfo.number, ""] : ["", userInfo.number];
+        if (userInfo.name === "") alert("还没有填写姓名哦~");
+        else if (userInfo.number === "") alert("还没有填写联系方式哦~");
+        else if (userInfo.tel === "") alert("还没有填写手机号码哦~");
         else {
-          Service.lightWish(id, Info.name, Info.tel, qq, wechat).then((res) => {
+          Service.lightWish(id, userInfo.name, userInfo.tel, qq, wechat).then((res) => {
+            console.log(id, userInfo.name, userInfo.tel, qq, wechat)
             if (res.data.status === 0) {
               alert("点亮成功~");
               goOtherPage("/detail/index");
@@ -153,15 +154,15 @@ export default function DetailPage(props: IDetailPageProps) {
       },
       content: (
         <div className="input-msg">
-          <p className="info">填写联系方式，方便他来联系你哦～</p>
+          <p className="userinfo">填写联系方式，方便他来联系你哦～</p>
           <div className="form">
             <div className="name">
               投递人 :
               <input
                 type="text"
                 placeholder="必填内容"
-                onChange={(e) => { Info.name = e.target.value;}}
-                defaultValue={Info.name}
+                onChange={(e) => { userInfo.name = e.target.value;}}
+                defaultValue={userInfo.name}
                 style={{ marginLeft: ".3em", width: "60%" }}
               />
             </div>
@@ -174,8 +175,8 @@ export default function DetailPage(props: IDetailPageProps) {
               <input
                 type="text"
                 placeholder="必填内容"
-                onChange={(e) => (Info.number = e.target.value)}
-                defaultValue={Info.number}
+                onChange={(e) => (userInfo.number = e.target.value)}
+                defaultValue={userInfo.number}
                 style={{ marginLeft: ".3em", width: "90%" }}
               />
             </div>
@@ -184,8 +185,8 @@ export default function DetailPage(props: IDetailPageProps) {
               <input
                 type="text"
                 placeholder="必填内容"
-                onChange={(e) => (Info.tel = e.target.value)}
-                defaultValue={Info.tel}
+                onChange={(e) => (userInfo.tel = e.target.value)}
+                defaultValue={userInfo.tel}
                 style={{ marginLeft: ".3em", width: "90%" }}
               />
             </div>
