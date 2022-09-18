@@ -25,6 +25,7 @@ export default function ConfirmPanel(props: IConfirmPanelProps) {
   useEffect(() => {
     if (display) onShow();
   }, [display, onShow]);
+  
   return (
     <div className="mask" style={{ display: display ? "flex" : "none" }}>
       <div className="infoPanel">

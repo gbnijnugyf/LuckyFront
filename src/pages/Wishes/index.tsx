@@ -124,6 +124,7 @@ export default function Wishes() {
   const [startX, setStartX] = useState(STARTINIT); // 树叶动画相关状态
   const [update, setUpDate] = useState(false); // 控制动画以及愿望内容的更新
   const [display, setDisplay] = useState(false); // 弹出确认框
+  //TODO 这个light好像没啥用
   const [light, setLight] = useState(false);
   const [lightBtn, setLightBtn] = useState(true); // 点亮按钮是否存在
   const [wishes, setWishes] = useState<Array<IWishInfoName>>(WISHES_INIT);

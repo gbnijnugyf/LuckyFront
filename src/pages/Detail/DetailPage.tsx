@@ -97,8 +97,8 @@ export default function DetailPage(props: IDetailPageProps) {
         setShowConfirm(false);
       },
       content = <>获取文本失败</>,
-      btnText1 = "",
-      btnText2 = "",
+      btnText1,
+      btnText2,
     } = props;
 
     setShowConfirm(true);

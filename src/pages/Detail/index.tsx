@@ -6,8 +6,8 @@ import WishDetail from "./WishDetail";
 const INITNUM: number = -9;
 
 export interface IBtnStateObject<T = string> {
-  yes: T;
-  no: T;
+  yes?: T;
+  no?: T;
 }
 
 const WISH_INIT: IWishInfo = {
