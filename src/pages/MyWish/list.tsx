@@ -11,9 +11,9 @@ export interface IWishState {
 
 export function MyWishList() {
   const navigate = useNavigate();
-  let wish_state = useLocation().state as IWishState;
-  let wishPost = wish_state.wishPost;
-  let wishLight = wish_state.wishLight;
+  let wishState = useLocation().state as IWishState;
+  let wishPost = wishState.wishPost;
+  let wishLight = wishState.wishLight;
 
   const goWishDetail = (id: string) => {
     navigate("/detail/" + id);
