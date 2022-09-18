@@ -2,7 +2,6 @@ import "./index.scss";
 import { ButtonS } from "../../components/Button";
 import { formatTime } from "../../common/global";
 import { useLocation, useNavigate } from "react-router-dom";
-// import { IWishObject } from ".";
 import { IWishInfo } from "../../common/service";
 
 export interface IWishState {

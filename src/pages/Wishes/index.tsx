@@ -165,12 +165,9 @@ export default function Wishes() {
       }
       setWishes(wishes);
     });
-    // setTimeout(()=>{console.log(wishes)},10000)//延时打印外部常量wishes，发现177行set赋值失败
   };
   // 获取愿望
   useEffect(refreshWishes, [category, lightBtn]);
-
-  // console.log(wishes[0].wish+"123")
 
   useEffect(() => {
     setInterval(() => {

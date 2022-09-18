@@ -91,11 +91,9 @@ export default function DetailPage(props: IDetailPageProps) {
   }) {
     const {
       yesHandle = () => {
-        console.log("试图跳转");
         goOtherPage("/detail/index");
       },
       noHandle = () => {
-        console.log("试图关闭弹窗");
         setShowConfirm(false);
       },
       content = <>获取文本失败</>,
@@ -113,7 +111,7 @@ export default function DetailPage(props: IDetailPageProps) {
   }
 
   // 别人的愿望，没人实现 ———— 点击确定点亮
-  async function PressReallyLight() {
+  async function pressReallyLight() {
     let Info = {
       name: "",
       option: "",
@@ -189,7 +187,6 @@ export default function DetailPage(props: IDetailPageProps) {
         </div>
       ),
       noHandle: () => {
-        console.log("试图关闭弹窗1");
         setShowConfirm(false);
       },
       btnText1: "发送",
@@ -262,7 +259,6 @@ export default function DetailPage(props: IDetailPageProps) {
         </>
       ),
       noHandle: () => {
-        console.log("试图关闭弹窗2");
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
         Service.giveUpLightWish(props.wish.desire_id).then(() => {
@@ -307,8 +303,10 @@ export default function DetailPage(props: IDetailPageProps) {
   // 别人的愿望，没人实现 ———— 点击点亮
   function pressLight() {
     handlePopWindows({
-      yesHandle: PressReallyLight,
+      yesHandle: pressReallyLight,
       content: <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>,
+      btnText1:"确认",
+      btnText2:"取消"
     });
   }
 

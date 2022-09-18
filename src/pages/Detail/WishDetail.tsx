@@ -29,7 +29,7 @@ export default function WishDetail(props: IWishDetail) {
   const isMine = props.isMine;
 
   const getForward = () => {
-    if (wish.state === 0 && isMine /*1*/) {
+    if (wish.state === 0 && isMine) {
       return (
         <img
           src={forwardimg}

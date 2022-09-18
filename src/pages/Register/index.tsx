@@ -75,7 +75,6 @@ export function Register() {
             clearInterval(retry);
           }, 60000);
         }
-        // return function () { return resData.data.emailVV }
         console.log(resData.data);
         WhutEVV = resData.data.emailVV;
         console.log(WhutEVV);
@@ -84,7 +83,6 @@ export function Register() {
         return undefined;
       }
     });
-    // setWhutCheckEmail(WhutEVV)
   };
 
   function goVerify(whutEVV: string) {
