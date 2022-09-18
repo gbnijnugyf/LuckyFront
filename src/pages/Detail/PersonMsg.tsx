@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { formatTime } from "../../common/global";
-import { Service } from "../../common/service";
-import { IWishObject } from "../MyWish";
+import { IWishInfo, Service } from "../../common/service";
 
 interface IPersonMsg {
-  wish: IWishObject;
+  wish: IWishInfo;
   isMine: boolean;
 }
 
@@ -15,22 +14,26 @@ export default function PersonMsg(props: IPersonMsg) {
   const [QQ, setQQ] = useState("");
   const [wechat, setWechat] = useState("");
   const [tel, setTel] = useState("");
+
   useEffect(() => {
     if (isMine) {
-      Service.getLightManInfo(wish.wish_id.toString()).then((res) => {
-        let lightman = res.data.data;
-        setName(lightman.light_name || "");
-        setTime("于" + formatTime(wish.light_at) + "点亮");
-        setQQ(lightman.light_qq || "");
-        setWechat(lightman.light_wechat || "");
-        setTel(lightman.light_tel || "");
+      Service.getManInfo(wish.desire_id.toString()).then((res) => {
+        let lightManInfo = res.data.data;
+        setName(lightManInfo.name || "");
+        setTime("于" + formatTime(wish.lighted_at) + "点亮");
+        setQQ(lightManInfo.qq || "");
+        setWechat(lightManInfo.wechat || "");
+        setTel(lightManInfo.tel || "");
       });
     } else {
-      setName(wish.wishman_inform?.wishMan_name || "");
-      setTime("于" + formatTime(wish.creat_at) + "许愿");
-      setQQ(wish.wishman_inform?.wishMan_QQ || "");
-      setWechat(wish.wishman_inform?.wishMan_Wechat || "");
-      setTel(wish.wishman_inform?.wishMan_Tel || "");
+      Service.getManInfo(wish.light_id.toString()).then((res) => {
+        let wishManInfo = res.data.data;
+        setName(wishManInfo?.name || "");
+        setTime("于" + formatTime(wish.created_at) + "许愿");
+        setQQ(wishManInfo?.qq || "");
+        setWechat(wishManInfo?.wechat || "");
+        setTel(wishManInfo?.tel || "");
+      });
     }
   }, [isMine, wish]);
 

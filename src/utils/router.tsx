@@ -7,20 +7,16 @@ import Detail from "../pages/Detail";
 import { Notfound } from "../pages/Detail/notfound";
 import Wishes from "../pages/Wishes";
 import Header from "../components/Header";
-// import MyWish from "../pages/MyWish";
-
 import { Index } from "../pages/MyWish/index";
 import { Empty } from "../pages/MyWish/empty";
 import { MyWishList } from "../pages/MyWish/list";
 import { LoginMain } from "../pages/Login/index";
 import { BindEmail, LoginCCNU } from "../pages/Login/loginSchools";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { LoginWhut } from "../pages/Login/WhutLogin";
+import { Register } from "../pages/Register";
+
 function Router() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,6 +46,8 @@ function Router() {
           <Route path="login/*" element={<Login />}>
             <Route path="ccnu" element={<LoginCCNU />} />
             <Route path="bindemail" element={<BindEmail />} />
+            <Route path="whut" element={<LoginWhut/>}/>
+            <Route path="whut/whutRegister" element={<Register/>}/>
             <Route path="*" element={<LoginMain />} />
           </Route>
           {/* 筛选页面 */}
@@ -67,7 +65,7 @@ function Router() {
             <Route path="empty" element={<Empty />} />
             <Route path="list" element={<MyWishList />} />
             <Route path="notfound" element={<Notfound />} />
-            <Route path="*" element={<Detail />} />
+            <Route path="*" element={<Detail/>} />
           </Route>
           <Route
             index
@@ -97,25 +95,6 @@ function Router() {
           />
         </Routes>
 
-        {/* <Routes>
-          <Route path="login/*" element={<Login />}>
-            <Route path="ccnu" element={<LoginCCNU />} />
-            <Route path="bindemail" element={<BindEmail />} />
-            <Route path="*" element={<LoginMain />} />
-          </Route>
-          <Route path="home" element={<Home />}></Route>
-          <Route path="send" element={<Send />}></Route>
-          <Route path="detail/*" element={<Detail />}></Route>
-          <Route path="wish/:tag" element={<Wishes />}></Route>
-          <Route path="mywish/*" element={<Index />}>
-            <Route path="empty" element={<Empty />} />
-            <Route path="list" element={<MyWishList />} />
-          </Route>
-          <Route
-            path="*"
-            element={<Navigate to={localStorage.getItem("token") === null ? '/login' : '/home'} replace />}
-          />
-        </Routes> */}
       </div>
     </>
   );

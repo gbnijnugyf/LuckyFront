@@ -3,12 +3,12 @@ import ConfirmPanel from "../../components/ConfirmPanel";
 import { ButtonS } from "../../components/Button";
 import calendar from "../../static/images/calendar.svg";
 import leaf from "../../static/images/leaf.svg";
-import { Service } from "../../common/service";
+import { IWishInfoName, Service } from "../../common/service";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const FALSE_0: number = 0;
-const SCHOOLINIT: number = -1;
+// const SCHOOLINIT: 0 | 1 | 2 = 0;
 
 export interface IWishesObject {
   wish: string;
@@ -41,7 +41,7 @@ function toStyle(props: IMyStyle): React.CSSProperties {
 
 export interface IWishItemProps {
   className: string;
-  wish: IWishesObject;
+  wish: IWishInfoName;
   onTouchStart?: (e: any) => void;
   onTouchMove?: (e: any) => void;
   onTouchEnd?: () => void;
@@ -49,11 +49,10 @@ export interface IWishItemProps {
   myStyle: IMyStyle;
 }
 
-
 const WishItem = (props: IWishItemProps) => {
   return (
     <div
-      key={props.wish?.wishman_name}
+      key={props.wish?.view_user.name}
       className="wish-item"
       style={toStyle(props.myStyle)}
       onTouchStart={props.onTouchStart}
@@ -62,20 +61,20 @@ const WishItem = (props: IWishItemProps) => {
     >
       <img src={leaf} className="wish-img" alt="" />
       <div className="content">
-        <div className="content-word">{props.wish?.wish}</div>
+        <div className="content-word">{props.wish.view_desire.desire}</div>
       </div>
       <div className="msg">
         <p>
-          {props.wish.school.toString() === ""
+          {props.wish.view_user.school.toString() === ""
             ? ""
-            : props.wish.school.toString() === FALSE_0.toString()
+            : props.wish.view_user.school.toString() === FALSE_0.toString()
             ? "华小师"
             : "武小理"}
         </p>{" "}
         {/* props.wish.school可能未定义，对接口*/}
         <p>
-          {props.wish.wishman_name.length > 0
-            ? props.wish.wishman_name.charAt(0) + "同学"
+          {props.wish.view_user.name.length > 0
+            ? props.wish.view_user.name.charAt(0) + "同学"
             : ""}
         </p>
       </div>
@@ -95,15 +94,29 @@ export default function Wishes() {
     start: "",
     move: "",
   };
-  let WISHESINIT: Array<IWishesObject> = [
-    { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" },
-    { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" },
-    { wish: "当前分类没有愿望哦~", school: SCHOOLINIT, wishman_name: "" },
-  ];
-  interface ILocationState {
-    category: number;
+
+  interface ILocationState<T> {
+    category: T;
   }
-  const category = (useLocation().state as ILocationState).category as number;
+  let WISH_INIT: IWishInfoName = {
+    view_desire: {
+      desire_id: "",
+      desire: "",
+      lighted_at: "",
+      created_at: "",
+      finished_at: "",
+      state: -1,
+      type: 0,
+      light_id: -1,
+      user_id: -1,
+    },
+    view_user: {
+      school: 0,
+      name: "",
+    },
+  };
+  let WISHES_INIT: IWishInfoName[] = [WISH_INIT, WISH_INIT, WISH_INIT];
+  const category = (useLocation().state as ILocationState<string>).category;
 
   const [showTip, setShowTip] = useState(true);
   const moveState = { img1: 0, img2: 10, img3: 20 };
@@ -113,21 +126,34 @@ export default function Wishes() {
   const [display, setDisplay] = useState(false); // 弹出确认框
   const [light, setLight] = useState(false);
   const [lightBtn, setLightBtn] = useState(true); // 点亮按钮是否存在
-  const [wishes, setWishes] = useState(WISHESINIT);
+  const [wishes, setWishes] = useState<Array<IWishInfoName>>(WISHES_INIT);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [tel, setTel] = useState("");
   const [option, setOption] = useState("QQ");
+
   const refreshWishes = () => {
-    Service.getWishByCategories(category.toString()).then((res) => {
-      // console.log(res.data.data)//service修改后data变成了第二层
+    Service.getWishByCategories(category).then((res) => {
       let wishes = res.data.data;
+
       if (res.data.data.length === 0) {
         setLightBtn(false);
-        let wish = {
-          wish: "当前分类没有愿望哦~",
-          school: SCHOOLINIT,
-          wishman_name: "",
+        let wish: IWishInfoName = {
+          view_desire: {
+            desire_id: "",
+            desire: "",
+            lighted_at: "",
+            created_at: "",
+            finished_at: "",
+            state: -1,
+            type: 0,
+            light_id: -1,
+            user_id: -1,
+          },
+          view_user: {
+            name: "",
+            school: 0,
+          },
         };
         wishes.push(wish);
       } else {
@@ -189,6 +215,7 @@ export default function Wishes() {
     setTimeout(() => {
       setUpDate(false);
       let newWishSource = wishes;
+      if (!newWishSource) return;
       newWishSource.push(newWishSource[0]);
       newWishSource.splice(0, 1);
       setWishes(newWishSource);
@@ -205,15 +232,16 @@ export default function Wishes() {
     if (name === "") alert("还没有填写姓名哦~");
     else if (number === "") alert("还没有填写联系方式哦~");
     else {
-      if (wishes[0].wish_id !== undefined) {
-        let id = wishes[0].wish_id as string;
+      if (!wishes) return;
+      if (wishes[0].view_desire.desire_id !== undefined) {
+        let id = wishes[0].view_desire.desire_id;
         let [qq, wechat] = option === "QQ" ? [number, ""] : ["", number];
-        Service.lightWishOn(id, name, tel, qq, wechat).then((res) => {
+        Service.lightWish(id, name, tel, qq, wechat).then((res) => {
           if (res.status === 0) {
             alert("点亮成功~");
             refreshWishes();
           } else {
-            alert(res.data.msg);
+            alert(res.data.msg); //返回失败信息
           }
         });
         handleAlert();
@@ -232,12 +260,36 @@ export default function Wishes() {
   const showConfirm = () => {
     setDisplay(true);
   };
+  const getUserPre = () => {
+    //先获取用户已存在信息
+    Service.getManInfo("-1").then((res) => {
+      let manInfo = res.data.data;
+      if (manInfo.name !== "") {
+        setName(manInfo.name);
+      }
+      if (manInfo.qq !== "") {
+        //默认QQ为联系方式
+        setNumber(manInfo.qq);
+        setOption("QQ");
+      } else if (manInfo.qq === "" && manInfo.wechat !== "") {
+        //QQ为空，微信为联系方式
+        setNumber(manInfo.wechat);
+        setOption("微信");
+      }
+      if (manInfo.tel !== "") {
+        setTel(manInfo.tel);
+      }
+    });
+  };
 
   return (
     <div className="wishpage">
       <ConfirmPanel
         display={display}
-        action={(response:boolean)=>response?(light ? lightWish : handleLight):handleAlert}
+        onShow={getUserPre}
+        onChoose={(res) => {
+          res ? (light ? lightWish() : handleLight()) : handleAlert();
+        }}
       >
         {light ? (
           <div className="input-msg">
@@ -249,7 +301,7 @@ export default function Wishes() {
                   type="text"
                   placeholder="必填内容哦～"
                   onChange={handleName}
-                  value={name}
+                  defaultValue={name}
                   style={{ marginLeft: "2em" }}
                 />
               </div>
@@ -264,10 +316,10 @@ export default function Wishes() {
                 </select>
                 <input
                   type="text"
-                  placeholder="必填内容哦～"
+                  placeholder="必填内容"
                   onChange={handleNumber}
-                  value={number}
-                  style={{ marginLeft: ".3em", width: "30%" }}
+                  defaultValue={number}
+                  style={{ marginLeft: ".3em", width: "32%" }}
                 />
               </div>
               <div className="tel">
@@ -276,7 +328,7 @@ export default function Wishes() {
                   type="text"
                   placeholder="选填内容哦～"
                   onChange={handleTel}
-                  value={tel}
+                  defaultValue={tel}
                   style={{ marginLeft: "2.3em" }}
                 />
               </div>
@@ -343,7 +395,7 @@ export default function Wishes() {
         <WishItem
           className="img1 wish-img"
           wish={wishes[2]}
-          setStyleID={3}
+          setStyleID={2}
           myStyle={{
             left: `20vw`,
             zIndex: 98,

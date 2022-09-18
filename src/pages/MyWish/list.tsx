@@ -2,18 +2,18 @@ import "./index.scss";
 import { ButtonS } from "../../components/Button";
 import { formatTime } from "../../common/global";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IWishObject } from ".";
+import { IWishInfo } from "../../common/service";
 
 export interface IWishState {
-  wishLight: Array<IWishObject>;
-  wishPost: Array<IWishObject>;
+  wishLight: Array<IWishInfo>;
+  wishPost: Array<IWishInfo>;
 }
 
 export function MyWishList() {
   const navigate = useNavigate();
-  let wish_state = useLocation().state as IWishState;
-  let wishPost = wish_state.wishPost;
-  let wishLight = wish_state.wishPost;
+  let wishState = useLocation().state as IWishState;
+  let wishPost = wishState.wishPost;
+  let wishLight = wishState.wishLight;
 
   const goWishDetail = (id: string) => {
     navigate("/detail/" + id);
@@ -29,11 +29,11 @@ export function MyWishList() {
           {wishPost.map((wish) => {
             return (
               <WishItem
-                time={wish.creat_at}
+                time={wish.created_at}
                 wish={wish}
-                key={wish.wish_id}
+                key={parseInt(wish.desire_id)}
                 onClick={() => {
-                  goWishDetail(wish.wish_id.toString());
+                  goWishDetail(wish.desire_id.toString());
                 }}
               />
             );
@@ -45,11 +45,11 @@ export function MyWishList() {
           {wishLight.map((wish) => {
             return (
               <WishItem
-                time={wish.light_at}
+                time={wish.lighted_at}
                 wish={wish}
-                key={wish.wish_id}
+                key={parseInt(wish.desire_id)}
                 onClick={() => {
-                  goWishDetail(wish.wish_id.toString());
+                  goWishDetail(wish.desire_id.toString());
                 }}
               />
             );
@@ -67,7 +67,7 @@ export function MyWishList() {
 
 interface IWishItemProps {
   time: string;
-  wish: IWishObject;
+  wish: IWishInfo;
   key: number;
   onClick: React.MouseEventHandler<HTMLLIElement> | undefined;
 }
@@ -75,11 +75,11 @@ interface IWishItemProps {
 function WishItem(props: IWishItemProps) {
   const { wish } = props;
   const time =
-    wish.state === 1 ? formatTime(wish.light_at) : formatTime(wish.creat_at);
+    wish.state === 1 ? formatTime(wish.lighted_at) : formatTime(wish.created_at);
 
   return (
     <li className="item-wish" onClick={props.onClick}>
-      <p className="text-detail">{wish.wish}</p>
+      <p className="text-detail">{wish.desire}</p>
       <div className="status">
         <ButtonS
           style={{
