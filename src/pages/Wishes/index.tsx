@@ -265,37 +265,35 @@ export default function Wishes() {
 
 
   const getUserPre = function () {
-    if (geted) {
-      return ()=>{
-        //先获取用户已存在信息
-        Service.getManInfo("-1").then((res) => {
-          let manInfo = res.data.data;
-          if (manInfo.name !== "") {
-            setName(manInfo.name);
-          }
-          if (manInfo.qq !== "") {
-            //默认QQ为联系方式
-            setNumber(manInfo.qq);
-            setOption("QQ");
-          } else if (manInfo.qq === "" && manInfo.wechat !== "") {
-            //QQ为空，微信为联系方式
-            setNumber(manInfo.wechat);
-            setOption("微信");
-          }
-          if (manInfo.tel !== "") {
-            setTel(manInfo.tel);
-          }
-        });
-        setGeted(false)
-      };
-    }
+    if (!geted) return
+
+    //先获取用户已存在信息
+    Service.getManInfo("-1").then((res) => {
+      let manInfo = res.data.data;
+      if (manInfo.name !== "") {
+        setName(manInfo.name);
+      }
+      if (manInfo.qq !== "") {
+        //默认QQ为联系方式
+        setNumber(manInfo.qq);
+        setOption("QQ");
+      } else if (manInfo.qq === "" && manInfo.wechat !== "") {
+        //QQ为空，微信为联系方式
+        setNumber(manInfo.wechat);
+        setOption("微信");
+      }
+      if (manInfo.tel !== "") {
+        setTel(manInfo.tel);
+      }
+    });
+    setGeted(false)
   }
 
   return (
     <div className="wishpage">
       <ConfirmPanel
         display={display}
-        onShow={getUserPre()}
+        onShow={getUserPre}
         onChoose={(res) => {
           res ? (light ? lightWish() : handleLight()) : handleAlert();
         }}

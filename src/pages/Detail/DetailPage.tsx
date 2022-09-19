@@ -112,7 +112,7 @@ export default function DetailPage(props: IDetailPageProps) {
 
   // 别人的愿望，没人实现 ———— 点击确定点亮
   async function pressReallyLight() {
-    
+    //TODO: 不是state，可能有BUG
     let userInfo = {
       name: "",
       option: "",
@@ -120,17 +120,17 @@ export default function DetailPage(props: IDetailPageProps) {
       tel: "",
     };
     //此处调用获取用户信息方法
-    const a = await getUserPre();
+    const userInfoPre = await getUserPre();
 
-    if (a.number.qq !== "") {
+    if (userInfoPre.number.qq !== "") {
       userInfo.option = "QQ";
-      userInfo.number = a.number.qq;
+      userInfo.number = userInfoPre.number.qq;
     } else {
       userInfo.option = "微信";
-      userInfo.number = a.number.wechat;
+      userInfo.number = userInfoPre.number.wechat;
     }
-    userInfo.name = a.name;
-    userInfo.tel = a.tel;
+    userInfo.name = userInfoPre.name;
+    userInfo.tel = userInfoPre.tel;
     handlePopWindows({
       yesHandle: () => {
         const id = props.wish.desire_id;
