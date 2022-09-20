@@ -16,6 +16,7 @@ import { BindEmail, LoginCCNU } from "../pages/Login/loginSchools";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { LoginWhut } from "../pages/Login/WhutLogin";
 import { Register } from "../pages/Register";
+import "./router.scss"
 
 function Router() {
   const navigate = useNavigate();
@@ -35,8 +36,9 @@ function Router() {
   return (
     <>
       {/* todo fixthis */}
-
-      {location.pathname.match(/login/) ? null : <Header></Header>}
+    <div className="bg">
+      {/* {location.pathname.match(/login/) ? null : <Header></Header>} */}
+      <Header></Header>
       <div className="content">
         <Routes>
           {/*小幸运2.0之路由重构*/}
@@ -93,6 +95,7 @@ function Router() {
           />
         </Routes>
 
+      </div>
       </div>
     </>
   );

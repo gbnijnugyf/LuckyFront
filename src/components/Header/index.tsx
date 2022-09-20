@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ButtonS } from "../../components/Button";
 import "./index.scss";
-import rulebutton from "../../static/images/rulebutton.svg";
-import backbutton from "../../static/images/backbutton.svg";
-import logo from "../../static/images/logo.svg";
+import rulebutton from "../../static/images/rulebutton.png";
+// import backbutton from "../../static/images/backbutton.svg";
+import logo from "../../static/images/logo.png";
 import arrowimg from "../../static/images/arrow.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -11,50 +11,50 @@ interface ITitleList {
   [key: string]: string;
 }
 
-const titleList: ITitleList = {
-  "/tagscreen/home": "标签页",
-  "/tagscreen/fillwish": "投递我的小幸运",
-  "/detail/list": "愿望详情",
-  "/detail/empty": "愿望详情",
-  "/wishpool/wish": "我的愿望池",
-  "/mywish": "我的愿望池",
-};
+// const titleList: ITitleList = {
+//   "/tagscreen/home": "标签页",
+//   "/tagscreen/fillwish": "投递我的小幸运",
+//   "/detail/list": "愿望详情",
+//   "/detail/empty": "愿望详情",
+//   "/wishpool/wish": "我的愿望池",
+//   "/mywish": "我的愿望池",
+// };
 
 function Header() {
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false);
   const [key, setKey] = useState("");
 
   const handleShow = () => {
     setIsShow(!isShow);
   };
-  const handleBack = () => {
-    if (location.pathname.includes("/detail/list")) {
-      navigate(-2); //'-2'是因为父级路由为判断愿望详情，会再次跳转至list或empty页面
-    } else {
-      navigate(-1);
-    }
-  };
+  // const handleBack = () => {
+  //   if (location.pathname.includes("/detail/list")) {
+  //     navigate(-2); //'-2'是因为父级路由为判断愿望详情，会再次跳转至list或empty页面
+  //   } else {
+  //     navigate(-1);
+  //   }
+  // };
 
-  const getTitle = () => {
-    //URL改变导致获取title的函数也要改变
-    let key = location.pathname;
-    let ckey = key;
-    let index = key.indexOf("/", 2);
-    if (index === -1) {
-      return titleList[key];
-    } else {
-      key = key.substr(0, index);
-      let index2 = ckey.indexOf("/", index + 1);
-      if (index2 === -1) {
-        return titleList[ckey];
-      } else {
-        ckey = ckey.substr(0, index2);
-        return titleList[ckey]; //通过路由截取数组titlelist的索引key
-      }
-    }
-  };
+  // const getTitle = () => {
+  //   //URL改变导致获取title的函数也要改变
+  //   let key = location.pathname;
+  //   let ckey = key;
+  //   let index = key.indexOf("/", 2);
+  //   if (index === -1) {
+  //     return titleList[key];
+  //   } else {
+  //     key = key.substr(0, index);
+  //     let index2 = ckey.indexOf("/", index + 1);
+  //     if (index2 === -1) {
+  //       return titleList[ckey];
+  //     } else {
+  //       ckey = ckey.substr(0, index2);
+  //       return titleList[ckey]; //通过路由截取数组titlelist的索引key
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     setKey(location.pathname.split("/")[1]);
@@ -161,26 +161,42 @@ function Header() {
     }
   };
 
-  let title = getTitle();
+  // let title = getTitle();
 
+  // return (
+  //   <div className="header">
+  //     <div className="comp-header">
+  //       {/* <img
+  //         className="back-button" //回退按钮
+  //         src={backbutton}
+  //         style={{ opacity: title === "标签页" ? 0 : 1 }}
+  //         onClick={title === "标签页" ? undefined : handleBack}
+  //         alt=""
+  //       /> */}
+  //       {/* <p className="comp-header-text">{title}</p> */}
+  //       {/* <img
+  //         className="rule-button"
+  //         src={rulebutton}
+  //         onClick={handleShow}
+  //         alt=""
+  //       /> */}
+  //       <div className="rule-button" onClick={handleShow}><img src={rulebutton}/><br/>guize</div>
+  //       {/* <img className="logo" src={logo} alt="" /> */}
+  //       {getAlert()}
+  //       <div
+  //         className="cover"
+  //         style={{ display: isShow ? "block" : "none" }}
+  //       ></div>
+  //     </div>
+  //   </div>
+  // );
   return (
     <div className="header">
       <div className="comp-header">
-        <img
-          className="back-button" //回退按钮
-          src={backbutton}
-          style={{ opacity: title === "标签页" ? 0 : 1 }}
-          onClick={title === "标签页" ? undefined : handleBack}
-          alt=""
-        />
-        <p className="comp-header-text">{title}</p>
-        <img
-          className="rule-button"
-          src={rulebutton}
-          onClick={handleShow}
-          alt=""
-        />
-        <img className="logo" src={logo} alt="" />
+
+          <img className="" src={logo} alt="" />
+
+        <div className="rule-button" onClick={handleShow}><div className="rulebtn"><img src={rulebutton}/><div/></div>
         {getAlert()}
         <div
           className="cover"
@@ -188,7 +204,8 @@ function Header() {
         ></div>
       </div>
     </div>
-  );
+    </div>
+  )
 }
 
 export default Header;
