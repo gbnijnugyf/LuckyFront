@@ -21,6 +21,7 @@ interface ITitleList {
 // };
 
 function Header() {
+
   const location = useLocation();
   // const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false);
@@ -180,7 +181,7 @@ function Header() {
           onClick={handleShow}
           alt=""
         /> */}
-        <div className="rule-button" onClick={handleShow}><img src={rulebutton}/></div>
+        <div className="rule-button" style={{ display: location.pathname.match(/login/) ? "none" : "flex" }} onClick={handleShow}><img src={rulebutton}/></div>
         <img className="logo" src={logo} alt="" />
         {getAlert()}
         <div
