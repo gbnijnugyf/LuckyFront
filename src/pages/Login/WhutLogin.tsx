@@ -1,24 +1,20 @@
-import {Service} from '../../common/service'
+import { Service } from '../../common/service'
 import './WhutLogin.scss'
 import { ButtonL } from '../../components/Button'
 import { ChangeEvent, ReactNode, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export interface ILoginPannel{
-    text:string,
-    onClick?:React.MouseEventHandler<HTMLDivElement>,
-    btnText:string,
-    children:ReactNode
+
+export interface ILoginPannel {
+    text: "我是武小理"|"我是华小师"|"邮箱绑定",
+    children: ReactNode
 }
 
-function LoginPannel(props:ILoginPannel) {
+export function LoginPannel(props: ILoginPannel) {
     return (
         <div className="login-pannel">
             <p className="text-login-title">{props.text}</p>
             {props.children}
-            <ButtonL onClick={props.onClick} >
-                {props.btnText}
-            </ButtonL>
         </div>
     )
 }
@@ -29,11 +25,11 @@ export function LoginWhut() {
     const [whutId, setWhutId] = useState('')
     const [whutPwd, setWhutPwd] = useState('')
 
-    const handleWhutId = (e:ChangeEvent<HTMLInputElement>) => {
+    const handleWhutId = (e: ChangeEvent<HTMLInputElement>) => {
         setWhutId(e.target.value)
     }
 
-    const handleWhutPwd = (e:ChangeEvent<HTMLInputElement>) => {
+    const handleWhutPwd = (e: ChangeEvent<HTMLInputElement>) => {
         setWhutPwd(e.target.value)
     }
     const goVerify = () => {
@@ -44,7 +40,7 @@ export function LoginWhut() {
         } else {
             Service.whutLogin().then(res => {
                 res.status = 0; //鉴权测试
-                if (res.status === 0) {    
+                if (res.status === 0) {
                     localStorage.setItem('token', res.data.data)
                     navigate('/tagscreen/home');
                 }
@@ -53,8 +49,8 @@ export function LoginWhut() {
         }
     }
     return (
-        <LoginPannel text="我是武小理" onClick={goVerify} btnText="下一步">
-            <div className="panel-login">
+        <LoginPannel text="我是武小理">
+            <div className="panel-login-whut">
                 <ul>
                     <li>
                         <label>邮箱：</label>
@@ -65,27 +61,31 @@ export function LoginWhut() {
                         <input type="password" value={whutPwd} onChange={handleWhutPwd}></input>
                     </li>
                 </ul>
+                <GoRegister text='' goRegister='快速注册一个吧！'>
+                    请使用掌上吾理账号登录，<br />还没有？
+                </GoRegister>
+                <ButtonL onClick={goVerify} >
+                    {"确定"}
+                </ButtonL>
             </div>
-            <GoRegister text='' goRegister='快速注册一个吧！'>
-            请使用掌上吾理账号登录，<br/>还没有？
-            </GoRegister>
+
         </LoginPannel>
     )
 }
 
 
-interface IGoRegisterProps{
+interface IGoRegisterProps {
     text: string,
     goRegister: string,
-    children:ReactNode,
+    children: ReactNode,
 }
 
-export function GoRegister(props:IGoRegisterProps){
+export function GoRegister(props: IGoRegisterProps) {
     const navigate = useNavigate();
 
     return (
         <p>
-        {props.children}<span onClick={()=>navigate('whutRegister')}>{props.goRegister}</span>
+            {props.children}<span onClick={() => navigate('whutRegister')}>{props.goRegister}</span>
         </p>
     )
 }

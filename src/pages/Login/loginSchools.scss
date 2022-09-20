@@ -1,5 +1,5 @@
 p {
-  color: white;
+  color: #577DAB;
   text-align: center;
 }
 
@@ -8,7 +8,7 @@ label {
   text-align: right;
   font-size: large;
   font-family: PingFangSC;
-  color: white;
+  color: #577DAB;
 }
 
 .login-pannel {
@@ -46,21 +46,21 @@ label {
   }
 
   .text-login-title {
-    margin-top: 20%;
+    margin-top: 14%;
     margin-bottom: 5%;
     font-family: TsangerXWZ;
-    color: white;
+    color: #577DAB;
     font-size: 50px;
     text-shadow: 0px 3px 5px#888888;
   }
 
-  .panel-login {
+  .panel-login-ccnu {
+    background-image: url("../../static/images/LoginPannelBGRed.png");
     margin: 5vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: #ff7a59;
     border-radius: 1.5em;
     padding: 1em 1.5em;
     max-width: 90%;
