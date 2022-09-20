@@ -163,40 +163,25 @@ function Header() {
 
   // let title = getTitle();
 
-  // return (
-  //   <div className="header">
-  //     <div className="comp-header">
-  //       {/* <img
-  //         className="back-button" //回退按钮
-  //         src={backbutton}
-  //         style={{ opacity: title === "标签页" ? 0 : 1 }}
-  //         onClick={title === "标签页" ? undefined : handleBack}
-  //         alt=""
-  //       /> */}
-  //       {/* <p className="comp-header-text">{title}</p> */}
-  //       {/* <img
-  //         className="rule-button"
-  //         src={rulebutton}
-  //         onClick={handleShow}
-  //         alt=""
-  //       /> */}
-  //       <div className="rule-button" onClick={handleShow}><img src={rulebutton}/><br/>guize</div>
-  //       {/* <img className="logo" src={logo} alt="" /> */}
-  //       {getAlert()}
-  //       <div
-  //         className="cover"
-  //         style={{ display: isShow ? "block" : "none" }}
-  //       ></div>
-  //     </div>
-  //   </div>
-  // );
   return (
     <div className="header">
       <div className="comp-header">
-
-          <img className="" src={logo} alt="" />
-
-        <div className="rule-button" onClick={handleShow}><div className="rulebtn"><img src={rulebutton}/><div/></div>
+        {/* <img
+          className="back-button" //回退按钮
+          src={backbutton}
+          style={{ opacity: title === "标签页" ? 0 : 1 }}
+          onClick={title === "标签页" ? undefined : handleBack}
+          alt=""
+        /> */}
+        {/* <p className="comp-header-text">{title}</p> */}
+        {/* <img
+          className="rule-button"
+          src={rulebutton}
+          onClick={handleShow}
+          alt=""
+        /> */}
+        <div className="rule-button" onClick={handleShow}><img src={rulebutton}/></div>
+        <img className="logo" src={logo} alt="" />
         {getAlert()}
         <div
           className="cover"
@@ -204,8 +189,7 @@ function Header() {
         ></div>
       </div>
     </div>
-    </div>
-  )
+  );
 }
 
 export default Header;
