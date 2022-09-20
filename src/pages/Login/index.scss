@@ -17,14 +17,14 @@
 
 .text-title {
   font-family: TsangerShuYuanTW02;
-  color: white;
+  color: #577DAB;
   font-size: 72px;
   text-shadow: 0px 3px 5px#888888;
 }
 
 .text-subtitle {
   font-family: TsangerXWZ;
-  color: white;
+  color: #577DAB;
   font-size: 24px;
   text-shadow: 0px 3px 5px#888888;
   margin: 0.5em 0 3em;
@@ -42,18 +42,27 @@
   margin-bottom: 5vh;
   display: flex;
   width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 65%;
+  &.我是武小理{
+    background-image: url("../../static/images/btnBlue.png");
+  }
+  &.我是华小师{
+    background-image: url("../../static/images/btnRed.png");
+  }
 
   .text-school {
     width: 100%;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     font-family: TsangerXWZ;
-    color: #f2552a;
+    color: #577DAB;
     font-size: xx-large;
-    background-image: url("../../static/images/ubderline.svg");
-    background-repeat: no-repeat;
-    background-size: 80% 80%;
-    background-position-x: center;
-    background-position-y: 1.25em;
+    // background-image: url("../../static/images/ubderline.svg");
+    // background-repeat: no-repeat;
+    // background-size: 80% 80%;
+    // background-position-x: center;
+    // background-position-y: 1.25em;
   }
 }
