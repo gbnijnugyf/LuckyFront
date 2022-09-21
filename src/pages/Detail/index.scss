@@ -1,9 +1,10 @@
 @import "../../config/globalCssVar.scss";
 
 .Detail {
+  margin-top: 5vh;
   position: relative;
   width: 100%;
-  height: calc(100vh - $HeaderHeight);
+  height: 74vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,16 +13,17 @@
   .content {
     position: relative;
     height: 40%;
-    margin-top: $HeaderHeight - 10vh;
+    margin-top: $HeaderHeight - 13vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-grow: 0 !important;
-    width: 85%;
-    background: url("../../static/images/panel_upper.svg");
+    width: 80%;
+    background: url("../../static/images/textContainer.png");
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: top;
-    padding: 29% 9% 0% 9%;
+    padding: 20% 9% 0% 9%;
 
     .forward {
       position: absolute;
@@ -36,30 +38,25 @@
       width: 80%;
       min-height: 9em;
       max-height: 10em;
-      margin-top: 1.8em;
 
       .text-content {
         min-height: 9em;
-        background-image: linear-gradient(
-            to right,
-            rgb(241, 197, 126) 10px,
-            transparent 10px
-          ),
-          linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
-          linear-gradient(
-            rgb(241, 197, 126) 30px,
-            black 30px,
-            black 31px,
-            white 31px
-          );
+        // background-image: linear-gradient(to right,
+        //     rgb(241, 197, 126) 10px,
+        //     transparent 10px),
+        //   linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
+        //   linear-gradient(rgb(241, 197, 126) 30px,
+        //     black 30px,
+        //     black 31px,
+        //     white 31px);
 
         word-break: break-all;
         border: 0px;
         background-size: 100% 100%, 100% 100%, 100% 31px;
         line-height: 31px;
         font-family: TsangerShuYuanTW02;
-        color: white;
-        padding: 8px;
+        color: #577DAB;
+        padding-top: 0px;
         font-size: medium;
       }
     }

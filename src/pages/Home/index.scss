@@ -6,7 +6,7 @@
   align-items: center;
   height: calc(100% - $HeaderHeight);
   justify-content: center;
-  margin-top: 30%;
+  margin-top: 0%;
 
   .tags {
     width: 80%;
@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 25%;
+    margin-top: 10%;
 
     .tag {
       width: 20%;

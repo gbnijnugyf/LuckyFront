@@ -167,21 +167,7 @@ function Header() {
   return (
     <div className="header">
       <div className="comp-header">
-        {/* <img
-          className="back-button" //回退按钮
-          src={backbutton}
-          style={{ opacity: title === "标签页" ? 0 : 1 }}
-          onClick={title === "标签页" ? undefined : handleBack}
-          alt=""
-        /> */}
-        {/* <p className="comp-header-text">{title}</p> */}
-        {/* <img
-          className="rule-button"
-          src={rulebutton}
-          onClick={handleShow}
-          alt=""
-        /> */}
-        <div className="rule-button" style={{ display: location.pathname.match(/login/) ? "none" : "flex" }} onClick={handleShow}><img src={rulebutton}/></div>
+        <div className="rule-button" style={{ display: location.pathname.match(/login/) ? "none" : "flex" }} onClick={handleShow}><img src={rulebutton} /></div>
         <img className="logo" src={logo} alt="" />
         {getAlert()}
         <div
