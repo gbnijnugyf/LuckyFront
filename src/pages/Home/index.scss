@@ -14,21 +14,22 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 40%;
+    margin-top: 25%;
 
     .tag {
-      width: 15%;
+      width: 20%;
       position: relative;
-      background-image: url("../../static/images/leaftag.svg");
+      background-image: url("../../static/images/bottleTags.png");
       background-position: center;
       background-repeat: no-repeat;
       background-size: contain;
       text-align: center;
       font-family: TsangerShuYuanTW02;
-      color: white;
+      color: #05346d;
+      font-weight: 900;
       font-size: 130%;
       padding: 1em;
-      margin-top: 0.8em;
+      margin-top: 1em;
     }
   }
 }

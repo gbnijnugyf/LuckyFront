@@ -3,6 +3,8 @@ import { ButtonS } from "../../components/Button";
 import { formatTime } from "../../common/global";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IWishInfo } from "../../common/service";
+import classNames from "classnames";
+import ItemClip from "../../static/images/ItemClip.png"
 
 export interface IWishState {
   wishLight: Array<IWishInfo>;
@@ -22,6 +24,7 @@ export function MyWishList() {
   return (
     <>
       <div className="div-wishlist-toppadding" />
+      <p>点击卡片可以查看愿望详情以及更改愿望状态哦~</p>
       <div className="div-wishlist">
         <h3>我许下的愿望</h3>
         <hr />
@@ -72,29 +75,36 @@ interface IWishItemProps {
   onClick: React.MouseEventHandler<HTMLLIElement> | undefined;
 }
 
+
 function WishItem(props: IWishItemProps) {
   const { wish } = props;
   const time =
     wish.state === 1 ? formatTime(wish.lighted_at) : formatTime(wish.created_at);
-
+  const randomBG = [//愿望背景颜色随机
+    "yellow",
+    "orange",
+    "red",
+    "pink"
+  ]
+  const random = Math.floor(Math.random() * 3);
   return (
-    <li className="item-wish" onClick={props.onClick}>
+    <li className={classNames("item-wish", randomBG[random])} onClick={props.onClick}>
+      <div className="wish-content">
       <p className="text-detail">{wish.desire}</p>
       <div className="status">
         <ButtonS
           style={{
-            background: "#FFFFFF",
-            color: wish.state === 0 ? "#1DCB1D" : "#F25C33",
-            fontSize: "medium",
-            fontFamily: "PingFangSC",
-            fontWeight: "Bold",
-            padding: "0 0.5em",
+            color: "#577DAB",
+            fontSize: "large"
           }}
         >
           {wish.state === 0 ? "未实现" : wish.state === 1 ? "已点亮" : "已实现"}
         </ButtonS>
         <p className="text-wishtime">{time}</p>
       </div>
+      </div>
+      <img src={ItemClip}/>
+
     </li>
   );
 }

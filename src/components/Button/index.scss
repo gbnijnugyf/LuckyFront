@@ -1,4 +1,4 @@
-*{
+* {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -23,6 +23,27 @@
   border-radius: 1em;
   font-size: medium;
   padding: 0.2em 1em;
+
+  &#btnHome {
+    background-image: url("../../static/images/btnTag.png");
+    border-radius: 0;
+    padding: 0.6em 1em;
+  }
+
+  &#btnSeeMyWish {
+    color: #577DAB;
+    align-self: flex-start;
+    padding: 0.4em 0.7em;
+    font-size: medium;
+    font-weight: 600;
+    z-Index: 999;
+    margin-left: 55%;
+
+    &::before {
+      content: url("../../static/images/noteBook.png");
+    }
+  }
+
 
   img {
     margin-right: 0.3em;

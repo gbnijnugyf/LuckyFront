@@ -31,10 +31,6 @@ b {
   top: 0;
   width: 100vw;
   height: calc($HeaderHeight + $LogoHeight + 2vh);
-  background: linear-gradient(
-    rgba(249, 210, 145, 1) 90%,
-    rgba(249, 210, 145, 0)
-  );
 }
 
 .div-wishlist {
@@ -42,8 +38,11 @@ b {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: calc($LogoHeight + 2vh);
+  margin-top: calc($LogoHeight - 15vh);
   width: 100vw;
+  height: auto;
+  flex: 1;
+  overflow-y: scroll;
 
   hr {
     width: 100%;
@@ -53,11 +52,12 @@ b {
     align-self: flex-start;
     margin-left: 2em;
     font-family: TsangerShuYuanTW02;
-    color: #ff7a59;
+    color: #577DAB;
     margin-bottom: 0.2em;
   }
 
   ul {
+    margin: 5%;
     position: relative;
     width: 90%;
     align-self: flex-start;
@@ -69,35 +69,60 @@ b {
     margin-top: 1em;
 
     hr {
-      background-color: #ff7a59;
-      border-color: #ff7a59;
+      background-color: #577DAB;
+      border-color: #577DAB;
     }
 
     p {
       margin: 0.5em 0;
-      color: #ff7a59;
+      color: #577DAB;
     }
   }
 }
 
 .item-wish {
+
+  &.yellow {
+    background-image: url("../../static/images/wishItemYellow.png");
+  }
+
+  &.orange {
+    background-image: url("../../static/images/wishItemOrange.png");
+  }
+
+  &.red {
+    background-image: url("../../static/images/wishItemRed.png");
+  }
+
+  &.pink {
+    background-image: url("../../static/images/wishItemPink.png");
+  }
+
+  display: grid;
+  // grid-template-rows: 70% 25%;
+  grid-template-columns: 90% 10%;
+  row-gap: 5%;
   position: relative;
-  background-image: url("../../static/images/wishitem.svg");
   background-repeat: no-repeat;
   background-size: contain;
   font-size: medium;
   padding: 2em 0 0.8em 2em;
-  width: 100%;
+  width: 85%;
   list-style: none;
+
+  .wish-content {
+    display: grid;
+    grid-template-rows: 65% 10%;
+    row-gap: 5%;
+  }
 
   .text-detail {
     position: relative;
-    text-align: flex-start;
     overflow: hidden;
     width: 90%;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: white;
+    color: #577DAB;
   }
 
   .status {
@@ -110,13 +135,14 @@ b {
     margin-bottom: 1em;
 
     .text-wishtime {
-      color: #666666;
+      color: #577DAB;
       font-size: small;
       font-family: PingFangSC;
       position: relative;
       text-align: end;
     }
   }
+
 }
 
 .MywishDetail {
@@ -141,7 +167,8 @@ b {
     background-repeat: no-repeat;
     background-position: top;
     padding: 29% 9% 0% 9%;
-
+    overflow: scroll;
+    
     .forward {
       width: 1.5rem;
       align-self: flex-end;
@@ -151,18 +178,14 @@ b {
 
     .text {
       display: relative;
-      background-image: linear-gradient(
-          to right,
+      background-image: linear-gradient(to right,
           rgb(241, 197, 126) 10px,
-          transparent 10px
-        ),
+          transparent 10px),
         linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
-        linear-gradient(
-          rgb(241, 197, 126) 30px,
+        linear-gradient(rgb(241, 197, 126) 30px,
           black 30px,
           black 31px,
-          white 31px
-        );
+          white 31px);
 
       word-break: break-all;
       border: 0px;
