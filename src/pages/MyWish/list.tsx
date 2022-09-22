@@ -1,8 +1,10 @@
 import "./index.scss";
 import { ButtonS } from "../../components/Button";
 import { formatTime } from "../../common/global";
-import { useLocation, useNavigate } from "react-router-dom";
-import { IWishInfo } from "../../common/service";
+import { useNavigate } from "react-router-dom";
+import { IWishInfo, Service } from "../../common/service";
+import { useEffect, useState } from "react";
+const INITNUM: number = -2;
 
 export interface IWishState {
   wishLight: Array<IWishInfo>;
@@ -10,10 +12,69 @@ export interface IWishState {
 }
 
 export function MyWishList() {
+
+  let WISHPOST_INIT: Array<IWishInfo> = [
+    {
+      created_at: "",
+      lighted_at: "",
+      finished_at: "",
+      state: -1,
+      type: 0,
+      desire: "",
+      desire_id: "",
+      light_id: INITNUM,//TODO 初始化number待定
+      user_id: INITNUM,
+    },
+  ];
+
   const navigate = useNavigate();
-  let wishState = useLocation().state as IWishState;
-  let wishPost = wishState.wishPost;
-  let wishLight = wishState.wishLight;
+  const [wishPost, setWishPost] = useState(WISHPOST_INIT);
+  const [wishLight, setWishLight] = useState(WISHPOST_INIT);
+  const [gotPost, setGotPost] = useState(false);
+  const [gotLight, setGotLight] = useState(false);
+
+  // 排序愿望为需要的顺序
+  const sortWishes = (oldwishes: Array<IWishInfo>) => {
+    let sorted = [];
+    const priority = [1, 2, 0];
+    for (let p = 0; p < priority.length; p++)
+      for (let i = 0; i < oldwishes.length; i++)
+        if (oldwishes[i].state === priority[p]) sorted.push(oldwishes[i]);
+
+    return sorted;
+  };
+
+  useEffect(() => {
+    Service.getPostedWishInfo().then((res) => {
+      setWishPost(sortWishes(res.data.data));
+      setGotPost(true);
+    });
+  }, []);
+  useEffect(() => {
+    Service.getLightedWishInfo().then((res) => {
+      setWishLight(sortWishes(res.data.data));
+      setGotLight(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (gotPost && gotLight) {
+      if (wishPost.length === 0 && wishLight.length === 0) {
+        navigate("/detail/empty");
+      }
+    }
+  }, [gotLight, gotPost, wishLight, wishPost, navigate]);
+
+  //以上为index导入--to合并两个文件
+
+
+  // const navigate = useNavigate();
+
+
+  // const wishPost = wishState.wishPost;
+  // const wishLight = wishState.wishLight;
+
+
 
   const goWishDetail = (id: string) => {
     navigate("/detail/" + id);

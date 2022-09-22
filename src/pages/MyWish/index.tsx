@@ -4,7 +4,7 @@ import { Service, IWishInfo } from "../../common/service";
 import { Outlet, useNavigate } from "react-router-dom";
 const INITNUM: number = -2;
 
-export const Index = () => {
+export function Index() {
   let WISHPOST_INIT: Array<IWishInfo> = [
     {
       created_at: "",

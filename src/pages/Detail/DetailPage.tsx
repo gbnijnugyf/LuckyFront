@@ -91,7 +91,7 @@ export default function DetailPage(props: IDetailPageProps) {
   }) {
     const {
       yesHandle = () => {
-        goOtherPage("/detail/index");
+        goOtherPage("/detail/list");
       },
       noHandle = () => {
         setShowConfirm(false);
@@ -144,7 +144,7 @@ export default function DetailPage(props: IDetailPageProps) {
             console.log(id, userInfo.name, userInfo.tel, qq, wechat)
             if (res.data.status === 0) {
               alert("点亮成功~");
-              goOtherPage("/detail/index");
+              goOtherPage("/detail/list");
             } else {
               alert(res.data.msg);
             }
@@ -248,7 +248,7 @@ export default function DetailPage(props: IDetailPageProps) {
         setBtnText({ yes: "", no: "" });
         let message = currentIndex === "other" ? msgs["other"] : msgs["wuchu"];
         Service.giveUpLightWish(props.wish.desire_id, message).then(() => {
-          goOtherPage("/detail/index");
+          goOtherPage("/detail/list");
         });
       },
       content: (
@@ -269,7 +269,7 @@ export default function DetailPage(props: IDetailPageProps) {
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
         Service.giveUpLightWish(props.wish.desire_id).then(() => {
-          goOtherPage("/detail/index");
+          goOtherPage("/detail/list");
         });
       },
       btnText1: "发送",
@@ -284,7 +284,7 @@ export default function DetailPage(props: IDetailPageProps) {
       yesHandle: () => {
         setShowConfirm(false);
         Service.achieveWish(props.wish.desire_id);
-        goOtherPage("/detail/index");
+        goOtherPage("/detail/list");
       },
       content: (
         <>
@@ -324,7 +324,7 @@ export default function DetailPage(props: IDetailPageProps) {
       yesHandle: () => {
         Service.deleteWish(props.wish.desire_id).then(() => {
           alert("删除成功");
-          goOtherPage("/detail/index");
+          goOtherPage("/detail/list");
         });
         setShowConfirm(false);
       },
