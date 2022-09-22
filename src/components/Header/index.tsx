@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ButtonS } from "../../components/Button";
 import "./index.scss";
 import rulebutton from "../../static/images/rulebutton.png";
 // import backbutton from "../../static/images/backbutton.svg";
 import logo from "../../static/images/logo.png";
 import arrowimg from "../../static/images/arrow.svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-interface ITitleList {
-  [key: string]: string;
-}
+// interface ITitleList {
+//   [key: string]: string;
+// }
 
 // const titleList: ITitleList = {
 //   "/tagscreen/home": "标签页",
@@ -124,7 +124,7 @@ function Header() {
             className="rule-alert"
             style={{ display: isShow ? "flex" : "none" }}
           >
-            <div className="rule-text">
+            <div className="rule-text" >
               1.这次活动男生女生都可以许愿哦~<p>你一共有5次许愿的机会</p>
               ，快来遇见你的小幸运吧~
               <br />
@@ -167,8 +167,8 @@ function Header() {
   return (
     <div className="header">
       <div className="comp-header">
-        <div className="rule-button" style={{ display: location.pathname.match(/login/) ? "none" : "flex" }} onClick={handleShow}><img src={rulebutton} /></div>
-        <img className="logo" src={logo} alt="" />
+        <div className="rule-button" style={{ display: location.pathname.match(/login/) ? "none" : "flex" }} onClick={handleShow}><img src={rulebutton} alt="rulebutton"/></div>
+        <img className="logo" src={logo} alt="logo" />
         {getAlert()}
         <div
           className="cover"

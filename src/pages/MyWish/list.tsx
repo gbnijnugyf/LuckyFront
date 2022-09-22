@@ -103,7 +103,7 @@ function WishItem(props: IWishItemProps) {
         <p className="text-wishtime">{time}</p>
       </div>
       </div>
-      <img src={ItemClip}/>
+      <img src={ItemClip} alt="clip"/>
 
     </li>
   );
