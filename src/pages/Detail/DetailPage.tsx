@@ -39,48 +39,6 @@ export default function DetailPage(props: IDetailPageProps) {
     other: "", //占位
   };
 
-  // interface IGetUserPre {
-  //   name: string;
-  //   number: {
-  //     qq: string;
-  //     wechat: string;
-  //   };
-  //   tel: string;
-  //   option?: string;
-  // }
-  // //用户填写前获取用户信息
-  // const getUserPre = async () => {
-  //   //先获取用户已存在信息
-  //   let resAll: IGetUserPre = {
-  //     name: "",
-  //     number: {
-  //       qq: "",
-  //       wechat: "",
-  //     },
-  //     tel: "",
-  //   };
-  //   await Service.getManInfo("-1").then((res) => {
-  //     let manInfo = res.data.data;
-  //     if (manInfo.name !== "") {
-  //       resAll.name = manInfo.name;
-  //     }
-  //     //联系方式(qq\wechat)
-  //     if (manInfo.qq !== "") {
-  //       //默认QQ为联系方式
-  //       resAll.number.qq = manInfo.qq;
-  //     } else if (manInfo.qq === "" && manInfo.wechat !== "") {
-  //       //QQ为空，微信为联系方式
-  //       resAll.number.wechat = manInfo.wechat;
-  //     }
-  //     //tel
-  //     if (manInfo.tel !== "") {
-  //       resAll.tel = manInfo.tel;
-  //     }
-  //   });
-
-  //   return resAll;
-  // };
-
   //弹窗抽象, 调用弹出弹窗
   function handlePopWindows(props: {
     yesHandle?: () => void;
@@ -110,7 +68,6 @@ export default function DetailPage(props: IDetailPageProps) {
     setBtnText({ yes: btnText1, no: btnText2 });
   }
 
-  // 别人的愿望，没人实现 ———— 点击确定点亮
   // async function pressReallyLight() {
   //   //TODO: 不是state，可能有BUG
   //   let userInfo = {
@@ -307,16 +264,6 @@ export default function DetailPage(props: IDetailPageProps) {
     });
   }
 
-  // 别人的愿望，没人实现 ———— 点击点亮
-  // function pressLight() {
-  //   handlePopWindows({
-  //     yesHandle: pressReallyLight,
-  //     content: <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>,
-  //     btnText1: "确认",
-  //     btnText2: "取消"
-  //   });
-  // }
-
   // 我的愿望，没人实现 ———— 点击删除
   // 我的愿望，有人点亮 ———— 点击删除
   function pressDelete() {
@@ -398,7 +345,6 @@ export default function DetailPage(props: IDetailPageProps) {
           style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
         >
           删除这个心愿
-          {/* {props.isMine ? "删除" : "点亮"}这个心愿 */}
         </ButtonS>
       </>
     );
