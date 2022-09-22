@@ -52,7 +52,7 @@ export default function Detail() {
         });
       });
     });
-  }, [location.pathname]);
+  }, [location.pathname, navigate]);
 
   return (
     <div className="Detail">
