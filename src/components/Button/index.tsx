@@ -7,8 +7,9 @@ interface IBtnL {
 }
 interface IBtnS {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
-  style: { [key: string]: string };
+  style?: { [key: string]: string };
   children: ReactNode;
+  id?:string
 }
 
 export function ButtonL(props: IBtnL) {
