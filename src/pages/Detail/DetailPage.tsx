@@ -68,7 +68,6 @@ export default function DetailPage(props: IDetailPageProps) {
     setBtnText({ yes: btnText1, no: btnText2 });
   }
 
-  // async function pressReallyLight() {
   //   //TODO: 不是state，可能有BUG
   //   let userInfo = {
   //     name: "",
