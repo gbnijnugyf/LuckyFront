@@ -38,7 +38,7 @@ export default function Detail() {
     let id = location.pathname.split("/").pop();
     if (!id) return;
     Service.getWishDetail(id).then((res) => {
-      if (res.data.status === -1) {//查询不到该愿望
+      if (res.data.status === -1) {//查询不到该愿望//与后端约定为-1
         alert(res.data.msg);
         navigate("/detail/notfound");
       }
