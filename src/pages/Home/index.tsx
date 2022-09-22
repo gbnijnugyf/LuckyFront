@@ -5,7 +5,7 @@ import { tags } from "../../config/Global";
 import "./index.scss";
 import { Service } from "../../common/service";
 import { useNavigate } from "react-router-dom";
-import noteBook from "../../static/images/noteBook.png"
+// import noteBook from "../../static/images/noteBook.png"
 
 export default function Home() {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export default function Home() {
     <div className="panel-home">
       <ButtonS
         id="btnSeeMyWish"
-        onClick={() => navigate("/detail/index")}
+        onClick={() => navigate("/detail/list")}
       >
         查看我的点亮
       </ButtonS>

@@ -1,7 +1,7 @@
 @import "../../config/globalCssVar.scss";
 
 .Detail {
-  // margin-top: 5vh;
+  // margin-top: -10vh;
   position: relative;
   width: 100%;
   height: $ContentHeight;
@@ -10,10 +10,22 @@
   align-items: center;
   justify-content: space-between;
 
+  .forward {
+    transform: scale(150%);
+    align-self: flex-end;
+    margin-right: 2.5em;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    p{
+      font-family:Tensentype-MaiHeiJ;
+      font-size:xx-small;
+    }
+  }
+
   .content {
     position: relative;
     height: 40%;
-    // margin-top: $HeaderHeight - 13vh;
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,13 +37,7 @@
     background-position: top;
     padding: 20% 9% 0% 9%;
 
-    .forward {
-      position: absolute;
-      width: 1.5rem;
-      align-self: flex-end;
-      margin-right: 1.5rem;
-      margin-top: 0.5rem;
-    }
+
 
     .text {
       overflow: scroll;
@@ -62,14 +68,27 @@
     }
 
     .wishInfo {
+      display: flex;
+      flex-direction: column;
       align-self: flex-end;
       margin-right: 2em;
       margin-top: 0.5em;
 
       p {
+        display: flex;
+        flex-direction: row;
         font-family: TsangerShuYuanTW02;
         font-size: large;
+
+        &.fromWho {
+          align-self: flex-end;
+        }
       }
+
+      #fromText {
+        color: #ff7a59;
+      }
+
     }
   }
 
@@ -131,16 +150,11 @@
     display: flex;
   }
 
-  hr {
-    width: 90%;
-    background-color: #707070;
-  }
-
   // 许愿人信息
   .msg {
     position: relative;
     width: 80%;
-    background-image: url("../../static/images/panel_lower.svg");
+    background-image: url("../../static/images/PersonMsgBG.png");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -154,7 +168,7 @@
 
     .msg-text {
       font-size: large;
-      margin-left: 0.5em;
+      margin: -1em;
 
       .h {
         color: #ff7a59;
@@ -163,9 +177,10 @@
       }
 
       .name {
-        color: #fff;
+        color: #577DAB;
         margin-top: 0.5em;
         font-size: larger;
+        align-self: flex-start;
         width: 4em;
         text-align: right;
       }
@@ -174,7 +189,7 @@
     .msg-info {
       margin-right: 1em;
       justify-content: space-evenly;
-      color: white;
+      color: #577DAB;
       align-items: flex-end;
 
       p {
@@ -270,6 +285,7 @@
     }
   }
 }
+
 
 .notfound {
   // position: relative;

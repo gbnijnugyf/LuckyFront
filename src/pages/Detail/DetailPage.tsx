@@ -208,6 +208,9 @@ export default function DetailPage(props: IDetailPageProps) {
         >
           {confirmContent}
         </ConfirmPanel>
+        <p className="PersonId">{props.isMine ? "点亮人" : "许愿人"}</p>
+        <PersonMsg wish={props.wish} isMine={props.isMine} />
+
         <div className="panel-button">
           <ButtonS
             onClick={
@@ -224,18 +227,11 @@ export default function DetailPage(props: IDetailPageProps) {
           </ButtonS>
           <ButtonS
             onClick={achieved ? undefined : pressAchieve}
-            style={{
-              background: achieved ? "#C0C0C0" : "#FF7A59",
-              color: "#FFFFFF",
-              width: "6em",
-              marginLeft: "2em",
-            }}
+            id={achieved? "Achieved":"toAchieve"}
           >
-            {achieved ? "已经实现" : "确认实现"}
+            {achieved ? "已实现" : "确认实现"}
           </ButtonS>
         </div>
-        <hr />
-        <PersonMsg wish={props.wish} isMine={props.isMine} />
       </>
     );
   } else if (props.wish.state === 0) {
@@ -252,8 +248,8 @@ export default function DetailPage(props: IDetailPageProps) {
           {confirmContent}
         </ConfirmPanel>
         <ButtonS
+          id="btnDelete"
           onClick={pressDelete}
-          style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
         >
           删除这个心愿
         </ButtonS>
