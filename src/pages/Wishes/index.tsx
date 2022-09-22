@@ -225,7 +225,7 @@ export default function Wishes() {
   };
   // 查看我的点亮
   const goMyWish = () => {
-    navigate("/detail/index");
+    navigate("/detail/list");
     // props.history.push('/mywish')
   };
   const lightWish = () => {

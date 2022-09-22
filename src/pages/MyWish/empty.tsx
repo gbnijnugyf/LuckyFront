@@ -6,7 +6,7 @@ export function Empty() {
   const navigate = useNavigate();
 
   const goSendWish = () => {
-    navigate("tagscreen/fillwish");
+    navigate("/tagscreen/fillwish");
   };
 
   return (
