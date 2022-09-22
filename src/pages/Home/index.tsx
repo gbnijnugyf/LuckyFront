@@ -31,12 +31,6 @@ export default function Home() {
 
   return (
     <div className="panel-home">
-      <ButtonS
-        id="btnSeeMyWish"
-        onClick={() => navigate("/detail/index")}
-      >
-        查看我的点亮
-      </ButtonS>
       <div className="tags">
         {tags.map((tag) => {
           return (
@@ -52,8 +46,7 @@ export default function Home() {
       </div>
       <ButtonS
         onClick={() => goSend()} //此处goSend函数参数删去tags，因为不知道有啥用（也不需要参数）。。
-        style={{ marginTop: "10%" }}
-        id="btnHome"
+        style={{ background: "#FFFFFF", color: "#F25125", marginTop: "10%" }}
       >
         投递我的小幸运
       </ButtonS>
