@@ -7,7 +7,7 @@ import Detail from "../pages/Detail";
 import { Notfound } from "../pages/Detail/notfound";
 import Wishes from "../pages/Wishes";
 import Header from "../components/Header";
-import { Index } from "../pages/MyWish/index";
+// import { Index } from "../pages/MyWish/index";
 import { Empty } from "../pages/MyWish/empty";
 import { MyWishList } from "../pages/MyWish/list";
 import { LoginMain } from "../pages/Login/index";
