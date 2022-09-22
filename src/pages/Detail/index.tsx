@@ -38,6 +38,10 @@ export default function Detail() {
     let id = location.pathname.split("/").pop();
     if (!id) return;
     Service.getWishDetail(id).then((res) => {
+      if (res.data.status === -1) {//查询不到该愿望
+        alert(res.data.msg);
+        navigate("/detail/notfound");
+      }
       setWish(res.data.data.view_desire);
       Service.getPostedWishInfo().then((res) => {
         res.data.data.forEach((wish) => {
