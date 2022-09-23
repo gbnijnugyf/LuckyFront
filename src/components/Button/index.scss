@@ -59,8 +59,15 @@
     background-size: cover;
     color: #FFFFFF;
     width: 6em;
+    margin-left: 3em;
   }
-
+  &#Achieved2 {
+    background-image: url("../../static/images/btnGrey.png");
+    background-size: cover;
+    color: #FFFFFF;
+    width: 6em;
+  }
+  
   &#toAchieve {
     background-image: url("../../static/images/btnGreen2.png");
     color: #577DAB;

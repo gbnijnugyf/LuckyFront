@@ -190,13 +190,24 @@ export default function DetailPage(props: IDetailPageProps) {
     });
   }
 
+
+  // wish.state
+  // 0: 未实现、未点亮
+  // 1: 已点亮
+  // 2: 已实现
+
+  // 据条件（wish.state / props.isMine / achieved）返回jsx.element
+  // 别人点亮并实现我的√ 未渲染               state==2 && isMine==true && achieved==true
+  // 我点亮并实现别人的√√                     state==2 && isMine==false && achieved==true
+  // 别人点亮但未实现我的√√ mock很难实现       state==1 && isMine==true && achieved==false
+  // 我点亮但未实现别人的√√                   state==1 && isMine==false && achieved==false
+  // 别人未点亮我√√  mock很难实现               state==0 && isMine==true && achieved==false
+
   if (props.wish.state === 1 || props.wish.state === 2) {
-    // 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
-    let divDisplay: string = "";
-    if (!(props.isMine ? true : achieved ? false : true)) {
-      //隐藏该按钮
-      divDisplay = "none";
-    }
+
+    let isMine = props.isMine;//方便修改值to mock
+    // isMine = ((!props.wish.state && achieved) ? false : true)//手动mock
+    // console.log(props.wish.state, isMine, achieved)
 
     return (
       <>
@@ -208,24 +219,24 @@ export default function DetailPage(props: IDetailPageProps) {
         >
           {confirmContent}
         </ConfirmPanel>
-        <div className="PersonId">{props.isMine ? "点亮人" : "许愿人"}</div>
-        <PersonMsg wish={props.wish} isMine={props.isMine} />
+        <div className="PersonId">{isMine ? "点亮人" : "许愿人"}</div>
+        <PersonMsg wish={props.wish} isMine={isMine} />
 
         <div className="panel-button">
           <ButtonS
             id="Abandon-Delete"
             onClick={
-              achieved ? undefined : props.isMine ? pressDelete : pressAbandon
+              achieved ? undefined : isMine ? pressDelete : pressAbandon
             }
             style={{
-              display: divDisplay,
+              display: isMine ? "" : (achieved ? "none" : ""),
             }}
           >
-            {props.isMine ? "删除这个心愿" : "放弃实现"}
+            {isMine ? "删除这个心愿" : "放弃实现"}
           </ButtonS>
           <ButtonS
             onClick={achieved ? undefined : pressAchieve}
-            id={achieved? "Achieved":"toAchieve"}
+            id={achieved? (isMine?"Achieved":"Achieved2"):"toAchieve"}
           >  
             {achieved ? "已实现" : "确认实现"}
           </ButtonS>
