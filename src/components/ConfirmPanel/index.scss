@@ -13,11 +13,17 @@
   justify-content: space-around;
 
   .infoPanel {
-    background: #f9d291;
+    color: #577DAB;
+    background-image: url("../../static/images/ConfirmPannelBG.png");
+    background-repeat: no-repeat;
+    transform: scale(100%);
     font-size: medium;
     border-radius: 1em;
     overflow: hidden;
     width: 70%;
+    max-height: 50vh;
+    display: flex;
+    flex-direction: column;
 
     .textPanel {
       min-height: 3em;
@@ -33,15 +39,16 @@
       }
 
       p {
-        color: #ff7a59;
         font-family: TsangerShuYuanTW02;
+        font-weight: 700;
+        font-size: large;
         text-align: center;
       }
     }
 
     .confirmPanel {
       display: flex;
-
+      margin-top: 1vh;
       div {
         padding: 0.5em 0;
         width: 50%;
@@ -49,12 +56,17 @@
       }
 
       .confirmFalse {
-        background-color: white;
+        border-right: 1px solid white;
+        border-top-left-radius: 20%;
+        border-top: 0.5px solid white;
+        // background-color: white;
+
       }
 
       .confirmTrue {
-        background-color: #ff7a59;
-        color: white;
+        // background-color: #ff7a59;
+        border-top: 0.5px solid white;
+        border-top-right-radius: 15%;
       }
     }
   }
