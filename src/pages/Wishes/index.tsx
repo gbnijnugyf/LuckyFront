@@ -258,8 +258,23 @@ export default function Wishes() {
   const handleLight = () => {
     setLight(true);
   };
-  const showConfirm = () => {
-    setDisplay(true);
+  const showConfirm = async () => {
+    await Service.getLightedWishInfo().then(
+      (res) => {
+        if (res.data.data.length < 5) {
+          setDisplay(true);
+          return;
+        } else {
+          res.data.data.forEach((wish) => {
+            if (wish.state === 2) {
+              setDisplay(true);
+            }
+          })
+          if (display) return
+          else alert("你有5个点亮还未实现哦~先完成一个吧");
+        }
+      }
+    )
   };
 
 
