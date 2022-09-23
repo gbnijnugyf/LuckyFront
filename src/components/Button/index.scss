@@ -22,7 +22,7 @@
   width: fit-content;
   border-radius: 1em;
   font-size: medium;
-  padding: 0.2em 1em;
+  padding: 1em 1em;
 
   &#btnHome {
     background-image: url("../../static/images/btnTag.png");
@@ -59,13 +59,21 @@
     background-size: cover;
     color: #FFFFFF;
     width: 6em;
-    padding: 0.5em 1em;
   }
 
   &#toAchieve {
-    color: #FFFFFF;
+    background-image: url("../../static/images/btnGreen2.png");
+    color: #577DAB;
     width: 6em;
-    margin-left: 2em;
+    margin-left: 3em;
+  }
+
+  &#Abandon-Delete {
+    background-image: url("../../static/images/btnOrange.png");
+    color: white;
+    width: 6em;
+    margin-left: 1em;
+    width: 6em;
   }
 
   img {
