@@ -3,7 +3,7 @@ import { useState } from "react";
 import { School, Service, wishType } from "../../common/service";
 import { tags } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
-import paperplane from "../../static/images/paperplane.svg";
+import btnSend from "../../static/images/btnSend.png";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
@@ -12,7 +12,6 @@ const CATEGORYINIT = wishType.null;
 
 export default function Send() {
   const navigate = useNavigate();
-
   const [showTag, setShowTag] = useState(false); //控制标签弹窗
   const [tagName, setTagName] = useState("选择标签"); //控制选择标签后的显示
   const [wishContent, setWishContent] = useState(""); //控制 textarea
@@ -97,7 +96,7 @@ export default function Send() {
       <ButtonS
         id="btnSelectTag"
         onClick={goSelectTag}
-      ><img src={selectTag} />
+      ><img src={selectTag} alt="selectTag" />
         {tagName}
       </ButtonS>
       <div className="send">
@@ -126,49 +125,55 @@ export default function Send() {
             onChange={handleWishContent}
           ></textarea>
           <div className="send-msg">
-            <div className="name">
-              <p>投递人：</p>
-              <input
-                type="text"
-                placeholder="必填内容哦～"
-                value={nameValue}
-                onChange={handleNameValue}
-              />
+            <div className="sendContent">
+              <div className="name">
+                <p>投递人：</p>
+                <input
+                  type="text"
+                  placeholder="必填内容哦～"
+                  value={nameValue}
+                  onChange={handleNameValue}
+                />
+              </div>
+              <div className="number">
+                <div className="number1">
+                  <p>联系方式：</p>
+                  <select value={selectValue} onChange={handleSelectValue}>
+                    <option value="QQ">QQ</option>
+                    <option value="WeChat">微信</option>
+                  </select>
+                  <input
+                    type="text"
+                    id="connect"
+                    placeholder="必填内容哦～"
+                    value={numberValue}
+                    onChange={handleNumberValue}
+                  />
+
+                </div>
+                {/* <br /> */}
+                <div className="number2">
+                  <p>或 Tel：</p>
+                  <input
+                    type="text"
+                    id="tel"
+                    placeholder="选填内容哦～"
+                    value={tel}
+                    onChange={handleTelValue}
+                    style={{ marginLeft: "2em" }}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="number">
-              <div className="number1">
-              <p>联系方式：</p>
-              <select value={selectValue} onChange={handleSelectValue}>
-                <option value="QQ">QQ</option>
-                <option value="WeChat">微信</option>
-              </select>
-              <input
-                type="text"
-                id="connect"
-                placeholder="必填内容哦～"
-                value={numberValue}
-                onChange={handleNumberValue}
-              />
+            <div className="sendBtn">
               <ButtonS
+                id="btnSend"
                 onClick={goSubmit}
-                style={{ background: "white", color: "#f25125", margin: "0.5em 0" }}
+              // style={{ background: "white", color: "#f25125", margin: "0.5em 0" }}
               >
-                <img src={paperplane} alt="" style={{ paddingBottom: "0.2em" }} />{" "}
-                完成
+                <img src={btnSend} alt="send" />
+                {/* <img src={paperplane} alt="" style={{ paddingBottom: "0.2em" }} />{" "} */}
               </ButtonS>
-              </div>
-              {/* <br /> */}
-              <div className="number1">
-              <p>或 Tel：</p>
-              <input
-                type="text"
-                id="tel"
-                placeholder="选填内容哦～"
-                value={tel}
-                onChange={handleTelValue}
-                style={{ marginLeft: "2em" }}
-              />
-              </div>
             </div>
           </div>
 
