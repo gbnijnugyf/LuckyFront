@@ -52,10 +52,11 @@
         align-items: center;
         box-sizing: border-box;
         width: 80vw;
-        background-color: #f9d291;
+        background-image: url("../../static/images/ruleBG.png");
         border-radius: 3vh;
         font-family: TsangerShuYuanTW02;
-        color: white;
+        color: #577dab;
+        font-weight: 700;
         padding: 3vh 4.5vw;
       }
 
@@ -66,7 +67,7 @@
 
       .rule-alert .rule-text p {
         display: inline;
-        color: rgb(239, 96, 63);
+        color: #577dab;
       }
     }
 

@@ -346,16 +346,17 @@ export default function Wishes() {
       </ConfirmPanel>
 
       <ButtonS
+      id="btnSeeMyWish"
         onClick={goMyWish}
-        style={{
-          background: "#F59D65",
-          color: "white",
-          marginTop: "13em",
-          alignSelf: "flex-start",
-          padding: "0.4em 0.7em",
-          fontSize: "medium",
-          zIndex: "999",
-        }}
+        // style={{
+        //   background: "#F59D65",
+        //   color: "white",
+        //   marginTop: "13em",
+        //   alignSelf: "flex-start",
+        //   padding: "0.4em 0.7em",
+        //   fontSize: "medium",
+        //   zIndex: "99",
+        // }}
       >
         <img
           style={{ transform: "scale(3) translate(2%, 12%)" }}

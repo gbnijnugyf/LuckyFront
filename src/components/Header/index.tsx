@@ -146,13 +146,8 @@ function Header() {
               ，如果点亮了无法实现记得及时放弃实现。由对方确认实现了愿望才能接着点亮下一个哦。
             </div>
             <ButtonS
+              id="btnRuleShow"
               onClick={handleShow}
-              style={{
-                background: "#FF7A59",
-                color: "#FFFFFF",
-                width: "6em",
-                marginTop: "1em",
-              }}
             >
               我知道了
             </ButtonS>
@@ -167,7 +162,7 @@ function Header() {
   return (
     <div className="header">
       <div className="comp-header">
-        <div className="rule-button" style={{ display: location.pathname.match(/login/) ? "none" : "flex" }} onClick={handleShow}><img src={rulebutton} alt="rulebutton"/></div>
+        <div className="rule-button" style={{ display: location.pathname.match(/login/) ? "none" : "flex" }} onClick={handleShow}><img src={rulebutton} alt="rulebutton" /></div>
         <img className="logo" src={logo} alt="logo" />
         {getAlert()}
         <div

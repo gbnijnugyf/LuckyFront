@@ -2,11 +2,12 @@
 
 .send {
   margin: ($LogoHeight - 9rem) 10vw 0vh;
-  padding-top: 14rem;
+  height: 60vh;
+  // padding-top: 14rem;
   display: flex;
   flex-direction: column;
   background-image: url("../../static/images/postBG.png");
-  background-size: cover;
+  background-size: 100%;
   transform: scale(110%);
 
   .tagmask {
@@ -43,6 +44,66 @@
         background-position: center;
         transform: scale(120%);
         padding: 0.7em 0;
+      }
+    }
+
+  }
+
+  .sendbc {
+    position: relative;
+    top: 11%;
+    // width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 4%;
+
+    .notes {
+      border: 0;
+      border-radius: 0.4em;
+      line-height: 30px;
+      font-family: TsangerShuYuanTW02;
+      width: 69%;
+      height: 12em;
+      resize: none;
+      color: #577dab;
+      padding: 1vh;
+      font-size: medium;
+      margin-left: 1vw;
+      margin-top: 0.8em;
+    }
+
+    :focus {
+      // outline: none;
+    }
+
+    ::placeholder {
+      color: #577dab;
+    }
+
+    .send-msg {
+      display: flex;
+      flex-direction: column;
+      margin-top: 3vh;
+
+      // div{
+      //   display: flex;
+      //   flex-direction: row;
+      // }
+      .name {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .number {
+        display: flex;
+        flex-direction: column;
+        .number1{
+          display: flex;
+          flex: row;
+          height: 4vh;
+        }
       }
     }
 

@@ -36,7 +36,7 @@
     padding: 0.4em 0.7em;
     font-size: medium;
     font-weight: 600;
-    z-Index: 999;
+    z-Index: 99;
     margin-left: 55%;
 
     &::before {
@@ -81,6 +81,19 @@
     width: 6em;
     margin-left: 1em;
     width: 6em;
+  }
+
+  &#btnRuleShow{
+    background-image: url("../../static/images/btnWhite.png");
+    margin-top: 1em;
+    padding: 0.5em 1em 0.5em;
+  }
+
+  &#btnSelectTag{
+    margin-left: 2em;
+    color: #577DAB;
+    font-size: larger;
+    font-weight: 700;
   }
 
   img {
