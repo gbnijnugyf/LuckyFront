@@ -48,25 +48,34 @@
 
     .confirmPanel {
       display: flex;
-      margin-top: 1vh;
+      flex-direction: row;
+      margin: 1vh 8vw 2vh;
+
+
       div {
+        // border: 1px solid black;
         padding: 0.5em 0;
         width: 50%;
         text-align: center;
       }
 
       .confirmFalse {
-        border-right: 1px solid white;
-        border-top-left-radius: 20%;
-        border-top: 0.5px solid white;
-        // background-color: white;
-
+        margin-left: 6vw;
+        width: 4em;
+        background-image: url("../../static/images/btnOrange.png");
+        background-size: cover;
+        border-radius: 0.7em;
+        color: white;
+        font-weight: 800;
       }
 
       .confirmTrue {
-        // background-color: #ff7a59;
-        border-top: 0.5px solid white;
-        border-top-right-radius: 15%;
+        margin-left: 10vw;
+        width: 4em;
+        background-image: url("../../static/images/btnWhite.png");
+        background-size: cover;
+        border-radius: 0.7em;
+        font-weight: 800;
       }
     }
   }

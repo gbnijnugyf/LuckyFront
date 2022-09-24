@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { IWishInfo, Service } from "../../common/service";
 import { useEffect, useState } from "react";
 import ItemClip from "../../static/images/ItemClip.png"
+import ItemMedal from "../../static/images/ItemMedal.png"
 import classNames from "classnames";
 const INITNUM: number = -2;
 
@@ -164,7 +165,7 @@ function WishItem(props: IWishItemProps) {
         <p className="text-wishtime">{time}</p>
       </div>
       </div>
-      <img src={ItemClip} alt="clip"/>
+      <img id="itemSign" src={wish.state === 2?ItemMedal :ItemClip} alt="clip"/>
 
     </li>
   );

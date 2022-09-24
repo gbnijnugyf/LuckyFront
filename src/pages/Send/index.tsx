@@ -72,7 +72,7 @@ export default function Send() {
     } else {
       let QQ = selectValue === "QQ" ? numberValue : "";
       let wechat = selectValue === "WeChat" ? numberValue : "";
-      Service.getManInfo("-1").then((res)=>{
+      Service.getManInfo("-1").then((res) => {
         setSchool(res.data.data.school)
       })
       Service.postWish(
@@ -101,96 +101,99 @@ export default function Send() {
     setShowTag(true);
   };
   return (
-    <div className="send">
-      <div className="mask" style={{ display: showTag ? "flex" : "none" }}>
-        <div className="tags">
-          {tags.map((tag, index) => {
-            return (
-              <div
-                onClick={() => changeTagName(tag.name, index + 1)}
-                className="tag"
-                key={tag.name}
-              >
-                <p>{tag.name}</p>
-              </div>
-            );
-          })}
+    <>
+      <ButtonS
+        onClick={goSelectTag}
+        style={{
+          // background: "white",
+          fontFamily: "MicrosoftJhengHeiUIRegular, Microsoft JhengHei UI",
+          color: "#f25125",
+          alignSelf: "flex-end",
+          // margin: "2em 2em 0 0",
+          fontSize: "medium",
+        }}
+      >
+        {"# " + tagName}
+      </ButtonS>
+      <div className="send">
+        <div className="tagmask" style={{ display: showTag ? "flex" : "none" }}>
+          <div className="tags">
+            {tags.map((tag, index) => {
+              return (
+                <div
+                  onClick={() => changeTagName(tag.name, index + 1)}
+                  className="tag"
+                  key={tag.name}
+                >
+                  <p>{tag.name}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div className="sendbc">
-        <img
+        <div className="sendbc">
+          {/* <img
           className="ink"
           style={{ display: isInk ? "block" : "none" }}
           src={ink}
           alt=""
-        />
-        <ButtonS
-          onClick={goSelectTag}
-          style={{
-            background: "white",
-            fontFamily: "MicrosoftJhengHeiUIRegular, Microsoft JhengHei UI",
-            color: "#f25125",
-            alignSelf: "flex-end",
-            margin: "2em 2em 0 0",
-            fontSize: "medium",
-          }}
-        >
-          {"# " + tagName}
-        </ButtonS>
-        <textarea
-          onBlur={handleShowInk}
-          onFocus={handleNoneInk}
-          className="notes"
-          placeholder={
-            "把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~"
-          }
-          value={wishContent}
-          onChange={handleWishContent}
-        ></textarea>
-        <div className="send-msg">
-          <div className="name">
-            <p>投递人：</p>
-            <input
-              type="text"
-              placeholder="必填内容哦～"
-              value={nameValue}
-              onChange={handleNameValue}
-            />
+        /> */}
+
+          <textarea
+            onBlur={handleShowInk}
+            onFocus={handleNoneInk}
+            className="notes"
+            placeholder={
+              "把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~"
+            }
+            value={wishContent}
+            onChange={handleWishContent}
+          ></textarea>
+          <div className="send-msg">
+            <div className="name">
+              <p>投递人：</p>
+              <input
+                type="text"
+                placeholder="必填内容哦～"
+                value={nameValue}
+                onChange={handleNameValue}
+              />
+            </div>
+            <div className="number">
+              <p>联系方式：</p>
+              <select value={selectValue} onChange={handleSelectValue}>
+                <option value="QQ">QQ</option>
+                <option value="WeChat">微信</option>
+              </select>
+              <input
+                type="text"
+                id="connect"
+                placeholder="必填内容哦～"
+                value={numberValue}
+                onChange={handleNumberValue}
+              />
+              <br />
+              <p>或 Tel：</p>
+              <input
+                type="text"
+                id="tel"
+                placeholder="选填内容哦～"
+                value={tel}
+                onChange={handleTelValue}
+                style={{ marginLeft: "2em" }}
+              />
+            </div>
           </div>
-          <div className="number">
-            <p>联系方式：</p>
-            <select value={selectValue} onChange={handleSelectValue}>
-              <option value="QQ">QQ</option>
-              <option value="WeChat">微信</option>
-            </select>
-            <input
-              type="text"
-              id="connect"
-              placeholder="必填内容哦～"
-              value={numberValue}
-              onChange={handleNumberValue}
-            />
-            <br />
-            <p>或 Tel：</p>
-            <input
-              type="text"
-              id="tel"
-              placeholder="选填内容哦～"
-              value={tel}
-              onChange={handleTelValue}
-              style={{ marginLeft: "2em" }}
-            />
-          </div>
+          <h6>填写电话可以确保第一时间知道你的愿望状态哦~</h6>
+          <ButtonS
+            onClick={goSubmit}
+            style={{ background: "white", color: "#f25125", margin: "0.5em 0" }}
+          >
+            <img src={paperplane} alt="" style={{ paddingBottom: "0.2em" }} />{" "}
+            完成
+          </ButtonS>
         </div>
-        <h6>填写电话可以确保第一时间知道你的愿望状态哦~</h6>
-        <ButtonS
-          onClick={goSubmit}
-          style={{ background: "white", color: "#f25125", margin: "0.5em 0" }}
-        >
-          <img src={paperplane} alt="" style={{ paddingBottom: "0.2em" }} />{" "}
-          完成
-        </ButtonS>
       </div>
-    </div>
+    </>
   );
 }

@@ -133,7 +133,6 @@ b {
     justify-content: space-between;
     align-items: center;
     margin-top: 0.5em;
-    margin-bottom: 1em;
 
     .text-wishtime {
       color: #577DAB;
@@ -142,6 +141,10 @@ b {
       position: relative;
       text-align: end;
     }
+  }
+
+  #itemSign{
+    margin-top: 2vh;
   }
 
 }
