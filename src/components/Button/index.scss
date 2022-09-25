@@ -107,6 +107,18 @@
     margin-top: 31.5em
   }
 
+  &#sideAlert{
+    background-image: url("../../static/images/alertSideBG.png");
+    opacity: 0.5;
+    background-size: cover;
+    border-radius: 1em;
+    position: fixed;
+    color: white;
+    top: 65vh;
+    left: -1em;
+    z-Index: 301;
+  }
+
   img {
     margin-right: 0.3em;
     height: 1em;

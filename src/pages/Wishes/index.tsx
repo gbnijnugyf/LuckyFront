@@ -299,9 +299,12 @@ export default function Wishes() {
         }}
       >
         {light ? (
-          <div className="input-msg">
+          <>
             <p className="info">填写联系方式，方便他来联系你哦～</p>
+
+          <div className="input-msg">
             <div className="form">
+
               <div className="name">
                 点亮人 :
                 <input
@@ -341,6 +344,7 @@ export default function Wishes() {
               </div>
             </div>
           </div>
+          </>
         ) : (
           <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗</p>
         )}
@@ -397,13 +401,8 @@ export default function Wishes() {
         />
       </div>
       <ButtonS
+      id="sideAlert"
         style={{
-          position: "fixed",
-          background: "#F59D65A0",
-          color: "#FFFFFFA0",
-          top: "65vh",
-          right: "-1em",
-          zIndex: "301",
           display: showTip ? "absolute" : "none",
         }}
       >

@@ -7,7 +7,7 @@ export function Notfound() {
 
   setTimeout(() => {
     navigate("/detail/list");
-  }, 5000)
+  }, 3000)
 
 
 
