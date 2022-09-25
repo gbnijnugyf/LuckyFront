@@ -4,7 +4,7 @@ import "./index.scss";
 import rulebutton from "../../static/images/rulebutton.png";
 // import backbutton from "../../static/images/backbutton.svg";
 import logo from "../../static/images/logo.png";
-import arrowimg from "../../static/images/arrow.svg";
+import arrowRight from "../../static/images/arrowRight.png";
 import { useLocation } from "react-router-dom";
 
 // interface ITitleList {
@@ -78,14 +78,25 @@ function Header() {
   }, [key]);
 
   const getAlert = () => {
-    if (key === "wishpool") {
+    if (key === "tagscreen") {
       return (
         <div
           className="rule-alert-2"
           onClick={handleShow}
           style={{ display: isShow ? "block" : "none" }}
         >
-          <p className="tipalert" style={{ top: "13vh", right: "20vw" }}>
+          <div className="rule-content">
+            <div className="toRuleBtn">
+              在这里查看详细规则&nbsp;&nbsp;
+              <img className="arrowRight" src={arrowRight} alt="arrow"/>
+              <div className="lightArea"></div>
+            </div>
+            <div className="toTag"></div>
+            <div className="toTagText">safasdfsda</div>
+            <div>fasdadf</div>
+            <div>fsda</div>
+          </div>
+          {/* <p className="tipalert" style={{ top: "13vh", right: "20vw" }}>
             点击这里查看规则
           </p>
           <img
@@ -111,7 +122,7 @@ function Header() {
             className="imgalert"
             style={{ top: "75vh", left: "40vw", transform: "rotate(120deg)" }}
             alt=""
-          />
+          /> */}
         </div>
       );
     } else {

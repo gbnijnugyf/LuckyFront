@@ -78,17 +78,65 @@
       top: 0;
       z-index: 100;
 
-      .tipalert {
-        position: absolute;
-        font-size: smaller;
-        border: 1px solid white;
-        border-radius: 1em;
-        padding: 0 0.5em;
+      .rule-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        .toRuleBtn {
+          height: 7vh;
+          display: flex;
+          justify-content: flex-end;
+          flex-direction: row;
+          margin-top: 6vh;
+          margin-left: 4vw;
+          color: white;
+          font-weight: 100;
+
+          .arrowRight {
+            margin-top: 1vh;
+            width: auto;
+            height: 2vh;
+          }
+
+          .lightArea {
+            margin-right: 0vw;
+            margin: 0 0 0 5vw;
+            width: 15vw;
+            height: 9vh;
+            border-radius: 0.5em;
+            background-color: rgba(255, 255, 255, 0.7);
+          }
+        }
+
+        .toTag{
+          margin-top: 26vh;
+          margin-left: -55vw;
+          width: 22vw;
+          height: 10vh;
+          border-radius: 0.5em;
+
+          background-color: rgba(255, 255, 255, 0.6);
+
+        }
+        .toTagText{
+          margin-top: 1vh;
+        }
+
       }
 
-      .imgalert {
-        position: absolute;
-      }
+      // .tipalert {
+      //   position: absolute;
+      //   font-size: smaller;
+      //   border: 1px solid white;
+      //   border-radius: 1em;
+      //   padding: 0 0.5em;
+      // }
+
+      // .imgalert {
+      //   position: absolute;
+      // }
     }
 
     .cover {
