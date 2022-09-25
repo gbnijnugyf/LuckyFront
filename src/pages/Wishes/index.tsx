@@ -1,8 +1,8 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import { ButtonS } from "../../components/Button";
-import calendar from "../../static/images/calendar.svg";
-import leaf from "../../static/images/leaf.svg";
+// import leaf from "../../static/images/leaf.svg";
+import wishItem from "../../static/images/wishItemBG.png";
 import { IWishInfoName, Service } from "../../common/service";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -59,24 +59,26 @@ const WishItem = (props: IWishItemProps) => {
       onTouchMove={props.onTouchMove}
       onTouchEnd={props.onTouchEnd}
     >
-      <img src={leaf} className="wish-img" alt="" />
+      {/* <img src={wishItem} className="wish-img" alt="" /> */}
       <div className="content">
-        <div className="content-word">{props.wish.view_desire.desire}</div>
-      </div>
-      <div className="msg">
-        <p>
-          {props.wish.view_user.school.toString() === ""
-            ? ""
-            : props.wish.view_user.school.toString() === FALSE_0.toString()
-              ? "华小师"
-              : "武小理"}
-        </p>{" "}
-        {/* props.wish.school可能未定义，对接口*/}
-        <p>
-          {props.wish.view_user.name.length > 0
-            ? props.wish.view_user.name.charAt(0) + "同学"
-            : ""}
-        </p>
+        <div className="contentText">
+          <div className="content-word">{props.wish.view_desire.desire}</div>
+          <div className="msg">
+            <p>
+              {props.wish.view_user.school.toString() === ""
+                ? ""
+                : props.wish.view_user.school.toString() === FALSE_0.toString()
+                  ? "华小师"
+                  : "武小理"}
+            </p>{" "}
+            {/* props.wish.school可能未定义，对接口*/}
+            <p>
+              {props.wish.view_user.name.length > 0
+                ? props.wish.view_user.name.charAt(0) + "同学"
+                : ""}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -346,28 +348,14 @@ export default function Wishes() {
       </ConfirmPanel>
 
       <ButtonS
-      id="btnSeeMyWish"
+        id="btnSeeMyWish"
         onClick={goMyWish}
-        // style={{
-        //   background: "#F59D65",
-        //   color: "white",
-        //   marginTop: "13em",
-        //   alignSelf: "flex-start",
-        //   padding: "0.4em 0.7em",
-        //   fontSize: "medium",
-        //   zIndex: "99",
-        // }}
       >
-        <img
-          style={{ transform: "scale(3) translate(2%, 12%)" }}
-          src={calendar}
-          alt=""
-        />
-        查看我的点亮
+        查看我的愿望与点亮
       </ButtonS>
       <div className="wishes">
         <WishItem
-          className="wish-img"
+          className="wish-img1"
           wish={wishes[0]}
           setStyleID={0}
           onTouchStart={onTouchStart}
@@ -380,7 +368,7 @@ export default function Wishes() {
           }}
         />
         <WishItem
-          className="wish-img"
+          className="wish-img2"
           wish={wishes[1]}
           setStyleID={1}
           myStyle={{
@@ -390,7 +378,7 @@ export default function Wishes() {
           }}
         />
         <WishItem
-          className="wish-img"
+          className="wish-img3"
           wish={wishes[2]}
           setStyleID={2}
           myStyle={{
@@ -423,12 +411,9 @@ export default function Wishes() {
         左右滑查看更多许愿哦~
       </ButtonS>
       <ButtonS
+        id="btnLight"
         onClick={showConfirm}
         style={{
-          background: "white",
-          color: "#F59D65",
-          marginTop: "22.5em",
-          zIndex: "999",
           display: lightBtn ? "relative" : "none",
         }}
       >

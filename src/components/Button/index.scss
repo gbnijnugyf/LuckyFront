@@ -1,7 +1,7 @@
 * {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: auto;
 }
 
 .button-large {
@@ -37,7 +37,7 @@
     font-size: medium;
     font-weight: 600;
     z-Index: 99;
-    margin-left: 55%;
+    margin-left: 50%;
 
     &::before {
       content: url("../../static/images/noteBook.png");
@@ -99,6 +99,12 @@
   &#btnSend{
     margin-top: 2vh;
     transform: scale(250%);
+  }
+
+  &#btnLight{
+    background-image: url("../../static/images/btnLightGreen.png");
+    color: #577DAB;
+    margin-top: 31.5em
   }
 
   img {

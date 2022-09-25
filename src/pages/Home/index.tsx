@@ -35,7 +35,7 @@ export default function Home() {
         id="btnSeeMyWish"
         onClick={() => navigate("/detail/list")}
       >
-        查看我的点亮
+        查看我的愿望与点亮
       </ButtonS>
       <div className="tags">
         {tags.map((tag) => {
