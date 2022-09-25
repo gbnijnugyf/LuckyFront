@@ -2,7 +2,6 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import { ButtonS } from "../../components/Button";
 // import leaf from "../../static/images/leaf.svg";
-import wishItem from "../../static/images/wishItemBG.png";
 import { IWishInfoName, Service } from "../../common/service";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
