@@ -362,6 +362,7 @@ export default function Wishes() {
         查看我的愿望与点亮
       </ButtonS>
       <div className="wishes">
+        {/* TODO：愿望前后页斜着错开堆叠 */}
         <WishItem
           className="wish-img1"
           wish={wishes[0]}

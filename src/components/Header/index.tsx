@@ -16,7 +16,7 @@ function Header() {
   const handleShow = () => {
     setIsShow(!isShow);
   };
-  
+
   useEffect(() => {
     setKey(location.pathname.split("/")[1]);
   }, [location.pathname]);
@@ -50,7 +50,7 @@ function Header() {
           <div className="rule-content">
             <div className="toRuleBtn">
               在这里查看详细规则&nbsp;&nbsp;
-              <img className="arrowRight" src={arrowRight} alt="arrow"/>
+              <img className="arrowRight" src={arrowRight} alt="arrow" />
               <div className="lightArea"></div>
             </div>
             <div className="toTag"></div>
@@ -108,7 +108,13 @@ function Header() {
   return (
     <div className="header">
       <div className="comp-header">
-        <div className="rule-button" style={{ display: location.pathname.match(/login/) ? "none" : "flex" }} onClick={handleShow}><img src={rulebutton} alt="rulebutton" /></div>
+        <div className="rule-button"
+          style={{ display: location.pathname.match(/login/) ? "none" : "flex" }}
+          onClick={handleShow}>
+          {/* TODO：图片下附“规则”二字 */}
+          <img src={rulebutton} alt="rulebutton" />
+        </div>
+        {/* TODO：logo居中问题 */}
         <img className="logo" src={logo} alt="logo" />
         {getAlert()}
         <div

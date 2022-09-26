@@ -27,7 +27,6 @@ label {
     display        : flex;
     flex-direction : column;
     justify-content: center;
-    // align-items    : center;
 
     Button .button-large{
         display: flex;
@@ -72,7 +71,6 @@ label {
         border       : 0.1px;
     }
     #checked{
-        // align-items: center;
         opacity: 0.8;
         font-size: smaller;
         overflow: auto;
@@ -88,7 +86,6 @@ label {
         margin-top   : 20%;
         margin-bottom: 5%;
         font-family  : TsangerXWZ;
-        // color        : #577DAB;
         font-size    : 50px;
         text-shadow  : 0px 3px 5px#888888;
     }
