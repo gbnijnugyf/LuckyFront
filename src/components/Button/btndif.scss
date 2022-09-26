@@ -1,0 +1,105 @@
+.button-small {
+    font-family: TsangerShuYuanTW02;
+    text-align: center;
+    width: fit-content;
+    border-radius: 1em;
+    font-size: medium;
+    padding: 1em 1em;
+  
+    &#btnHome {
+      background-image: url("../../static/images/btnTag.png");
+      background-size: 100%;
+      border-radius: 0;
+      padding: 0.6em 1em;
+      margin-top: 10%;
+    }
+  
+    &#btnSeeMyWish {
+      color: #577DAB;
+      align-self: flex-start;
+      padding: 0.4em 0.7em;
+      font-size: medium;
+      font-weight: 600;
+      z-Index: 99;
+      margin-left: 50%;
+  
+      &::before {
+        content: url("../../static/images/noteBook.png");
+      }
+    }
+  
+    &#btnDelete {
+      background-image: url("../../static/images/btnOrange.png");
+      background-size: cover;
+      padding: 1em 1em;
+      width: 7em;
+      font-weight: 700;
+      font-family: Tensentype-MaiHeiJ;
+      color: aliceblue;
+    }
+  
+    &#Achieved {
+      background-image: url("../../static/images/btnGrey.png");
+      background-size: cover;
+      color: #FFFFFF;
+      width: 6em;
+      margin-left: 3em;
+    }
+    &#Achieved2 {
+      background-image: url("../../static/images/btnGrey.png");
+      background-size: cover;
+      color: #FFFFFF;
+      width: 6em;
+    }
+    
+    &#toAchieve {
+      background-image: url("../../static/images/btnGreen2.png");
+      color: #577DAB;
+      width: 6em;
+      margin-left: 3em;
+    }
+  
+    &#Abandon-Delete {
+      background-image: url("../../static/images/btnOrange.png");
+      color: white;
+      width: 6em;
+      margin-left: 1em;
+      width: 6em;
+    }
+  
+    &#btnRuleShow{
+      background-image: url("../../static/images/btnWhite.png");
+      margin-top: 1em;
+      padding: 0.5em 1em 0.5em;
+    }
+  
+    &#btnSelectTag{
+      margin-left: 2em;
+      color: #577DAB;
+      font-size: larger;
+      font-weight: 700;
+    }
+  
+    &#btnSend{
+      margin-top: 2vh;
+      transform: scale(250%);
+    }
+  
+    &#btnLight{
+      background-image: url("../../static/images/btnLightGreen.png");
+      color: #577DAB;
+      margin-top: 31.5em
+    }
+  
+    &#sideAlert{
+      background-image: url("../../static/images/alertSideBG.png");
+      opacity: 0.5;
+      background-size: cover;
+      border-radius: 1em;
+      position: fixed;
+      color: white;
+      top: 65vh;
+      left: -1em;
+      z-Index: 301;
+    }
+}

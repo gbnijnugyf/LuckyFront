@@ -90,7 +90,7 @@ export function BindEmail() {
           ></input>
         </li>
         <ButtonL onClick={goBind} >
-          {"完成"}
+          完成
         </ButtonL>
       </div>
 

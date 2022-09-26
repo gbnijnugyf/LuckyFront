@@ -28,7 +28,7 @@ export default function WishDetail(props: IWishDetail) {
   const wish = props.wish;
   const isMine = props.isMine;
 
-  const getForward = () => {
+  const GetForward = () => {
     if (wish.state === 0 && isMine) {
       return (
         <div className="forward">
@@ -40,6 +40,7 @@ export default function WishDetail(props: IWishDetail) {
         </div>
       );
     }
+    return null;
   };
   const showForward = () => {
     setConfirmContent(
@@ -81,7 +82,7 @@ export default function WishDetail(props: IWishDetail) {
       >
         {confirmContent}
       </ConfirmPanel>
-      {getForward()}
+      <GetForward/>
       <div className="content">
         <div className="text">
           <div className="text-content">{props.wish.desire}</div>

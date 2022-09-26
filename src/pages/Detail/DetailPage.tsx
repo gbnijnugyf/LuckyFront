@@ -190,19 +190,6 @@ export default function DetailPage(props: IDetailPageProps) {
     });
   }
 
-
-  // wish.state
-  // 0: 未实现、未点亮
-  // 1: 已点亮
-  // 2: 已实现
-
-  // 据条件（wish.state / props.isMine / achieved）返回jsx.element
-  // 别人点亮并实现我的√ 未渲染               state==2 && isMine==true && achieved==true
-  // 我点亮并实现别人的√√                     state==2 && isMine==false && achieved==true
-  // 别人点亮但未实现我的√√ mock很难实现       state==1 && isMine==true && achieved==false
-  // 我点亮但未实现别人的√√                   state==1 && isMine==false && achieved==false
-  // 别人未点亮我√√  mock很难实现               state==0 && isMine==true && achieved==false
-
   if (props.wish.state === 1 || props.wish.state === 2) {
 
     let isMine = props.isMine;//方便修改值to mock

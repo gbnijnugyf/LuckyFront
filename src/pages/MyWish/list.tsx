@@ -68,17 +68,6 @@ export function MyWishList() {
     }
   }, [gotLight, gotPost, wishLight, wishPost, navigate]);
 
-  //以上为index导入--to合并两个文件
-
-
-  // const navigate = useNavigate();
-
-
-  // const wishPost = wishState.wishPost;
-  // const wishLight = wishState.wishLight;
-
-
-
   const goWishDetail = (id: string) => {
     navigate("/detail/" + id);
   };

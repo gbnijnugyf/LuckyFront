@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import "./index.scss";
+import "./btndif.scss"
 
 interface IBtnL {
   onClick?: React.MouseEventHandler<HTMLDivElement>;

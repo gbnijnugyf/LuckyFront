@@ -29,11 +29,16 @@ export enum School {
   武理,
   华师,
 }
+export enum Status{
+  codeExpires = -2,
+  codeError = -1,
+  codeSuccess = 0,
+}
 
 interface IGlobalResponse<T> {
   data: T;
   msg: string;
-  status: number;
+  status: Status;
 }
 
 //对应后端新接口

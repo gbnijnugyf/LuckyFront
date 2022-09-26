@@ -35,9 +35,9 @@ function Router() {
 
   return (
     <>
-      {/* todo fixthis */}
+      {/* TODO fixthis */}
     <div className="bg">
-      {/* {location.pathname.match(/login/) ? null : <Header></Header>} */}
+    
       <Header></Header>
       {/* TODO:content增加定高，定高待计算 */}
       <div className="content">
@@ -62,7 +62,6 @@ function Router() {
           </Route>
           {/* 愿望与点亮详情页面 */}
           <Route path="detail/*">
-            {/* <Route path="index" element={<Index />} /> */}
             <Route path="empty" element={<Empty />} />
             <Route path="list" element={<MyWishList />} />
             <Route path="notfound" element={<Notfound />} />

@@ -53,6 +53,7 @@
         box-sizing: border-box;
         width: 80vw;
         background-image: url("../../static/images/ruleBG.png");
+        background-size: cover;
         border-radius: 3vh;
         font-family: TsangerShuYuanTW02;
         color: #577dab;
@@ -125,18 +126,6 @@
         }
 
       }
-
-      // .tipalert {
-      //   position: absolute;
-      //   font-size: smaller;
-      //   border: 1px solid white;
-      //   border-radius: 1em;
-      //   padding: 0 0.5em;
-      // }
-
-      // .imgalert {
-      //   position: absolute;
-      // }
     }
 
     .cover {

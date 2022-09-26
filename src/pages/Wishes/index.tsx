@@ -49,31 +49,36 @@ export interface IWishItemProps {
 }
 
 const WishItem = (props: IWishItemProps) => {
+  const {
+    wish,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+    myStyle
+  } = props;
   return (
     <div
-      key={props.wish?.view_user.name}
+      key={wish?.view_user.name}
       className="wish-item"
-      style={toStyle(props.myStyle)}
-      onTouchStart={props.onTouchStart}
-      onTouchMove={props.onTouchMove}
-      onTouchEnd={props.onTouchEnd}
+      style={toStyle(myStyle)}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
-      {/* <img src={wishItem} className="wish-img" alt="" /> */}
       <div className="content">
         <div className="contentText">
-          <div className="content-word">{props.wish.view_desire.desire}</div>
+          <div className="content-word">{wish.view_desire.desire}</div>
           <div className="msg">
             <p>
-              {props.wish.view_user.school.toString() === ""
+              {wish.view_user.school.toString() === ""
                 ? ""
-                : props.wish.view_user.school.toString() === FALSE_0.toString()
+                : wish.view_user.school.toString() === FALSE_0.toString()
                   ? "华小师"
                   : "武小理"}
             </p>{" "}
-            {/* props.wish.school可能未定义，对接口*/}
             <p>
-              {props.wish.view_user.name.length > 0
-                ? props.wish.view_user.name.charAt(0) + "同学"
+              {wish.view_user.name.length > 0
+                ? wish.view_user.name.charAt(0) + "同学"
                 : ""}
             </p>
           </div>
@@ -302,48 +307,48 @@ export default function Wishes() {
           <>
             <p className="info">填写联系方式，方便他来联系你哦～</p>
 
-          <div className="input-msg">
-            <div className="form">
+            <div className="input-msg">
+              <div className="form">
 
-              <div className="name">
-                点亮人 :
-                <input
-                  type="text"
-                  placeholder="必填内容哦～"
-                  onChange={handleName}
-                  defaultValue={name}
-                  style={{ marginLeft: "2em" }}
-                />
-              </div>
-              <div className="number">
-                联系方式 :
-                <select
-                  onChange={handleOption}
-                  style={{ color: "rgb(239, 96, 63)" }}
-                >
-                  <option value="QQ">QQ</option>
-                  <option value="WeChat">微信</option>
-                </select>
-                <input
-                  type="text"
-                  placeholder="必填内容"
-                  onChange={handleNumber}
-                  defaultValue={number}
-                  style={{ marginLeft: ".3em", width: "32%" }}
-                />
-              </div>
-              <div className="tel">
-                或 Tel :
-                <input
-                  type="text"
-                  placeholder="必填内容"
-                  onChange={handleTel}
-                  defaultValue={tel}
-                  style={{ marginLeft: "2.3em" }}
-                />
+                <div className="name">
+                  点亮人 :
+                  <input
+                    type="text"
+                    placeholder="必填内容哦～"
+                    onChange={handleName}
+                    defaultValue={name}
+                    style={{ marginLeft: "2em" }}
+                  />
+                </div>
+                <div className="number">
+                  联系方式 :
+                  <select
+                    onChange={handleOption}
+                    style={{ color: "rgb(239, 96, 63)" }}
+                  >
+                    <option value="QQ">QQ</option>
+                    <option value="WeChat">微信</option>
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="必填内容"
+                    onChange={handleNumber}
+                    defaultValue={number}
+                    style={{ marginLeft: ".3em", width: "32%" }}
+                  />
+                </div>
+                <div className="tel">
+                  或 Tel :
+                  <input
+                    type="text"
+                    placeholder="必填内容"
+                    onChange={handleTel}
+                    defaultValue={tel}
+                    style={{ marginLeft: "2.3em" }}
+                  />
+                </div>
               </div>
             </div>
-          </div>
           </>
         ) : (
           <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗</p>
@@ -401,7 +406,7 @@ export default function Wishes() {
         />
       </div>
       <ButtonS
-      id="sideAlert"
+        id="sideAlert"
         style={{
           display: showTip ? "absolute" : "none",
         }}

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 export interface ILoginPannel {
-    text: "我是武小理"|"我是华小师"|"邮箱绑定",
+    text: "我是武小理" | "我是华小师" | "邮箱绑定",
     children: ReactNode
 }
 
@@ -39,7 +39,8 @@ export function LoginWhut() {
             alert("请输入密码")
         } else {
             Service.whutLogin().then(res => {
-                res.status = 0; //鉴权测试
+                //TODO：鉴权测试,测试结束需删除
+                res.status = 0; 
                 if (res.status === 0) {
                     localStorage.setItem('token', res.data.data)
                     navigate('/tagscreen/home');
@@ -65,7 +66,7 @@ export function LoginWhut() {
                     请使用掌上吾理账号登录，<br />还没有？
                 </GoRegister>
                 <ButtonL onClick={goVerify} >
-                    {"确定"}
+                    确定
                 </ButtonL>
             </div>
 
