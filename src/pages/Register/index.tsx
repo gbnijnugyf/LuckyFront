@@ -21,7 +21,6 @@ function RegisterPannel(props: IRegisterPannel) {
     <div className="login-pannel">
       <p className="text-login-title">{props.text}</p>
       {props.children}
-      {/* <ButtonL onClick={props.onClick}>{props.btnText}</ButtonL> */}
     </div>
   );
 }
@@ -58,7 +57,7 @@ export function Register() {
     }
     Service.whutCheckEmail(email).then((res) => {
       const resData = res.data;
-      if (resData.status === 1) {
+      if (resData.status === 0) {
         //返回验证码成功
         {
           let time = 60;
@@ -130,7 +129,6 @@ export function Register() {
               value={whutCheckEmail}
               onChange={handleWhutCheckEmail}
             ></input>
-            {/* <button className="checkbtn">获取验证码</button> */}
             <button id={btnId} onClick={() => goGetEVV(whutEmail)}>
               {btnText}
             </button>

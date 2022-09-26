@@ -151,7 +151,6 @@ export default function Send() {
                   />
 
                 </div>
-                {/* <br /> */}
                 <div className="number2">
                   <p>或 Tel：</p>
                   <input
@@ -169,10 +168,9 @@ export default function Send() {
               <ButtonS
                 id="btnSend"
                 onClick={goSubmit}
-              // style={{ background: "white", color: "#f25125", margin: "0.5em 0" }}
               >
                 <img src={btnSend} alt="send" />
-                {/* <img src={paperplane} alt="" style={{ paddingBottom: "0.2em" }} />{" "} */}
+              
               </ButtonS>
             </div>
           </div>
