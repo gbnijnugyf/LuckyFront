@@ -1,6 +1,12 @@
 @import "config/globalCssVar.scss";
 
 @font-face {
+  font-family: "Tensentype-MaiHeiJ";
+  src: url("../src/static/font/Tensentype-MaiHeiJ.TTF");
+}
+
+
+@font-face {
   font-family: "TsangerShuYuanTW02";
   src: url("https://ryzenx.oss-accelerate.aliyuncs.com/font/TsangerShuYuanTW02.TTF");
 }
