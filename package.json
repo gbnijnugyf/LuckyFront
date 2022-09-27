@@ -30,13 +30,12 @@
     "web-vitals": "^3.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "dotenv -v REACT_APP_ENV=development react-scripts start",
     "start:prod": "dotenv -v REACT_APP_ENV=production react-scripts start",
-    "build": "react-scripts build",
+    "build": "dotenv -v REACT_APP_ENV=production react-scripts build",
     "build:dev": "dotenv -v REACT_APP_ENV=development react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "testc": "dotenv -h"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
