@@ -174,7 +174,7 @@ export default function Wishes() {
     setInterval(() => {
       setShowTip(false);
     }, 5000);
-  });
+  }, []);
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
