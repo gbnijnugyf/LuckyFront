@@ -1,10 +1,12 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import { ButtonS } from "../../components/Button";
-// import leaf from "../../static/images/leaf.svg";
-import { IWishInfoName, Service } from "../../common/service";
+import calendar from "../../static/images/calendar.svg";
+import leaf from "../../static/images/leaf.svg";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IWishInfoName, WishState } from "../../common/global";
+import { Service } from "../../common/service";
 
 const FALSE_0: number = 0;
 // const SCHOOLINIT: 0 | 1 | 2 = 0;
@@ -111,7 +113,7 @@ export default function Wishes() {
       lighted_at: "",
       created_at: "",
       finished_at: "",
-      state: -1,
+      state: WishState.初始化,
       type: 0,
       light_id: -1,
       user_id: -1,
@@ -130,14 +132,14 @@ export default function Wishes() {
   const [startX, setStartX] = useState(STARTINIT); // 树叶动画相关状态
   const [update, setUpDate] = useState(false); // 控制动画以及愿望内容的更新
   const [display, setDisplay] = useState(false); // 弹出确认框
-  const [light, setLight] = useState(false);//显示light点亮前panel
+  const [light, setLight] = useState(false); //显示light点亮前panel
   const [lightBtn, setLightBtn] = useState(true); // 点亮按钮是否存在
   const [wishes, setWishes] = useState<Array<IWishInfoName>>(WISHES_INIT);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [tel, setTel] = useState("");
   const [option, setOption] = useState("QQ");
-  const [geted, setGeted] = useState<boolean>(true)
+  const [geted, setGeted] = useState<boolean>(true);
   const refreshWishes = () => {
     Service.getWishByCategories(category).then((res) => {
       let wishes = res.data.data;
@@ -264,16 +266,28 @@ export default function Wishes() {
   const handleLight = () => {
     setLight(true);
   };
-  const showConfirm = () => {
-    setDisplay(true);
+  const showConfirm = async () => {
+    await Service.getLightedWishInfo().then((res) => {
+      if (res.data.data.length < 5) {
+        setDisplay(true);
+        return;
+      } else {
+        res.data.data.forEach((wish) => {
+          if (wish.state === 2) {
+            setDisplay(true);
+          }
+        });
+        if (display) return;
+        else alert("你有5个点亮还未实现哦~先完成一个吧");
+      }
+    });
   };
 
-
   const getUserPre = function () {
-    if (!geted) return
+    if (!geted) return;
 
     //先获取用户已存在信息
-    Service.getManInfo("-1").then((res) => {
+    Service.getManInfo().then((res) => {
       let manInfo = res.data.data;
       if (manInfo.name !== "") {
         setName(manInfo.name);
@@ -291,8 +305,8 @@ export default function Wishes() {
         setTel(manInfo.tel);
       }
     });
-    setGeted(false)
-  }
+    setGeted(false);
+  };
 
   return (
     <div className="wishpage">

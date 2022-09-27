@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { School, Service, wishType } from "../../common/service";
+import { Service } from "../../common/service";
 import { tags } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
 import btnSend from "../../static/images/btnSend.png";
@@ -8,6 +8,7 @@ import "./index.scss";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
 import selectTag from "../../static/images/selectTag.png";
+import { School, wishType } from "../../common/global";
 const CATEGORYINIT = wishType.null;
 
 export default function Send() {
@@ -21,7 +22,6 @@ export default function Send() {
   const [tel, setTel] = useState(""); // 控制tel input
   const [selectValue, setSelectValue] = useState("QQ"); // 控制select的值
   const [category, setCategory] = useState(CATEGORYINIT); // 控制愿望分类
-
 
   // 处理填写愿望的字数限制
   const handleWishContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -63,9 +63,9 @@ export default function Send() {
     } else {
       let QQ = selectValue === "QQ" ? numberValue : "";
       let wechat = selectValue === "WeChat" ? numberValue : "";
-      Service.getManInfo("-1").then((res) => {
-        setSchool(res.data.data.school)
-      })
+      Service.getManInfo().then((res) => {
+        setSchool(res.data.data.school);
+      });
       Service.postWish(
         nameValue,
         QQ,
@@ -93,10 +93,8 @@ export default function Send() {
   };
   return (
     <>
-      <ButtonS
-        id="btnSelectTag"
-        onClick={goSelectTag}
-      ><img src={selectTag} alt="selectTag" />
+      <ButtonS id="btnSelectTag" onClick={goSelectTag}>
+        <img src={selectTag} alt="selectTag" />
         {tagName}
       </ButtonS>
       <div className="send">
@@ -149,7 +147,6 @@ export default function Send() {
                     value={numberValue}
                     onChange={handleNumberValue}
                   />
-
                 </div>
                 <div className="number2">
                   <p>或 Tel：</p>
@@ -165,16 +162,11 @@ export default function Send() {
               </div>
             </div>
             <div className="sendBtn">
-              <ButtonS
-                id="btnSend"
-                onClick={goSubmit}
-              >
+              <ButtonS id="btnSend" onClick={goSubmit}>
                 <img src={btnSend} alt="send" />
-              
               </ButtonS>
             </div>
           </div>
-
         </div>
       </div>
     </>

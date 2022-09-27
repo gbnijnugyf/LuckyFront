@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { formatTime } from "../../common/global";
-import { IWishInfo, Service } from "../../common/service";
+import { formatTime, IWishInfo } from "../../common/global";
+import { Service } from "../../common/service";
 
 interface IPersonMsg {
   wish: IWishInfo;
@@ -17,7 +17,7 @@ export default function PersonMsg(props: IPersonMsg) {
 
   useEffect(() => {
     if (isMine) {
-      Service.getManInfo(wish.desire_id.toString()).then((res) => {
+      Service.getManInfo(wish.desire_id).then((res) => {
         let lightManInfo = res.data.data;
         setName(lightManInfo.name || "");
         setTime("于" + formatTime(wish.lighted_at) + "点亮");
@@ -26,7 +26,7 @@ export default function PersonMsg(props: IPersonMsg) {
         setTel(lightManInfo.tel || "");
       });
     } else {
-      Service.getManInfo(wish.light_id.toString()).then((res) => {
+      Service.getManInfo(wish.light_id).then((res) => {
         let wishManInfo = res.data.data;
         setName(wishManInfo?.name || "");
         setTime("于" + formatTime(wish.created_at) + "许愿");

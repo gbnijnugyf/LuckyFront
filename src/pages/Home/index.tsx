@@ -5,13 +5,14 @@ import { tags } from "../../config/Global";
 import "./index.scss";
 import { Service } from "../../common/service";
 import { useNavigate } from "react-router-dom";
+import { ResStatus } from "../../common/global";
 
 export default function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
     Service.checkUserEmail().then((res) => {
-      if (res.status === -1) {
+      if (res.status === ResStatus.Error) {
         navigate("/login/bindemail");
       }
     });
@@ -21,7 +22,6 @@ export default function Home() {
     navigate(`/wishpool/wish/${tag.enName}`, {
       state: { category: tag.category },
     });
-
   };
 
   const goSend = () => {

@@ -1,12 +1,12 @@
 import "./index.scss";
 import { ButtonS } from "../../components/Button";
-import { formatTime } from "../../common/global";
+import { formatTime, IWishInfo, WishState } from "../../common/global";
 import { useNavigate } from "react-router-dom";
-import { IWishInfo, Service } from "../../common/service";
 import { useEffect, useState } from "react";
-import ItemClip from "../../static/images/ItemClip.png"
-import ItemMedal from "../../static/images/ItemMedal.png"
+import ItemClip from "../../static/images/ItemClip.png";
+import ItemMedal from "../../static/images/ItemMedal.png";
 import classNames from "classnames";
+import { Service } from "../../common/service";
 const INITNUM: number = -2;
 
 export interface IWishState {
@@ -15,17 +15,16 @@ export interface IWishState {
 }
 
 export function MyWishList() {
-
   let WISHPOST_INIT: Array<IWishInfo> = [
     {
       created_at: "",
       lighted_at: "",
       finished_at: "",
-      state: -1,
+      state: WishState.初始化,
       type: 0,
       desire: "",
       desire_id: "",
-      light_id: INITNUM,//TODO 初始化number待定
+      light_id: INITNUM, //TODO 初始化number待定
       user_id: INITNUM,
     },
   ];
@@ -67,7 +66,6 @@ export function MyWishList() {
       }
     }
   }, [gotLight, gotPost, wishLight, wishPost, navigate]);
-
   const goWishDetail = (id: string) => {
     navigate("/detail/" + id);
   };
@@ -126,36 +124,48 @@ interface IWishItemProps {
   onClick: React.MouseEventHandler<HTMLLIElement> | undefined;
 }
 
-
 function WishItem(props: IWishItemProps) {
   const { wish } = props;
   const time =
-    wish.state === 1 ? formatTime(wish.lighted_at) : formatTime(wish.created_at);
-  const randomBG = [//愿望背景颜色随机
+    wish.state === WishState.已点亮
+      ? formatTime(wish.lighted_at)
+      : formatTime(wish.created_at);
+  const randomBG = [
+    //愿望背景颜色随机
     "yellow",
     "orange",
     "red",
-    "pink"
-  ]
+    "pink",
+  ];
   const random = Math.floor(Math.random() * 3);
   return (
-    <li className={classNames("item-wish", randomBG[random])} onClick={props.onClick}>
+    <li
+      className={classNames("item-wish", randomBG[random])}
+      onClick={props.onClick}
+    >
       <div className="wish-content">
-      <p className="text-detail">{wish.desire}</p>
-      <div className="status">
-        <ButtonS
-          style={{
-            color: "#577DAB",
-            fontSize: "large"
-          }}
-        >
-          {wish.state === 0 ? "未实现" : wish.state === 1 ? "已点亮" : "已实现"}
-        </ButtonS>
-        <p className="text-wishtime">{time}</p>
+        <p className="text-detail">{wish.desire}</p>
+        <div className="status">
+          <ButtonS
+            style={{
+              color: "#577DAB",
+              fontSize: "large",
+            }}
+          >
+            {wish.state === WishState.未点亮
+              ? "未实现"
+              : wish.state === WishState.已点亮
+              ? "已点亮"
+              : "已实现"}
+          </ButtonS>
+          <p className="text-wishtime">{time}</p>
+        </div>
       </div>
-      </div>
-      <img id="itemSign" src={wish.state === 2?ItemMedal :ItemClip} alt="clip"/>
-
+      <img
+        id="itemSign"
+        src={wish.state === 2 ? ItemMedal : ItemClip}
+        alt="clip"
+      />
     </li>
   );
 }

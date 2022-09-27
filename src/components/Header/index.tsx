@@ -7,7 +7,6 @@ import arrowRight from "../../static/images/arrowRight.png";
 import { useLocation } from "react-router-dom";
 
 function Header() {
-
   const location = useLocation();
   // const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false);
@@ -45,7 +44,6 @@ function Header() {
           onClick={handleShow}
           style={{ display: isShow ? "block" : "none" }}
         >
-
           {/* TODO：规则灰色遮罩 */}
           <div className="rule-content">
             <div className="toRuleBtn">
@@ -70,7 +68,7 @@ function Header() {
             className="rule-alert"
             style={{ display: isShow ? "flex" : "none" }}
           >
-            <div className="rule-text" >
+            <div className="rule-text">
               1.这次活动男生女生都可以许愿哦~<p>你一共有5次许愿的机会</p>
               ，快来遇见你的小幸运吧~
               <br />
@@ -91,10 +89,7 @@ function Header() {
               8.<p>一次只能同时点亮2个愿望</p>
               ，如果点亮了无法实现记得及时放弃实现。由对方确认实现了愿望才能接着点亮下一个哦。
             </div>
-            <ButtonS
-              id="btnRuleShow"
-              onClick={handleShow}
-            >
+            <ButtonS id="btnRuleShow" onClick={handleShow}>
               我知道了
             </ButtonS>
           </div>
@@ -108,9 +103,13 @@ function Header() {
   return (
     <div className="header">
       <div className="comp-header">
-        <div className="rule-button"
-          style={{ display: location.pathname.match(/login/) ? "none" : "flex" }}
-          onClick={handleShow}>
+        <div
+          className="rule-button"
+          style={{
+            display: location.pathname.match(/login/) ? "none" : "flex",
+          }}
+          onClick={handleShow}
+        >
           {/* TODO：图片下附“规则”二字 */}
           <img src={rulebutton} alt="rulebutton" />
         </div>
