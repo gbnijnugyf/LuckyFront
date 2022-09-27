@@ -9,6 +9,8 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
+let signature = "";//全局变量用于存放邮箱验证id
+
 export interface IRegisterPannel {
   text: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
@@ -32,7 +34,7 @@ export function Register() {
   const [btnText, setBtnText] = useState("获取验证码");
   const navigate = useNavigate();
   const [whutEmail, setWhutEmail] = useState("");
-  const [whutCheckEmail, setWhutCheckEmail] = useState<boolean>();
+  const [whutCheckEmail, setWhutCheckEmail] = useState<boolean>(false);
   const [whutInputEmail, setWhutInputEmail] = useState("");
   const [whutPwd, setWhutPwd] = useState("");
   const [whutIsPwd, setWhutIsPwd] = useState("");
@@ -61,7 +63,8 @@ export function Register() {
       const resData = res.data;
       if (resData.status === 1) {
         //返回验证码成功
-
+        setWhutCheckEmail(true);
+        signature = res.data.data.id;
         let time = 60;
         let retry = setInterval(() => {
           setBtnId("checked");
@@ -80,13 +83,6 @@ export function Register() {
   };
 
   async function goVerify() {
-    await Service.whutCheckEamil(whutInputEmail).then((res) => {
-      if (res.data.data.state) {  //等待后端修改文档
-        setWhutCheckEmail(true);
-      } else {
-        setWhutCheckEmail(false)
-      }
-    })
 
     if (whutEmail === "") {
       alert("请输入邮箱");
@@ -102,7 +98,7 @@ export function Register() {
       alert("两次密码输入不一致");
     } else {
       if (whutCheckEmail) {
-        Service.whutRegister(whutEmail, whutPwd).then((res) => {
+        await Service.whutRegister({ email:whutEmail, secret:whutPwd, signature:signature, code:whutInputEmail }).then((res) => {
           const resData = res.data;
           if (resData.data.state === 1) {
             alert("注册成功");

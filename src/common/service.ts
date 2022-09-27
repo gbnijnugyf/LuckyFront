@@ -5,6 +5,14 @@ import { appendParams2Path } from "./global";
 
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default";
 
+
+interface IRegister {
+  email: string,
+  secret: string,
+  signature: string,
+  code: string
+}
+
 export enum wishType {
   null = 0,
   影音,
@@ -58,9 +66,9 @@ export interface IWishInfo {
 }
 export interface IWishInfoName {
   view_desire: IWishInfo;
-  view_user:{
-    name:string,
-    school:School//0错误or初始化、1武理、2华师
+  view_user: {
+    name: string,
+    school: School//0错误or初始化、1武理、2华师
   }
 }
 export interface IWishDetail {
@@ -130,7 +138,7 @@ export const Service = {
   //whut邮箱验证
   //邮箱发送
   whutSendEmail(email: string) {
-    return GlobalAxios<{ state: string }>(
+    return GlobalAxios<{ id: string }>(
       "post",
       "/whutregister/sendemail",//TODO；与后端对接口
       {
@@ -140,26 +148,14 @@ export const Service = {
       }
     );
   },
-  //验证码发送
-  whutCheckEamil(emailVV:string){
-    return GlobalAxios<{ state: string }>(
-      "post",
-      "/whutregister/checkemail",//TODO；与后端对接口
-      {
-        data: {
-          emailVV: emailVV,
-        },
-      }
-    );
-  },
-
-
-  //whut注册
-  whutRegister(email: string, pwd: string) {
+  //whut注册(含验证码)
+  whutRegister(props: IRegister) {
     return GlobalAxios<{ state: number }>("post", "/whutregister", {//TODO；与后端对接口
       data: {
-        Email: email,
-        password: pwd,
+        Email: props.email,
+        password: props.secret,
+        id: props.signature,
+        code: props.code
       },
     });
   },
