@@ -1,7 +1,8 @@
 import { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IBtnStateObject } from ".";
-import { IWishInfo, Service } from "../../common/service";
+import { IWishInfo } from "../../common/global";
+import { Service } from "../../common/service";
 import { ButtonS } from "../../components/Button";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import PersonMsg from "./PersonMsg";
@@ -13,7 +14,7 @@ interface IDetailPageProps {
 }
 export const BTNTEXT_INIT: IBtnStateObject<string> = { yes: "", no: "" };
 
-export const ACTION_INIT = () => { };
+export const ACTION_INIT = () => {};
 //Detail核心显示部分
 
 export default function DetailPage(props: IDetailPageProps) {
@@ -24,7 +25,7 @@ export default function DetailPage(props: IDetailPageProps) {
   const [confirmAction, setConfirmAction] = useState<(res: boolean) => void>(
     () => ACTION_INIT
   );
-  const achieved = (props.wish.state === 2);
+  const achieved = props.wish.state === 2;
   // const [currentIndex, setCurrentIndex] = useState("wuchu");
   let currentIndex = "wuchu";
   const goOtherPage = (path: string) => {
@@ -38,8 +39,6 @@ export default function DetailPage(props: IDetailPageProps) {
     mang: "最近有点忙，短时间没有精力实现愿望了，抱歉",
     other: "", //占位
   };
-
-
 
   //弹窗抽象, 调用弹出弹窗
   function handlePopWindows(props: {
@@ -72,13 +71,12 @@ export default function DetailPage(props: IDetailPageProps) {
 
   // 别人的愿望，我已经点亮/实现 ———— 点击确定放弃
   function pressReallyAbandon() {
-
     interface IReasonInput {
-      value: string,
-      defaultChecked?: boolean
+      value: string;
+      defaultChecked?: boolean;
     }
     function ReasonInput(props: IReasonInput): ReactElement {
-      const reason = msgs[props.value]
+      const reason = msgs[props.value];
       let tagdoc = props.value === "mang" ? " " : null;
 
       return (
@@ -89,7 +87,9 @@ export default function DetailPage(props: IDetailPageProps) {
               type="radio"
               name="msg"
               value={props.value}
-              defaultChecked={props.defaultChecked ? props.defaultChecked : false}
+              defaultChecked={
+                props.defaultChecked ? props.defaultChecked : false
+              }
               onChange={(e) => {
                 currentIndex = e.target.value;
               }}
@@ -102,8 +102,12 @@ export default function DetailPage(props: IDetailPageProps) {
               <p>留言给对方：</p>
               <input
                 type="text"
-                onChange={(e) => { console.log("fdsa");/*msgs[currentIndex] = e.target.value*/ }}
-                onFocus={() => { console.log("onClick") }}
+                onChange={(e) => {
+                  console.log("fdsa"); /*msgs[currentIndex] = e.target.value*/
+                }}
+                onFocus={() => {
+                  console.log("onClick");
+                }}
                 defaultValue={msgs["other"]}
                 style={{ marginLeft: ".3em", width: "32%" }}
               />
@@ -206,7 +210,7 @@ export default function DetailPage(props: IDetailPageProps) {
   // 别人未点亮我√√  mock很难实现               state==0 && isMine==true && achieved==false
 
   if (props.wish.state === 1 || props.wish.state === 2) {
-    let isMine = props.isMine;//方便修改值to mock
+    let isMine = props.isMine; //方便修改值to mock
     // isMine = ((!props.wish.state && achieved) ? false : true)//手动mock
     // console.log(props.wish.state, props.isMine, achieved)
 
@@ -222,14 +226,12 @@ export default function DetailPage(props: IDetailPageProps) {
         </ConfirmPanel>
         <div className="panel-button">
           <ButtonS
-            onClick={
-              isMine ? pressDelete : pressAbandon
-            }
+            onClick={isMine ? pressDelete : pressAbandon}
             style={{
               background: "#FFFFFF",
               color: "#F25125",
               width: "6em",
-              display: isMine ? "" : (achieved ? "none" : ""),
+              display: isMine ? "" : achieved ? "none" : "",
             }}
           >
             {isMine ? "删除这个心愿" : "放弃实现"}
@@ -251,7 +253,6 @@ export default function DetailPage(props: IDetailPageProps) {
       </>
     );
   } else if (props.wish.state === 0) {
-
     // let isMine = ((props.wish.state && achieved) ? false : true)//手动mock
     // console.log(props.wish.state, isMine, achieved)
 

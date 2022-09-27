@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { IWishInfo, ResStatus, Service } from "../../common/service";
+import { Service } from "../../common/service";
 import { useLocation, useNavigate } from "react-router-dom";
 import DetailPage from "./DetailPage";
 import WishDetail from "./WishDetail";
+import { IWishInfo, ResStatus } from "../../common/global";
 const INITNUM: number = -9;
 
 export interface IBtnStateObject<T = string> {

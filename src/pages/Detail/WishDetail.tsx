@@ -1,7 +1,7 @@
 import { ACTION_INIT } from "./DetailPage";
 import forwardimg from "../../static/images/forward.svg";
 import { formatTime } from "../../common/global";
-import { IUserInfo, IWishInfo } from "../../common/service";
+import { IUserInfo, IWishInfo } from "../../common/global";
 import { Service } from "../../common/service";
 import { ReactElement, useEffect, useState } from "react";
 import ConfirmPanel from "../../components/ConfirmPanel";
@@ -20,7 +20,7 @@ export default function WishDetail(props: IWishDetail) {
     () => ACTION_INIT
   ); // 设置按钮触发
   useEffect(() => {
-    Service.getManInfo(props.wish.user_id.toString()).then((res) => {
+    Service.getManInfo(props.wish.user_id).then((res) => {
       setManInfo(res.data.data);
     });
   }, [props.wish]);

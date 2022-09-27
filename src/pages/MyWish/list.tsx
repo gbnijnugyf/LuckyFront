@@ -1,9 +1,9 @@
 import "./index.scss";
 import { ButtonS } from "../../components/Button";
-import { formatTime } from "../../common/global";
+import { formatTime, IWishInfo, WishState } from "../../common/global";
 import { useNavigate } from "react-router-dom";
-import { IWishInfo, Service, WishState } from "../../common/service";
 import { useEffect, useState } from "react";
+import { Service } from "../../common/service";
 const INITNUM: number = -2;
 
 export interface IWishState {

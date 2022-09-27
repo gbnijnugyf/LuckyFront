@@ -1,76 +1,23 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { parse } from "url";
 import "whatwg-fetch";
-import { appendParams2Path } from "./global";
+import {
+  appendParams2Path,
+  IUserInfo,
+  IWishDetail,
+  IWishInfo,
+  IWishInfoName,
+  ResStatus,
+  School,
+  wishType,
+} from "./global";
 
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default";
-
-export enum wishType {
-  null = 0,
-  影音,
-  游戏,
-  美食,
-  学习,
-  运动,
-  交友,
-  打卡,
-  动漫,
-  其他,
-}
-export enum WishState {
-  初始化 = -1,
-  未点亮,
-  已点亮,
-  已实现,
-  已删除,
-}
-export enum School {
-  初始化 = 0,
-  武理,
-  华师,
-}
-export enum ResStatus {
-  Expires = -2,
-  Error = -1,
-  Suceess = 0,
-}
 
 interface IGlobalResponse<T> {
   data: T;
   msg: string;
   status: number;
-}
-
-//对应后端新接口
-export interface IUserInfo {
-  email: string;
-  wechat: string;
-  tel: string;
-  name: string;
-  qq: string;
-  school: number;
-}
-export interface IWishInfo {
-  desire_id: string;
-  desire: string;
-  lighted_at: string;
-  created_at: string;
-  finished_at: string;
-  state: WishState; //-1未定义、0未点亮、1已点亮、2已实现、3已删除
-  type: wishType; //0未定义
-  light_id: number;
-  user_id: number;
-}
-export interface IWishInfoName {
-  view_desire: IWishInfo;
-  view_user: {
-    name: string;
-    school: School; //0错误or初始化、1武理、2华师
-  };
-}
-export interface IWishDetail {
-  view_desire: IWishInfo; //愿望信息
-  view_user: IUserInfo; //许愿人信息
 }
 
 export interface IWishManInformation {
@@ -157,7 +104,7 @@ export const Service = {
     return GlobalAxios<string>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
   },
   // 获取用户信息，默认获取自身信息
-  getManInfo(id: number = -1) {
+  getManInfo(id: number | string = -1) {
     return GlobalAxios<IUserInfo>(
       "get",
       appendParams2Path("/user/info", { id: id.toString() })

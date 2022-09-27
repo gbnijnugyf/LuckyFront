@@ -3,8 +3,9 @@ import { ITagsObject } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
 import { tags } from "../../config/Global";
 import "./index.scss";
-import { ResStatus, Service } from "../../common/service";
+import { Service } from "../../common/service";
 import { useNavigate } from "react-router-dom";
+import { ResStatus } from "../../common/global";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -21,7 +22,6 @@ export default function Home() {
     navigate(`/wishpool/wish/${tag.enName}`, {
       state: { category: tag.category },
     });
-
   };
 
   const goSend = () => {
