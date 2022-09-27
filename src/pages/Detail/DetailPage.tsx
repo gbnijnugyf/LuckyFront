@@ -1,7 +1,8 @@
 import { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IBtnStateObject } from ".";
-import { IWishInfo, Service } from "../../common/service";
+import { IWishInfo } from "../../common/global";
+import { Service } from "../../common/service";
 import { ButtonS } from "../../components/Button";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import PersonMsg from "./PersonMsg";
@@ -39,48 +40,6 @@ export default function DetailPage(props: IDetailPageProps) {
     other: "", //占位
   };
 
-  interface IGetUserPre {
-    name: string;
-    number: {
-      qq: string;
-      wechat: string;
-    };
-    tel: string;
-    option?: string;
-  }
-  //用户填写前获取用户信息
-  const getUserPre = async () => {
-    //先获取用户已存在信息
-    let resAll: IGetUserPre = {
-      name: "",
-      number: {
-        qq: "",
-        wechat: "",
-      },
-      tel: "",
-    };
-    await Service.getManInfo("-1").then((res) => {
-      let manInfo = res.data.data;
-      if (manInfo.name !== "") {
-        resAll.name = manInfo.name;
-      }
-      //联系方式(qq\wechat)
-      if (manInfo.qq !== "") {
-        //默认QQ为联系方式
-        resAll.number.qq = manInfo.qq;
-      } else if (manInfo.qq === "" && manInfo.wechat !== "") {
-        //QQ为空，微信为联系方式
-        resAll.number.wechat = manInfo.wechat;
-      }
-      //tel
-      if (manInfo.tel !== "") {
-        resAll.tel = manInfo.tel;
-      }
-    });
-
-    return resAll;
-  };
-
   //弹窗抽象, 调用弹出弹窗
   function handlePopWindows(props: {
     yesHandle?: () => void;
@@ -91,14 +50,14 @@ export default function DetailPage(props: IDetailPageProps) {
   }) {
     const {
       yesHandle = () => {
-        goOtherPage("/detail/index");
+        goOtherPage("/detail/list");
       },
       noHandle = () => {
         setShowConfirm(false);
       },
       content = <>获取文本失败</>,
-      btnText1 = "",
-      btnText2 = "",
+      btnText1,
+      btnText2,
     } = props;
 
     setShowConfirm(true);
@@ -110,122 +69,45 @@ export default function DetailPage(props: IDetailPageProps) {
     setBtnText({ yes: btnText1, no: btnText2 });
   }
 
-  // 别人的愿望，没人实现 ———— 点击确定点亮
-  async function pressReallyLight() {
-    let Info = {
-      name: "",
-      option: "",
-      number: "",
-      tel: "",
-    };
-    //此处调用获取用户信息方法
-    const a = await getUserPre();
-    if (a.number.qq !== "") {
-      Info.option = "QQ";
-      Info.number = a.number.qq;
-    } else {
-      Info.option = "微信";
-      Info.number = a.number.wechat;
-    }
-    Info.name = a.name;
-    Info.tel = a.tel;
-    handlePopWindows({
-      yesHandle: () => {
-        let id = props.wish.desire_id;
-        let [qq, wechat] =
-          Info.option === "QQ" ? [Info.number, ""] : ["", Info.number];
-
-        Service.lightWish(id, Info.name, Info.tel, qq, wechat).then((res) => {
-          if (res.data.status === 0) {
-            alert("点亮成功~");
-            goOtherPage("/detail/index");
-          } else {
-            alert(res.data.msg);
-          }
-        });
-        setShowConfirm(false);
-      },
-      content: (
-        <div className="input-msg">
-          <p className="info">填写联系方式，方便他来联系你哦～</p>
-          <div className="form">
-            <div className="name">
-              投递人 :
-              <input
-                type="text"
-                placeholder="必填内容"
-                onChange={(e) => (Info.name = e.target.value)}
-                defaultValue={Info.name}
-                style={{ marginLeft: ".3em", width: "60%" }}
-              />
-            </div>
-            <div className="number">
-              联系方式 :
-              <select style={{ color: "rgb(239, 96, 63)" }}>
-                <option value="QQ">QQ</option>
-                <option value="WeChat">微信</option>
-              </select>
-              <input
-                type="text"
-                placeholder="必填内容"
-                onChange={(e) => (Info.number = e.target.value)}
-                defaultValue={Info.number}
-                style={{ marginLeft: ".3em", width: "90%" }}
-              />
-            </div>
-            <div className="tel">
-              或 Tel :
-              <input
-                type="text"
-                placeholder="必填内容"
-                onChange={(e) => (Info.tel = e.target.value)}
-                defaultValue={Info.tel}
-                style={{ marginLeft: ".3em", width: "90%" }}
-              />
-            </div>
-          </div>
-        </div>
-      ),
-      noHandle: () => {
-        setShowConfirm(false);
-      },
-      btnText1: "发送",
-      btnText2: "取消",
-    });
-  }
   // 别人的愿望，我已经点亮/实现 ———— 点击确定放弃
   function pressReallyAbandon() {
-    function ReasonInput(
-      type: string,
-      name: string,
-      value: string,
-      reason: string,
-      defaultChecked?: boolean
-    ): ReactElement {
-      let tagdoc = value === "mang" ? " " : null;
+    interface IReasonInput {
+      value: string;
+      defaultChecked?: boolean;
+    }
+    function ReasonInput(props: IReasonInput): ReactElement {
+      const reason = msgs[props.value];
+      let tagdoc = props.value === "mang" ? " " : null;
 
       return (
         <div className="options">
           <div>
             {tagdoc}
             <input
-              type={type}
-              name={name}
-              value={value}
-              defaultChecked={defaultChecked ? defaultChecked : false}
+              type="radio"
+              name="msg"
+              value={props.value}
+              defaultChecked={
+                props.defaultChecked ? props.defaultChecked : false
+              }
               onChange={(e) => {
                 currentIndex = e.target.value;
               }}
             />
           </div>
-          {value !== "other" ? (
+          {props.value !== "other" ? (
             <p>{reason}</p>
           ) : (
             <div>
               <p>留言给对方：</p>
               <input
                 type="text"
-                onChange={(e) => (msgs[currentIndex] = e.target.value)}
+                onChange={(e) => {
+                  console.log("fdsa"); /*msgs[currentIndex] = e.target.value*/
+                }}
+                onFocus={() => {
+                  console.log("onClick");
+                }}
                 defaultValue={msgs["other"]}
                 style={{ marginLeft: ".3em", width: "32%" }}
               />
@@ -241,7 +123,7 @@ export default function DetailPage(props: IDetailPageProps) {
         setBtnText({ yes: "", no: "" });
         let message = currentIndex === "other" ? msgs["other"] : msgs["wuchu"];
         Service.giveUpLightWish(props.wish.desire_id, message).then(() => {
-          goOtherPage("/detail/index");
+          goOtherPage("/detail/list");
         });
       },
       content: (
@@ -252,9 +134,9 @@ export default function DetailPage(props: IDetailPageProps) {
               <br />
               建议给对方留言说明原因哦：
             </p>
-            {ReasonInput("radio", "msg", "wuchu", msgs["wuchu"], true)}
-            {ReasonInput("radio", "msg", "mang", msgs["mang"])}
-            {ReasonInput("radio", "msg", "other", msgs["other"])}
+            <ReasonInput value="wuchu" defaultChecked={true} />
+            <ReasonInput value="mang" />
+            <ReasonInput value="other" />
           </form>
         </>
       ),
@@ -262,7 +144,7 @@ export default function DetailPage(props: IDetailPageProps) {
         setShowConfirm(false);
         setBtnText({ yes: "", no: "" });
         Service.giveUpLightWish(props.wish.desire_id).then(() => {
-          goOtherPage("/detail/index");
+          goOtherPage("/detail/list");
         });
       },
       btnText1: "发送",
@@ -277,7 +159,7 @@ export default function DetailPage(props: IDetailPageProps) {
       yesHandle: () => {
         setShowConfirm(false);
         Service.achieveWish(props.wish.desire_id);
-        goOtherPage("/detail/index");
+        goOtherPage("/detail/list");
       },
       content: (
         <>
@@ -300,16 +182,6 @@ export default function DetailPage(props: IDetailPageProps) {
     });
   }
 
-  // 别人的愿望，没人实现 ———— 点击点亮
-  function pressLight() {
-    handlePopWindows({
-      yesHandle: pressReallyLight,
-      content: <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗？</p>,
-      btnText1:"确认",
-      btnText2:"取消"
-    });
-  }
-
   // 我的愿望，没人实现 ———— 点击删除
   // 我的愿望，有人点亮 ———— 点击删除
   function pressDelete() {
@@ -317,7 +189,7 @@ export default function DetailPage(props: IDetailPageProps) {
       yesHandle: () => {
         Service.deleteWish(props.wish.desire_id).then(() => {
           alert("删除成功");
-          goOtherPage("/detail/index");
+          goOtherPage("/detail/list");
         });
         setShowConfirm(false);
       },
@@ -325,13 +197,22 @@ export default function DetailPage(props: IDetailPageProps) {
     });
   }
 
+  // wish.state
+  // 0: 未实现、未点亮
+  // 1: 已点亮
+  // 2: 已实现
+
+  // 据条件（wish.state / props.isMine / achieved）返回jsx.element
+  // 别人点亮并实现我的√ 未渲染               state==2 && isMine==true && achieved==true
+  // 我点亮并实现别人的√√                     state==2 && isMine==false && achieved==true
+  // 别人点亮但未实现我的√√ mock很难实现       state==1 && isMine==true && achieved==false
+  // 我点亮但未实现别人的√√                   state==1 && isMine==false && achieved==false
+  // 别人未点亮我√√  mock很难实现               state==0 && isMine==true && achieved==false
+
   if (props.wish.state === 1 || props.wish.state === 2) {
-    // 别人的愿望，我已经点亮/实现 // 我的愿望，有人点亮
-    let divDisplay: string = "";
-    if (!(props.isMine ? true : achieved ? false : true)) {
-      //隐藏该按钮
-      divDisplay = "none";
-    }
+    let isMine = props.isMine; //方便修改值to mock
+    // isMine = ((!props.wish.state && achieved) ? false : true)//手动mock
+    // console.log(props.wish.state, props.isMine, achieved)
 
     return (
       <>
@@ -345,17 +226,15 @@ export default function DetailPage(props: IDetailPageProps) {
         </ConfirmPanel>
         <div className="panel-button">
           <ButtonS
-            onClick={
-              achieved ? undefined : props.isMine ? pressDelete : pressAbandon
-            }
+            onClick={isMine ? pressDelete : pressAbandon}
             style={{
               background: "#FFFFFF",
               color: "#F25125",
               width: "6em",
-              display: divDisplay,
+              display: isMine ? "" : achieved ? "none" : "",
             }}
           >
-            {props.isMine ? "删除这个心愿" : "放弃实现"}
+            {isMine ? "删除这个心愿" : "放弃实现"}
           </ButtonS>
           <ButtonS
             onClick={achieved ? undefined : pressAchieve}
@@ -370,11 +249,15 @@ export default function DetailPage(props: IDetailPageProps) {
           </ButtonS>
         </div>
         <hr />
-        <PersonMsg wish={props.wish} isMine={props.isMine} />
+        <PersonMsg wish={props.wish} isMine={isMine} />
       </>
     );
   } else if (props.wish.state === 0) {
-    // 别人的愿望，没人实现// 我的愿望，没人实现
+    // let isMine = ((props.wish.state && achieved) ? false : true)//手动mock
+    // console.log(props.wish.state, isMine, achieved)
+
+    // 我的愿望，没人点亮
+    //不会出现别人的愿望没人实现（即此页面不会出现用户点亮别人愿望）
     return (
       <>
         <ConfirmPanel
@@ -386,10 +269,10 @@ export default function DetailPage(props: IDetailPageProps) {
           {confirmContent}
         </ConfirmPanel>
         <ButtonS
-          onClick={pressLight}
+          onClick={pressDelete}
           style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
         >
-          {props.isMine ? "删除" : "点亮"}这个心愿
+          删除这个心愿
         </ButtonS>
       </>
     );

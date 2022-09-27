@@ -45,12 +45,12 @@ function Header() {
     if (index === -1) {
       return titleList[key];
     } else {
-      key = key.substr(0, index);
+      key = key.slice(0, index);
       let index2 = ckey.indexOf("/", index + 1);
       if (index2 === -1) {
         return titleList[ckey];
       } else {
-        ckey = ckey.substr(0, index2);
+        ckey = ckey.slice(0, index2);
         return titleList[ckey]; //通过路由截取数组titlelist的索引key
       }
     }

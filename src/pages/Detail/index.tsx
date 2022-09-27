@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { IWishInfo, Service } from "../../common/service";
+import { Service } from "../../common/service";
 import { useLocation, useNavigate } from "react-router-dom";
 import DetailPage from "./DetailPage";
 import WishDetail from "./WishDetail";
+import { IWishInfo, ResStatus } from "../../common/global";
 const INITNUM: number = -9;
 
 export interface IBtnStateObject<T = string> {
-  yes: T;
-  no: T;
+  yes?: T;
+  no?: T;
 }
 
 const WISH_INIT: IWishInfo = {
@@ -25,7 +26,6 @@ const WISH_INIT: IWishInfo = {
 export default function Detail() {
   const location = useLocation();
 
-
   const [wish, setWish] = useState(WISH_INIT); // 愿望内容
   const [isMine, setIsMine] = useState(false); // 是不是自己的愿望
   const navigate = useNavigate();
@@ -38,6 +38,11 @@ export default function Detail() {
     let id = location.pathname.split("/").pop();
     if (!id) return;
     Service.getWishDetail(id).then((res) => {
+      //查询不到该愿望
+      if (res.data.status === ResStatus.Error) {
+        alert(res.data.msg);
+        navigate("/detail/notfound");
+      }
       setWish(res.data.data.view_desire);
       Service.getPostedWishInfo().then((res) => {
         res.data.data.forEach((wish) => {
@@ -48,7 +53,7 @@ export default function Detail() {
         });
       });
     });
-  }, [location.pathname]);
+  }, [location.pathname, navigate]);
 
   return (
     <div className="Detail">

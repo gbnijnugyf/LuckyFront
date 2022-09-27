@@ -1,8 +1,10 @@
 import "./index.scss";
 import { ButtonS } from "../../components/Button";
-import { formatTime } from "../../common/global";
-import { useLocation, useNavigate } from "react-router-dom";
-import { IWishInfo } from "../../common/service";
+import { formatTime, IWishInfo, WishState } from "../../common/global";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Service } from "../../common/service";
+const INITNUM: number = -2;
 
 export interface IWishState {
   wishLight: Array<IWishInfo>;
@@ -10,11 +12,57 @@ export interface IWishState {
 }
 
 export function MyWishList() {
-  const navigate = useNavigate();
-  let wishState = useLocation().state as IWishState;
-  let wishPost = wishState.wishPost;
-  let wishLight = wishState.wishLight;
+  let WISHPOST_INIT: Array<IWishInfo> = [
+    {
+      created_at: "",
+      lighted_at: "",
+      finished_at: "",
+      state: WishState.初始化,
+      type: 0,
+      desire: "",
+      desire_id: "",
+      light_id: INITNUM, //TODO 初始化number待定
+      user_id: INITNUM,
+    },
+  ];
 
+  const navigate = useNavigate();
+  const [wishPost, setWishPost] = useState(WISHPOST_INIT);
+  const [wishLight, setWishLight] = useState(WISHPOST_INIT);
+  const [gotPost, setGotPost] = useState(false);
+  const [gotLight, setGotLight] = useState(false);
+
+  // 排序愿望为需要的顺序
+  const sortWishes = (oldwishes: Array<IWishInfo>) => {
+    let sorted = [];
+    const priority = [1, 2, 0];
+    for (let p = 0; p < priority.length; p++)
+      for (let i = 0; i < oldwishes.length; i++)
+        if (oldwishes[i].state === priority[p]) sorted.push(oldwishes[i]);
+
+    return sorted;
+  };
+
+  useEffect(() => {
+    Service.getPostedWishInfo().then((res) => {
+      setWishPost(sortWishes(res.data.data));
+      setGotPost(true);
+    });
+  }, []);
+  useEffect(() => {
+    Service.getLightedWishInfo().then((res) => {
+      setWishLight(sortWishes(res.data.data));
+      setGotLight(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (gotPost && gotLight) {
+      if (wishPost.length === 0 && wishLight.length === 0) {
+        navigate("/detail/empty");
+      }
+    }
+  }, [gotLight, gotPost, wishLight, wishPost, navigate]);
   const goWishDetail = (id: string) => {
     navigate("/detail/" + id);
   };
@@ -75,7 +123,9 @@ interface IWishItemProps {
 function WishItem(props: IWishItemProps) {
   const { wish } = props;
   const time =
-    wish.state === 1 ? formatTime(wish.lighted_at) : formatTime(wish.created_at);
+    wish.state === WishState.已点亮
+      ? formatTime(wish.lighted_at)
+      : formatTime(wish.created_at);
 
   return (
     <li className="item-wish" onClick={props.onClick}>
@@ -84,14 +134,18 @@ function WishItem(props: IWishItemProps) {
         <ButtonS
           style={{
             background: "#FFFFFF",
-            color: wish.state === 0 ? "#1DCB1D" : "#F25C33",
+            color: wish.state === WishState.未点亮 ? "#1DCB1D" : "#F25C33",
             fontSize: "medium",
             fontFamily: "PingFangSC",
             fontWeight: "Bold",
             padding: "0 0.5em",
           }}
         >
-          {wish.state === 0 ? "未实现" : wish.state === 1 ? "已点亮" : "已实现"}
+          {wish.state === WishState.未点亮
+            ? "未实现"
+            : wish.state === WishState.已点亮
+            ? "已点亮"
+            : "已实现"}
         </ButtonS>
         <p className="text-wishtime">{time}</p>
       </div>

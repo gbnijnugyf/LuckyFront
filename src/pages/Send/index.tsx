@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import { School, Service, wishType } from "../../common/service";
 import ink from "../../static/images/ink.svg";
 import { tags } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
@@ -8,6 +7,8 @@ import paperplane from "../../static/images/paperplane.svg";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
+import { School, wishType } from "../../common/global";
+import { Service } from "../../common/service";
 
 const CATEGORYINIT = wishType.null;
 
@@ -72,9 +73,9 @@ export default function Send() {
     } else {
       let QQ = selectValue === "QQ" ? numberValue : "";
       let wechat = selectValue === "WeChat" ? numberValue : "";
-      Service.getManInfo("-1").then((res)=>{
-        setSchool(res.data.data.school)
-      })
+      Service.getManInfo().then((res) => {
+        setSchool(res.data.data.school);
+      });
       Service.postWish(
         nameValue,
         QQ,

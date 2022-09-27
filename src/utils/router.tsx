@@ -7,7 +7,7 @@ import Detail from "../pages/Detail";
 import { Notfound } from "../pages/Detail/notfound";
 import Wishes from "../pages/Wishes";
 import Header from "../components/Header";
-import { Index } from "../pages/MyWish/index";
+// import { Index } from "../pages/MyWish/index";
 import { Empty } from "../pages/MyWish/empty";
 import { MyWishList } from "../pages/MyWish/list";
 import { LoginMain } from "../pages/Login/index";
@@ -22,7 +22,6 @@ function Router() {
   const location = useLocation();
 
   useEffect(() => {
-    // console.log("路径变化")
     let token = cookie.load("jwt_token");
     if (token) {
       localStorage.setItem("token", token);
@@ -30,7 +29,6 @@ function Router() {
     }
     if (!localStorage.getItem("token")) {
       navigate("/login");
-      console.log(location);
     }
   }, [location.pathname, navigate, location]);
 
@@ -61,7 +59,7 @@ function Router() {
           </Route>
           {/* 愿望与点亮详情页面 */}
           <Route path="detail/*">
-            <Route path="index" element={<Index />} />
+            {/* <Route path="index" element={<Index />} /> */}
             <Route path="empty" element={<Empty />} />
             <Route path="list" element={<MyWishList />} />
             <Route path="notfound" element={<Notfound />} />
