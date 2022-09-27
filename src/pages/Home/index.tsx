@@ -3,7 +3,7 @@ import { ITagsObject } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
 import { tags } from "../../config/Global";
 import "./index.scss";
-import { Service } from "../../common/service";
+import { ResStatus, Service } from "../../common/service";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     Service.checkUserEmail().then((res) => {
-      if (res.status === -1) {
+      if (res.status === ResStatus.Error) {
         navigate("/login/bindemail");
       }
     });

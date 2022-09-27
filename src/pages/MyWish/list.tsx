@@ -2,7 +2,7 @@ import "./index.scss";
 import { ButtonS } from "../../components/Button";
 import { formatTime } from "../../common/global";
 import { useNavigate } from "react-router-dom";
-import { IWishInfo, Service } from "../../common/service";
+import { IWishInfo, Service, WishState } from "../../common/service";
 import { useEffect, useState } from "react";
 const INITNUM: number = -2;
 
@@ -12,17 +12,16 @@ export interface IWishState {
 }
 
 export function MyWishList() {
-
   let WISHPOST_INIT: Array<IWishInfo> = [
     {
       created_at: "",
       lighted_at: "",
       finished_at: "",
-      state: -1,
+      state: WishState.初始化,
       type: 0,
       desire: "",
       desire_id: "",
-      light_id: INITNUM,//TODO 初始化number待定
+      light_id: INITNUM, //TODO 初始化number待定
       user_id: INITNUM,
     },
   ];
@@ -64,18 +63,6 @@ export function MyWishList() {
       }
     }
   }, [gotLight, gotPost, wishLight, wishPost, navigate]);
-
-  //以上为index导入--to合并两个文件
-
-
-  // const navigate = useNavigate();
-
-
-  // const wishPost = wishState.wishPost;
-  // const wishLight = wishState.wishLight;
-
-
-
   const goWishDetail = (id: string) => {
     navigate("/detail/" + id);
   };
@@ -136,7 +123,9 @@ interface IWishItemProps {
 function WishItem(props: IWishItemProps) {
   const { wish } = props;
   const time =
-    wish.state === 1 ? formatTime(wish.lighted_at) : formatTime(wish.created_at);
+    wish.state === WishState.已点亮
+      ? formatTime(wish.lighted_at)
+      : formatTime(wish.created_at);
 
   return (
     <li className="item-wish" onClick={props.onClick}>
@@ -145,14 +134,18 @@ function WishItem(props: IWishItemProps) {
         <ButtonS
           style={{
             background: "#FFFFFF",
-            color: wish.state === 0 ? "#1DCB1D" : "#F25C33",
+            color: wish.state === WishState.未点亮 ? "#1DCB1D" : "#F25C33",
             fontSize: "medium",
             fontFamily: "PingFangSC",
             fontWeight: "Bold",
             padding: "0 0.5em",
           }}
         >
-          {wish.state === 0 ? "未实现" : wish.state === 1 ? "已点亮" : "已实现"}
+          {wish.state === WishState.未点亮
+            ? "未实现"
+            : wish.state === WishState.已点亮
+            ? "已点亮"
+            : "已实现"}
         </ButtonS>
         <p className="text-wishtime">{time}</p>
       </div>
