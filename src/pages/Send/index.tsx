@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
 import selectTag from "../../static/images/selectTag.png";
 import { School, wishType } from "../../common/global";
+
 const CATEGORYINIT = wishType.null;
 
 export default function Send() {

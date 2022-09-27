@@ -211,9 +211,6 @@ export default function DetailPage(props: IDetailPageProps) {
 
   if (props.wish.state === 1 || props.wish.state === 2) {
     let isMine = props.isMine; //方便修改值to mock
-    // isMine = ((!props.wish.state && achieved) ? false : true)//手动mock
-    // console.log(props.wish.state, isMine, achieved)
-
     return (
       <>
         <ConfirmPanel
@@ -244,6 +241,8 @@ export default function DetailPage(props: IDetailPageProps) {
             {achieved ? "已实现" : "确认实现"}
           </ButtonS>
         </div>
+        <hr />
+        <PersonMsg wish={props.wish} isMine={isMine} />
       </>
     );
   } else if (props.wish.state === 0) {
