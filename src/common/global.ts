@@ -37,21 +37,6 @@ export interface IUserInfo {
   qq: string;
   school: number;
 }
-
-export interface IRegister {
-  email: string;
-  secret: string;
-  signature: string;
-  code: string;
-}
-
-export interface IWishInfoName {
-  view_desire: IWishInfo;
-  view_user: {
-    name: string;
-    school: School; //0错误or初始化、1武理、2华师
-  };
-}
 export interface IWishInfo {
   desire_id: string;
   desire: string;

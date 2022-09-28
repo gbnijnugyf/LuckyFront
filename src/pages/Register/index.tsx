@@ -131,7 +131,7 @@ export function Register() {
             ></input>
           </li>
           <li>
-            <label>验证码：</label>
+            <label className="check">验证码：</label>
             <input
               className="checkemail"
               value={whutInputEmail}
