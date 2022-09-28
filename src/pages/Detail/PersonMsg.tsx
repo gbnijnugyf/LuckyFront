@@ -40,6 +40,7 @@ export default function PersonMsg(props: IPersonMsg) {
   return (
     <div className="msg">
       <div className="msg-text">
+        <p className="h">{isMine ? "点亮人" : "许愿人"}</p>
         <p className="name">{name}</p>
       </div>
       <div className="msg-info">
