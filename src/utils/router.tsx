@@ -26,7 +26,7 @@ function Router() {
       localStorage.setItem("token", token);
       navigate("/tagscreen/home");
     }
-    if ((!localStorage.getItem("token"))&&location.pathname.split("",6).toString() !== "/,l,o,g,i,n") {
+    if (!localStorage.getItem("token")&&location.pathname.indexOf("login")===-1) {
       navigate("/login");
     }
   }, [navigate, location]);
