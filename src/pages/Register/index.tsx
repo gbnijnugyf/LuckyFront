@@ -61,28 +61,31 @@ export function Register() {
     }
     Service.whutSendEmail(email).then((res) => {
       const resData = res.data;
-      if (resData.status === 1) {
+      if (resData.signature) {
         //返回验证码成功
         setWhutCheckEmail(true);
-        signature = res.data.data.id;
+        signature = res.data.signature;
         let time = 60;
-        let retry = setInterval(() => {
+        let retry: NodeJS.Timer;
+        retry = setInterval(() => {
           setBtnId("checked");
           setBtnText("（" + --time + "s后重新获取）");
+          if (time === 0) {
+            setBtnText("重新获取");
+            setBtnId("checkbtn");
+            clearInterval(retry);
+          }
         }, 1000);
-        setTimeout(() => {
-          setBtnText("重新获取");
-          setBtnId("checkbtn");
-          clearInterval(retry);
-        }, 60000);
       } else {
         alert("请输入正确邮箱");
         return undefined;
       }
+
     });
   };
 
   async function goVerify() {
+    const pwdRegex = new RegExp('(?=.*[0-9])(?=.*[a-zA-Z]).{6,20}');
 
     if (whutEmail === "") {
       alert("请输入邮箱");
@@ -90,23 +93,24 @@ export function Register() {
       alert("请输入验证码");
     } else if (whutPwd === "") {
       alert("请设置密码");
-    } else if (whutPwd.length < 6) {
-      alert("密码应为6~12位");
+    } else if (!pwdRegex.test(whutPwd)) {
+      alert("密码应为6~20位字母数字组合");
     } else if (whutIsPwd === "") {
       alert("请确认密码");
     } else if (whutPwd !== whutIsPwd) {
       alert("两次密码输入不一致");
     } else {
       if (whutCheckEmail) {
-        await Service.whutRegister({ email:whutEmail, secret:whutPwd, signature:signature, code:whutInputEmail }).then((res) => {
-          const resData = res.data;
-          if (resData.data.state === 1) {
-            alert("注册成功");
-            navigate("login/whut");
-          } else {
-            alert(resData.msg); //若邮箱已被注册，弹窗提醒
-          }
-        });
+        let res = await Service.whutRegister(whutEmail, whutPwd, signature, whutInputEmail)
+
+        const resData = res.data;
+        if (resData.uid) {
+          alert("注册成功");
+          navigate("login/whut");
+        } else {
+          alert("邮箱已被注册"); //若邮箱已被注册，弹窗提醒
+        }
+
       } else {
         alert("验证码错误"); //此处改为弹窗提醒，并刷新“获取验证码按钮”
       }
@@ -147,7 +151,7 @@ export function Register() {
             <label>密码：</label>
             <input
               minLength={6}
-              maxLength={12}
+              maxLength={20}
               type="password"
               value={whutPwd}
               onChange={handleWhutPwd}

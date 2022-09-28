@@ -5,14 +5,6 @@ import { appendParams2Path } from "./global";
 
 const BASEURL = "http://127.0.0.1:4523/m1/1379753-0-default";
 
-
-interface IRegister {
-  email: string,
-  secret: string,
-  signature: string,
-  code: string
-}
-
 export enum wishType {
   null = 0,
   影音,
@@ -137,27 +129,37 @@ async function GlobalAxios<T = any, D = any>(
 export const Service = {
   //whut邮箱验证
   //邮箱发送
-  whutSendEmail(email: string) {
-    return GlobalAxios<{ id: string }>(
-      "post",
-      "/whutregister/sendemail",//TODO；与后端对接口
-      {
-        data: {
-          email: email,
-        },
-      }
-    );
+
+  async whutSendEmail(email: string) {
+    let res;
+    let config: AxiosRequestConfig<any> = {};
+    config.baseURL = BASEURL;
+    res = await axios["post"]<{signature:string}>(
+      "/Auth/EmailVerify",
+      email,
+      config
+    )
+    return res;
   },
-  //whut注册(含验证码)
-  whutRegister(props: IRegister) {
-    return GlobalAxios<{ state: number }>("post", "/whutregister", {//TODO；与后端对接口
-      data: {
-        Email: props.email,
-        password: props.secret,
-        id: props.signature,
-        code: props.code
+  async whutRegister(
+    email: string,
+    secret: string,
+    signature: string,
+    code: string) {
+    let res;
+    let config: AxiosRequestConfig<any> = {};
+    config.baseURL = BASEURL;
+    res = await axios["post"]<{uid:string}>(
+      "/Auth/Register",
+      {
+        Email: email,
+        password: secret,
+        id: signature,
+        code: code
       },
-    });
+      config
+    )
+    return res;
   },
   //whut登录
   whutLogin() {
