@@ -24,7 +24,6 @@ export function LoginCCNU() {
       alert("请输入密码");
     } else {
       Service.ccnuLogin(ccnuId, ccnuPwd).then((res) => {
-        res.status = 0; //鉴权测试
         if (res.status === 0) {
           localStorage.setItem("token", res.data.data.token as string);
           navigate("/tagscreen/home");
