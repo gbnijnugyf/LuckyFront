@@ -16,7 +16,7 @@ export default function Home() {
         navigate("/login/bindemail");
       }
     });
-  });
+  }, [navigate]);
 
   const goWishes = (tag: ITagsObject) => {
     navigate(`/wishpool/wish/${tag.enName}`, {

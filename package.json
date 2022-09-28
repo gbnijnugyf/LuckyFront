@@ -31,8 +31,10 @@
     "web-vitals": "^3.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "dotenv -v REACT_APP_ENV=development react-scripts start",
+    "start:prod": "dotenv -v REACT_APP_ENV=production react-scripts start",
+    "build": "dotenv -v REACT_APP_ENV=production react-scripts build",
+    "build:dev": "dotenv -v REACT_APP_ENV=development react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -54,6 +56,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-cookies": "^0.1.0"
+    "@types/react-cookies": "^0.1.0",
+    "dotenv-cli": "^6.0.0"
   }
 }

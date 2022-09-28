@@ -13,7 +13,13 @@ import { MyWishList } from "../pages/MyWish/list";
 import { LoginMain } from "../pages/Login/index";
 import { BindEmail, LoginCCNU } from "../pages/Login/loginSchools";
 
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { LoginWhut } from "../pages/Login/WhutLogin";
 import { Register } from "../pages/Register";
 import "./router.scss"
@@ -31,7 +37,7 @@ function Router() {
     if (!localStorage.getItem("token")) {
       navigate("/login");
     }
-  }, [location.pathname, navigate, location]);
+  }, [navigate]);
 
   return (
     <>
@@ -47,8 +53,8 @@ function Router() {
           <Route path="login/*" element={<Login />}>
             <Route path="ccnu" element={<LoginCCNU />} />
             <Route path="bindemail" element={<BindEmail />} />
-            <Route path="whut" element={<LoginWhut/>}/>
-            <Route path="whut/whutRegister" element={<Register/>}/>
+            <Route path="whut" element={<LoginWhut />} />
+            <Route path="whut/whutRegister" element={<Register />} />
             <Route path="*" element={<LoginMain />} />
           </Route>
           {/* 筛选页面 */}
@@ -65,7 +71,7 @@ function Router() {
             <Route path="empty" element={<Empty />} />
             <Route path="list" element={<MyWishList />} />
             <Route path="notfound" element={<Notfound />} />
-            <Route path="*" element={<Detail/>} />
+            <Route path="*" element={<Detail />} />
           </Route>
           <Route
             index
@@ -94,7 +100,6 @@ function Router() {
             }
           />
         </Routes>
-
       </div>
       </div>
     </>
