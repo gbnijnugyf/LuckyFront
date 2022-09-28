@@ -1,0 +1,17 @@
+@import "../config/globalCssVar.scss";
+
+.bg{
+    background-image:url("../static/images/bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.content{
+    margin-top: calc($HeaderHeight + 9vh);
+    height: 75vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+

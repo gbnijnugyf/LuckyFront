@@ -1,21 +1,17 @@
 import "./index.scss";
 
 import { Service } from "../../common/service";
-import { ButtonL } from "../../components/Button";
-import {
-  ChangeEvent,
-  ReactNode,
-  useState,
-} from "react";
+import { ChangeEvent, ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ButtonL } from "../../components/Button";
 
-let signature = "";//全局变量用于存放邮箱验证id
+let signature = ""; //全局变量用于存放邮箱验证id
 
 export interface IRegisterPannel {
   text: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
   btnText: string;
   children: ReactNode;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 function RegisterPannel(props: IRegisterPannel) {
@@ -27,7 +23,6 @@ function RegisterPannel(props: IRegisterPannel) {
     </div>
   );
 }
-
 
 export function Register() {
   const [btnId, setBtnId] = useState("checkbtn");
@@ -47,7 +42,7 @@ export function Register() {
     setWhutPwd(e.target.value);
   };
   const handleWhutCheckEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setWhutInputEmail(e.target.value)
+    setWhutInputEmail(e.target.value);
   };
   const handleWhutIsPwd = (e: ChangeEvent<HTMLInputElement>) => {
     setWhutIsPwd(e.target.value);
@@ -61,7 +56,7 @@ export function Register() {
     }
     Service.whutSendEmail(email).then((res) => {
       const resData = res.data;
-      if (resData.status === 1) {
+      if (resData.status === 0) {
         //返回验证码成功
         setWhutCheckEmail(true);
         signature = res.data.data.id;
@@ -83,7 +78,6 @@ export function Register() {
   };
 
   async function goVerify() {
-
     if (whutEmail === "") {
       alert("请输入邮箱");
     } else if (whutInputEmail === "") {
@@ -98,7 +92,12 @@ export function Register() {
       alert("两次密码输入不一致");
     } else {
       if (whutCheckEmail) {
-        await Service.whutRegister({ email:whutEmail, secret:whutPwd, signature:signature, code:whutInputEmail }).then((res) => {
+        await Service.whutRegister({
+          email: whutEmail,
+          secret: whutPwd,
+          signature: signature,
+          code: whutInputEmail,
+        }).then((res) => {
           const resData = res.data;
           if (resData.data.state === 1) {
             alert("注册成功");
@@ -138,7 +137,6 @@ export function Register() {
               value={whutInputEmail}
               onChange={handleWhutCheckEmail}
             ></input>
-
             <button id={btnId} onClick={() => goGetEVV(whutEmail)}>
               {btnText}
             </button>

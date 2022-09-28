@@ -13,11 +13,18 @@
   justify-content: space-around;
 
   .infoPanel {
-    background: #f9d291;
+    color: #577DAB;
+    background-image: url("../../static/images/ConfirmPannelBG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: scale(100%);
     font-size: medium;
     border-radius: 1em;
     overflow: hidden;
     width: 70%;
+    max-height: 50vh;
+    display: flex;
+    flex-direction: column;
 
     .textPanel {
       min-height: 3em;
@@ -33,28 +40,43 @@
       }
 
       p {
-        color: #ff7a59;
-        font-family: TsangerShuYuanTW02;
+        font-family: Tensentype-MaiHeiJ;
+        font-weight: 700;
+        font-size: large;
         text-align: center;
       }
     }
 
     .confirmPanel {
       display: flex;
+      flex-direction: row;
+      margin: 1vh 8vw 2vh;
+
 
       div {
+        // border: 1px solid black;
         padding: 0.5em 0;
         width: 50%;
         text-align: center;
       }
 
       .confirmFalse {
-        background-color: white;
+        margin-left: 6vw;
+        width: 4em;
+        background-image: url("../../static/images/btnOrange.png");
+        background-size: cover;
+        border-radius: 0.7em;
+        color: white;
+        font-weight: 800;
       }
 
       .confirmTrue {
-        background-color: #ff7a59;
-        color: white;
+        margin-left: 10vw;
+        width: 4em;
+        background-image: url("../../static/images/btnWhite.png");
+        background-size: cover;
+        border-radius: 0.7em;
+        font-weight: 800;
       }
     }
   }

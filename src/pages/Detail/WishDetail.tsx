@@ -1,7 +1,7 @@
 import { ACTION_INIT } from "./DetailPage";
-import forwardimg from "../../static/images/forward.svg";
+import forwardimg from "../../static/images/forward.png";
 import { formatTime } from "../../common/global";
-import { IUserInfo, IWishInfo } from "../../common/service";
+import { IUserInfo, IWishInfo } from "../../common/global";
 import { Service } from "../../common/service";
 import { ReactElement, useEffect, useState } from "react";
 import ConfirmPanel from "../../components/ConfirmPanel";
@@ -20,7 +20,7 @@ export default function WishDetail(props: IWishDetail) {
     () => ACTION_INIT
   ); // 设置按钮触发
   useEffect(() => {
-    Service.getManInfo(props.wish.user_id.toString()).then((res) => {
+    Service.getManInfo(props.wish.user_id).then((res) => {
       setManInfo(res.data.data);
     });
   }, [props.wish]);
@@ -28,17 +28,19 @@ export default function WishDetail(props: IWishDetail) {
   const wish = props.wish;
   const isMine = props.isMine;
 
-  const getForward = () => {
+  const GetForward = () => {
     if (wish.state === 0 && isMine) {
       return (
-        <img
-          src={forwardimg}
-          onClick={showForward}
-          className="forward"
-          alt=""
-        />
+        <div className="forward">
+          <img
+            src={forwardimg}
+            onClick={showForward}
+            alt=""
+          /><p>分享</p>
+        </div>
       );
     }
+    return null;
   };
   const showForward = () => {
     setConfirmContent(
@@ -80,13 +82,16 @@ export default function WishDetail(props: IWishDetail) {
       >
         {confirmContent}
       </ConfirmPanel>
+      <GetForward/>
       <div className="content">
-        {getForward()}
         <div className="text">
           <div className="text-content">{props.wish.desire}</div>
         </div>
         <div className="wishInfo">
-          <p>来自 {manInfo?.name}</p>
+          <p className="fromWho">
+            <div id="fromText">来自&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div> {manInfo?.name}</div>
+          </p>
           <p>{formatTime(props.wish.created_at)}</p>
         </div>
       </div>

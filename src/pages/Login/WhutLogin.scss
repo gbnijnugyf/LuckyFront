@@ -1,16 +1,22 @@
+*{
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
 p {
-    color     : white;
+    color: #577DAB;
     text-align: center;
 }
 
 
 
 label {
-    display    : inline-block;
-    text-align : right;
-    font-size  : large;
-    font-family: PingFangSC;
-    color      : white;
+    display: inline-block;
+    text-align: right;
+    font-size: large;
+    font-family: Tensentype-MaiHeiJ;
+    color: #577DAB;
 }
 
 
@@ -23,12 +29,11 @@ label {
     justify-content: center;
     align-items    : center;
 
-
     ul {
-        display        : flex;
-        flex-direction : column;
+        display: flex;
+        flex-direction: column;
         justify-content: flex-end;
-        align-items    : flex-end;
+        align-items: flex-end;
 
         li {
 
@@ -39,36 +44,36 @@ label {
 
     li {
         list-style: none;
-        position  : relative;
+        position: relative;
     }
 
     input {
-        width        : 10em;
-        height       : 1.5em;
+        width: 10em;
+        height: 1.5em;
         border-radius: 0.5em;
-        border       : 0;
-        text-align   : center;
-        font-family  : PingFangSC;
-        font-size    : large;
+        border: 0;
+        text-align: center;
+        font-family: Tensentype-MaiHeiJ;
+        font-size: large;
     }
 
     .text-login-title {
-        margin-top   : 20%;
+        margin-top: 20%;
         margin-bottom: 5%;
-        font-family  : TsangerXWZ;
-        color        : white;
-        font-size    : 50px;
-        text-shadow  : 0px 3px 5px#888888;
+        font-family: Tensentype-MaiHeiJ;
+        color: #577DAB;
+        font-size: 50px;
+        text-shadow: 0px 3px 5px#888888;
     }
 
 
-    .panel-login {
+    .panel-login-whut {
+        background-image: url("../../static/images/LoginPannelBGGreen.png");
         margin          : 5vw;
         display         : flex;
         flex-direction  : column;
         align-items     : center;
         justify-content : space-around;
-        background-color: #ff7a59;
         border-radius   : 1.5em;
         padding         : 1em 1.5em;
         max-width       : 90%;
@@ -76,14 +81,13 @@ label {
         min-height      : 20%;
 
         .tip-login {
-            font-family: TsangerShuYuanTW02;
+            font-family: Tensentype-MaiHeiJ;
             font-size  : small;
         }
-
-    }
-    span{
-        text-decoration: underline;
-        color: #ff7a59;
-        // text-decoration: none;
+        span {
+            text-decoration: underline;
+            color: #577DAB;
+            // text-decoration: none;
+        }
     }
 }
