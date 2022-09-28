@@ -13,8 +13,6 @@ let WhutEVV: string = ""; //全局变量用于接收返回验证码
 
 export interface IRegisterPannel {
   text: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
-  btnText: string;
   children: ReactNode;
 }
 
@@ -23,7 +21,6 @@ function RegisterPannel(props: IRegisterPannel) {
     <div className="login-pannel">
       <p className="text-login-title">{props.text}</p>
       {props.children}
-      <ButtonL onClick={props.onClick}>{props.btnText}</ButtonL>
     </div>
   );
 }
@@ -61,7 +58,7 @@ export function Register() {
     }
     Service.whutSendEmail(email).then((res) => {
       const resData = res.data;
-      if (resData.status === 1) {
+      if (resData.status === 0) {
         //返回验证码成功
 
         let time = 60;
@@ -121,13 +118,8 @@ export function Register() {
 
   return (
     <RegisterPannel
-      text="掌理账号注册"
-      onClick={() => {
-        goVerify();
-      }}
-      btnText="确定"
-    >
-      <div className="panel-login">
+      text="掌理账号注册">
+      <div className="panel-register">
         <ul>
           <li>
             <label>邮箱：</label>
@@ -138,13 +130,12 @@ export function Register() {
             ></input>
           </li>
           <li>
-            <label>验证码：</label>
+            <label className="check">验证码：</label>
             <input
               className="checkemail"
               value={whutInputEmail}
               onChange={handleWhutCheckEmail}
             ></input>
-
             <button id={btnId} onClick={() => goGetEVV(whutEmail)}>
               {btnText}
             </button>
@@ -170,6 +161,9 @@ export function Register() {
             ></input>
           </li>
         </ul>
+        <ButtonL onClick={() => {
+          goVerify();
+        }}>确定</ButtonL>
       </div>
     </RegisterPannel>
   );

@@ -1,21 +1,22 @@
 .button-large {
-  font-family: TsangerShuYuanTW02;
+  display: flex;
+  font-family: Tensentype-MaiHeiJ;
   text-align: center;
   border-radius: 0.5em;
   font-size: x-large;
   padding: 0.4em 1.5em;
-  margin-top: 2em;
-  background: #fef6e9;
-  color: #f25125;
+  margin-top: 1em;
+  color: #577DAB;
+  background-image: url("../../static/images/btnWhite.png");
 }
 
 .button-small {
-  font-family: TsangerShuYuanTW02;
+  font-family: Tensentype-MaiHeiJ;
   text-align: center;
   width: fit-content;
   border-radius: 1em;
   font-size: medium;
-  padding: 0.2em 1em;
+  padding: 1em 1em;
 
   img {
     margin-right: 0.3em;

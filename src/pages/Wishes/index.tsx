@@ -1,14 +1,12 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import { ButtonS } from "../../components/Button";
-import calendar from "../../static/images/calendar.svg";
-import leaf from "../../static/images/leaf.svg";
-import { IWishInfoName, Service } from "../../common/service";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IWishInfoName, WishState } from "../../common/global";
+import { Service } from "../../common/service";
 
 const FALSE_0: number = 0;
-// const SCHOOLINIT: 0 | 1 | 2 = 0;
 
 export interface IWishesObject {
   wish: string;
@@ -50,33 +48,40 @@ export interface IWishItemProps {
 }
 
 const WishItem = (props: IWishItemProps) => {
+  const {
+    wish,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+    myStyle
+  } = props;
   return (
     <div
-      key={props.wish?.view_user.name}
+      key={wish?.view_user.name}
       className="wish-item"
-      style={toStyle(props.myStyle)}
-      onTouchStart={props.onTouchStart}
-      onTouchMove={props.onTouchMove}
-      onTouchEnd={props.onTouchEnd}
+      style={toStyle(myStyle)}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
-      <img src={leaf} className="wish-img" alt="" />
       <div className="content">
-        <div className="content-word">{props.wish.view_desire.desire}</div>
-      </div>
-      <div className="msg">
-        <p>
-          {props.wish.view_user.school.toString() === ""
-            ? ""
-            : props.wish.view_user.school.toString() === FALSE_0.toString()
-              ? "华小师"
-              : "武小理"}
-        </p>{" "}
-        {/* props.wish.school可能未定义，对接口*/}
-        <p>
-          {props.wish.view_user.name.length > 0
-            ? props.wish.view_user.name.charAt(0) + "同学"
-            : ""}
-        </p>
+        <div className="contentText">
+          <div className="content-word">{wish.view_desire.desire}</div>
+          <div className="msg">
+            <p>
+              {wish.view_user.school.toString() === ""
+                ? ""
+                : wish.view_user.school.toString() === FALSE_0.toString()
+                  ? "华小师"
+                  : "武小理"}
+            </p>{" "}
+            <p>
+              {wish.view_user.name.length > 0
+                ? wish.view_user.name.charAt(0) + "同学"
+                : ""}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -105,7 +110,7 @@ export default function Wishes() {
       lighted_at: "",
       created_at: "",
       finished_at: "",
-      state: -1,
+      state: WishState.初始化,
       type: 0,
       light_id: -1,
       user_id: -1,
@@ -124,14 +129,14 @@ export default function Wishes() {
   const [startX, setStartX] = useState(STARTINIT); // 树叶动画相关状态
   const [update, setUpDate] = useState(false); // 控制动画以及愿望内容的更新
   const [display, setDisplay] = useState(false); // 弹出确认框
-  const [light, setLight] = useState(false);//显示light点亮前panel
+  const [light, setLight] = useState(false); //显示light点亮前panel
   const [lightBtn, setLightBtn] = useState(true); // 点亮按钮是否存在
   const [wishes, setWishes] = useState<Array<IWishInfoName>>(WISHES_INIT);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [tel, setTel] = useState("");
   const [option, setOption] = useState("QQ");
-  const [geted, setGeted] = useState<boolean>(true)
+  const [geted, setGeted] = useState<boolean>(true);
   const refreshWishes = () => {
     Service.getWishByCategories(category).then((res) => {
       let wishes = res.data.data;
@@ -173,7 +178,7 @@ export default function Wishes() {
     setInterval(() => {
       setShowTip(false);
     }, 5000);
-  });
+  }, []);
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -260,30 +265,27 @@ export default function Wishes() {
     setLight(true);
   };
   const showConfirm = async () => {
-    await Service.getLightedWishInfo().then(
-      (res) => {
-        if (res.data.data.length < 5) {
-          setDisplay(true);
-          return;
-        } else {
-          res.data.data.forEach((wish) => {
-            if (wish.state === 2) {
-              setDisplay(true);
-            }
-          })
-          if (display) return
-          else alert("你有5个点亮还未实现哦~先完成一个吧");
-        }
+    await Service.getLightedWishInfo().then((res) => {
+      if (res.data.data.length < 5) {
+        setDisplay(true);
+        return;
+      } else {
+        res.data.data.forEach((wish) => {
+          if (wish.state === 2) {
+            setDisplay(true);
+          }
+        });
+        if (display) return;
+        else alert("你有5个点亮还未实现哦~先完成一个吧");
       }
-    )
+    });
   };
 
-
   const getUserPre = function () {
-    if (!geted) return
+    if (!geted) return;
 
     //先获取用户已存在信息
-    Service.getManInfo("-1").then((res) => {
+    Service.getManInfo().then((res) => {
       let manInfo = res.data.data;
       if (manInfo.name !== "") {
         setName(manInfo.name);
@@ -300,8 +302,8 @@ export default function Wishes() {
       setTel(manInfo.tel);
 
     });
-    setGeted(false)
-  }
+    setGeted(false);
+  };
 
   return (
     <div className="wishpage">
@@ -313,75 +315,67 @@ export default function Wishes() {
         }}
       >
         {light ? (
-          <div className="input-msg">
+          <>
             <p className="info">填写联系方式，方便他来联系你哦～</p>
-            <div className="form">
-              <div className="name">
-                点亮人 :
-                <input
-                  type="text"
-                  placeholder="必填内容哦～"
-                  onChange={handleName}
-                  defaultValue={name}
-                  style={{ marginLeft: "2em" }}
-                />
-              </div>
-              <div className="number">
-                联系方式 :
-                <select
-                  onChange={handleOption}
-                  style={{ color: "rgb(239, 96, 63)" }}
-                >
-                  <option value="QQ">QQ</option>
-                  <option value="WeChat">微信</option>
-                </select>
-                <input
-                  type="text"
-                  placeholder="必填内容"
-                  onChange={handleNumber}
-                  defaultValue={number}
-                  style={{ marginLeft: ".3em", width: "32%" }}
-                />
-              </div>
-              <div className="tel">
-                或 Tel :
-                <input
-                  type="text"
-                  placeholder="必填内容"
-                  onChange={handleTel}
-                  defaultValue={tel}
-                  style={{ marginLeft: "2.3em" }}
-                />
+
+            <div className="input-msg">
+              <div className="form">
+
+                <div className="name">
+                  点亮人 :
+                  <input
+                    type="text"
+                    placeholder="必填内容哦～"
+                    onChange={handleName}
+                    defaultValue={name}
+                    style={{ marginLeft: "2em" }}
+                  />
+                </div>
+                <div className="number">
+                  联系方式 :
+                  <select
+                    onChange={handleOption}
+                    style={{ color: "rgb(239, 96, 63)" }}
+                  >
+                    <option value="QQ">QQ</option>
+                    <option value="WeChat">微信</option>
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="必填内容"
+                    onChange={handleNumber}
+                    defaultValue={number}
+                    style={{ marginLeft: ".3em", width: "32%" }}
+                  />
+                </div>
+                <div className="tel">
+                  或 Tel :
+                  <input
+                    type="text"
+                    placeholder="必填内容"
+                    onChange={handleTel}
+                    defaultValue={tel}
+                    style={{ marginLeft: "2.3em" }}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </>
         ) : (
           <p style={{ fontSize: "medium" }}>确认要帮TA实现这个愿望吗</p>
         )}
       </ConfirmPanel>
 
       <ButtonS
+        id="btnSeeMyWish"
         onClick={goMyWish}
-        style={{
-          background: "#F59D65",
-          color: "white",
-          marginTop: "13em",
-          alignSelf: "flex-start",
-          padding: "0.4em 0.7em",
-          fontSize: "medium",
-          zIndex: "999",
-        }}
       >
-        <img
-          style={{ transform: "scale(3) translate(2%, 12%)" }}
-          src={calendar}
-          alt=""
-        />
-        查看我的点亮
+        查看我的愿望与点亮
       </ButtonS>
       <div className="wishes">
+        {/* TODO：愿望前后页斜着错开堆叠 */}
         <WishItem
-          className="wish-img"
+          className="wish-img1"
           wish={wishes[0]}
           setStyleID={0}
           onTouchStart={onTouchStart}
@@ -394,7 +388,7 @@ export default function Wishes() {
           }}
         />
         <WishItem
-          className="wish-img"
+          className="wish-img2"
           wish={wishes[1]}
           setStyleID={1}
           myStyle={{
@@ -404,7 +398,7 @@ export default function Wishes() {
           }}
         />
         <WishItem
-          className="wish-img"
+          className="wish-img3"
           wish={wishes[2]}
           setStyleID={2}
           myStyle={{
@@ -424,25 +418,17 @@ export default function Wishes() {
         />
       </div>
       <ButtonS
+        id="sideAlert"
         style={{
-          position: "fixed",
-          background: "#F59D65A0",
-          color: "#FFFFFFA0",
-          top: "65vh",
-          right: "-1em",
-          zIndex: "301",
           display: showTip ? "absolute" : "none",
         }}
       >
         左右滑查看更多许愿哦~
       </ButtonS>
       <ButtonS
+        id="btnLight"
         onClick={showConfirm}
         style={{
-          background: "white",
-          color: "#F59D65",
-          marginTop: "22.5em",
-          zIndex: "999",
           display: lightBtn ? "relative" : "none",
         }}
       >

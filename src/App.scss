@@ -1,6 +1,11 @@
 @import "config/globalCssVar.scss";
 
 @font-face {
+  font-family: "Tensentype-MaiHeiJ";
+  src: url("../src/static/font/Tensentype-MaiHeiJ.TTF");
+}
+
+@font-face {
   font-family: "TsangerShuYuanTW02";
   src: url("https://ryzenx.oss-accelerate.aliyuncs.com/font/TsangerShuYuanTW02.TTF");
 }
@@ -18,10 +23,13 @@
 * {
   padding: 0;
   margin: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
 }
 
 body {
-  background-color: rgb(251, 209, 146);
+  background-color: #577dab;
   touch-action: none;
 }
 

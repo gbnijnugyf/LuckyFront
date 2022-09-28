@@ -1,78 +1,85 @@
 @import "../../config/globalCssVar.scss";
 
 .Detail {
+  // margin-top: -10vh;
   position: relative;
   width: 100%;
-  height: calc(100vh - $HeaderHeight);
+  height: $ContentHeight;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 
+  .forward {
+    transform: scale(150%);
+    align-self: flex-end;
+    margin-right: 2.5em;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    p{
+      font-family:Tensentype-MaiHeiJ;
+      font-size:xx-small;
+    }
+  }
+
   .content {
     position: relative;
     height: 40%;
-    margin-top: 25%;
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-grow: 0 !important;
-    width: 85%;
-    background: url("../../static/images/panel_upper.svg");
+    width: 80%;
+    background: url("../../static/images/textContainer.png");
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: top;
-    padding: 29% 9% 0% 9%;
+    padding: 20% 9% 0% 9%;
 
-    .forward {
-      position: absolute;
-      width: 1.5rem;
-      align-self: flex-end;
-      margin-right: 1.5rem;
-      margin-top: 0.5rem;
-    }
+
 
     .text {
       overflow: scroll;
       width: 80%;
       min-height: 9em;
       max-height: 10em;
-      margin-top: 1.8em;
 
       .text-content {
         min-height: 9em;
-        background-image: linear-gradient(
-            to right,
-            rgb(241, 197, 126) 10px,
-            transparent 10px
-          ),
-          linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
-          linear-gradient(
-            rgb(241, 197, 126) 30px,
-            black 30px,
-            black 31px,
-            white 31px
-          );
-
         word-break: break-all;
         border: 0px;
         background-size: 100% 100%, 100% 100%, 100% 31px;
         line-height: 31px;
-        font-family: TsangerShuYuanTW02;
-        color: white;
-        padding: 8px;
+        font-family: Tensentype-MaiHeiJ;
+        color: #577DAB;
+        padding-top: 0px;
         font-size: medium;
       }
     }
 
     .wishInfo {
+      display: flex;
+      flex-direction: column;
       align-self: flex-end;
       margin-right: 2em;
       margin-top: 0.5em;
 
       p {
-        font-family: TsangerShuYuanTW02;
+        display: flex;
+        flex-direction: row;
+        font-family: Tensentype-MaiHeiJ;
         font-size: large;
+
+        &.fromWho {
+          align-self: flex-end;
+        }
       }
+
+      #fromText {
+        color: #ff7a59;
+      }
+
     }
   }
 
@@ -97,7 +104,7 @@
     font-size: medium;
 
     p {
-      font-family: TsangerShuYuanTW02;
+      font-family: Tensentype-MaiHeiJ;
       color: white;
     }
 
@@ -129,21 +136,25 @@
     }
   }
 
+  .PersonId{
+    display: flex;
+    align-self: flex-start;
+    padding-left: 5vh;
+    font-size: x-large;
+    color: #577DAB;
+  }
+
   // 按钮
   .panel-button {
     display: flex;
-  }
-
-  hr {
-    width: 90%;
-    background-color: #707070;
+    padding: 2em;
   }
 
   // 许愿人信息
   .msg {
     position: relative;
     width: 80%;
-    background-image: url("../../static/images/panel_lower.svg");
+    background-image: url("../../static/images/PersonMsgBG.png");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -152,12 +163,12 @@
     padding: 1em;
 
     p {
-      font-family: TsangerShuYuanTW02;
+      font-family: Tensentype-MaiHeiJ;
     }
 
     .msg-text {
       font-size: large;
-      margin-left: 0.5em;
+      margin: -1em;
 
       .h {
         color: #ff7a59;
@@ -166,9 +177,10 @@
       }
 
       .name {
-        color: #fff;
+        color: #577DAB;
         margin-top: 0.5em;
         font-size: larger;
+        align-self: flex-start;
         width: 4em;
         text-align: right;
       }
@@ -177,7 +189,7 @@
     .msg-info {
       margin-right: 1em;
       justify-content: space-evenly;
-      color: white;
+      color: #577DAB;
       align-items: flex-end;
 
       p {
@@ -249,7 +261,7 @@
         border: none;
         border-radius: 0.5em;
         padding-left: 0.5em;
-        font-family: TsangerShuYuanTW02;
+        font-family: Tensentype-MaiHeiJ;
       }
     }
 
@@ -269,13 +281,18 @@
       border: none;
       border-radius: 0.5em;
       padding-left: 0.5em;
-      font-family: TsangerShuYuanTW02;
+      font-family: Tensentype-MaiHeiJ;
     }
   }
 }
 
+
+.nav{
+margin-left: 80vw;
+  color: #577DAB;
+}
 .notfound {
-  // position: relative;
-  margin: 50%;
+  margin-left: 50%;
+  margin-right: 50%;
   font-size: xx-large;
 }
