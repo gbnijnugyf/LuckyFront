@@ -1,15 +1,12 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import ConfirmPanel from "../../components/ConfirmPanel";
 import { ButtonS } from "../../components/Button";
-import calendar from "../../static/images/calendar.svg";
-import leaf from "../../static/images/leaf.svg";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IWishInfoName, WishState } from "../../common/global";
 import { Service } from "../../common/service";
 
 const FALSE_0: number = 0;
-// const SCHOOLINIT: 0 | 1 | 2 = 0;
 
 export interface IWishesObject {
   wish: string;
