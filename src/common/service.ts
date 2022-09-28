@@ -22,7 +22,7 @@ const BASEURL =
 interface IGlobalResponse<T> {
   data: T;
   msg: string;
-  status: number;
+  status: ResStatus;
 }
 
 export interface IWishManInformation {

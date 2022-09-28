@@ -3,6 +3,9 @@ import { ButtonS } from "../../components/Button";
 import { formatTime, IWishInfo, WishState } from "../../common/global";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import ItemClip from "../../static/images/ItemClip.png";
+import ItemMedal from "../../static/images/ItemMedal.png";
+import classNames from "classnames";
 import { Service } from "../../common/service";
 const INITNUM: number = -2;
 
@@ -70,6 +73,7 @@ export function MyWishList() {
   return (
     <>
       <div className="div-wishlist-toppadding" />
+      <p>点击卡片可以查看愿望详情以及更改愿望状态哦~</p>
       <div className="div-wishlist">
         <h3>我许下的愿望</h3>
         <hr />
@@ -126,29 +130,42 @@ function WishItem(props: IWishItemProps) {
     wish.state === WishState.已点亮
       ? formatTime(wish.lighted_at)
       : formatTime(wish.created_at);
-
+  const randomBG = [
+    //愿望背景颜色随机
+    "yellow",
+    "orange",
+    "red",
+    "pink",
+  ];
+  const random = Math.floor(Math.random() * 3);
   return (
-    <li className="item-wish" onClick={props.onClick}>
-      <p className="text-detail">{wish.desire}</p>
-      <div className="status">
-        <ButtonS
-          style={{
-            background: "#FFFFFF",
-            color: wish.state === WishState.未点亮 ? "#1DCB1D" : "#F25C33",
-            fontSize: "medium",
-            fontFamily: "PingFangSC",
-            fontWeight: "Bold",
-            padding: "0 0.5em",
-          }}
-        >
-          {wish.state === WishState.未点亮
-            ? "未实现"
-            : wish.state === WishState.已点亮
-            ? "已点亮"
-            : "已实现"}
-        </ButtonS>
-        <p className="text-wishtime">{time}</p>
+    <li
+      className={classNames("item-wish", randomBG[random])}
+      onClick={props.onClick}
+    >
+      <div className="wish-content">
+        <p className="text-detail">{wish.desire}</p>
+        <div className="status">
+          <ButtonS
+            style={{
+              color: "#577DAB",
+              fontSize: "large",
+            }}
+          >
+            {wish.state === WishState.未点亮
+              ? "未实现"
+              : wish.state === WishState.已点亮
+              ? "已点亮"
+              : "已实现"}
+          </ButtonS>
+          <p className="text-wishtime">{time}</p>
+        </div>
       </div>
+      <img
+        id="itemSign"
+        src={wish.state === 2 ? ItemMedal : ItemClip}
+        alt="clip"
+      />
     </li>
   );
 }

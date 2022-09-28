@@ -1,59 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ButtonS } from "../../components/Button";
 import "./index.scss";
-import rulebutton from "../../static/images/rulebutton.svg";
-import backbutton from "../../static/images/backbutton.svg";
-import logo from "../../static/images/logo.svg";
-import arrowimg from "../../static/images/arrow.svg";
-import { useLocation, useNavigate } from "react-router-dom";
-
-interface ITitleList {
-  [key: string]: string;
-}
-
-const titleList: ITitleList = {
-  "/tagscreen/home": "标签页",
-  "/tagscreen/fillwish": "投递我的小幸运",
-  "/detail/list": "愿望详情",
-  "/detail/empty": "愿望详情",
-  "/wishpool/wish": "我的愿望池",
-  "/mywish": "我的愿望池",
-};
+import rulebutton from "../../static/images/rulebutton.png";
+import logo from "../../static/images/logo.png";
+import arrowRight from "../../static/images/arrowRight.png";
+import { useLocation } from "react-router-dom";
 
 function Header() {
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false);
   const [key, setKey] = useState("");
 
   const handleShow = () => {
     setIsShow(!isShow);
-  };
-  const handleBack = () => {
-    if (location.pathname.includes("/detail/list")) {
-      navigate(-2); //'-2'是因为父级路由为判断愿望详情，会再次跳转至list或empty页面
-    } else {
-      navigate(-1);
-    }
-  };
-
-  const getTitle = () => {
-    //URL改变导致获取title的函数也要改变
-    let key = location.pathname;
-    let ckey = key;
-    let index = key.indexOf("/", 2);
-    if (index === -1) {
-      return titleList[key];
-    } else {
-      key = key.slice(0, index);
-      let index2 = ckey.indexOf("/", index + 1);
-      if (index2 === -1) {
-        return titleList[ckey];
-      } else {
-        ckey = ckey.slice(0, index2);
-        return titleList[ckey]; //通过路由截取数组titlelist的索引key
-      }
-    }
   };
 
   useEffect(() => {
@@ -77,40 +37,25 @@ function Header() {
   }, [key]);
 
   const getAlert = () => {
-    if (key === "wishpool") {
+    if (key === "tagscreen") {
       return (
         <div
           className="rule-alert-2"
           onClick={handleShow}
           style={{ display: isShow ? "block" : "none" }}
         >
-          <p className="tipalert" style={{ top: "13vh", right: "20vw" }}>
-            点击这里查看规则
-          </p>
-          <img
-            src={arrowimg}
-            className="imgalert"
-            style={{ top: "7vh", right: "15vw" }}
-            alt=""
-          />
-          <p className="tipalert" style={{ top: "20vh", left: "20vw" }}>
-            在这里查看你点亮的愿望哦~
-          </p>
-          <img
-            src={arrowimg}
-            className="imgalert"
-            style={{ top: "27vh", left: "25vw", transform: "rotate(150deg)" }}
-            alt=""
-          />
-          <p className="tipalert" style={{ top: "70vh", left: "30vw" }}>
-            在这里帮TA实现心愿
-          </p>
-          <img
-            src={arrowimg}
-            className="imgalert"
-            style={{ top: "75vh", left: "40vw", transform: "rotate(120deg)" }}
-            alt=""
-          />
+          {/* TODO：规则灰色遮罩 */}
+          <div className="rule-content">
+            <div className="toRuleBtn">
+              在这里查看详细规则&nbsp;&nbsp;
+              <img className="arrowRight" src={arrowRight} alt="arrow" />
+              <div className="lightArea"></div>
+            </div>
+            <div className="toTag"></div>
+            <div className="toTagText">safasdfsda</div>
+            <div>fasdadf</div>
+            <div>fsda</div>
+          </div>
         </div>
       );
     } else {
@@ -144,15 +89,7 @@ function Header() {
               8.<p>一次只能同时点亮2个愿望</p>
               ，如果点亮了无法实现记得及时放弃实现。由对方确认实现了愿望才能接着点亮下一个哦。
             </div>
-            <ButtonS
-              onClick={handleShow}
-              style={{
-                background: "#FF7A59",
-                color: "#FFFFFF",
-                width: "6em",
-                marginTop: "1em",
-              }}
-            >
+            <ButtonS id="btnRuleShow" onClick={handleShow}>
               我知道了
             </ButtonS>
           </div>
@@ -161,26 +98,23 @@ function Header() {
     }
   };
 
-  let title = getTitle();
+  // let title = getTitle();
 
   return (
     <div className="header">
       <div className="comp-header">
-        <img
-          className="back-button" //回退按钮
-          src={backbutton}
-          style={{ opacity: title === "标签页" ? 0 : 1 }}
-          onClick={title === "标签页" ? undefined : handleBack}
-          alt=""
-        />
-        <p className="comp-header-text">{title}</p>
-        <img
+        <div
           className="rule-button"
-          src={rulebutton}
+          style={{
+            display: location.pathname.match(/login/) ? "none" : "flex",
+          }}
           onClick={handleShow}
-          alt=""
-        />
-        <img className="logo" src={logo} alt="" />
+        >
+          {/* TODO：图片下附“规则”二字 */}
+          <img src={rulebutton} alt="rulebutton" />
+        </div>
+        {/* TODO：logo居中问题 */}
+        <img className="logo" src={logo} alt="logo" />
         {getAlert()}
         <div
           className="cover"

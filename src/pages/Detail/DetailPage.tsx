@@ -211,9 +211,6 @@ export default function DetailPage(props: IDetailPageProps) {
 
   if (props.wish.state === 1 || props.wish.state === 2) {
     let isMine = props.isMine; //方便修改值to mock
-    // isMine = ((!props.wish.state && achieved) ? false : true)//手动mock
-    // console.log(props.wish.state, props.isMine, achieved)
-
     return (
       <>
         <ConfirmPanel
@@ -224,13 +221,14 @@ export default function DetailPage(props: IDetailPageProps) {
         >
           {confirmContent}
         </ConfirmPanel>
+        <div className="PersonId">{isMine ? "点亮人" : "许愿人"}</div>
+        <PersonMsg wish={props.wish} isMine={isMine} />
+
         <div className="panel-button">
           <ButtonS
-            onClick={isMine ? pressDelete : pressAbandon}
+            id="Abandon-Delete"
+            onClick={achieved ? undefined : isMine ? pressDelete : pressAbandon}
             style={{
-              background: "#FFFFFF",
-              color: "#F25125",
-              width: "6em",
               display: isMine ? "" : achieved ? "none" : "",
             }}
           >
@@ -238,14 +236,9 @@ export default function DetailPage(props: IDetailPageProps) {
           </ButtonS>
           <ButtonS
             onClick={achieved ? undefined : pressAchieve}
-            style={{
-              background: achieved ? "#C0C0C0" : "#FF7A59",
-              color: "#FFFFFF",
-              width: "6em",
-              marginLeft: "2em",
-            }}
+            id={achieved ? (isMine ? "Achieved" : "Achieved2") : "toAchieve"}
           >
-            {achieved ? "已经实现" : "确认实现"}
+            {achieved ? "已实现" : "确认实现"}
           </ButtonS>
         </div>
         <hr />
@@ -268,10 +261,7 @@ export default function DetailPage(props: IDetailPageProps) {
         >
           {confirmContent}
         </ConfirmPanel>
-        <ButtonS
-          onClick={pressDelete}
-          style={{ background: "#FFFFFF", color: "#F25125", width: "6em" }}
-        >
+        <ButtonS id="btnDelete" onClick={pressDelete}>
           删除这个心愿
         </ButtonS>
       </>

@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-import ink from "../../static/images/ink.svg";
+import { Service } from "../../common/service";
 import { tags } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
-import paperplane from "../../static/images/paperplane.svg";
+import btnSend from "../../static/images/btnSend.png";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
+import selectTag from "../../static/images/selectTag.png";
 import { School, wishType } from "../../common/global";
-import { Service } from "../../common/service";
 
 const CATEGORYINIT = wishType.null;
 
 export default function Send() {
   const navigate = useNavigate();
-
   const [showTag, setShowTag] = useState(false); //控制标签弹窗
   const [tagName, setTagName] = useState("选择标签"); //控制选择标签后的显示
   const [wishContent, setWishContent] = useState(""); //控制 textarea
@@ -24,18 +23,10 @@ export default function Send() {
   const [tel, setTel] = useState(""); // 控制tel input
   const [selectValue, setSelectValue] = useState("QQ"); // 控制select的值
   const [category, setCategory] = useState(CATEGORYINIT); // 控制愿望分类
-  const [isInk, setIsInk] = useState(true);
 
-  const handleNoneInk = () => {
-    setIsInk(false);
-  };
-  const handleShowInk = () => {
-    setIsInk(true);
-  };
   // 处理填写愿望的字数限制
   const handleWishContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (document.hasFocus()) {
-      setIsInk(false);
     }
     if (e.target.value.length > 160) {
       setWishContent(e.target.value.substr(0, 161));
@@ -102,96 +93,83 @@ export default function Send() {
     setShowTag(true);
   };
   return (
-    <div className="send">
-      <div className="mask" style={{ display: showTag ? "flex" : "none" }}>
-        <div className="tags">
-          {tags.map((tag, index) => {
-            return (
-              <div
-                onClick={() => changeTagName(tag.name, index + 1)}
-                className="tag"
-                key={tag.name}
-              >
-                <p>{tag.name}</p>
+    <>
+      <ButtonS id="btnSelectTag" onClick={goSelectTag}>
+        <img src={selectTag} alt="selectTag" />
+        {tagName}
+      </ButtonS>
+      <div className="send">
+        <div className="tagmask" style={{ display: showTag ? "flex" : "none" }}>
+          <div className="tags">
+            {tags.map((tag, index) => {
+              return (
+                <div
+                  onClick={() => changeTagName(tag.name, index + 1)}
+                  className="tag"
+                  key={tag.name}
+                >
+                  <p>{tag.name}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="sendbc">
+          <textarea
+            className="notes"
+            placeholder={
+              "把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~"
+            }
+            value={wishContent}
+            onChange={handleWishContent}
+          ></textarea>
+          <div className="send-msg">
+            <div className="sendContent">
+              <div className="name">
+                <p>投递人：</p>
+                <input
+                  type="text"
+                  placeholder="必填内容哦～"
+                  value={nameValue}
+                  onChange={handleNameValue}
+                />
               </div>
-            );
-          })}
-        </div>
-      </div>
-      <div className="sendbc">
-        <img
-          className="ink"
-          style={{ display: isInk ? "block" : "none" }}
-          src={ink}
-          alt=""
-        />
-        <ButtonS
-          onClick={goSelectTag}
-          style={{
-            background: "white",
-            fontFamily: "MicrosoftJhengHeiUIRegular, Microsoft JhengHei UI",
-            color: "#f25125",
-            alignSelf: "flex-end",
-            margin: "2em 2em 0 0",
-            fontSize: "medium",
-          }}
-        >
-          {"# " + tagName}
-        </ButtonS>
-        <textarea
-          onBlur={handleShowInk}
-          onFocus={handleNoneInk}
-          className="notes"
-          placeholder={
-            "把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~"
-          }
-          value={wishContent}
-          onChange={handleWishContent}
-        ></textarea>
-        <div className="send-msg">
-          <div className="name">
-            <p>投递人：</p>
-            <input
-              type="text"
-              placeholder="必填内容哦～"
-              value={nameValue}
-              onChange={handleNameValue}
-            />
-          </div>
-          <div className="number">
-            <p>联系方式：</p>
-            <select value={selectValue} onChange={handleSelectValue}>
-              <option value="QQ">QQ</option>
-              <option value="WeChat">微信</option>
-            </select>
-            <input
-              type="text"
-              id="connect"
-              placeholder="必填内容哦～"
-              value={numberValue}
-              onChange={handleNumberValue}
-            />
-            <br />
-            <p>或 Tel：</p>
-            <input
-              type="text"
-              id="tel"
-              placeholder="选填内容哦～"
-              value={tel}
-              onChange={handleTelValue}
-              style={{ marginLeft: "2em" }}
-            />
+              <div className="number">
+                <div className="number1">
+                  <p>联系方式：</p>
+                  <select value={selectValue} onChange={handleSelectValue}>
+                    <option value="QQ">QQ</option>
+                    <option value="WeChat">微信</option>
+                  </select>
+                  <input
+                    type="text"
+                    id="connect"
+                    placeholder="必填内容哦～"
+                    value={numberValue}
+                    onChange={handleNumberValue}
+                  />
+                </div>
+                <div className="number2">
+                  <p>或 Tel：</p>
+                  <input
+                    type="text"
+                    id="tel"
+                    placeholder="选填内容哦～"
+                    value={tel}
+                    onChange={handleTelValue}
+                    style={{ marginLeft: "2em" }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="sendBtn">
+              <ButtonS id="btnSend" onClick={goSubmit}>
+                <img src={btnSend} alt="send" />
+              </ButtonS>
+            </div>
           </div>
         </div>
-        <h6>填写电话可以确保第一时间知道你的愿望状态哦~</h6>
-        <ButtonS
-          onClick={goSubmit}
-          style={{ background: "white", color: "#f25125", margin: "0.5em 0" }}
-        >
-          <img src={paperplane} alt="" style={{ paddingBottom: "0.2em" }} />{" "}
-          完成
-        </ButtonS>
       </div>
-    </div>
+    </>
   );
 }
