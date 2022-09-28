@@ -14,6 +14,6 @@ jobs: # 各个作业
       - name: Build Docker
         run: |
           docker build --platform linux/amd64 --build-arg BUILD_ENV="development" -t lucky-frontend:dev  .
-          docker tag lucky-frontend:dev ${{ secrets.DOCKER_REPOSITORY }}
+          docker tag lucky-frontend:dev ${{ secrets.DOCKER_REPOSITORY }}:dev
       - name: Push Docker
         run: docker push ${{ secrets.DOCKER_REPOSITORY }}
