@@ -85,6 +85,19 @@ const authAxios = axios.create({
       : // auth 测试环境
         "https://dev-auth.itoken.team",
 });
+// 统一拦截错误
+authAxios.interceptors.response.use(
+  (res) => res,
+  (reason) => {
+    const { data } = reason.response;
+    if (data.message) {
+      alert(data.message);
+    } else if (data.errors) {
+      // 显示第一条error
+      alert(Object.values(data.errors).flat().shift());
+    }
+  }
+);
 
 export const Service = {
   //向邮箱发送验证码

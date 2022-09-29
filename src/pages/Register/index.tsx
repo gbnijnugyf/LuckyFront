@@ -41,38 +41,26 @@ export function Register() {
     setWhutIsPwd(e.target.value);
   };
 
-  const goGetEVV = (email: string) => {
+  const goGetEVV = async (email: string) => {
     if (email === "") {
       alert("请输入邮箱");
       return;
     }
-    Service.whutSendEmail(email).then(
-      (res) => {
-        const { signature } = res.data;
-        //返回验证码成功
-        setSignature(signature);
-        // 倒计时
-        setTime(60);
-        const retry = setInterval(() => {
-          setTime((prevTime) => {
-            const newTime = prevTime - 1;
-            if (newTime === 0) {
-              clearInterval(retry);
-            }
-            return newTime;
-          });
-        }, 1000);
-      },
-      (reason) => {
-        const { data } = reason.response;
-        if (data.message) {
-          alert(data.message);
-        } else if (data.errors) {
-          // 显示第一条error
-          alert(Object.values(data.errors).flat().shift());
+    const res = await Service.whutSendEmail(email);
+    const { signature } = res.data;
+    //返回验证码成功
+    setSignature(signature);
+    // 倒计时
+    setTime(60);
+    const retry = setInterval(() => {
+      setTime((prevTime) => {
+        const newTime = prevTime - 1;
+        if (newTime === 0) {
+          clearInterval(retry);
         }
-      }
-    );
+        return newTime;
+      });
+    }, 1000);
   };
 
   async function goVerify() {
@@ -94,20 +82,9 @@ export function Register() {
       // 当用户没有请求验证码乱输的时候
       alert("认证错误，请重新请求验证码！");
     } else {
-      let res = await Service.whutRegister(
-        whutEmail,
-        whutPwd,
-        signature,
-        whutInputEmail
-      );
-
-      const resData = res.data;
-      if (resData.uid) {
-        alert("注册成功");
-        navigate("login/whut");
-      } else {
-        alert("邮箱已被注册"); //若邮箱已被注册，弹窗提醒
-      }
+      await Service.whutRegister(whutEmail, whutPwd, signature, whutInputEmail);
+      alert("注册成功");
+      navigate("login/whut");
     }
   }
 
