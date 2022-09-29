@@ -236,6 +236,7 @@ export default function Wishes() {
   const lightWish = () => {
     if (name === "") alert("还没有填写姓名哦~");
     else if (number === "") alert("还没有填写联系方式哦~");
+    //TODO:手机号应该为选填项
     else if (tel === "") alert("还没有填写手机号哦~");
     else {
       if (!wishes) return;
@@ -298,9 +299,8 @@ export default function Wishes() {
         setNumber(manInfo.wechat);
         setOption("微信");
       }
-      if (manInfo.tel !== "") {
-        setTel(manInfo.tel);
-      }
+      setTel(manInfo.tel);
+
     });
     setGeted(false);
   };

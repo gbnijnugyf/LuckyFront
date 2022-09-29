@@ -84,10 +84,11 @@ async function GlobalAxios<T = any, D = any>(
 
 export const Service = {
   //whut邮箱验证
-  whutCheckEmail(email: string) {
-    return GlobalAxios<{ emailVV: string }>(
+  //邮箱发送
+  whutSendEmail(email: string) {
+    return GlobalAxios<{ state: string }>(
       "post",
-      "/whutregister/checkemail",
+      "/whutregister/sendemail",//TODO；与后端对接口
       {
         data: {
           email: email,
@@ -95,9 +96,23 @@ export const Service = {
       }
     );
   },
+  //验证码发送
+  whutCheckEamil(emailVV:string){
+    return GlobalAxios<{ state: string }>(
+      "post",
+      "/whutregister/checkemail",//TODO；与后端对接口
+      {
+        data: {
+          emailVV: emailVV,
+        },
+      }
+    );
+  },
+
+
   //whut注册
   whutRegister(email: string, pwd: string) {
-    return GlobalAxios<{ state: number }>("post", "/whutregister", {
+    return GlobalAxios<{ state: number }>("post", "/whutregister", {//TODO；与后端对接口
       data: {
         Email: email,
         password: pwd,
