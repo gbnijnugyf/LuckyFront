@@ -1,9 +1,12 @@
 import "./index.scss";
 import { ButtonS } from "../../components/Button";
-import { formatTime } from "../../common/global";
+import { formatTime, IWishInfo, WishState } from "../../common/global";
 import { useNavigate } from "react-router-dom";
-import { IWishInfo, Service } from "../../common/service";
 import { useEffect, useState } from "react";
+import ItemClip from "../../static/images/ItemClip.png";
+import ItemMedal from "../../static/images/ItemMedal.png";
+import classNames from "classnames";
+import { Service } from "../../common/service";
 const INITNUM: number = -2;
 
 export interface IWishState {
@@ -12,17 +15,16 @@ export interface IWishState {
 }
 
 export function MyWishList() {
-
   let WISHPOST_INIT: Array<IWishInfo> = [
     {
       created_at: "",
       lighted_at: "",
       finished_at: "",
-      state: -1,
+      state: WishState.初始化,
       type: 0,
       desire: "",
       desire_id: "",
-      light_id: INITNUM,//TODO 初始化number待定
+      light_id: INITNUM, //TODO 初始化number待定
       user_id: INITNUM,
     },
   ];
@@ -64,18 +66,6 @@ export function MyWishList() {
       }
     }
   }, [gotLight, gotPost, wishLight, wishPost, navigate]);
-
-  //以上为index导入--to合并两个文件
-
-
-  // const navigate = useNavigate();
-
-
-  // const wishPost = wishState.wishPost;
-  // const wishLight = wishState.wishLight;
-
-
-
   const goWishDetail = (id: string) => {
     navigate("/detail/" + id);
   };
@@ -83,6 +73,7 @@ export function MyWishList() {
   return (
     <>
       <div className="div-wishlist-toppadding" />
+      <p>点击卡片可以查看愿望详情以及更改愿望状态哦~</p>
       <div className="div-wishlist">
         <h3>我许下的愿望</h3>
         <hr />
@@ -136,26 +127,45 @@ interface IWishItemProps {
 function WishItem(props: IWishItemProps) {
   const { wish } = props;
   const time =
-    wish.state === 1 ? formatTime(wish.lighted_at) : formatTime(wish.created_at);
-
+    wish.state === WishState.已点亮
+      ? formatTime(wish.lighted_at)
+      : formatTime(wish.created_at);
+  const randomBG = [
+    //愿望背景颜色随机
+    "yellow",
+    "orange",
+    "red",
+    "pink",
+  ];
+  const random = Math.floor(Math.random() * 3);
   return (
-    <li className="item-wish" onClick={props.onClick}>
-      <p className="text-detail">{wish.desire}</p>
-      <div className="status">
-        <ButtonS
-          style={{
-            background: "#FFFFFF",
-            color: wish.state === 0 ? "#1DCB1D" : "#F25C33",
-            fontSize: "medium",
-            fontFamily: "PingFangSC",
-            fontWeight: "Bold",
-            padding: "0 0.5em",
-          }}
-        >
-          {wish.state === 0 ? "未实现" : wish.state === 1 ? "已点亮" : "已实现"}
-        </ButtonS>
-        <p className="text-wishtime">{time}</p>
+    <li
+      className={classNames("item-wish", randomBG[random])}
+      onClick={props.onClick}
+    >
+      <div className="wish-content">
+        <p className="text-detail">{wish.desire}</p>
+        <div className="status">
+          <ButtonS
+            style={{
+              color: "#577DAB",
+              fontSize: "large",
+            }}
+          >
+            {wish.state === WishState.未点亮
+              ? "未实现"
+              : wish.state === WishState.已点亮
+              ? "已点亮"
+              : "已实现"}
+          </ButtonS>
+          <p className="text-wishtime">{time}</p>
+        </div>
       </div>
+      <img
+        id="itemSign"
+        src={wish.state === 2 ? ItemMedal : ItemClip}
+        alt="clip"
+      />
     </li>
   );
 }

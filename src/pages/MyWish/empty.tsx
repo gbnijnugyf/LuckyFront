@@ -11,7 +11,6 @@ export function Empty() {
 
   return (
     <div className="div-leaf-empty">
-      {/*ts重构时删除 align="center" */}
       <div className="text-empty">
         空空如也~
         <br />
