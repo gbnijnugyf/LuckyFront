@@ -80,3 +80,18 @@ export function appendParams2Path(
   const params = new URLSearchParams(paramsRaw);
   return `${path}?${params.toString()}`;
 }
+
+/**
+ *
+ * @param data as a object
+ * @returns as a FormData object
+ */
+export function generateFormData(
+  data: Record<string, number | string | boolean>
+) {
+  const form = new FormData();
+  Object.entries(data).forEach(([key, value]) => {
+    form.append(key, value.toString());
+  });
+  return form;
+}

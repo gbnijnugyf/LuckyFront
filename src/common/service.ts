@@ -3,6 +3,7 @@ import { parse } from "url";
 import "whatwg-fetch";
 import {
   appendParams2Path,
+  generateFormData,
   IUserInfo,
   IWishDetail,
   IWishInfo,
@@ -86,20 +87,23 @@ const authAxios = axios.create({
 });
 
 export const Service = {
-  //whut邮箱验证
-  //邮箱发送
+  //向邮箱发送验证码
   whutSendEmail(email: string) {
-    return authAxios.post<{ signature: string }>("/Auth/EmailVerify", {
-      email,
-    });
+    return authAxios.post<{ signature: string }>(
+      "/Auth/EmailVerify",
+      generateFormData({ email })
+    );
   },
   whutRegister(email: string, secret: string, signature: string, code: string) {
-    return axios.post<{ uid: string }>("/Auth/Register", {
-      Email: email,
-      password: secret,
-      id: signature,
-      code: code,
-    });
+    return axios.post<{ uid: string }>(
+      "/Auth/Register",
+      generateFormData({
+        email,
+        secret,
+        signature,
+        code,
+      })
+    );
   },
 
   //whut登录
