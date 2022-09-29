@@ -7,9 +7,7 @@ import { ButtonL } from "../../components/Button";
 
 export interface IRegisterPannel {
   text: string;
-  btnText: string;
   children: ReactNode;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 function RegisterPannel(props: IRegisterPannel) {
@@ -17,7 +15,6 @@ function RegisterPannel(props: IRegisterPannel) {
     <div className="login-pannel">
       <p className="text-login-title">{props.text}</p>
       {props.children}
-      <ButtonL onClick={props.onClick}>{props.btnText}</ButtonL>
     </div>
   );
 }
@@ -113,13 +110,8 @@ export function Register() {
 
   return (
     <RegisterPannel
-      text="掌理账号注册"
-      onClick={() => {
-        goVerify();
-      }}
-      btnText="确定"
-    >
-      <div className="panel-login">
+      text="掌理账号注册">
+      <div className="panel-register">
         <ul>
           <li>
             <label>邮箱：</label>
@@ -161,6 +153,7 @@ export function Register() {
             ></input>
           </li>
         </ul>
+        <ButtonL onClick={goVerify}>确定</ButtonL>
       </div>
     </RegisterPannel>
   );
