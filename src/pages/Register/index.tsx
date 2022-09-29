@@ -9,8 +9,6 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
-let WhutEVV: string = ""; //全局变量用于接收返回验证码
-
 export interface IRegisterPannel {
   text: string;
   children: ReactNode;
