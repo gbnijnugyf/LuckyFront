@@ -48,12 +48,13 @@ export function Register() {
       alert("请输入邮箱");
       return;
     }
-    Service.whutSendEmail(email).then((res) => {
-      const { signature } = res.data;
-      if (signature) {
+    Service.whutSendEmail(email).then(
+      (res) => {
+        const { signature } = res.data;
         //返回验证码成功
         setWhutCheckEmail(true);
-        setSignature(res.data.signature);
+        setSignature(signature);
+        // 倒计时
         setTime(60);
         const retry = setInterval(() => {
           setTime((prevTime) => {
@@ -64,11 +65,17 @@ export function Register() {
             return newTime;
           });
         }, 1000);
-      } else {
-        alert("请输入正确邮箱");
-        return undefined;
+      },
+      (reason) => {
+        const { data } = reason.response;
+        if (data.message) {
+          alert(data.message);
+        } else if (data.errors) {
+          // 显示第一条error
+          alert(Object.values(data.errors).flat().shift());
+        }
       }
-    });
+    );
   };
 
   async function goVerify() {
