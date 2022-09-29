@@ -32,10 +32,7 @@ function Router() {
       localStorage.setItem("token", token);
       navigate("/tagscreen/home");
     }
-    if (
-      !localStorage.getItem("token") &&
-      location.pathname.startsWith("/login")
-    ) {
+    if (!localStorage.getItem("token") && !location.pathname.startsWith("/login")) {
       navigate("/login");
     }
   }, [navigate, location]);
