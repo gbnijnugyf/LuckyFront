@@ -12,7 +12,13 @@ import { MyWishList } from "../pages/MyWish/list";
 import { LoginMain } from "../pages/Login/index";
 import { BindEmail, LoginCCNU } from "../pages/Login/loginSchools";
 
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { LoginWhut } from "../pages/Login/WhutLogin";
 import { Register } from "../pages/Register";
 import "./router.scss";
@@ -26,7 +32,10 @@ function Router() {
       localStorage.setItem("token", token);
       navigate("/tagscreen/home");
     }
-    if (!localStorage.getItem("token")&&location.pathname.indexOf("login")===-1) {
+    if (
+      !localStorage.getItem("token") &&
+      location.pathname.startsWith("/login")
+    ) {
       navigate("/login");
     }
   }, [navigate, location]);
