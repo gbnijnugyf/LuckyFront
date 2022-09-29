@@ -5,8 +5,6 @@ import { ChangeEvent, ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonL } from "../../components/Button";
 
-let signature = ""; //全局变量用于存放邮箱验证id
-
 export interface IRegisterPannel {
   text: string;
   btnText: string;
@@ -25,6 +23,7 @@ function RegisterPannel(props: IRegisterPannel) {
 }
 
 export function Register() {
+  const [signature, setSignature] = useState("");//用于存放邮箱验证id
   const [btnId, setBtnId] = useState("checkbtn");
   const [btnText, setBtnText] = useState("获取验证码");
   const navigate = useNavigate();
@@ -59,7 +58,7 @@ export function Register() {
       if (resData.signature) {
         //返回验证码成功
         setWhutCheckEmail(true);
-        signature = res.data.signature;
+        setSignature(res.data.signature);
         let time = 60;
         let retry: NodeJS.Timer;
         retry = setInterval(() => {
@@ -155,7 +154,7 @@ export function Register() {
             <label>确认密码：</label>
             <input
               minLength={6}
-              maxLength={12}
+              maxLength={20}
               type="password"
               value={whutIsPwd}
               onChange={handleWhutIsPwd}

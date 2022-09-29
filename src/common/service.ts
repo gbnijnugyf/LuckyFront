@@ -15,9 +15,9 @@ import {
 const BASEURL =
   process.env.REACT_APP_ENV === "production"
     ? //  暂时使用本地 Mock
-      "http://127.0.0.1:4523/m1/1379753-0-default"
+    "http://127.0.0.1:4523/m1/1379753-0-default"
     : // 云端 Mock
-      "https://mock.apifox.cn/m1/1379753-0-default";
+    "https://mock.apifox.cn/m1/1379753-0-default";
 
 interface IGlobalResponse<T> {
   data: T;
@@ -89,10 +89,12 @@ export const Service = {
   async whutSendEmail(email: string) {
     let res;
     let config: AxiosRequestConfig<any> = {};
-    config.baseURL = BASEURL;
-    res = await axios["post"]<{signature:string}>(
+    config.baseURL = "https://dev-auth.itoken.team";
+    let form = new FormData();
+    form.append("email", email)
+    res = await axios["post"]<{ signature: string }>(
       "/Auth/EmailVerify",
-      email,
+      form,
       config
     )
     return res;
@@ -102,17 +104,17 @@ export const Service = {
     secret: string,
     signature: string,
     code: string) {
+    let form  = new FormData();
+    form.append("email", email)
+    form.append("secret", secret)
+    form.append("signature", signature)
+    form.append("code", code)
     let res;
     let config: AxiosRequestConfig<any> = {};
-    config.baseURL = BASEURL;
-    res = await axios["post"]<{uid:string}>(
+    config.baseURL = "https://dev-auth.itoken.team";
+    res = await axios["post"]<{ uid: string }>(
       "/Auth/Register",
-      {
-        Email: email,
-        password: secret,
-        id: signature,
-        code: code
-      },
+      form,
       config
     )
     return res;
