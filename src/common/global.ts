@@ -48,6 +48,7 @@ export interface IWishInfo {
   light_id: number;
   user_id: number;
 }
+
 export interface IWishInfoName {
   view_desire: IWishInfo;
   view_user: {

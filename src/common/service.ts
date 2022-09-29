@@ -76,41 +76,32 @@ async function GlobalAxios<T = any, D = any>(
   return response;
 }
 
+const authAxios = axios.create({
+  baseURL:
+    process.env.REACT_APP_ENV === "production"
+      ? // auth 正式环境
+        "https://auth.itoken.team"
+      : // auth 测试环境
+        "https://dev-auth.itoken.team",
+});
+
 export const Service = {
   //whut邮箱验证
   //邮箱发送
-
-  async whutSendEmail(email: string) {
-    let res;
-    let config: AxiosRequestConfig<any> = {};
-    config.baseURL = BASEURL;
-    res = await axios["post"]<{signature:string}>(
-      "/Auth/EmailVerify",
+  whutSendEmail(email: string) {
+    return authAxios.post<{ signature: string }>("/Auth/EmailVerify", {
       email,
-      config
-    )
-    return res;
+    });
   },
-  async whutRegister(
-    email: string,
-    secret: string,
-    signature: string,
-    code: string) {
-    let res;
-    let config: AxiosRequestConfig<any> = {};
-    config.baseURL = BASEURL;
-    res = await axios["post"]<{uid:string}>(
-      "/Auth/Register",
-      {
-        Email: email,
-        password: secret,
-        id: signature,
-        code: code
-      },
-      config
-    )
-    return res;
+  whutRegister(email: string, secret: string, signature: string, code: string) {
+    return axios.post<{ uid: string }>("/Auth/Register", {
+      Email: email,
+      password: secret,
+      id: signature,
+      code: code,
+    });
   },
+
   //whut登录
   whutLogin() {
     return GlobalAxios<string>("post", "/whutlogin", null); //返回status，msg，data（鉴权）
