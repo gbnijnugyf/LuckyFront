@@ -25,12 +25,6 @@ interface IGlobalResponse<T> {
   status: ResStatus;
 }
 
-export interface IWishManInformation {
-  wishMan_name?: string;
-  wishMan_QQ?: string;
-  wishMan_Wechat?: string;
-  wishMan_Tel?: string;
-}
 async function GlobalAxios<T = any, D = any>(
   method: "post",
   url: string,
