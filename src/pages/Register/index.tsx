@@ -21,7 +21,6 @@ function RegisterPannel(props: IRegisterPannel) {
 
 export function Register() {
   const [whutEmail, setWhutEmail] = useState("");
-  const [whutCheckEmail, setWhutCheckEmail] = useState<boolean>(false);
   const [whutInputEmail, setWhutInputEmail] = useState("");
   const [whutPwd, setWhutPwd] = useState("");
   const [time, setTime] = useState(-1);
@@ -42,7 +41,6 @@ export function Register() {
     setWhutIsPwd(e.target.value);
   };
 
-  //TODO fix bug
   const goGetEVV = (email: string) => {
     if (email === "") {
       alert("请输入邮箱");
@@ -52,7 +50,6 @@ export function Register() {
       (res) => {
         const { signature } = res.data;
         //返回验证码成功
-        setWhutCheckEmail(true);
         setSignature(signature);
         // 倒计时
         setTime(60);
@@ -97,23 +94,19 @@ export function Register() {
       // 当用户没有请求验证码乱输的时候
       alert("认证错误，请重新请求验证码！");
     } else {
-      if (whutCheckEmail) {
-        let res = await Service.whutRegister(
-          whutEmail,
-          whutPwd,
-          signature,
-          whutInputEmail
-        );
+      let res = await Service.whutRegister(
+        whutEmail,
+        whutPwd,
+        signature,
+        whutInputEmail
+      );
 
-        const resData = res.data;
-        if (resData.uid) {
-          alert("注册成功");
-          navigate("login/whut");
-        } else {
-          alert("邮箱已被注册"); //若邮箱已被注册，弹窗提醒
-        }
+      const resData = res.data;
+      if (resData.uid) {
+        alert("注册成功");
+        navigate("login/whut");
       } else {
-        alert("验证码错误"); //此处改为弹窗提醒，并刷新“获取验证码按钮”
+        alert("邮箱已被注册"); //若邮箱已被注册，弹窗提醒
       }
     }
   }
