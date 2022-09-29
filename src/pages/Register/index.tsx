@@ -109,6 +109,7 @@ export function Register() {
             ></input>
             <button
               id={time > 0 ? "checked" : "checkbtn"}
+              disabled={time > 0}
               onClick={() => goGetEVV(whutEmail)}
             >
               {time > 0
