@@ -81,12 +81,6 @@ async function GlobalAxios<T = any, D = any>(
 
   return response;
 }
-interface IRegister {
-  email: string;
-  secret: string;
-  signature: string;
-  code: string;
-}
 
 export const Service = {
   //whut邮箱验证
