@@ -40,7 +40,10 @@ const globalAxios = axios.create({
 globalAxios.interceptors.request.use((req) => {
   // avoid cache
   if (req.method !== "POST") {
-    req.params.time = new Date().getTime().toString();
+    req.params = {
+      ...req.params,
+      time: new Date().getTime().toString(),
+    };
   }
   return req;
 });
