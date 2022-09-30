@@ -47,9 +47,13 @@ globalAxios.interceptors.request.use((req) => {
 globalAxios.interceptors.response.use(
   (res: AxiosResponse<IGlobalResponse<any>, any>) => {
     const { msg, status } = res.data;
-    // if not success
     if (status !== ResStatus.Suceess) {
-      alert(msg);
+      // avoid random mock alert
+      if (process.env.REACT_APP_ENV === "production") {
+        alert(msg);
+      } else {
+        console.warn({ status, msg });
+      }
       if (status === ResStatus.Expires) {
         localStorage.removeItem("token");
         // 重定向到根目录，重新登录
