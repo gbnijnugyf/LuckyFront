@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import "whatwg-fetch";
 import {
   IUserInfo,
@@ -44,29 +44,26 @@ globalAxios.interceptors.request.use((req) => {
   }
   return req;
 });
-globalAxios.interceptors.response.use((res) => {
-  console.log(res);
-  // TODO: have bug, check later
-  //   if (response.statusText === "OK") {
-  //     return response;
-  //   } else if (response.status === ResStatus.Expires) {
-  //     alert(response.data.msg);
-  //     localStorage.removeItem("token");
+globalAxios.interceptors.response.use(
+  (res: AxiosResponse<IGlobalResponse<any>, any>) => {
+    const { msg, status } = res.data;
+    // if not success
+    if (status !== ResStatus.Suceess) {
+      alert(msg);
+      if (status === ResStatus.Expires) {
+        localStorage.removeItem("token");
+        // 重定向到根目录，重新登录
+        let redirectpos = window.location.href;
+        window.location.href = redirectpos.slice(
+          0,
+          redirectpos.indexOf("/", 10) + 1
+        );
+      }
+    }
+    return res;
+  }
+);
 
-  //     // 重定向到根目录，重新登录
-  //     let redirectpos = window.location.href;
-  //     redirectpos = redirectpos.slice(0, redirectpos.indexOf("/", 10) + 1);
-  //     // window.location.href(redirectpos)
-  //     window.location.href = redirectpos;
-  //   } else if (response.data.status !== 0) {
-  //     alert(response.data.msg);
-  //     return response;
-  //   }
-
-  //   return response;
-  // }
-  return res;
-});
 const globalRequest = {
   post: function <T>(
     url: string,
