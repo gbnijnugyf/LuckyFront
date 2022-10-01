@@ -60,11 +60,7 @@ globalAxios.interceptors.response.use(
       if (status === ResStatus.Expires) {
         localStorage.removeItem("token");
         // 重定向到根目录，重新登录
-        let redirectpos = window.location.href;
-        window.location.href = redirectpos.slice(
-          0,
-          redirectpos.indexOf("/", 10) + 1
-        );
+        window.location.href = "/";
       }
     }
     return res;
