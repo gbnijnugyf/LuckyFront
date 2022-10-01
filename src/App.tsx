@@ -1,13 +1,24 @@
 import Router from "./utils/router";
 import "./App.scss";
 
-function DevHeader() {
-  console.log(process.env)
+function DevTools() {
   if (process.env.REACT_APP_ENV === "development") {
     return (
-      <span style={{ position: "absolute", zIndex: 9999 }}>
-        develop version
-      </span>
+      <div style={{ position: "absolute", zIndex: 9999 }}>
+        <span>develop version</span>
+        <button
+          onClick={() => {
+            if (localStorage.getItem("token")) {
+              localStorage.removeItem("token");
+            } else {
+              localStorage.setItem("token", "123");
+            }
+            window.location.href = "/tagscreen/home";
+          }}
+        >
+          {localStorage.getItem("token") ? "删除token" : "生成token"}
+        </button>
+      </div>
     );
   }
   return null;
@@ -17,7 +28,7 @@ function App() {
   return (
     <div className="app">
       <Router />
-      <DevHeader />
+      <DevTools />
     </div>
   );
 }
