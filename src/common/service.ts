@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import "whatwg-fetch";
 import {
+  generateFormData,
   IUserInfo,
   IWishDetail,
   IWishInfo,
@@ -21,13 +22,6 @@ interface IGlobalResponse<T> {
   data: T;
   msg: string;
   status: ResStatus;
-}
-
-export interface IWishManInformation {
-  wishMan_name?: string;
-  wishMan_QQ?: string;
-  wishMan_Wechat?: string;
-  wishMan_Tel?: string;
 }
 
 const globalAxios = axios.create({
@@ -86,38 +80,48 @@ const globalRequest = {
   },
 };
 
+const authAxios = axios.create({
+  baseURL:
+    process.env.REACT_APP_ENV === "production"
+      ? // auth 正式环境
+        "https://auth.itoken.team"
+      : // auth 测试环境
+        "https://dev-auth.itoken.team",
+});
+// 统一拦截错误
+authAxios.interceptors.response.use(
+  (res) => res,
+  (reason) => {
+    const { data } = reason.response;
+    if (data.message) {
+      alert(data.message);
+    } else if (data.errors) {
+      // 显示第一条error
+      alert(Object.values(data.errors).flat().shift());
+    }
+  }
+);
+
 export const Service = {
-  //whut发送验证码
-  async whutSendEmail(email: string) {
-    let res;
-    let config: AxiosRequestConfig<any> = {};
-    config.baseURL = "https://dev-auth.itoken.team";
-    let form = new FormData();
-    form.append("email", email);
-    res = await axios["post"]<{ signature: string }>(
+  //向邮箱发送验证码
+  whutSendEmail(email: string) {
+    return authAxios.post<{ signature: string }>(
       "/Auth/EmailVerify",
-      form,
-      config
+      generateFormData({ email })
     );
-    return res;
   },
-  async whutRegister(
-    email: string,
-    secret: string,
-    signature: string,
-    code: string
-  ) {
-    let form = new FormData();
-    form.append("email", email);
-    form.append("secret", secret);
-    form.append("signature", signature);
-    form.append("code", code);
-    let res;
-    let config: AxiosRequestConfig<any> = {};
-    config.baseURL = "https://dev-auth.itoken.team";
-    res = await axios["post"]<{ uid: string }>("/Auth/Register", form, config);
-    return res;
+  whutRegister(email: string, secret: string, signature: string, code: string) {
+    return authAxios.post<{ uid: string }>(
+      "/Auth/Register",
+      generateFormData({
+        email,
+        secret,
+        signature,
+        code,
+      })
+    );
   },
+
   //whut登录
   whutLogin() {
     return globalRequest.post<string>("/whutlogin", null); //返回status，msg，data（鉴权）

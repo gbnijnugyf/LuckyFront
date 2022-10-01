@@ -20,16 +20,13 @@ function RegisterPannel(props: IRegisterPannel) {
 }
 
 export function Register() {
-  const [signature, setSignature] = useState("");//用于存放邮箱验证id
-  const [btnId, setBtnId] = useState("checkbtn");
-  const [btnText, setBtnText] = useState("获取验证码");
-  const navigate = useNavigate();
   const [whutEmail, setWhutEmail] = useState("");
-  const [whutCheckEmail, setWhutCheckEmail] = useState<boolean>(false);
   const [whutInputEmail, setWhutInputEmail] = useState("");
   const [whutPwd, setWhutPwd] = useState("");
+  const [time, setTime] = useState(-1);
   const [whutIsPwd, setWhutIsPwd] = useState("");
-
+  const [signature, setSignature] = useState<string>();
+  const navigate = useNavigate();
   const handleWhutId = (e: ChangeEvent<HTMLInputElement>) => {
     setWhutEmail(e.target.value);
   };
@@ -44,39 +41,30 @@ export function Register() {
     setWhutIsPwd(e.target.value);
   };
 
-  //TODO fix bug
-  const goGetEVV = (email: string) => {
+  const goGetEVV = async (email: string) => {
     if (email === "") {
       alert("请输入邮箱");
       return;
     }
-    Service.whutSendEmail(email).then((res) => {
-      const resData = res.data;
-      if (resData.signature) {
-        //返回验证码成功
-        setWhutCheckEmail(true);
-        setSignature(res.data.signature);
-        let time = 60;
-        let retry: NodeJS.Timer;
-        retry = setInterval(() => {
-          setBtnId("checked");
-          setBtnText("（" + --time + "s后重新获取）");
-          if (time === 0) {
-            setBtnText("重新获取");
-            setBtnId("checkbtn");
-            clearInterval(retry);
-          }
-        }, 1000);
-      } else {
-        alert("请输入正确邮箱");
-        return undefined;
-      }
-
-    });
+    const res = await Service.whutSendEmail(email);
+    const { signature } = res.data;
+    //返回验证码成功
+    setSignature(signature);
+    // 倒计时
+    setTime(60);
+    const retry = setInterval(() => {
+      setTime((prevTime) => {
+        const newTime = prevTime - 1;
+        if (newTime === 0) {
+          clearInterval(retry);
+        }
+        return newTime;
+      });
+    }, 1000);
   };
 
   async function goVerify() {
-    const pwdRegex = new RegExp('(?=.*[0-9])(?=.*[a-zA-Z]).{6,20}');
+    const pwdRegex = new RegExp("(?=.*[0-9])(?=.*[a-zA-Z]).{6,20}");
 
     if (whutEmail === "") {
       alert("请输入邮箱");
@@ -90,27 +78,18 @@ export function Register() {
       alert("请确认密码");
     } else if (whutPwd !== whutIsPwd) {
       alert("两次密码输入不一致");
+    } else if (!signature) {
+      // 当用户没有请求验证码乱输的时候
+      alert("认证错误，请重新请求验证码！");
     } else {
-      if (whutCheckEmail) {
-        let res = await Service.whutRegister(whutEmail, whutPwd, signature, whutInputEmail)
-
-        const resData = res.data;
-        if (resData.uid) {
-          alert("注册成功");
-          navigate("login/whut");
-        } else {
-          alert("邮箱已被注册"); //若邮箱已被注册，弹窗提醒
-        }
-
-      } else {
-        alert("验证码错误"); //此处改为弹窗提醒，并刷新“获取验证码按钮”
-      }
+      await Service.whutRegister(whutEmail, whutPwd, signature, whutInputEmail);
+      alert("注册成功");
+      navigate("login/whut");
     }
   }
 
   return (
-    <RegisterPannel
-      text="掌理账号注册">
+    <RegisterPannel text="掌理账号注册">
       <div className="panel-register">
         <ul>
           <li>
@@ -128,8 +107,16 @@ export function Register() {
               value={whutInputEmail}
               onChange={handleWhutCheckEmail}
             ></input>
-            <button id={btnId} onClick={() => goGetEVV(whutEmail)}>
-              {btnText}
+            <button
+              id={time > 0 ? "checked" : "checkbtn"}
+              disabled={time > 0}
+              onClick={() => goGetEVV(whutEmail)}
+            >
+              {time > 0
+                ? `${time}后重新获取`
+                : time === 0
+                ? "重新获取"
+                : "获取验证码"}
             </button>
           </li>
           <li>

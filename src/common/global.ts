@@ -49,6 +49,7 @@ export interface IWishInfo {
   light_id: number;
   user_id: number;
 }
+
 export interface IWishInfoName {
   view_desire: IWishInfo;
   view_user: {
@@ -65,4 +66,19 @@ export function formatTime(time: string) {
   if (!time) return "";
   time = time.slice(0, 10) + " " + time.slice(11, 16);
   return time;
+}
+
+/**
+ *
+ * @param data as a object
+ * @returns as a FormData object
+ */
+export function generateFormData(
+  data: Record<string, number | string | boolean>
+) {
+  const form = new FormData();
+  Object.entries(data).forEach(([key, value]) => {
+    form.append(key, value.toString());
+  });
+  return form;
 }
