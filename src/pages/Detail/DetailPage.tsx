@@ -242,7 +242,6 @@ export default function DetailPage(props: IDetailPageProps) {
           </ButtonS>
         </div>
         <hr />
-        <PersonMsg wish={props.wish} isMine={isMine} />
       </>
     );
   } else if (props.wish.state === 0) {
