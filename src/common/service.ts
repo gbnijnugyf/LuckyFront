@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import "whatwg-fetch";
 import {
   generateFormData,
   IUserInfo,
