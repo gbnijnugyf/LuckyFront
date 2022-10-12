@@ -1,14 +1,17 @@
 import "./index.scss";
 import { Outlet, useNavigate } from "react-router-dom";
-import classNames from 'classnames'
+import classNames from "classnames";
 export interface IBtnProps {
-  text: "我是武小理" | "我是华小师",
+  text: "我是武小理" | "我是华小师";
   onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
 
 function Btn(props: IBtnProps) {
   return (
-    <div className={classNames("btn-school", props.text)} onClick={props.onClick}>
+    <div
+      className={classNames("btn-school", props.text)}
+      onClick={props.onClick}
+    >
       <p className="text-school">{props.text}</p>
     </div>
   );
@@ -18,7 +21,7 @@ export function LoginMain() {
   const navigate = useNavigate();
 
   const goWHUT = () => {
-    navigate("/login/whut")
+    navigate("/login/whut");
   };
 
   const goCCNU = () => {

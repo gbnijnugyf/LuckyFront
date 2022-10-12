@@ -15,51 +15,23 @@ export interface IWishesObject {
   wish_id?: string;
 }
 
-interface IMyStyle {
-  left: string;
-  transition?: string;
-  zIndex: number;
-}
-function toStyle(props: IMyStyle): React.CSSProperties {
-  if (props.transition !== undefined) {
-    let divStyle: React.CSSProperties = {
-      left: props.left,
-      transition: props.transition,
-      zIndex: props.zIndex,
-    };
-    return divStyle;
-  } else {
-    let divStyle: React.CSSProperties = {
-      left: props.left,
-      zIndex: props.zIndex,
-    };
-    return divStyle;
-  }
-}
-
 export interface IWishItemProps {
   className: string;
   wish: IWishInfoName;
-  onTouchStart?: (e: any) => void;
-  onTouchMove?: (e: any) => void;
-  onTouchEnd?: () => void;
+  onTouchStart?: React.TouchEventHandler<HTMLDivElement>;
+  onTouchMove?: React.TouchEventHandler<HTMLDivElement>;
+  onTouchEnd?: React.TouchEventHandler<HTMLDivElement>;
   setStyleID: number;
-  myStyle: IMyStyle;
+  style: React.CSSProperties;
 }
 
 const WishItem = (props: IWishItemProps) => {
-  const {
-    wish,
-    onTouchStart,
-    onTouchMove,
-    onTouchEnd,
-    myStyle
-  } = props;
+  const { wish, onTouchStart, onTouchMove, onTouchEnd, style } = props;
   return (
     <div
       key={wish?.view_user.name}
       className="wish-item"
-      style={toStyle(myStyle)}
+      style={style}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
@@ -72,8 +44,8 @@ const WishItem = (props: IWishItemProps) => {
               {wish.view_user.school.toString() === ""
                 ? ""
                 : wish.view_user.school.toString() === FALSE_0.toString()
-                  ? "华小师"
-                  : "武小理"}
+                ? "华小师"
+                : "武小理"}
             </p>{" "}
             <p>
               {wish.view_user.name.length > 0
@@ -194,12 +166,12 @@ export default function Wishes() {
   };
 
   // Start/Move/End 都是控制愿望刷新动画的相关函数
-  const onTouchStart = (e: any) => {
+  const onTouchStart: React.TouchEventHandler<HTMLDivElement> = (event) => {
     //e:ChangeEvent<HTMLDivElement>替换为any，targeTouches类型未知
-    const touch = e.targetTouches[0];
+    const touch = event.targetTouches[0];
     setStartX({ start: touch.pageX, move: "" });
   };
-  const onTouchMove = (e: any) => {
+  const onTouchMove: React.TouchEventHandler<HTMLDivElement> = (e) => {
     //e:ChangeEvent<HTMLDivElement>替换为any，targeTouches类型未知
     const touch = e.targetTouches[0];
     const move_X = (touch.pageX - startX.start) / 5;
@@ -300,7 +272,6 @@ export default function Wishes() {
         setOption("微信");
       }
       setTel(manInfo.tel);
-
     });
     setGeted(false);
   };
@@ -320,7 +291,6 @@ export default function Wishes() {
 
             <div className="input-msg">
               <div className="form">
-
                 <div className="name">
                   点亮人 :
                   <input
@@ -366,13 +336,15 @@ export default function Wishes() {
         )}
       </ConfirmPanel>
 
-      <ButtonS
-        id="btnSeeMyWish"
-        onClick={goMyWish}
-      >
+      <ButtonS id="btnSeeMyWish" onClick={goMyWish}>
         查看我的愿望与点亮
       </ButtonS>
-      <div className="wishes">
+      <div
+        className="wishes"
+        onTouchStart={() => {
+          console.log(123);
+        }}
+      >
         {/* TODO：愿望前后页斜着错开堆叠 */}
         <WishItem
           className="wish-img1"
@@ -381,7 +353,7 @@ export default function Wishes() {
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
-          myStyle={{
+          style={{
             left: `${move.img1}vw`,
             transition: update ? "all 0.2s" : "none",
             zIndex: 101,
@@ -391,7 +363,7 @@ export default function Wishes() {
           className="wish-img2"
           wish={wishes[1]}
           setStyleID={1}
-          myStyle={{
+          style={{
             left: `${move.img2}vw`,
             transition: update ? "all 0.2s" : "none",
             zIndex: 100,
@@ -401,7 +373,7 @@ export default function Wishes() {
           className="wish-img3"
           wish={wishes[2]}
           setStyleID={2}
-          myStyle={{
+          style={{
             left: `${move.img3}vw`,
             transition: update ? "all 0.2s" : "none",
             zIndex: 99,
@@ -411,7 +383,7 @@ export default function Wishes() {
           className="img1 wish-img"
           wish={wishes[2]}
           setStyleID={2}
-          myStyle={{
+          style={{
             left: `20vw`,
             zIndex: 98,
           }}

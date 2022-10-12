@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main", "dev" ]
+    branches: ["main", "dev"]
   pull_request:
-    branches: [ "main", "dev" ]
+    branches: ["main", "dev"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,20 +21,15 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-    
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v3.0.0
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@646cdf48217256a3d0b80361c5a50727664284f2
         with:
-          cmd: install # will run `yarn install` command
-      - uses: borales/actions-yarn@v3.0.0
+          version: 7.13.3
+      - uses: actions/setup-node@v3
         with:
-          cmd: build # will run `yarn build` command
-#       - uses: borales/actions-yarn@v3.0.0
-#         with:
-#           cmd: test # will run `yarn test` command
-
-
-
-
-
+          node-version: "16"
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm build
