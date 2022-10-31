@@ -104,17 +104,22 @@ function Header() {
     <div className="header">
       <div className="comp-header">
         <div
-          className="rule-button"
-          style={{
-            display: location.pathname.match(/login/) ? "none" : "flex",
-          }}
-          onClick={handleShow}
+          className="logo-rule"
         >
-          {/* TODO：图片下附“规则”二字 */}
-          <img src={rulebutton} alt="rulebutton" />
+          <div className="logo">
+            <img src={logo} alt="logo" />
+          </div>
+          <div className="rule"
+            style={{
+              display: location.pathname.match(/login/) ? "none" : "",
+            }}
+            onClick={handleShow}>
+            <div className="img-rule">
+              <img src={rulebutton} alt="rulebutton" />
+            </div>
+            <div className="text-rule">规则</div>
+          </div>
         </div>
-        {/* TODO：logo居中问题 */}
-        <img className="logo" src={logo} alt="logo" />
         {getAlert()}
         <div
           className="cover"

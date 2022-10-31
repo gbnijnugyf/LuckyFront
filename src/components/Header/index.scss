@@ -18,24 +18,39 @@
     width: 100%;
     max-width: $AppMaxWidth;
 
-    .rule-button {
+    .logo-rule {
+      display: flex;
       flex-direction: row;
       position: relative;
-      width: 1.2em;
+      width: 100vw;
       margin-top: 30%;
-      margin-left: 93%;
+      // margin-left: 10vw;
       z-index: 150;
     }
 
     .logo {
       display: flex;
-      position: absolute;
+      margin: 0 auto;
       align-self: center;
-      top: 10%;
-      width: auto;
-      transform: scale(80%);
-      height: $LogoHeight;
     }
+    .rule{
+      display: flex;
+      flex-direction: column;
+      width: 6vw;
+      .img-rule{
+        display: flex;
+        align-self: center;
+        margin: 0 auto;
+        margin-top: 3vh;
+      }
+      .text-rule{
+        font-size: 9%;
+        font-family: Tensentype-MaiHeiJ;
+        color: #577dab;
+        white-space: nowrap;
+      }
+    }
+
 
     .rule-container {
       position: absolute;
