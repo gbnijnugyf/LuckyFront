@@ -98,8 +98,10 @@ export default function Wishes() {
   const [showTip, setShowTip] = useState(true);
   const moveState = { img1: 0, img2: 10, img3: 20 };
   const [move, setMove] = useState(moveState); // 树叶动画相关状态
+  const topState = [1.5, 0, -1.5];
+  const [top, setTop] = useState(topState); // 树叶动画相关状态
   const [startX, setStartX] = useState(STARTINIT); // 树叶动画相关状态
-  const [update, setUpDate] = useState(false); // 控制动画以及愿望内容的更新
+  const [update, setUpdate] = useState(false); // 控制动画以及愿望内容的更新
   const [display, setDisplay] = useState(false); // 弹出确认框
   const [light, setLight] = useState(false); //显示light点亮前panel
   const [lightBtn, setLightBtn] = useState(true); // 点亮按钮是否存在
@@ -179,18 +181,21 @@ export default function Wishes() {
     setMove({ img1: move_X, img2: 10, img3: 20 });
   };
   const onTouchEnd = () => {
-    setUpDate(true);
+    setUpdate(true);
     if (move.img1 < -25) {
       setMove({ img1: -90, img2: 0, img3: 10 });
+      setTop([1.5, 1.5, 0]);
     } else if (move.img1 > 20) {
       setMove({ img1: 90, img2: 0, img3: 10 });
+      setTop([1.5, 1.5, 0]);
     } else {
       setMove({ img1: 0, img2: 10, img3: 20 });
+      setTop([1.5, 0, -1.5]);
       return;
     }
     // 刷新愿望
     setTimeout(() => {
-      setUpDate(false);
+      setUpdate(false);
       let newWishSource = wishes;
       if (!newWishSource) return;
       newWishSource.push(newWishSource[0]);
@@ -198,6 +203,7 @@ export default function Wishes() {
       setWishes(newWishSource);
       // 刷新动画
       setMove(moveState);
+      setTop(topState);
     }, 200);
   };
   // 查看我的点亮
@@ -339,12 +345,7 @@ export default function Wishes() {
       <ButtonS id="btnSeeMyWish" onClick={goMyWish}>
         查看我的愿望与点亮
       </ButtonS>
-      <div
-        className="wishes"
-        onTouchStart={() => {
-          console.log(123);
-        }}
-      >
+      <div className="wishes">
         {/* TODO：愿望前后页斜着错开堆叠 */}
         <WishItem
           className="wish-img1"
@@ -354,8 +355,9 @@ export default function Wishes() {
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
           style={{
+            marginTop: `${top[0]}em`,
             left: `${move.img1}vw`,
-            transition: update ? "all 0.2s" : "none",
+            transition: update ? "all 0.5s ease-out" : "none",
             zIndex: 101,
           }}
         />
@@ -364,6 +366,7 @@ export default function Wishes() {
           wish={wishes[1]}
           setStyleID={1}
           style={{
+            marginTop: `${top[1]}em`,
             left: `${move.img2}vw`,
             transition: update ? "all 0.2s" : "none",
             zIndex: 100,
@@ -374,6 +377,7 @@ export default function Wishes() {
           wish={wishes[2]}
           setStyleID={2}
           style={{
+            marginTop: `${top[2]}em`,
             left: `${move.img3}vw`,
             transition: update ? "all 0.2s" : "none",
             zIndex: 99,
@@ -384,6 +388,7 @@ export default function Wishes() {
           wish={wishes[2]}
           setStyleID={2}
           style={{
+            marginTop: `-1.5em`,
             left: `20vw`,
             zIndex: 98,
           }}
