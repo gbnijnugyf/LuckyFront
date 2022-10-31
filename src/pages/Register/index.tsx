@@ -1,5 +1,5 @@
 import "./index.scss";
-
+import ConfirmPanel from "../../components/ConfirmPanel";
 import { Service } from "../../common/service";
 import { ChangeEvent, ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";

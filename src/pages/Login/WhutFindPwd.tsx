@@ -1,0 +1,1 @@
+import ConfirmPanel from "../../components/ConfirmPanel";
