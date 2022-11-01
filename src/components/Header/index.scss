@@ -18,23 +18,45 @@
     width: 100%;
     max-width: $AppMaxWidth;
 
-    .rule-button {
-      flex-direction: row;
+    .logo-rule {
+      display: flex;
       position: relative;
-      width: 1.2em;
+      width: 100vw;
       margin-top: 30%;
-      margin-left: 93%;
+      // margin-left: 10vw;
       z-index: 150;
     }
 
     .logo {
       display: flex;
-      position: absolute;
+      margin: 0 auto;
       align-self: center;
-      top: 10%;
-      width: auto;
-      transform: scale(80%);
-      height: $LogoHeight;
+
+      img {
+        width: 60vw;
+      }
+    }
+
+    .rule {
+      display: flex;
+      position: absolute;
+      flex-direction: column;
+      right: 1rem;
+      margin-top: 1rem;
+
+      .img-rule {
+        display: flex;
+        align-self: center;
+        margin: 0 auto;
+      }
+
+      .text-rule {
+        margin-top: 0.5rem;
+        font-size: 1rem;
+        font-family: Tensentype-MaiHeiJ;
+        color: #577dab;
+        white-space: nowrap;
+      }
     }
 
     .rule-container {
@@ -111,7 +133,7 @@
           }
         }
 
-        .toTag{
+        .toTag {
           margin-top: 26vh;
           margin-left: -55vw;
           width: 22vw;
@@ -119,12 +141,11 @@
           border-radius: 0.5em;
 
           background-color: rgba(255, 255, 255, 0.6);
-
         }
-        .toTagText{
+
+        .toTagText {
           margin-top: 1vh;
         }
-
       }
     }
 
