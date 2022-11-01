@@ -94,78 +94,80 @@ export default function Send() {
   };
   return (
     <>
-      <ButtonS id="btnSelectTag" onClick={goSelectTag}>
-        <img src={selectTag} alt="selectTag" />
-        {tagName}
-      </ButtonS>
-      <div className="send">
-        <div className="tagmask" style={{ display: showTag ? "flex" : "none" }}>
-          <div className="tags">
-            {tags.map((tag, index) => {
-              return (
-                <div
-                  onClick={() => changeTagName(tag.name, index + 1)}
-                  className="tag"
-                  key={tag.name}
-                >
-                  <p>{tag.name}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="sendbc">
-          <textarea
-            className="notes"
-            placeholder={
-              "把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~"
-            }
-            value={wishContent}
-            onChange={handleWishContent}
-          ></textarea>
-          <div className="send-msg">
-            <div className="sendContent">
-              <div className="name">
-                <p>投递人：</p>
-                <input
-                  type="text"
-                  placeholder="必填内容哦～"
-                  value={nameValue}
-                  onChange={handleNameValue}
-                />
-              </div>
-              <div className="number">
-                <div className="number1">
-                  <p>联系方式：</p>
-                  <select value={selectValue} onChange={handleSelectValue}>
-                    <option value="QQ">QQ</option>
-                    <option value="WeChat">微信</option>
-                  </select>
-                  <input
-                    type="text"
-                    id="connect"
-                    placeholder="必填内容哦～"
-                    value={numberValue}
-                    onChange={handleNumberValue}
-                  />
-                </div>
-                <div className="number2">
-                  <p>或 Tel：</p>
-                  <input
-                    type="text"
-                    id="tel"
-                    placeholder="选填内容哦～"
-                    value={tel}
-                    onChange={handleTelValue}
-                    style={{ marginLeft: "2em" }}
-                  />
-                </div>
-              </div>
+      <div className="sendPage">
+        <ButtonS id="btnSelectTag" onClick={goSelectTag}>
+          <img src={selectTag} alt="selectTag" />
+          {tagName}
+        </ButtonS>
+        <div className="send">
+          <div className="tagmask" style={{ display: showTag ? "flex" : "none" }}>
+            <div className="tags">
+              {tags.map((tag, index) => {
+                return (
+                  <div
+                    onClick={() => changeTagName(tag.name, index + 1)}
+                    className="tag"
+                    key={tag.name}
+                  >
+                    <p>{tag.name}</p>
+                  </div>
+                );
+              })}
             </div>
-            <div className="sendBtn">
-              <ButtonS id="btnSend" onClick={goSubmit}>
-                <img src={btnSend} alt="send" />
-              </ButtonS>
+          </div>
+          <div className="sendbc">
+            <textarea
+              className="notes"
+              placeholder={
+                "把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~"
+              }
+              value={wishContent}
+              onChange={handleWishContent}
+            ></textarea>
+            <div className="send-msg">
+              <div className="sendContent">
+                <div className="name">
+                  <p>投递人：</p>
+                  <input
+                    type="text"
+                    placeholder="必填内容哦～"
+                    value={nameValue}
+                    onChange={handleNameValue}
+                  />
+                </div>
+                <div className="number">
+                  <div className="number1">
+                    <p>联系方式：</p>
+                    <select value={selectValue} onChange={handleSelectValue}>
+                      <option value="QQ">QQ</option>
+                      <option value="WeChat">微信</option>
+                    </select>
+                    <input
+                      type="text"
+                      id="connect"
+                      placeholder="必填内容哦～"
+                      value={numberValue}
+                      onChange={handleNumberValue}
+                    />
+                  </div>
+                  <div className="number2">
+                    <p>或 Tel：</p>
+                    <input
+                      type="text"
+                      id="tel"
+                      placeholder="选填内容哦～"
+                      value={tel}
+                      onChange={handleTelValue}
+                      style={{ marginLeft: "2em" }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="sendBtn">
+                <ButtonS id="btnSend" onClick={goSubmit}>
+                  <img src={btnSend} alt="send" />
+                </ButtonS>
+              </div>
             </div>
           </div>
         </div>
