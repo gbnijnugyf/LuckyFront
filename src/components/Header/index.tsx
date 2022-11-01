@@ -36,7 +36,7 @@ function Header() {
     }
   }, [key]);
 
-  const getAlert = () => {
+  const Alert = () => {
     if (key === "tagscreen") {
       return (
         <div
@@ -103,28 +103,28 @@ function Header() {
   return (
     <div className="header">
       <div className="comp-header">
-        <div
-          className="logo-rule"
-        >
+        <div className="logo-rule">
           <div className="logo">
             <img src={logo} alt="logo" />
           </div>
-          <div className="rule"
+          <div
+            className="rule"
             style={{
               display: location.pathname.match(/login/) ? "none" : "",
             }}
-            onClick={handleShow}>
+            onClick={handleShow}
+          >
             <div className="img-rule">
               <img src={rulebutton} alt="rulebutton" />
             </div>
             <div className="text-rule">规则</div>
           </div>
         </div>
-        {getAlert()}
         <div
           className="cover"
           style={{ display: isShow ? "block" : "none" }}
         ></div>
+        <Alert />
       </div>
     </div>
   );

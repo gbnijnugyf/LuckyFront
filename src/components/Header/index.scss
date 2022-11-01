@@ -67,7 +67,7 @@
       top: 0;
       height: 100vh;
       width: 100vw;
-      z-index: 99;
+      z-index: 150;
 
       .rule-alert {
         flex-direction: column;
@@ -156,7 +156,7 @@
       width: 100vw;
       background-color: black;
       opacity: 0.5;
-      z-index: 90;
+      z-index: 150;
     }
   }
 }
