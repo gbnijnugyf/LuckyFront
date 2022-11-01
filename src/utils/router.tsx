@@ -22,6 +22,7 @@ import {
 import { LoginWhut } from "../pages/Login/WhutLogin";
 import { Register } from "../pages/Register";
 import "./router.scss";
+import { FindPwd } from "../pages/Login/WhutFindPwd";
 
 function Router() {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ function Router() {
               <Route path="bindemail" element={<BindEmail />} />
               <Route path="whut" element={<LoginWhut />} />
               <Route path="whut/whutRegister" element={<Register />} />
+              <Route path="whut/whutFindPwd" element={<FindPwd />} />
               <Route path="*" element={<LoginMain />} />
             </Route>
             {/* 筛选页面 */}

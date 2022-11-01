@@ -1,5 +1,5 @@
 import "./index.scss";
-
+import ConfirmPanel from "../../components/ConfirmPanel";
 import { Service } from "../../common/service";
 import { ChangeEvent, ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ function RegisterPannel(props: IRegisterPannel) {
 }
 
 export function Register() {
+  const [display, setDisplay] = useState(false);
   const [whutEmail, setWhutEmail] = useState("");
   const [whutInputEmail, setWhutInputEmail] = useState("");
   const [whutPwd, setWhutPwd] = useState("");
@@ -46,26 +47,30 @@ export function Register() {
       alert("请输入邮箱");
       return;
     }
-    const res = await Service.whutSendEmail(email);
-    const { signature } = res.data;
-    //返回验证码成功
-    setSignature(signature);
-    // 倒计时
-    setTime(60);
-    const retry = setInterval(() => {
-      setTime((prevTime) => {
-        const newTime = prevTime - 1;
-        if (newTime === 0) {
-          clearInterval(retry);
-        }
-        return newTime;
-      });
-    }, 1000);
+    try {
+      const res = await Service.whutSendEmail(email);
+      const { signature } = res.data;
+      //返回验证码成功
+      setSignature(signature);
+      // 倒计时
+      setTime(60);
+      const retry = setInterval(() => {
+        setTime((prevTime) => {
+          const newTime = prevTime - 1;
+          if (newTime === 0) {
+            clearInterval(retry);
+          }
+          return newTime;
+        });
+      }, 1000);
+    }
+    catch (error) {
+      alert(error);
+    }
   };
 
   async function goVerify() {
     const pwdRegex = new RegExp("(?=.*[0-9])(?=.*[a-zA-Z]).{6,20}");
-
     if (whutEmail === "") {
       alert("请输入邮箱");
     } else if (whutInputEmail === "") {
@@ -82,66 +87,85 @@ export function Register() {
       // 当用户没有请求验证码乱输的时候
       alert("认证错误，请重新请求验证码！");
     } else {
-      await Service.whutRegister(whutEmail, whutPwd, signature, whutInputEmail);
-      alert("注册成功");
-      navigate("login/whut");
+      try {
+        let res = await Service.whutRegister(whutEmail, whutPwd, signature, whutInputEmail);
+        if (res.status === 200) {
+          alert("注册成功");
+          navigate("/login/whut");
+        }
+      } catch (error) {
+        if (error === "邮箱已注册") {
+          setDisplay(true);
+        }
+      }
     }
   }
 
   return (
-    <RegisterPannel text="掌理账号注册">
-      <div className="panel-register">
-        <ul>
-          <li>
-            <label>邮箱：</label>
-            <input
-              className="email"
-              value={whutEmail}
-              onChange={handleWhutId}
-            ></input>
-          </li>
-          <li>
-            <label className="check">验证码：</label>
-            <input
-              className="checkemail"
-              value={whutInputEmail}
-              onChange={handleWhutCheckEmail}
-            ></input>
-            <button
-              id={time > 0 ? "checked" : "checkbtn"}
-              disabled={time > 0}
-              onClick={() => goGetEVV(whutEmail)}
-            >
-              {time > 0
-                ? `${time}后重新获取`
-                : time === 0
-                ? "重新获取"
-                : "获取验证码"}
-            </button>
-          </li>
-          <li>
-            <label>密码：</label>
-            <input
-              minLength={6}
-              maxLength={20}
-              type="password"
-              value={whutPwd}
-              onChange={handleWhutPwd}
-            ></input>
-          </li>
-          <li>
-            <label>确认密码：</label>
-            <input
-              minLength={6}
-              maxLength={20}
-              type="password"
-              value={whutIsPwd}
-              onChange={handleWhutIsPwd}
-            ></input>
-          </li>
-        </ul>
-        <ButtonL onClick={goVerify}>确定</ButtonL>
-      </div>
-    </RegisterPannel>
+    <>
+      <ConfirmPanel
+        display={display}
+        onChoose={(res) => {
+          res ? navigate("/login/whut/whutFindPwd") : navigate("/login/whut");
+        }}
+        btnTextNo={"登录"}
+        btnTextYes={"找回密码"}
+      >该邮箱已经被注册了呢
+      </ConfirmPanel>
+      <RegisterPannel text="掌理账号注册">
+        <div className="panel-register">
+          <ul>
+            <li>
+              <label>邮箱：</label>
+              <input
+                className="email"
+                value={whutEmail}
+                onChange={handleWhutId}
+              ></input>
+            </li>
+            <li>
+              <label className="check">验证码：</label>
+              <input
+                className="checkemail"
+                value={whutInputEmail}
+                onChange={handleWhutCheckEmail}
+              ></input>
+              <button
+                id={time > 0 ? "checked" : "checkbtn"}
+                disabled={time > 0}
+                onClick={() => goGetEVV(whutEmail)}
+              >
+                {time > 0
+                  ? `${time}后重新获取`
+                  : time === 0
+                    ? "重新获取"
+                    : "获取验证码"}
+              </button>
+            </li>
+            <li>
+              <label>密码：</label>
+              <input
+                minLength={6}
+                maxLength={20}
+                type="password"
+                value={whutPwd}
+                onChange={handleWhutPwd}
+              ></input>
+            </li>
+            <li>
+              <label>确认密码：</label>
+              <input
+                minLength={6}
+                maxLength={20}
+                type="password"
+                value={whutIsPwd}
+                onChange={handleWhutIsPwd}
+              ></input>
+            </li>
+          </ul>
+          <ButtonL onClick={goVerify}>确定</ButtonL>
+        </div>
+      </RegisterPannel>
+    </>
   );
 }
