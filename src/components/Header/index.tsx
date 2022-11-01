@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import "./index.scss";
 import rulebutton from "../../static/images/rulebutton.png";
 import logo from "../../static/images/logo.png";
-import arrowRight from "../../static/images/arrowRight.png";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { TipAction } from "../../stores/TipStore";
@@ -12,9 +11,6 @@ function Header() {
   const dispatch = useDispatch();
   const showRule = useSelector<boolean>((state) => state);
   const [key, setKey] = useState("");
-
-
-  const handleShow = () => {};
 
   useEffect(() => {
     setKey(location.pathname.split("/")[1]);
@@ -35,34 +31,6 @@ function Header() {
       }
     }
   }, [key, dispatch]);
-
-  const Alert = () => {
-    switch (key) {
-      case "tagscreen": {
-        return (
-          <div
-            className="rule-alert-2"
-            onClick={handleShow}
-            style={{ display: showRule ? "block" : "none" }}
-          >
-            {/* TODO：规则灰色遮罩 */}
-            <div className="rule-content">
-              <div className="toRuleBtn">
-                在这里查看详细规则&nbsp;&nbsp;
-                <img className="arrowRight" src={arrowRight} alt="arrow" />
-                <div className="lightArea"></div>
-              </div>
-              <div className="toTag"></div>
-              <div className="toTagText">safasdfsda</div>
-              <div>fasdadf</div>
-              <div>fsda</div>
-            </div>
-          </div>
-        );
-      }
-    }
-    return <> </>;
-  };
 
   return (
     <div className="header">
@@ -86,8 +54,6 @@ function Header() {
             <div className="text-rule">规则</div>
           </div>
         </div>
-
-        <Alert />
       </div>
     </div>
   );

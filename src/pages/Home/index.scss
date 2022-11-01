@@ -33,3 +33,17 @@
     }
   }
 }
+
+
+.rule-alert-2 {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  position: absolute;
+  z-index: 150;
+
+  .rule-content * {
+    position: absolute;
+  }
+}
