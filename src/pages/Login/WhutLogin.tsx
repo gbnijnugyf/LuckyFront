@@ -37,10 +37,13 @@ export function LoginWhut() {
       alert("请输入密码");
     } else {
       Service.whutLogin().then((res) => {
+        //TODO:res.status === 200 时成功？
         if (res.status === 0) {
           localStorage.setItem("token", res.data.data);
           navigate("/tagscreen/home");
-        } else alert("邮箱或密码错误");
+        } else {
+          console.log(res);
+          alert("邮箱或密码错误")};
       });
     }
   };
@@ -61,30 +64,33 @@ export function LoginWhut() {
             ></input>
           </li>
         </ul>
-        <GoRegister text="" goRegister="快速注册一个吧！">
+        <GoOhterLoginPage path="/login/whut/whutRegister" goRegister="快速注册一个吧！">
           请使用掌上吾理账号登录，
           <br />
           还没有？
-        </GoRegister>
+        </GoOhterLoginPage>
+        <GoOhterLoginPage path="/login/whut/whutFindPwd" goRegister="找回密码">
+          忘记密码？
+        </GoOhterLoginPage>
         <ButtonL onClick={goVerify}>确定</ButtonL>
       </div>
     </LoginPannel>
   );
 }
 
-interface IGoRegisterProps {
-  text: string;
+interface IGoOhterLoginPage {
+  path: string;
   goRegister: string;
   children: ReactNode;
 }
 
-export function GoRegister(props: IGoRegisterProps) {
+export function GoOhterLoginPage(props: IGoOhterLoginPage) {
   const navigate = useNavigate();
 
   return (
     <p>
       {props.children}
-      <span onClick={() => navigate("whutRegister")}>{props.goRegister}</span>
+      <span onClick={() => navigate(props.path)}>{props.goRegister}</span>
     </p>
   );
 }

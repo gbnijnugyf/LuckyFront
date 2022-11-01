@@ -47,26 +47,31 @@ export function Register() {
       alert("请输入邮箱");
       return;
     }
-    const res = await Service.whutSendEmail(email);
-    const { signature } = res.data;
-    //返回验证码成功
-    setSignature(signature);
-    // 倒计时
-    setTime(60);
-    const retry = setInterval(() => {
-      setTime((prevTime) => {
-        const newTime = prevTime - 1;
-        if (newTime === 0) {
-          clearInterval(retry);
-        }
-        return newTime;
-      });
-    }, 1000);
+    try {
+      const res = await Service.whutSendEmail(email);
+      const { signature } = res.data;
+      //返回验证码成功
+      setSignature(signature);
+      console.log(signature);
+      // 倒计时
+      setTime(60);
+      const retry = setInterval(() => {
+        setTime((prevTime) => {
+          const newTime = prevTime - 1;
+          if (newTime === 0) {
+            clearInterval(retry);
+          }
+          return newTime;
+        });
+      }, 1000);
+    }
+    catch (error) {
+      alert(error);
+    }
   };
 
   async function goVerify() {
     const pwdRegex = new RegExp("(?=.*[0-9])(?=.*[a-zA-Z]).{6,20}");
-
     if (whutEmail === "") {
       alert("请输入邮箱");
     } else if (whutInputEmail === "") {
@@ -83,12 +88,16 @@ export function Register() {
       // 当用户没有请求验证码乱输的时候
       alert("认证错误，请重新请求验证码！");
     } else {
-      let res = await Service.whutRegister(whutEmail, whutPwd, signature, whutInputEmail);
-      if (res.status === 200) {
-        alert("注册成功");
-        navigate("login/whut");
-      } else if (res.status === 400) {//邮箱已被注册，跳转至找回密码页面
-        setDisplay(true);
+      try {
+        let res = await Service.whutRegister(whutEmail, whutPwd, signature, whutInputEmail);
+        if (res.status === 200) {
+          alert("注册成功");
+          navigate("/login/whut");
+        }
+      } catch (error) {
+        if (error === "邮箱已注册") {
+          setDisplay(true);
+        }
       }
     }
   }
@@ -98,7 +107,7 @@ export function Register() {
       <ConfirmPanel
         display={display}
         onChoose={(res) => {
-          res ? navigate("login/whut/whutFindPwd") : navigate("login/whut");
+          res ? navigate("/login/whut/whutFindPwd") : navigate("/login/whut");
         }}
         btnTextNo={"登录"}
         btnTextYes={"找回密码"}
