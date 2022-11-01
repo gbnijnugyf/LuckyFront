@@ -13,12 +13,8 @@ function Header() {
   const showRule = useSelector<boolean>((state) => state);
   const [key, setKey] = useState("");
 
-  const setIsShow = (state: boolean) =>
-    dispatch({ type: state ? TipAction.SHOW : TipAction.HIDE });
 
-  const handleShow = () => {
-    setIsShow(!showRule);
-  };
+  const handleShow = () => {};
 
   useEffect(() => {
     setKey(location.pathname.split("/")[1]);
@@ -28,17 +24,17 @@ function Header() {
     if (key === "/wishpool/wish") {
       let used = localStorage.getItem("wish_tip");
       if (!used) {
-        setIsShow(true);
+        dispatch({ type: TipAction.SHOW });
         localStorage.setItem("wish_tip", "true"); //类型“boolean”的参数不能赋给类型“string”的参数
       }
     } else if (key === "/tagscreen/home") {
       let used = localStorage.getItem("other_tip");
       if (!used) {
-        setIsShow(true);
+        dispatch({ type: TipAction.SHOW });
         localStorage.setItem("other_tip", "true"); //类型“boolean”的参数不能赋给类型“string”的参数
       }
     }
-  }, [key]);
+  }, [key, dispatch]);
 
   const Alert = () => {
     switch (key) {
@@ -80,7 +76,9 @@ function Header() {
             style={{
               display: location.pathname.match(/login/) ? "none" : "",
             }}
-            onClick={handleShow}
+            onClick={() =>
+              dispatch({ type: showRule ? TipAction.HIDE : TipAction.SHOW })
+            }
           >
             <div className="img-rule">
               <img src={rulebutton} alt="rulebutton" />
