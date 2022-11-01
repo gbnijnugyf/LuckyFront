@@ -24,27 +24,29 @@
 
   .content {
     position: relative;
-    height: 40%;
+    height: 45%;
     margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-grow: 0 !important;
-    width: 80%;
+    width: 60%;
     background: url("../../static/images/textContainer.png");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: top;
-    padding: 20% 9% 0% 9%;
+    padding-top: 10%;
+    padding-left: 20%;
+    padding-right: 15%;
+    padding-bottom: 5%;
 
 
 
     .text {
       overflow: scroll;
       width: 80%;
-      min-height: 9em;
-      max-height: 10em;
-
+      min-height: 40%;
+      max-height: 65%;
       .text-content {
         min-height: 9em;
         word-break: break-all;
@@ -54,7 +56,7 @@
         font-family: Tensentype-MaiHeiJ;
         color: #577DAB;
         padding-top: 0px;
-        font-size: medium;
+        font-size: 100%;
       }
     }
 
@@ -62,14 +64,14 @@
       display: flex;
       flex-direction: column;
       align-self: flex-end;
-      margin-right: 2em;
-      margin-top: 0.5em;
+      margin-right: 15%;
+      margin-top: 8%;
 
       p {
         display: flex;
         flex-direction: row;
         font-family: Tensentype-MaiHeiJ;
-        font-size: large;
+        font-size: 100%;
 
         &.fromWho {
           align-self: flex-end;
@@ -88,7 +90,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
     width: 100%;
   }
 
@@ -158,6 +159,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     margin-left: 0.5em;
     padding: 1em;
@@ -167,8 +169,10 @@
     }
 
     .msg-text {
+      display: flex;
       font-size: large;
       margin: -1em;
+      margin-left: -10%;
 
       .h {
         color: #ff7a59;
@@ -187,7 +191,6 @@
     }
 
     .msg-info {
-      margin-right: 1em;
       justify-content: space-evenly;
       color: #577DAB;
       align-items: flex-end;
