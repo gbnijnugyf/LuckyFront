@@ -37,8 +37,7 @@ export function LoginWhut() {
       alert("请输入密码");
     } else {
       Service.whutLogin().then((res) => {
-        //TODO:res.status === 200 时成功？
-        if (res.status === 0) {
+        if (res.data.status === 0) {
           localStorage.setItem("token", res.data.data);
           navigate("/tagscreen/home");
         } else {
