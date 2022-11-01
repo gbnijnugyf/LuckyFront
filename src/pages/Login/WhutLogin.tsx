@@ -62,27 +62,27 @@ export function LoginWhut() {
             ></input>
           </li>
         </ul>
-        <GoOhterLoginPage path="/login/whut/whutRegister" goRegister="快速注册一个吧！">
+        <GoOtherLoginPage path="/login/whut/whutRegister" goRegister="快速注册一个吧！">
           请使用掌上吾理账号登录，
           <br />
           还没有？
-        </GoOhterLoginPage>
-        <GoOhterLoginPage path="/login/whut/whutFindPwd" goRegister="找回密码">
+        </GoOtherLoginPage>
+        <GoOtherLoginPage path="/login/whut/whutFindPwd" goRegister="找回密码">
           忘记密码？
-        </GoOhterLoginPage>
+        </GoOtherLoginPage>
         <ButtonL onClick={goVerify}>确定</ButtonL>
       </div>
     </LoginPannel>
   );
 }
 
-interface IGoOhterLoginPage {
+interface IGoOtherLoginPage {
   path: string;
   goRegister: string;
   children: ReactNode;
 }
 
-export function GoOhterLoginPage(props: IGoOhterLoginPage) {
+export function GoOtherLoginPage(props: IGoOtherLoginPage) {
   const navigate = useNavigate();
 
   return (

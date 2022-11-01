@@ -100,7 +100,7 @@ authAxios.interceptors.response.use(
     } else if (data.errors) {
       // 显示第一条error
       alert(Object.values(data.errors).flat().shift());
-      return Promise.reject(data.errors);
+      return Promise.reject(Object.values(data.errors).flat().shift());
 
     }
   }
