@@ -50,7 +50,6 @@ export function FindPwd() {
         const { signature } = res.data;
         //返回验证码成功
         setSignature(signature);
-        console.log(signature);
         // 倒计时
         setTime(60);
         const retry = setInterval(() => {
@@ -70,7 +69,7 @@ export function FindPwd() {
   
     async function goVerify() {
       const pwdRegex = new RegExp("(?=.*[0-9])(?=.*[a-zA-Z]).{6,20}");
-      console.log(signature);
+
       if (whutEmail === "") {
         alert("请输入邮箱");
       } else if (whutInputEmail === "") {
@@ -94,7 +93,6 @@ export function FindPwd() {
             navigate("/login/whut");
           }
         } catch (error) {
-            console.log(error);
             alert(error);
         }
       }

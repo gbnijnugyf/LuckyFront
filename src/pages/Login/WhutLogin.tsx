@@ -41,7 +41,6 @@ export function LoginWhut() {
           localStorage.setItem("token", res.data.data);
           navigate("/tagscreen/home");
         } else {
-          console.log(res);
           alert("邮箱或密码错误")};
       });
     }

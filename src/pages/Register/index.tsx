@@ -52,7 +52,6 @@ export function Register() {
       const { signature } = res.data;
       //返回验证码成功
       setSignature(signature);
-      console.log(signature);
       // 倒计时
       setTime(60);
       const retry = setInterval(() => {
