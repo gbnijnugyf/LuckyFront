@@ -44,8 +44,8 @@ const WishItem = (props: IWishItemProps) => {
               {wish.view_user.school.toString() === ""
                 ? ""
                 : wish.view_user.school.toString() === FALSE_0.toString()
-                ? "华小师"
-                : "武小理"}
+                  ? "华小师"
+                  : "武小理"}
             </p>{" "}
             <p>
               {wish.view_user.name.length > 0
@@ -393,8 +393,7 @@ export default function Wishes() {
             zIndex: 98,
           }}
         />
-      </div>
-      <ButtonS
+        <ButtonS
         id="sideAlert"
         style={{
           display: showTip ? "absolute" : "none",
@@ -402,15 +401,19 @@ export default function Wishes() {
       >
         左右滑查看更多许愿哦~
       </ButtonS>
-      <ButtonS
-        id="btnLight"
-        onClick={showConfirm}
-        style={{
-          display: lightBtn ? "relative" : "none",
-        }}
-      >
-        点亮TA的小幸运
-      </ButtonS>
+      </div>
+      
+      <div className="btnLight">
+        <ButtonS
+          id="btnLight"
+          onClick={showConfirm}
+          style={{
+            display: lightBtn ? "relative" : "none",
+          }}
+        >
+          点亮TA的小幸运
+        </ButtonS>
+      </div>
     </div>
   );
 }
