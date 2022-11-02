@@ -82,3 +82,24 @@ export function generateFormData(
   });
   return form;
 }
+
+/**
+ * fix the shape of a rect without change position
+ * @param rect
+ * @param diff
+ */
+export function fixRectShape(
+  rect: {
+    width: number;
+    height: number;
+    left: number;
+    top: number;
+  },
+  diff: { x?: number; y?: number }
+) {
+  const { x = 0, y = 0 } = diff;
+  rect.width += x;
+  rect.height += y;
+  rect.left -= x / 2;
+  rect.top -= y / 2;
+}

@@ -45,7 +45,6 @@ function Router() {
     <>
       {/* TODO fixthis */}
       <div className="bg">
-        <Header></Header>
         {/* TODO:content增加定高，定高待计算 */}
         <div className="content">
           <Routes>
@@ -103,6 +102,7 @@ function Router() {
             />
           </Routes>
         </div>
+        <Header></Header>
       </div>
     </>
   );

@@ -9,7 +9,6 @@
 
   .comp-header {
     position: fixed;
-    z-index: 501;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -22,9 +21,7 @@
       display: flex;
       position: relative;
       width: 100vw;
-      margin-top: 30%;
-      // margin-left: 10vw;
-      z-index: 150;
+      margin-top: 13vh;
     }
 
     .logo {
@@ -59,104 +56,7 @@
       }
     }
 
-    .rule-container {
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      top: 0;
-      height: 100vh;
-      width: 100vw;
-      z-index: 99;
 
-      .rule-alert {
-        flex-direction: column;
-        align-items: center;
-        box-sizing: border-box;
-        width: 80vw;
-        background-image: url("../../static/images/ruleBG.png");
-        background-size: cover;
-        border-radius: 3vh;
-        font-family: Tensentype-MaiHeiJ;
-        color: #577dab;
-        font-weight: 700;
-        padding: 3vh 4.5vw;
-      }
 
-      .rule-alert .rule-text {
-        display: inline-block;
-        font-size: 1.7vh;
-      }
-
-      .rule-alert .rule-text p {
-        display: inline;
-        color: #577dab;
-      }
-    }
-
-    .rule-alert-2 {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      top: 0;
-      z-index: 100;
-
-      .rule-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-
-        .toRuleBtn {
-          height: 7vh;
-          display: flex;
-          justify-content: flex-end;
-          flex-direction: row;
-          margin-top: 6vh;
-          margin-left: 4vw;
-          color: white;
-          font-weight: 100;
-
-          .arrowRight {
-            margin-top: 1vh;
-            width: auto;
-            height: 2vh;
-          }
-
-          .lightArea {
-            margin-right: 0vw;
-            margin: 0 0 0 5vw;
-            width: 15vw;
-            height: 9vh;
-            border-radius: 0.5em;
-            background-color: rgba(255, 255, 255, 0.7);
-          }
-        }
-
-        .toTag {
-          margin-top: 26vh;
-          margin-left: -55vw;
-          width: 22vw;
-          height: 10vh;
-          border-radius: 0.5em;
-
-          background-color: rgba(255, 255, 255, 0.6);
-        }
-
-        .toTagText {
-          margin-top: 1vh;
-        }
-      }
-    }
-
-    .cover {
-      position: absolute;
-      top: 0;
-      height: 100vh;
-      width: 100vw;
-      background-color: black;
-      opacity: 0.5;
-      z-index: 90;
-    }
   }
 }

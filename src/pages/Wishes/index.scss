@@ -92,7 +92,7 @@
     }
   }
 
-  .btnLight{
+  .btnLight {
     display: flex;
   }
 
@@ -137,5 +137,50 @@
         border-radius: 0.5em;
       }
     }
+  }
+}
+
+.rule-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 150;
+
+  .cover {
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    opacity: 0.5;
+  }
+
+  .rule-alert {
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    width: 80vw;
+    background-image: url("../../static/images/ruleBG.png");
+    background-size: cover;
+    border-radius: 3vh;
+    font-family: Tensentype-MaiHeiJ;
+    color: #577dab;
+    font-weight: 700;
+    z-index: 150;
+    padding: 3vh 4.5vw;
+  }
+
+  .rule-alert .rule-text {
+    display: inline-block;
+    font-size: 1.7vh;
+  }
+
+  .rule-alert .rule-text p {
+    display: inline;
+    color: #577dab;
   }
 }

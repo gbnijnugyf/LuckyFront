@@ -3,8 +3,12 @@ import ConfirmPanel from "../../components/ConfirmPanel";
 import { ButtonS } from "../../components/Button";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IWishInfoName, WishState } from "../../common/global";
+import { fixRectShape, IWishInfoName, WishState } from "../../common/global";
 import { Service } from "../../common/service";
+import { useDispatch, useSelector } from "react-redux";
+import { TipAction } from "../../stores/TipStore";
+import Mask from "../../components/Mask";
+import { ReactComponent as Arrow } from "../../static/images/arrowRight.svg";
 
 const FALSE_0: number = 0;
 
@@ -44,8 +48,8 @@ const WishItem = (props: IWishItemProps) => {
               {wish.view_user.school.toString() === ""
                 ? ""
                 : wish.view_user.school.toString() === FALSE_0.toString()
-                  ? "华小师"
-                  : "武小理"}
+                ? "华小师"
+                : "武小理"}
             </p>{" "}
             <p>
               {wish.view_user.name.length > 0
@@ -59,6 +63,109 @@ const WishItem = (props: IWishItemProps) => {
   );
 };
 
+const Tips = () => {
+  const [rects, setRects] = useState<
+    Array<{ width: number; height: number; left: number; top: number }>
+  >([]);
+  const [arrows, setArrows] = useState<
+    Array<{ left: number; top: number; transform?: string }>
+  >([]);
+  const [texts, setTexts] = useState<
+    Array<{
+      left?: number;
+      top?: number;
+      right?: number;
+      bottom?: number;
+      content: string;
+    }>
+  >([]);
+
+  const dispatch = useDispatch();
+  const showRule = useSelector<boolean>((state) => state);
+
+  useEffect(() => {
+    const [Rrule, Rbtn1, Rbutton] = [
+      document.getElementsByClassName("rule")[0].getBoundingClientRect(),
+      document.getElementById("btnSeeMyWish")!.getBoundingClientRect(),
+      document.getElementById("btnLight")!.getBoundingClientRect(),
+    ].map((rect) => {
+      const { left, width, top, height } = rect;
+      return { left, width, top, height };
+    });
+    fixRectShape(Rrule, { x: 20, y: 10 });
+    fixRectShape(Rbtn1, { x: -15, y: 5 });
+    fixRectShape(Rbutton, { x: 10, y: 5 });
+    setRects([Rrule, Rbtn1, Rbutton]);
+  }, [showRule]);
+  useEffect(() => {
+    if (rects.length < 3) return;
+    const [Rrule, Rbtn1, Rbutton] = rects;
+    const rulearrow = {
+      left: Rrule.left - 50,
+      top: Rrule.top + Rrule.height / 2 - 10,
+    };
+    const btn1Arrow = {
+      left: Rbtn1.left + Rbtn1.width / 2 - 25,
+      top: Rbtn1.top + Rbtn1.height + 30,
+      transform: "rotate(-90deg)",
+    };
+    const buttonArrow = {
+      left: Rbutton.left + Rbutton.width / 2 - 25,
+      top: Rbutton.top - 50,
+      transform: "rotate(90deg)",
+    };
+    setArrows([rulearrow, btn1Arrow, buttonArrow]);
+  }, [rects]);
+  useEffect(() => {
+    if (arrows.length < 3) return;
+    const [rulearrow, btn1Arrow, buttonArrow] = arrows;
+    const btn1Text = {
+      left: btn1Arrow.left - 60,
+      top: btn1Arrow.top + 50,
+      content: "在这里查看详细规则",
+    };
+    const ruleText = {
+      right: window.innerWidth - rulearrow.left + 15,
+      left: 10,
+      top: rulearrow.top - 20,
+      content: "在这里查看你点亮的愿望哦~",
+    };
+    const buttonText = {
+      left: buttonArrow.left - 60,
+      bottom: window.innerHeight - buttonArrow.top + 40,
+      content: "在这里帮她实现心愿",
+    };
+    setTexts([btn1Text, ruleText, buttonText]);
+  }, [arrows]);
+
+  return (
+    <div
+      className="rule-alert-2"
+      onClick={() => dispatch({ type: TipAction.HIDE })}
+      style={{ display: showRule ? "block" : "none" }}
+    >
+      <div className="rule-content">
+        <Mask rects={rects}></Mask>
+        {arrows.map((arrow) => (
+          <Arrow style={arrow}></Arrow>
+        ))}
+        {texts.map((text) => (
+          <div
+            style={{
+              ...text,
+              fontSize: "1.5rem",
+              fontFamily: "Tensentype-MaiHeiJ",
+              fontWeight: 500,
+              color: "#FFFFFF",
+            }}
+          >
+            {text.content}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 export interface IStartX {
   start: any; //touch.pageX和e.targetTouches[0]不知道是啥类型，详见130，131
   move: string;
@@ -394,15 +501,15 @@ export default function Wishes() {
           }}
         />
         <ButtonS
-        id="sideAlert"
-        style={{
-          display: showTip ? "absolute" : "none",
-        }}
-      >
-        左右滑查看更多许愿哦~
-      </ButtonS>
+          id="sideAlert"
+          style={{
+            display: showTip ? "absolute" : "none",
+          }}
+        >
+          左右滑查看更多许愿哦~
+        </ButtonS>
       </div>
-      
+
       <div className="btnLight">
         <ButtonS
           id="btnLight"
@@ -414,6 +521,7 @@ export default function Wishes() {
           点亮TA的小幸运
         </ButtonS>
       </div>
+      <Tips />
     </div>
   );
 }

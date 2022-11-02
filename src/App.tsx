@@ -1,6 +1,7 @@
 import Router from "./utils/router";
 import "./App.scss";
-
+import { Provider } from "react-redux";
+import { tipStore } from "./stores/TipStore";
 function DevTools() {
   if (process.env.REACT_APP_ENV === "development") {
     return (
@@ -27,7 +28,9 @@ function DevTools() {
 function App() {
   return (
     <div className="app">
-      <Router />
+      <Provider store={tipStore}>
+        <Router />
+      </Provider>
       <DevTools />
     </div>
   );

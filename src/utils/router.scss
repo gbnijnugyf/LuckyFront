@@ -1,17 +1,18 @@
 @import "../config/globalCssVar.scss";
 
-.bg{
-    background-image:url("../static/images/bg.png");
+.bg {
+    display: flex;
+    flex-direction: column-reverse;
+    background-image: url("../static/images/bg.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
 }
 
-.content{
+.content {
     margin-top: calc($HeaderHeight + 9vh);
     height: 79vh;
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
