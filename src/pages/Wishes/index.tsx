@@ -500,24 +500,27 @@ export default function Wishes() {
             zIndex: 98,
           }}
         />
+        <ButtonS
+          id="sideAlert"
+          style={{
+            display: showTip ? "absolute" : "none",
+          }}
+        >
+          左右滑查看更多许愿哦~
+        </ButtonS>
       </div>
-      <ButtonS
-        id="sideAlert"
-        style={{
-          display: showTip ? "absolute" : "none",
-        }}
-      >
-        左右滑查看更多许愿哦~
-      </ButtonS>
-      <ButtonS
-        id="btnLight"
-        onClick={showConfirm}
-        style={{
-          display: lightBtn ? "relative" : "none",
-        }}
-      >
-        点亮TA的小幸运
-      </ButtonS>
+
+      <div className="btnLight">
+        <ButtonS
+          id="btnLight"
+          onClick={showConfirm}
+          style={{
+            display: lightBtn ? "relative" : "none",
+          }}
+        >
+          点亮TA的小幸运
+        </ButtonS>
+      </div>
       <Tips />
     </div>
   );

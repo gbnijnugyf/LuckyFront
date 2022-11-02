@@ -13,9 +13,9 @@ import {
 const BASEURL =
   process.env.REACT_APP_ENV === "production"
     ? //  暂时使用本地 Mock
-      "http://127.0.0.1:4523/m1/1379753-0-default"
+    "http://127.0.0.1:4523/m1/1379753-0-default"
     : // 云端 Mock
-      "https://mock.apifox.cn/m1/1379753-0-default";
+    "https://mock.apifox.cn/m1/1379753-0-default";
 
 interface IGlobalResponse<T> {
   data: T;
@@ -83,20 +83,25 @@ const authAxios = axios.create({
   baseURL:
     process.env.REACT_APP_ENV === "production"
       ? // auth 正式环境
-        "https://auth.itoken.team"
+      "https://auth.itoken.team"
       : // auth 测试环境
-        "https://dev-auth.itoken.team",
+      "https://dev-auth.itoken.team",
 });
 // 统一拦截错误
 authAxios.interceptors.response.use(
   (res) => res,
   (reason) => {
     const { data } = reason.response;
+
     if (data.message) {
-      alert(data.message);
+      //用自写comfirmPannel代替alert
+      return Promise.reject(data.message);
+
     } else if (data.errors) {
       // 显示第一条error
       alert(Object.values(data.errors).flat().shift());
+      return Promise.reject(Object.values(data.errors).flat().shift());
+
     }
   }
 );
@@ -112,6 +117,17 @@ export const Service = {
   whutRegister(email: string, secret: string, signature: string, code: string) {
     return authAxios.post<{ uid: string }>(
       "/Auth/Register",
+      generateFormData({
+        email,
+        secret,
+        signature,
+        code,
+      })
+    );
+  },
+  whutRestore(email: string, secret: string, signature: string, code: string) {
+    return authAxios.post<{ uid: string }>(
+      "/Auth/Restore",
       generateFormData({
         email,
         secret,
