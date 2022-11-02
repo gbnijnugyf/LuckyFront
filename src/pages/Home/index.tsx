@@ -57,7 +57,6 @@ const Tips = () => {
       top: Rtag.top - 50,
       transform: "rotate(90deg)",
     };
-    setArrows([rulearrow, tagArrow]);
     const buttonArrow = {
       left: Rbutton.left + Rbutton.width / 2 - 25,
       top: Rbutton.top - 50,
@@ -86,27 +85,6 @@ const Tips = () => {
     };
     setTexts([tagText, ruleText, buttonText]);
   }, [arrows]);
-
-  useEffect(() => {
-    if (rects.length < 3) return;
-    const [Rrule, Rtag, Rbutton] = rects;
-    const rulearrow = {
-      left: Rrule.left - 50,
-      top: Rrule.top + Rrule.height / 2 - 10,
-    };
-    const tagArrow = {
-      left: Rtag.left + Rtag.width / 2 - 25,
-      top: Rtag.top - 50,
-      transform: "rotate(90deg)",
-    };
-    setArrows([rulearrow, tagArrow]);
-    const buttonArrow = {
-      left: Rbutton.left + Rbutton.width / 2 - 25,
-      top: Rbutton.top - 50,
-      transform: "rotate(90deg)",
-    };
-    setArrows([rulearrow, tagArrow, buttonArrow]);
-  }, [rects]);
 
   return (
     <div
