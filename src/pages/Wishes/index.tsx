@@ -3,10 +3,12 @@ import ConfirmPanel from "../../components/ConfirmPanel";
 import { ButtonS } from "../../components/Button";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IWishInfoName, WishState } from "../../common/global";
+import { fixRectShape, IWishInfoName, WishState } from "../../common/global";
 import { Service } from "../../common/service";
 import { useDispatch, useSelector } from "react-redux";
 import { TipAction } from "../../stores/TipStore";
+import Mask from "../../components/Mask";
+import { ReactComponent as Arrow } from "../../static/images/arrowRight.svg";
 
 const FALSE_0: number = 0;
 
@@ -62,55 +64,108 @@ const WishItem = (props: IWishItemProps) => {
 };
 
 const Tips = () => {
+  const [rects, setRects] = useState<
+    Array<{ width: number; height: number; left: number; top: number }>
+  >([]);
+  const [arrows, setArrows] = useState<
+    Array<{ left: number; top: number; transform?: string }>
+  >([]);
+  const [texts, setTexts] = useState<
+    Array<{
+      left?: number;
+      top?: number;
+      right?: number;
+      bottom?: number;
+      content: string;
+    }>
+  >([]);
+
   const dispatch = useDispatch();
   const showRule = useSelector<boolean>((state) => state);
 
-  const setIsShow = (state: boolean) =>
-    dispatch({ type: state ? TipAction.SHOW : TipAction.HIDE });
-
-  const handleShow = () => {
-    setIsShow(!showRule);
-  };
+  useEffect(() => {
+    const [Rrule, Rbtn1, Rbutton] = [
+      document.getElementsByClassName("rule")[0].getBoundingClientRect(),
+      document.getElementById("btnSeeMyWish")!.getBoundingClientRect(),
+      document.getElementById("btnLight")!.getBoundingClientRect(),
+    ].map((rect) => {
+      const { left, width, top, height } = rect;
+      return { left, width, top, height };
+    });
+    fixRectShape(Rrule, { x: 20, y: 10 });
+    fixRectShape(Rbtn1, { x: -15, y: 5 });
+    fixRectShape(Rbutton, { x: 10, y: 5 });
+    setRects([Rrule, Rbtn1, Rbutton]);
+  }, [showRule]);
+  useEffect(() => {
+    if (rects.length < 3) return;
+    const [Rrule, Rbtn1, Rbutton] = rects;
+    const rulearrow = {
+      left: Rrule.left - 50,
+      top: Rrule.top + Rrule.height / 2 - 10,
+    };
+    const btn1Arrow = {
+      left: Rbtn1.left + Rbtn1.width / 2 - 25,
+      top: Rbtn1.top + Rbtn1.height + 30,
+      transform: "rotate(-90deg)",
+    };
+    const buttonArrow = {
+      left: Rbutton.left + Rbutton.width / 2 - 25,
+      top: Rbutton.top - 50,
+      transform: "rotate(90deg)",
+    };
+    setArrows([rulearrow, btn1Arrow, buttonArrow]);
+  }, [rects]);
+  useEffect(() => {
+    if (arrows.length < 3) return;
+    const [rulearrow, btn1Arrow, buttonArrow] = arrows;
+    const btn1Text = {
+      left: btn1Arrow.left - 60,
+      top: btn1Arrow.top + 50,
+      content: "在这里查看详细规则",
+    };
+    const ruleText = {
+      right: window.innerWidth - rulearrow.left + 15,
+      left: 10,
+      top: rulearrow.top - 20,
+      content: "在这里查看你点亮的愿望哦~",
+    };
+    const buttonText = {
+      left: buttonArrow.left - 60,
+      bottom: window.innerHeight - buttonArrow.top + 40,
+      content: "在这里帮她实现心愿",
+    };
+    setTexts([btn1Text, ruleText, buttonText]);
+  }, [arrows]);
 
   return (
     <div
-      className="rule-container"
-      style={{ display: showRule ? "flex" : "none" }}
+      className="rule-alert-2"
+      onClick={() => dispatch({ type: TipAction.HIDE })}
+      style={{ display: showRule ? "block" : "none" }}
     >
-      <div className="cover" />
-      <div
-        className="rule-alert"
-        style={{ display: showRule ? "flex" : "none" }}
-      >
-        <div className="rule-text">
-          1.这次活动男生女生都可以许愿哦~<p>你一共有5次许愿的机会</p>
-          ，快来遇见你的小幸运吧~
-          <br />
-          2.将你的愿望打上标签，它会被投入相应的愿望池中，听说这样愿望更容易被兴趣相似的人发现哦~
-          <br />
-          3.选择不同的愿望分区进入，更容易找到直击你心灵的愿望哦~
-          <br />
-          4.<p>你有7次点亮心愿的机会</p>
-          ,可以通过点亮愿望池中随机出现的心愿，帮助TA实现这份小幸运~
-          <br />
-          5.点亮TA人心愿后可查看到TA的联系方式，便于帮助TA实现心愿~同时也也留下你的联系方式，方便TA联系你~
-          <br />
-          6.<p>一个愿望只有一次实现机会~</p>
-          被点亮后将暂时不会出现在首页愿望池，被实现后将不会再出现在愿望池。
-          <br />
-          7.确认点亮他人愿望后，被你点亮的许愿人将能看到你的姓名等基本信息。
-          <br />
-          8.<p>一次只能同时点亮2个愿望</p>
-          ，如果点亮了无法实现记得及时放弃实现。由对方确认实现了愿望才能接着点亮下一个哦。
-        </div>
-        <ButtonS id="btnRuleShow" onClick={handleShow}>
-          我知道了
-        </ButtonS>
+      <div className="rule-content">
+        <Mask rects={rects}></Mask>
+        {arrows.map((arrow) => (
+          <Arrow style={arrow}></Arrow>
+        ))}
+        {texts.map((text) => (
+          <div
+            style={{
+              ...text,
+              fontSize: "1.5rem",
+              fontFamily: "Tensentype-MaiHeiJ",
+              fontWeight: 500,
+              color: "#FFFFFF",
+            }}
+          >
+            {text.content}
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-
 export interface IStartX {
   start: any; //touch.pageX和e.targetTouches[0]不知道是啥类型，详见130，131
   move: string;
