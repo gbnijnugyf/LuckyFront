@@ -27,6 +27,7 @@ export function Register() {
   const [time, setTime] = useState(-1);
   const [whutIsPwd, setWhutIsPwd] = useState("");
   const [signature, setSignature] = useState<string>();
+  const [checked, setChecked] = useState(false);//验证码按钮样式,true为已点击
   const navigate = useNavigate();
   const handleWhutId = (e: ChangeEvent<HTMLInputElement>) => {
     setWhutEmail(e.target.value);
@@ -48,6 +49,7 @@ export function Register() {
       return;
     }
     try {
+      setChecked(true);
       const res = await Service.whutSendEmail(email);
       const { signature } = res.data;
       //返回验证码成功
@@ -59,6 +61,7 @@ export function Register() {
           const newTime = prevTime - 1;
           if (newTime === 0) {
             clearInterval(retry);
+            setChecked(false);
           }
           return newTime;
         });
@@ -124,23 +127,26 @@ export function Register() {
               ></input>
             </li>
             <li>
-              <label className="check">验证码：</label>
-              <input
-                className="checkemail"
-                value={whutInputEmail}
-                onChange={handleWhutCheckEmail}
-              ></input>
-              <button
+              <div className="verifytext">
+                <label className="check">验证码：</label>
+                <input
+                  className="checkemail"
+                  value={whutInputEmail}
+                  onChange={handleWhutCheckEmail}
+                ></input>
+              </div>
+              <div
+                className="verifybutton"
                 id={time > 0 ? "checked" : "checkbtn"}
-                disabled={time > 0}
-                onClick={() => goGetEVV(whutEmail)}
+                // disabled={time > 0}
+                onClick={() => checked ? {} : goGetEVV(whutEmail)}
               >
                 {time > 0
-                  ? `${time}后重新获取`
+                  ? `${time}后获取`
                   : time === 0
                     ? "重新获取"
                     : "获取验证码"}
-              </button>
+              </div>
             </li>
             <li>
               <label>密码：</label>
