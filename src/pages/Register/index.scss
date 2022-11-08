@@ -35,7 +35,6 @@ label {
     ul {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
         align-items: stretch;
 
         li {
@@ -43,34 +42,33 @@ label {
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: nowrap;
-            overflow: hidden;
-            margin: 1rem 0;
+
+            label {
+                display: flex;
+                flex: 0 0 auto;
+            }
+            input {
+                min-width: 0;
+                height: 1.5em;
+                border-radius: 0.5em;
+                text-align: center;
+                font-family: Tensentype-MaiHeiJ;
+                font-size: large;
+            }
         }
+
     }
 
 
-    input {
-        width: 10em;
-        height: 1.5em;
-        border-radius: 0.5em;
-        border: 0;
-        text-align: center;
-        font-family: Tensentype-MaiHeiJ;
-        font-size: large;
-    }
+
 
     .checkemail {
+        margin-left: 10%;
         width: 6em;
     }
 
     #checked {
         opacity: 0.8;
-        // font-size: smaller;
-        // overflow: auto;
-        // width        : 5em;
-        // height       : 2em;
-        // border-radius: 0.5em;
     }
 
 
@@ -120,7 +118,7 @@ label {
             background-image: url("../../static/images/VerifyButton.png");
             background-size: contain;
             font-size: 79%;
-            width: 6em;
+            width: 7em;
             height: 3em;
         }
 
