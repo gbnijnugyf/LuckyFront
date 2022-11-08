@@ -48,9 +48,9 @@ const WishItem = (props: IWishItemProps) => {
               {wish.view_user.school.toString() === ""
                 ? ""
                 : wish.view_user.school.toString() === FALSE_0.toString()
-                  ? "华小师"
-                  : "武小理"}
-            </p>{" "}
+                ? "华小师"
+                : "武小理"}
+            </p>
             <p>
               {wish.view_user.name.length > 0
                 ? wish.view_user.name.charAt(0) + "同学"
@@ -288,10 +288,13 @@ export default function Wishes() {
     setMove({ img1: move_X, img2: 10, img3: 20 });
 
     //阻止页面的滑动默认事件
-    document.addEventListener("touchmove", function () {
-      e.preventDefault();
-    }, { passive: false });
-
+    document.addEventListener(
+      "touchmove",
+      function () {
+        e.preventDefault();
+      },
+      { passive: false }
+    );
   };
   const onTouchEnd = () => {
     setUpdate(true);
