@@ -14,7 +14,7 @@ function DevTools() {
             } else {
               localStorage.setItem("token", "123");
             }
-            window.location.href = "/tagscreen/home";
+            window.location.href = "/";
           }}
         >
           {localStorage.getItem("token") ? "删除token" : "生成token"}
