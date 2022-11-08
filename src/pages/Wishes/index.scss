@@ -46,17 +46,16 @@
         overflow: scroll;
         margin-top: -7vh;
         overflow-x: hidden;
+        background-size: contain;
 
         .contentText {
           margin: 5vh;
           display: flex;
           flex-direction: column;
-          width: 50vw;
+          width: 74%;
           overflow-x: hidden;
 
           .content-word {
-            margin-top: 5vh;
-            width: 10em;
             height: 10em;
             overflow-y: scroll;
             overflow-x: hidden;
@@ -67,22 +66,25 @@
             font-family: Tensentype-MaiHeiJ;
             color: #577dab;
             padding: 8px;
-            font-size: medium;
+            font-size: 100%;
           }
 
           .msg {
-            position: relative;
-            margin-top: 0.5em;
+            // position: relative;
+            margin-top: 15%;
             width: 100%;
-            color: white;
-            font-size: x-large;
+            // color: white;
+            font-size: 135%;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             touch-action: none;
 
             p {
-              justify-content: space-between;
-              position: relative;
+              display: flex;
+              margin-left: 16%;
+              font-size: 93%;
+              // justify-content: space-between;
+              // position: relative;
               width: 100%;
               font-family: Tensentype-MaiHeiJ;
             }
