@@ -3,8 +3,6 @@ import { ButtonS } from "../../components/Button";
 import { formatTime, IWishInfo, WishState } from "../../common/global";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import ItemClip from "../../static/images/ItemClip.png";
-import ItemMedal from "../../static/images/ItemMedal.png";
 import classNames from "classnames";
 import { Service } from "../../common/service";
 const INITNUM: number = -2;
@@ -138,34 +136,27 @@ function WishItem(props: IWishItemProps) {
     "pink",
   ];
   const random = Math.floor(Math.random() * 3);
+  const itemState = (wish.state === 2 ? "medal" : "clip");
+
+
   return (
     <li
-      className={classNames("item-wish", randomBG[random])}
+      className={classNames("item-wish", randomBG[random], itemState)}
       onClick={props.onClick}
     >
       <div className="wish-content">
-        <p className="text-detail">{wish.desire}</p>
+        <p className="text-detail"><span>{wish.desire}</span></p>
         <div className="status">
-          <ButtonS
-            style={{
-              color: "#577DAB",
-              fontSize: "large",
-            }}
-          >
+          <ButtonS id="btnWishStatu" >
             {wish.state === WishState.未点亮
               ? "未实现"
               : wish.state === WishState.已点亮
-              ? "已点亮"
-              : "已实现"}
+                ? "已点亮"
+                : "已实现"}
           </ButtonS>
           <p className="text-wishtime">{time}</p>
         </div>
       </div>
-      <img
-        id="itemSign"
-        src={wish.state === 2 ? ItemMedal : ItemClip}
-        alt="clip"
-      />
     </li>
   );
 }

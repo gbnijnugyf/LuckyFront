@@ -13,7 +13,12 @@
       padding: 0.6em 1em;
       margin-top: 10%;
     }
-  
+    &#btnWishStatu{
+      color: #577DAB;
+      font-size: 100%;
+      display: flex;
+      flex: 0 0 auto;
+    }
     &#btnSeeMyWish {
       color: #577DAB;
       align-self: flex-start;
@@ -22,7 +27,7 @@
       font-weight: 600;
       z-Index: 99;
       margin-left: 50%;
-  
+
       &::before {
         content: url("../../static/images/noteBook.png");
       }
