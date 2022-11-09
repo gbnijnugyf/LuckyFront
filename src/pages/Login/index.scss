@@ -12,14 +12,14 @@
 .text-title {
   font-family: Tensentype-MaiHeiJ;
   color: #577DAB;
-  font-size: 55px;
+  font-size: 245%;
   text-shadow: 0px 3px 5px#888888;
 }
 
 .text-subtitle {
   font-family: Tensentype-MaiHeiJ;
   color: #577DAB;
-  font-size: 24px;
+  font-size: 128%;
   text-shadow: 0px 3px 5px#888888;
   margin: 0.5em 0 3em;
 }
@@ -30,15 +30,15 @@
   align-items: center;
   flex-direction: column;
   width: 80%;
+  margin-top:8vh;
 }
 .btn-school {
-
   margin-bottom: 5vh;
   display: flex;
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 65%;
+  background-size: contain;
   &.我是武小理{
     background-image: url("../../static/images/btnGreen.png");
   }
@@ -52,6 +52,6 @@
     padding-bottom: 0.5em;
     font-family: Tensentype-MaiHeiJ;
     color: #577DAB;
-    font-size: xx-large;
+    font-size: 132%;
   }
 }

@@ -20,17 +20,18 @@
     flex: 0 0 auto;
     padding: 0;
   }
+
   &#btnSeeMyWish {
     color: #577dab;
-    align-self: flex-start;
     padding: 0.4em 0.7em;
-    font-size: medium;
     font-weight: 600;
     z-index: 99;
-    margin-left: 50%;
+    display: flex;
+    align-self: flex-end;
 
     &::before {
       content: url("../../static/images/noteBook.png");
+      margin-right: 0.5em;
     }
   }
 
