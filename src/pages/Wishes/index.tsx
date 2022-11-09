@@ -414,20 +414,19 @@ export default function Wishes() {
             <div className="input-msg">
               <div className="form">
                 <div className="name">
-                  点亮人 :
+                  <div id="input-title">点亮人 :</div>
                   <input
                     type="text"
                     placeholder="必填内容哦～"
                     onChange={handleName}
                     defaultValue={name}
-                    style={{ marginLeft: "2em" }}
+
                   />
                 </div>
                 <div className="number">
-                  联系方式 :
+                  <div id="input-title">联系方式 :</div>
                   <select
                     onChange={handleOption}
-                    style={{ color: "rgb(239, 96, 63)" }}
                   >
                     <option value="QQ">QQ</option>
                     <option value="WeChat">微信</option>
@@ -437,17 +436,15 @@ export default function Wishes() {
                     placeholder="必填内容"
                     onChange={handleNumber}
                     defaultValue={number}
-                    style={{ marginLeft: ".3em", width: "32%" }}
                   />
                 </div>
                 <div className="tel">
-                  或 Tel :
+                  <div id="input-title">或 Tel :</div>
                   <input
                     type="text"
                     placeholder="必填内容"
                     onChange={handleTel}
                     defaultValue={tel}
-                    style={{ marginLeft: "2.3em" }}
                   />
                 </div>
               </div>

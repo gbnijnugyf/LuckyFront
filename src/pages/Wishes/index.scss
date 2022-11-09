@@ -6,10 +6,6 @@
   flex-direction: column;
   align-items: center;
 
-  #btnSeeMyWish {
-    display: flex;
-  }
-
   .wishes {
     display: flex;
     margin-top: 6.5em;
@@ -113,10 +109,9 @@
     .form {
       position: relative;
       color: white;
-      font-size: medium;
+      font-size: 100%;
       display: flex;
       flex-direction: column;
-      align-items: left;
       justify-content: space-between;
       margin-bottom: 1em;
       font-family: Tensentype-MaiHeiJ;
@@ -126,16 +121,41 @@
         font-family: Tensentype-MaiHeiJ;
         font-size: medium;
         border-radius: 0.5em;
-
         border: none;
         padding: 0.2em;
       }
 
-      select {
-        margin-left: 1em;
-        border: none;
-        font-size: medium;
-        border-radius: 0.5em;
+      #input-title {
+        font-size: 100%;
+        display: flex;
+        flex: 0 0 auto;
+      }
+
+
+      .name {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .number {
+        display: flex;
+        justify-content: space-between;
+        select {
+          border: none;
+          font-size: 90%;
+          border-radius: 0.5em;
+          color: rgb(239, 96, 63);
+        }
+        .input {
+          display: flex;
+          flex: 0 1 auto;
+          width: 32%;
+        }
+      }
+      
+      .tel {
+        display: flex;
+        justify-content: space-between;
       }
     }
   }
