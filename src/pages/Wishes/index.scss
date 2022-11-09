@@ -1,5 +1,4 @@
 .wishpage {
-
   height: 100%;
   overflow: hidden;
   display: flex;
@@ -129,8 +128,8 @@
         font-size: 100%;
         display: flex;
         flex: 0 0 auto;
+        margin-right: 5%;
       }
-
 
       .name {
         display: flex;
@@ -145,6 +144,7 @@
           font-size: 90%;
           border-radius: 0.5em;
           color: rgb(239, 96, 63);
+          margin-right: 4px;
         }
         .input {
           display: flex;
@@ -152,7 +152,7 @@
           width: 32%;
         }
       }
-      
+
       .tel {
         display: flex;
         justify-content: space-between;
