@@ -16,13 +16,14 @@
   
     &#btnSeeMyWish {
       color: #577DAB;
-      align-self: flex-start;
       padding: 0.4em 0.7em;
-      font-size: medium;
+      font-size: 100%;
       font-weight: 600;
       z-Index: 99;
-      margin-left: 50%;
-  
+      margin-left: 50vw;
+      display: flex;
+      width:48vw;
+
       &::before {
         content: url("../../static/images/noteBook.png");
       }
