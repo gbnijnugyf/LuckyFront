@@ -136,7 +136,7 @@ function WishItem(props: IWishItemProps) {
     "pink",
   ];
   const random = Math.floor(Math.random() * 3);
-  const itemState = (wish.state === 2 ? "medal" : "clip");
+  const itemState = (wish.state === WishState.已实现 ? "medal" : "clip");
 
 
   return (
