@@ -88,7 +88,7 @@
         display: flex;
         flex-direction: row;
         align-self: flex-start;
-        margin: 5vh 8vw 0;
+        margin: 11vh 8vw 0;
         width: 74%;
   
         .sendContent {
@@ -97,16 +97,9 @@
           flex-direction: column;
           align-self: flex-end;
   
-          select {
-            background-color: white;
-            margin-left: 0.5em;
-            border: none;
-            border-radius: 0.5em;
-            height: 2em;
-            color: #577dab;
-          }
-  
           input {
+            display: flex;
+            flex: 0 1 auto;
             width: 60%;
             height: 2em;
             margin-left: 1.5em;
@@ -120,9 +113,24 @@
               background-color: #9fddb5
             }
           }
+
+          select {
+            background-color: white;
+            margin-left: -17%;
+            width: 3.2em;
+            border: none;
+            border-radius: 0.5em;
+            height: 2em;
+            color: #577dab;
+            display: flex;
+          }
+  
+          
   
           p {
-            font-size: smaller;
+            font-size: 85%;
+            display: flex;
+            flex: 0 0 auto;
           }
   
           .name {
@@ -163,7 +171,7 @@
   
               input {
                 margin-left: 0;
-                margin-right: 1vw;
+                // margin-right: 1vw;
                 flex-grow: 1;
                 width: 58%;
               }

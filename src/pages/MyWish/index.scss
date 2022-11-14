@@ -29,7 +29,7 @@ b {
   position: fixed;
   z-index: 101;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: calc($HeaderHeight + $LogoHeight + 2vh);
 }
 
@@ -39,8 +39,7 @@ b {
   flex-direction: column;
   align-items: center;
   margin-top: calc($LogoHeight - 15vh);
-  width: 100vw;
-  height: 70vh;
+  width: 100%;
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
@@ -53,16 +52,17 @@ b {
     align-self: flex-start;
     margin-left: 2em;
     font-family: Tensentype-MaiHeiJ;
-    color: #577DAB;
+    color: #577dab;
     margin-bottom: 0.2em;
   }
 
   ul {
     margin: 5%;
-    position: relative;
-    width: 90%;
+    width: 95%;
     align-self: flex-start;
     margin-bottom: 3em;
+    display: flex;
+    flex-direction: column;
   }
 
   .div-listbottom {
@@ -70,86 +70,105 @@ b {
     margin-top: 1em;
 
     hr {
-      background-color: #577DAB;
-      border-color: #577DAB;
+      background-color: #577dab;
+      border-color: #577dab;
     }
 
     p {
       margin: 0.5em 0;
-      color: #577DAB;
+      color: #577dab;
     }
   }
 }
 
 .item-wish {
-// TODO：背景图引入可改为背景色
+  // TODO：背景图引入可改为背景色
   &.yellow {
-    background-image: url("../../static/images/wishItemYellow.png");
+    background-color: rgb(255, 202, 140);
   }
 
   &.orange {
-    // background-color: #feb183;
-    background-image: url("../../static/images/wishItemOrange.png");
+    background-color: rgb(254, 177, 131);
   }
 
   &.red {
     // background-color: #f3b5aa;
-    background-image: url("../../static/images/wishItemRed.png");
+    background-color: rgb(243, 181, 170);
   }
 
   &.pink {
     // background-color: #f5cec7;
-    background-image: url("../../static/images/wishItemPink.png");
+    background-color: rgb(245, 206, 199);
   }
 
-  display: grid;
-  // grid-template-rows: 70% 25%;
-  grid-template-columns: 90% 10%;
-  row-gap: 5%;
-  position: relative;
+  &.clip::after {
+    position: absolute;
+    content: url("../../static/images/ItemClip.png");
+    margin-top: 6.5%;
+    margin-left: 80%;
+  }
+  &.medal::after {
+    position: absolute;
+    content: url("../../static/images/ItemMedal.png");
+    margin-top: 6.5%;
+    margin-left: 80%;
+  }
+
+  display: flex;
   background-repeat: no-repeat;
-  background-size: contain;
-  font-size: medium;
-  padding: 2em 0 0.8em 2em;
-  width: 85%;
+  background-size: cover;
+  font-size: 100%;
+  width: 90%;
   list-style: none;
+  margin-top: 4%;
+  border-radius: 0.5em;
 
   .wish-content {
-    display: grid;
-    grid-template-rows: 65% 10%;
-    row-gap: 5%;
-  }
+    width: 100%;
+    flex-direction: column;
+    flex: 1;
+    margin: 0.5em 1em;
+    max-width: calc(100% - 2em);
 
-  .text-detail {
-    position: relative;
-    overflow: hidden;
-    width: 90%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #577DAB;
-  }
-
-  .status {
-    position: relative;
-    display: flex;
-    width: 85%;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0.5em;
-
-    .text-wishtime {
-      color: #577DAB;
-      font-size: small;
-      font-family: Tensentype-MaiHeiJ;
+    .text-detail {
+      display: flex;
       position: relative;
-      text-align: end;
+      font-size: 112%;
+      color: #577dab;
+
+      span {
+        font-family: Tensentype-MaiHeiJ;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .status {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      width: 85%;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1em;
+
+      .text-wishtime {
+        color: #577dab;
+        font-size: 97%;
+        font-family: Tensentype-MaiHeiJ;
+        position: relative;
+        text-align: end;
+        display: flex;
+      }
     }
   }
+}
 
-  #itemSign{
-    margin-top: 2vh;
-  }
-
+#itemSign {
+  margin-top: 2vh;
+  display: flex;
+  flex: 0 0 auto;
 }
 
 .MywishDetail {
@@ -184,14 +203,18 @@ b {
 
     .text {
       display: relative;
-      background-image: linear-gradient(to right,
+      background-image: linear-gradient(
+          to right,
           rgb(241, 197, 126) 10px,
-          transparent 10px),
+          transparent 10px
+        ),
         linear-gradient(to left, rgb(241, 197, 126) 10px, transparent 10px),
-        linear-gradient(rgb(241, 197, 126) 30px,
+        linear-gradient(
+          rgb(241, 197, 126) 30px,
           black 30px,
           black 31px,
-          white 31px);
+          white 31px
+        );
 
       word-break: break-all;
       border: 0px;
