@@ -25,14 +25,6 @@ b {
   }
 }
 
-.div-wishlist-toppadding {
-  position: fixed;
-  z-index: 101;
-  top: 0;
-  width: 100%;
-  height: calc($HeaderHeight + $LogoHeight + 2vh);
-}
-
 .div-wishlist {
   position: relative;
   display: flex;

@@ -70,7 +70,6 @@ export function MyWishList() {
 
   return (
     <>
-      <div className="div-wishlist-toppadding" />
       <p>点击卡片可以查看愿望详情以及更改愿望状态哦~</p>
       <div className="div-wishlist">
         <h3>我许下的愿望</h3>
