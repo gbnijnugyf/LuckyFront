@@ -29,7 +29,8 @@ const Tips = () => {
   >([]);
 
   const dispatch = useDispatch();
-  const showRule = useSelector<boolean>((state) => state);
+  const showRule = useSelector<boolean, boolean>((state) => state);
+  const [showLocal, setShowLocal] = useState(showRule);
 
   useEffect(() => {
     const [Rrule, Rtag, Rbutton] = [
@@ -44,6 +45,7 @@ const Tips = () => {
     fixRectShape(Rtag, { x: -20, y: 10 });
     fixRectShape(Rbutton, { x: 10, y: 10 });
     setRects([Rrule, Rtag, Rbutton]);
+    setShowLocal(showRule);
   }, [showRule]);
   useEffect(() => {
     if (rects.length < 3) return;
@@ -90,7 +92,7 @@ const Tips = () => {
     <div
       className="rule-alert-2"
       onClick={() => dispatch({ type: TipAction.HIDE })}
-      style={{ display: showRule ? "block" : "none" }}
+      style={{ display: showLocal ? "block" : "none" }}
     >
       <div className="rule-content">
         <Mask rects={rects}></Mask>

@@ -82,6 +82,7 @@ const Tips = () => {
 
   const dispatch = useDispatch();
   const showRule = useSelector<boolean>((state) => state);
+  const [showLocal, setShowLocal] = useState(showRule);
 
   useEffect(() => {
     const [Rrule, Rbtn1, Rbutton] = [
@@ -96,6 +97,7 @@ const Tips = () => {
     fixRectShape(Rbtn1, { x: -15, y: 5 });
     fixRectShape(Rbutton, { x: 10, y: 5 });
     setRects([Rrule, Rbtn1, Rbutton]);
+    setShowLocal(showRule);
   }, [showRule]);
   useEffect(() => {
     if (rects.length < 3) return;
@@ -142,7 +144,7 @@ const Tips = () => {
     <div
       className="rule-alert-2"
       onClick={() => dispatch({ type: TipAction.HIDE })}
-      style={{ display: showRule ? "block" : "none" }}
+      style={{ display: showLocal ? "block" : "none" }}
     >
       <div className="rule-content">
         <Mask rects={rects}></Mask>
@@ -420,14 +422,11 @@ export default function Wishes() {
                     placeholder="必填内容哦～"
                     onChange={handleName}
                     defaultValue={name}
-
                   />
                 </div>
                 <div className="number">
                   <div id="input-title">联系方式 :</div>
-                  <select
-                    onChange={handleOption}
-                  >
+                  <select onChange={handleOption}>
                     <option value="QQ">QQ</option>
                     <option value="WeChat">微信</option>
                   </select>
