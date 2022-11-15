@@ -100,26 +100,11 @@ export default function Send() {
           {tagName}
         </ButtonS>
         <div className="send">
-          <div className="tagmask" style={{ display: showTag ? "flex" : "none" }}>
-            <div className="tags">
-              {tags.map((tag, index) => {
-                return (
-                  <div
-                    onClick={() => changeTagName(tag.name, index + 1)}
-                    className="tag"
-                    key={tag.name}
-                  >
-                    <p>{tag.name}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
           <div className="sendbc">
             <textarea
               className="notes"
               placeholder={
-                "把你的小幸运放进小纸条吧~听说160字以内的愿望更容易实现哦~"
+                "把你的小幸运放进小纸条吧~\n听说160字以内的愿望更容易实现哦~"
               }
               value={wishContent}
               onChange={handleWishContent}
@@ -135,9 +120,9 @@ export default function Send() {
                     onChange={handleNameValue}
                   />
                 </div>
-                <div className="number">
-                  <div className="number1">
-                    <p>联系方式：</p>
+                <div className="number1">
+                  <p>联系方式：</p>
+                  <div id="complex-div">
                     <select value={selectValue} onChange={handleSelectValue}>
                       <option value="QQ">QQ</option>
                       <option value="WeChat">微信</option>
@@ -150,17 +135,16 @@ export default function Send() {
                       onChange={handleNumberValue}
                     />
                   </div>
-                  <div className="number2">
-                    <p>或 Tel：</p>
-                    <input
-                      type="text"
-                      id="tel"
-                      placeholder="选填内容哦～"
-                      value={tel}
-                      onChange={handleTelValue}
-                      style={{ marginLeft: "2em" }}
-                    />
-                  </div>
+                </div>
+                <div className="number2">
+                  <p>或 Tel：</p>
+                  <input
+                    type="text"
+                    id="tel"
+                    placeholder="选填内容哦～"
+                    value={tel}
+                    onChange={handleTelValue}
+                  />
                 </div>
               </div>
               <div className="sendBtn">
@@ -169,6 +153,21 @@ export default function Send() {
                 </ButtonS>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="tagmask" style={{ display: showTag ? "flex" : "none" }}>
+          <div className="tags">
+            {tags.map((tag, index) => {
+              return (
+                <div
+                  onClick={() => changeTagName(tag.name, index + 1)}
+                  className="tag"
+                  key={tag.name}
+                >
+                  <p>{tag.name}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -67,15 +67,15 @@
       margin-right: 15%;
       margin-top: 8%;
 
+      .fromWho {
+        align-self: flex-end;
+      }
       p {
         display: flex;
         flex-direction: row;
         font-family: Tensentype-MaiHeiJ;
         font-size: 100%;
 
-        &.fromWho {
-          align-self: flex-end;
-        }
       }
 
       #fromText {
