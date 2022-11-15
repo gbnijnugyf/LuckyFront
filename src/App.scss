@@ -5,21 +5,6 @@
   src: url("../src/static/font/Tensentype-MaiHeiJ.TTF");
 }
 
-@font-face {
-  font-family: "TsangerShuYuanTW02";
-  src: url("https://ryzenx.oss-accelerate.aliyuncs.com/font/TsangerShuYuanTW02.TTF");
-}
-
-@font-face {
-  font-family: "TsangerXWZ";
-  src: url("https://ryzenx.oss-accelerate.aliyuncs.com/font/TsangerXWZ.TTF");
-}
-
-@font-face {
-  font-family: "PingFangSC";
-  src: url("https://ryzenx.oss-cn-hangzhou.aliyuncs.com/font/%E8%8B%B9%E6%96%B9-%E7%AE%80.ttf");
-}
-
 * {
   padding: 0;
   margin: 0;
@@ -47,5 +32,5 @@ body {
 }
 
 p {
-  font-family: PingFangSC;
+  font-family: Tensentype-MaiHeiJ;
 }

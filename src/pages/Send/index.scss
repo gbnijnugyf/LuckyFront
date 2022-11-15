@@ -3,7 +3,6 @@
 .sendPage {
   display: flex;
   flex-direction: column;
-  height: 65vh;
 
   #btnSelectTag {
     display: flex;
@@ -12,181 +11,144 @@
   .send {
     background-image: url("../../static/images/postBG.png");
     background-size: contain;
-    padding: 13%;
+    width: 90vw;
+    margin: 0 5vw;
+    height: 130vw;
 
-    .tagmask {
-      height: 40vh;
-      background-image: url("../../static/images/LoginPannelBGGreen.png");
-      opacity: 0.9;
-      background-repeat: no-repeat;
-      background-size: 100%;
-      position: fixed;
-      z-index: 2001;
-      max-width: $AppMaxWidth;
-      align-items: center;
-      justify-content: space-around;
-  
-      .tags {
-        position: relative;
-        display: flex;
-        width: 85%;
-        border-radius: 1em;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        padding: 1em;
-  
-        .tag {
-          margin-top: 2em;
-          width: 30%;
-          background-image: url("../../static/images/bottleTags.png");
-          background-repeat: no-repeat;
-          background-size: contain;
-          background-position: center;
-          transform: scale(120%);
-          padding: 0.7em 0;
-        }
-      }
-  
-    }
-  
     .sendbc {
+      margin: 11% 10% 1% 10%;
+      height: 88%;
       position: relative;
-      // top: 11%;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding-bottom: 4%;
-      height: 90%;
-  
+      align-items: stretch;
+
       .notes {
         border: 0;
         border-radius: 0.4em;
         line-height: 30px;
         font-family: Tensentype-MaiHeiJ;
-        width: 69%;
-        height: 12em;
+        height: 48%;
         resize: none;
         color: #577dab;
         background-color: transparent;
-        padding: 1vh;
+        margin: 8%;
+        margin-right: unset;
+        padding-right: 8%;
         font-size: medium;
-        margin-left: 1vw;
-        margin-top: 0.8em;
-        margin-bottom: 1em;
       }
-  
+
       :focus {
         outline: none;
       }
-  
+
       ::placeholder {
         color: #577dab;
       }
-  
+
       .send-msg {
         display: flex;
         flex-direction: row;
-        align-self: flex-start;
-        margin: 11vh 8vw 0;
-        width: 74%;
-  
+        align-items: center;
+        margin-top: 2em;
+        width: 100%;
+
         .sendContent {
           display: flex;
           flex-grow: 5;
           flex-direction: column;
           align-self: flex-end;
-  
-          input {
+          align-items: stretch;
+          gap: 0.5em;
+          & > * {
             display: flex;
-            flex: 0 1 auto;
-            width: 60%;
-            height: 2em;
-            margin-left: 1.5em;
-            border: none;
-            border-radius: 0.5em;
-            padding-left: 0.5em;
-            font-family: Tensentype-MaiHeiJ;
-            background-color: #9fddb5;
-  
-            &#connect {
-              background-color: #9fddb5
-            }
-          }
+            justify-content: space-between;
+            align-items: center;
 
-          select {
-            background-color: white;
-            margin-left: -17%;
-            width: 3.2em;
-            border: none;
-            border-radius: 0.5em;
-            height: 2em;
-            color: #577dab;
-            display: flex;
-          }
-  
-          
-  
-          p {
-            font-size: 85%;
-            display: flex;
-            flex: 0 0 auto;
-          }
-  
-          .name {
-            display: flex;
-            flex-direction: row;
-          }
-  
-          .number {
-            display: flex;
-            flex-direction: column;
-            margin-top: 1vh;
-            margin-left: 0;
-  
-            div {
-              display: flex;
-              flex: row;
-              height: 4vh;
+            :last-child {
+              max-width: 65%;
             }
-  
-            &1 {
+            #complex-div {
+              max-width: 65%;
               display: flex;
               flex-direction: row;
-  
-              p {
-                flex-grow: 2;
-                width: 50%;
-  
+              #connect {
+                flex: 1 1;
               }
-  
-              select {
-                background-color: #f4c996;
-                flex-grow: 1;
-              }
-  
-              :focus {
-                outline: none;
-              }
-  
-              input {
-                margin-left: 0;
-                // margin-right: 1vw;
-                flex-grow: 1;
-                width: 58%;
-              }
+            }
+
+            p {
+              font-size: 85%;
+              text-align: left;
+            }
+
+            input {
+              display: flex;
+              height: 2em;
+              border: none;
+              border-radius: 0.5em;
+              padding-left: 0.5em;
+              margin-left: 0.5em;
+              font-family: Tensentype-MaiHeiJ;
+              background-color: #9fddb5;
+            }
+
+            select {
+              background-color: white;
+              width: 3.2em;
+              border: none;
+              border-radius: 0.5em;
+              height: 2em;
+              color: #577dab;
+              display: flex;
+              background-color: #f4c996;
+              font-family: Tensentype-MaiHeiJ;
             }
           }
         }
-  
+
         .sendBtn {
           display: flex;
-          margin-top: 15%;
-          // height: 10%;
-          width: 1%;
+          margin-left: 2%;
+          margin-right: -5%;
         }
       }
-  
+    }
+  }
+  .tagmask {
+    width: 80vw;
+    margin: 10vw;
+    height: 90vw;
+    background-image: url("../../static/images/LoginPannelBGGreen.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    align-items: center;
+    justify-content: space-around;
+
+    .tags {
+      position: relative;
+      display: flex;
+      width: 85%;
+      border-radius: 1em;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 1em;
+
+      .tag {
+        margin: 1em 0;
+        width: 30%;
+        background-image: url("../../static/images/bottleTags.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        transform: scale(120%);
+        padding: 0.7em 0;
+
+        p {
+          color: #05346d;
+        }
+      }
     }
   }
 }

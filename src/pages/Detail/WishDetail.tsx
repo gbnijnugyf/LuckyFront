@@ -88,10 +88,10 @@ export default function WishDetail(props: IWishDetail) {
           <div className="text-content">{props.wish.desire}</div>
         </div>
         <div className="wishInfo">
-          <p className="fromWho">
+          <div className="fromWho">
             <div id="fromText">来自&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div> {manInfo?.name}</div>
-          </p>
+          </div>
           <p>{formatTime(props.wish.created_at)}</p>
         </div>
       </div>

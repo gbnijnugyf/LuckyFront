@@ -12,6 +12,8 @@
     border-radius: 0;
     padding: 0.6em 1em;
     margin-top: 10%;
+    color: #0B5E57;
+    font-weight: 700;
   }
   &#btnWishStatu {
     color: #577dab;
@@ -83,7 +85,10 @@
   &#btnSelectTag {
     color: #577dab;
     font-size: larger;
-    font-weight: 700;
+    font-weight: 400;
+    padding: 0;
+    margin-left: 3em;
+    align-items: center;
   }
 
   &#btnSend {
