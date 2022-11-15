@@ -150,7 +150,7 @@ export default function Home() {
         ))}
       </div>
       <ButtonS onClick={goSend} id="btnHome">
-        投递我的小幸运
+        投递我的小幸运~
       </ButtonS>
       <Tips />
     </div>

@@ -155,6 +155,7 @@ export default function Send() {
             </div>
           </div>
         </div>
+        <p>你共有5次投递小幸运的机会哦~</p>
         <div className="tagmask" style={{ display: showTag ? "flex" : "none" }}>
           <div className="tags">
             {tags.map((tag, index) => {
