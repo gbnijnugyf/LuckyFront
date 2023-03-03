@@ -39,7 +39,7 @@ export function LoginWhut() {
       Service.whutLogin().then((res) => {
         if (res.data.status === 0) {
           localStorage.setItem("token", res.data.data);
-          navigate("/tagscreen/home");
+          navigate("/tagscreen/home", {state:{school:"ccnu"}});
         } else {
           alert("邮箱或密码错误")};
       });

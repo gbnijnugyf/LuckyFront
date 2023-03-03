@@ -26,7 +26,7 @@ export function LoginCCNU() {
       Service.ccnuLogin(ccnuId, ccnuPwd).then((res) => {
         if (res.status === 0) {
           localStorage.setItem("token", res.data.data.token as string);
-          navigate("/tagscreen/home");
+          navigate("/tagscreen/home", {state:{school:"ccnu"}});
         } else alert("用户名或密码错误");
       });
     }
@@ -68,7 +68,7 @@ export function BindEmail() {
   };
   const goBind = () => {
     Service.bindEmail(email).then(() => {
-      navigate("/tagscreen/home");
+      navigate("/tagscreen/home", {state:{school:"ccnu"}});
     });
   };
 

@@ -3,7 +3,7 @@ import { ITagsObject } from "../../config/Global";
 import { ButtonS } from "../../components/Button";
 import { tags } from "../../config/Global";
 import { Service } from "../../common/service";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fixRectShape, ResStatus } from "../../common/global";
 import { useDispatch, useSelector } from "react-redux";
 import { TipAction } from "../../stores/TipStore";
@@ -118,14 +118,23 @@ const Tips = () => {
 };
 
 export default function Home() {
+  const location = useLocation();
   const navigate = useNavigate();
+
+  
   useEffect(() => {
-    Service.checkUserEmail().then((res) => {
-      if (res.status === ResStatus.Error) {
-        navigate("/login/bindemail");
-      }
-    });
-  }, [navigate]);
+    console.log(location.state.school)
+    if (location.state.school === "ccnu") {
+      console.log("eeee")
+      Service.checkUserEmail().then((res) => {
+        if (res.status === ResStatus.Error) {
+          navigate("/login/bindemail");
+        }
+      });
+    }else if(location.state.school === "whut"){
+      console.log("hahaha")
+    }
+  }, [navigate, location]);
 
   const goWishes = (tag: ITagsObject) => {
     navigate(`/wishpool/wish/${tag.enName}`, {

@@ -78,7 +78,7 @@ export default function Send() {
       ) //标签分类通过category:number判断，而service接收字符串
         .then(() => {
           alert("投递成功！");
-          navigate("/tagscreen/home");
+          navigate("/tagscreen/home", {state:{school:"unknown"}});
         });
     }
   };

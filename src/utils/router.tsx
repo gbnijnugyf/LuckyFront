@@ -31,7 +31,7 @@ function Router() {
     let token = cookie.load("jwt_token");
     if (token) {
       localStorage.setItem("token", token);
-      navigate("/tagscreen/home");
+      navigate("/tagscreen/home", {state:{school:"unknown"}});
     }
     if (
       !localStorage.getItem("token") &&
@@ -83,6 +83,7 @@ function Router() {
                       ? "/login"
                       : "/tagscreen/home"
                   }
+                  state={{school:"ccnu"}}
                   replace
                 />
               }
